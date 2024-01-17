@@ -15,5 +15,5 @@ public class MeetingSchedule {
 
     private LocalDateTime ScheduledEndTime;
 
-
+    private ScheduleType status;
 }

@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class Center {
+public class ChildCenter {
     @Id @GeneratedValue
     private Long id;
 
