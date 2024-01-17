@@ -1,19 +1,23 @@
 package jpabasic.project_7lans.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 public class MeetingSchedule {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    private ChildVolunteerRelation childVolunteerRelation;
 
     private LocalDateTime ScheduledStartTime;
 
     private LocalDateTime ScheduledEndTime;
 
+    @Enumerated(EnumType.STRING)
     private ScheduleType status;
+
+
 }

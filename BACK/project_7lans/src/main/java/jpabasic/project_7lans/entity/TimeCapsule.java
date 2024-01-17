@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 @Entity
 public class TimeCapsule {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     private ChildVolunteerRelation childVolunteerRelation;
 
+    @Enumerated(EnumType.STRING)
     private CapsuleStatusType capsuleStatusType;
 
     @OneToMany(mappedBy = "timeCapsule")

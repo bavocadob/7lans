@@ -1,20 +1,18 @@
 package jpabasic.project_7lans.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-public class Member {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "memberType")
+public abstract class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Long centerId;
 
     private String email;
 
@@ -26,11 +24,12 @@ public class Member {
 
     private String profileImgUrl;
 
-    private MemberType memberType;
-
+    @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
     private LocalDate birth;
 
     private LocalDateTime enterDate;
+
+
 }
