@@ -9,7 +9,7 @@ public class TimeCapsule {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ChildVolunteerRelation childVolunteerRelation;
 
     @Enumerated(EnumType.STRING)
