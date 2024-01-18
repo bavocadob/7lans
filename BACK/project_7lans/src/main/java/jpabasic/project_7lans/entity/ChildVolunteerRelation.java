@@ -1,6 +1,9 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(uniqueConstraints = {
@@ -9,6 +12,9 @@ import jakarta.persistence.*;
                 columnNames = {"VOLUNTEER_ID", "CHILD_ID"}
         )
 })
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class ChildVolunteerRelation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

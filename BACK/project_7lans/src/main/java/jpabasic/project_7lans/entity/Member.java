@@ -1,6 +1,9 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,6 +12,9 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "memberType")
+@RequiredArgsConstructor
+@Getter
+@Setter
 public abstract class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
