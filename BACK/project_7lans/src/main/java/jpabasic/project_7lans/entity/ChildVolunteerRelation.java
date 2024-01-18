@@ -13,14 +13,14 @@ public class ChildVolunteerRelation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "VOLUNTEER_ID", referencedColumnName = "ID")
     private Member volunteer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CHILD_ID", referencedColumnName = "ID")
     private Member child;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ChildCenter childCenter;
 }

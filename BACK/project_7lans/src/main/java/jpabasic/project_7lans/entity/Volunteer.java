@@ -12,7 +12,4 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name="VOLUNTEER_ID")
 public class Volunteer extends Member{
 
-    @OneToMany(mappedBy = "volunteer")
-    private List<ChildVolunteerRelation> volunteerRelation;
-
 }

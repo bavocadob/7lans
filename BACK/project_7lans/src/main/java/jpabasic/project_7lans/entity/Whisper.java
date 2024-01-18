@@ -5,14 +5,14 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class SecretDiary {
+public class Whisper {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
     private Member writer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ChildVolunteerRelation childVolunteerRelation;
 
     private String content;

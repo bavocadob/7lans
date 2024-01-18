@@ -1,5 +1,5 @@
 package jpabasic.project_7lans.entity;
 
-public enum CapsuleStatusType {
+public enum EggStatusType {
     LOCK, OPENABLE, OPENED
 }

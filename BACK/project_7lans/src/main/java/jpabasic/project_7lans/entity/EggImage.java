@@ -3,11 +3,13 @@ package jpabasic.project_7lans.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class CapsuleImage {
+public class EggImage {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private TimeCapsule timeCapsule;
-    private String imageUrl;
+    private Egg egg;
+
+
+    private String imgPath;
 }

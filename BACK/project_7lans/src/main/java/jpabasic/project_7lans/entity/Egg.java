@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-public class TimeCapsule {
+public class Egg {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -13,8 +13,8 @@ public class TimeCapsule {
     private ChildVolunteerRelation childVolunteerRelation;
 
     @Enumerated(EnumType.STRING)
-    private CapsuleStatusType capsuleStatusType;
+    private EggStatusType eggStatusType;
 
-    @OneToMany(mappedBy = "timeCapsule")
-    private ArrayList<CapsuleImage> capsuleImageList;
+    @OneToMany(mappedBy = "egg")
+    private ArrayList<EggImage> eggImageList;
 }

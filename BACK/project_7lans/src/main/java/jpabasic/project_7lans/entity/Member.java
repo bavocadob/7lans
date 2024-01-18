@@ -22,7 +22,7 @@ public abstract class Member {
 
     private String phoneNumber;
 
-    private String profileImgUrl;
+    private String profileImgPath;
 
     @Enumerated(EnumType.STRING)
     private SocialType socialType;

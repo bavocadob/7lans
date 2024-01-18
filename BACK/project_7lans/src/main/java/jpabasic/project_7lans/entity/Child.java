@@ -9,12 +9,8 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name="CHILD_ID")
 public class Child extends Member {
 
-
-    @OneToOne
+    @ManyToOne
     private ChildCenter childCenter;
 
     private String specialContent;
-
-    @OneToMany(mappedBy = "child")
-    private List<ChildVolunteerRelation> childRelation;
 }
