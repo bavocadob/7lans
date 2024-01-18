@@ -9,4 +9,6 @@ public class Manager extends Member{
 
     @ManyToOne
     private ChildCenter childCenter;
+
+    private boolean approvedStatus;
 }
