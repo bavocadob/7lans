@@ -1,8 +1,10 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 @Table(uniqueConstraints = {
         @UniqueConstraint(
                 name = "VOLUNTEER_CHILD_UNIQUE",

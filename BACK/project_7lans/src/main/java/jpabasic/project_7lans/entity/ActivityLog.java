@@ -20,6 +20,9 @@ public class ActivityLog {
     private String content;
     private boolean approveStatus;
 
+    @ManyToOne
+    private ChildCenter center;
+
     private void setMeetingSchedule(MeetingSchedule meetingSchedule){
         this.meetingSchedule = meetingSchedule;
     }
@@ -36,6 +39,9 @@ public class ActivityLog {
         this.approveStatus = false;
     }
 
+    private void setCenter(ChildCenter center){
+        this.center = center;
+    }
 
     public static ActivityLog create(MeetingSchedule meeting, LocalDateTime startTime, LocalDateTime endTime){
         ActivityLog newLog = new ActivityLog();
@@ -43,6 +49,10 @@ public class ActivityLog {
         newLog.setRealStartTime(startTime);
         newLog.setRealEndTime(endTime);
         newLog.initApproveStatus();
+
+        ChildCenter center = meeting.getChildVolunteerRelation().getChildCenter();
+        newLog.setCenter(center);
+
 
         return newLog;
     }

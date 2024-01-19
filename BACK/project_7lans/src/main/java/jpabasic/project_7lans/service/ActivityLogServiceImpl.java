@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.service;
 
 import jpabasic.project_7lans.entity.ActivityLog;
+import jpabasic.project_7lans.entity.ChildCenter;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.repository.ActivityLogRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -47,4 +50,19 @@ public class ActivityLogServiceImpl {
         ActivityLog findLog = activityLogRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("no such activity log"));
         findLog.approve();
     }
+
+    //승인되지 않은 활동일지 조회
+    public List<ActivityLog> findUnapproveLogs(ChildCenter center){
+        //센터에 속한 모든 활동일지
+        List<ActivityLog> logs = activityLogRepository.findByChildCenter(center);
+
+        //승인되지 않은 것들만 뽑기
+        logs = logs.stream()
+                .filter(l -> l.isApproveStatus()==false)
+                .collect(Collectors.toList());
+
+        return logs;
+
+    }
+
 }
