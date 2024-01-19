@@ -23,20 +23,16 @@ public class Volunteer extends Member{
     @Builder
     public Volunteer(
             String email,
-            String socialId,
+            String name,
             String password,
             String phoneNumber,
-            String profileImgPath,
-            SocialType socialType,
             LocalDate birth
     ){
         super(
                 email,
-                socialId,
+                name,
                 password,
                 phoneNumber,
-                profileImgPath,
-                socialType,
                 birth
         );
     }

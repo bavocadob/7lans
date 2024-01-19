@@ -32,25 +32,20 @@ public class Child extends Member {
     @Builder
     public Child(
             String email,
-            String socialId,
+            String name,
             String password,
             String phoneNumber,
-            String profileImgPath,
-            SocialType socialType,
             LocalDate birth,
-            ChildCenter childCenter,
-            String specialContent
+            ChildCenter childCenter
     ){
         super(
                 email,
-                socialId,
+                name,
                 password,
                 phoneNumber,
-                profileImgPath,
-                socialType,
                 birth
         );
         this.childCenter = childCenter;
-        this.specialContent = specialContent;
+        this.specialContent = "";
     }
 }

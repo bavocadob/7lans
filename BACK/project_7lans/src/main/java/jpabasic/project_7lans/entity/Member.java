@@ -22,16 +22,13 @@ public abstract class Member {
 
     private String email;
 
-    private String socialId;
+    private String name;
 
     private String password;
 
     private String phoneNumber;
 
     private String profileImgPath;
-
-    @Enumerated(EnumType.STRING)
-    private SocialType socialType;
 
     private LocalDate birth;
 
@@ -51,19 +48,16 @@ public abstract class Member {
 
     public Member(
             String email,
-            String socialId,
+            String name,
             String password,
             String phoneNumber,
-            String profileImgPath,
-            SocialType socialType,
             LocalDate birth
     ){
         this.email = email;
-        this.socialId = socialId;
+        this.name = name;
         this.password = password;
-        this. phoneNumber = phoneNumber;
-        this.profileImgPath = profileImgPath;
-        this.socialType = socialType;
+        this.phoneNumber = phoneNumber;
+        this.profileImgPath = "please insert default Image Path.";
         this.birth = birth;
         this.enterDate = LocalDateTime.now();
     }

@@ -32,25 +32,20 @@ public class Manager extends Member{
     @Builder
     public Manager(
             String email,
-            String socialId,
+            String name,
             String password,
             String phoneNumber,
-            String profileImgPath,
-            SocialType socialType,
             LocalDate birth,
-            ChildCenter childCenter,
-            boolean approvedStatus
+            ChildCenter childCenter
     ){
         super(
                 email,
-                socialId,
+                name,
                 password,
                 phoneNumber,
-                profileImgPath,
-                socialType,
                 birth
         );
         this.childCenter = childCenter;
-        this.approvedStatus = approvedStatus;
+        this.approvedStatus = false;
     }
 }
