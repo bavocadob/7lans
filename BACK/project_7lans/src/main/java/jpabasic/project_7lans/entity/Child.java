@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name="CHILD_ID")
 public class Child extends Member {
     @ManyToOne
+    @NotNull(message = "[Child] childCenter 은 Null 일 수 없습니다.")
     private ChildCenter childCenter;
 
     private String specialContent;

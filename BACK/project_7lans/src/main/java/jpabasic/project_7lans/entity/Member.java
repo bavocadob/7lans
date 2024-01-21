@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,16 +21,21 @@ public abstract class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "[Member] email 은 Null 일 수 없습니다.")
     private String email;
 
+    @NotNull(message = "[Member] name 은 Null 일 수 없습니다.")
     private String name;
 
+    @NotNull(message = "[Member] password 은 Null 일 수 없습니다.")
     private String password;
 
+    @NotNull(message = "[Member] phoneNumber 은 Null 일 수 없습니다.")
     private String phoneNumber;
 
     private String profileImgPath;
 
+    @NotNull(message = "[Member] birth 은 Null 일 수 없습니다.")
     private LocalDate birth;
 
     private LocalDateTime enterDate;
