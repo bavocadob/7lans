@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,19 +21,21 @@ public abstract class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "[Member] email 은 Null 일 수 없습니다.")
     private String email;
 
-    private String socialId;
+    @NotNull(message = "[Member] name 은 Null 일 수 없습니다.")
+    private String name;
 
+    @NotNull(message = "[Member] password 은 Null 일 수 없습니다.")
     private String password;
 
+    @NotNull(message = "[Member] phoneNumber 은 Null 일 수 없습니다.")
     private String phoneNumber;
 
     private String profileImgPath;
 
-    @Enumerated(EnumType.STRING)
-    private SocialType socialType;
-
+    @NotNull(message = "[Member] birth 은 Null 일 수 없습니다.")
     private LocalDate birth;
 
     private LocalDateTime enterDate;
@@ -51,19 +54,16 @@ public abstract class Member {
 
     public Member(
             String email,
-            String socialId,
+            String name,
             String password,
             String phoneNumber,
-            String profileImgPath,
-            SocialType socialType,
             LocalDate birth
     ){
         this.email = email;
-        this.socialId = socialId;
+        this.name = name;
         this.password = password;
-        this. phoneNumber = phoneNumber;
-        this.profileImgPath = profileImgPath;
-        this.socialType = socialType;
+        this.phoneNumber = phoneNumber;
+        this.profileImgPath = "please insert default Image Path.";
         this.birth = birth;
         this.enterDate = LocalDateTime.now();
     }

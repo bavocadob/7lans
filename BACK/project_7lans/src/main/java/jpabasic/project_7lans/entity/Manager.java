@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 public class Manager extends Member{
 
     @ManyToOne
+    @NotNull(message = "[Manager] childCenter 은 Null 일 수 없습니다.")
     private ChildCenter childCenter;
 
     private boolean approvedStatus;
@@ -32,25 +34,20 @@ public class Manager extends Member{
     @Builder
     public Manager(
             String email,
-            String socialId,
+            String name,
             String password,
             String phoneNumber,
-            String profileImgPath,
-            SocialType socialType,
             LocalDate birth,
-            ChildCenter childCenter,
-            boolean approvedStatus
+            ChildCenter childCenter
     ){
         super(
                 email,
-                socialId,
+                name,
                 password,
                 phoneNumber,
-                profileImgPath,
-                socialType,
                 birth
         );
         this.childCenter = childCenter;
-        this.approvedStatus = approvedStatus;
+        this.approvedStatus = false;
     }
 }
