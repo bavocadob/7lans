@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.controller;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jpabasic.project_7lans.dto.member.MemberRequestDto;
 import jpabasic.project_7lans.entity.Member;
 import jpabasic.project_7lans.service.MemberService;
 import org.springframework.http.HttpStatus;
@@ -13,13 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@RequestMapping
 public class MemberController {
 
+    private MemberService service;
     // 회원가입
     @PostMapping("/register")
-    public ResponseEntity register(){
+    public ResponseEntity register(MemberRequestDto.sign memberDto){
         // 회원가입
         try{
+            if(memberDto.getMemberType().equals("V")){
+                System.out.println("v");
+            }
+            else if(memberDto.getMemberType().equals("C")){
+                System.out.println("c");
+            }
+            else{
+                System.out.println("m");
+            }
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();

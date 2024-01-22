@@ -6,8 +6,46 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 public class MemberRequestDto {
 
+    // ===============================================================================
+    // 가입(비밀번호)
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class sign {
+        @NotNull(message = "[MemberRequestDto.sign] memberId 는 null 이 될 수 없습니다.")
+        private Long memberEmail;
+        @NotNull(message = "[MemberRequestDto.sign] memberPassword 는 null 이 될 수 없습니다.")
+        private String memberPassword;
+        @NotNull(message = "[MemberRequestDto.sign] type을 선택해 주세요")
+        private String memberType;
+        @NotNull(message = "[MemberRequestDto.sign] memberType 는 null 이 될 수 없습니다.")
+        private String memberName;
+        @NotNull(message = "[MemberRequestDto.sign] memberPhoneNumber 는 null 이 될 수 없습니다.")
+        private String memberPhoneNumber;
+        @NotNull(message = "[MemberRequestDto.sign] memberbirth 는 null 이 될 수 없습니다.")
+        private LocalDateTime memberbirth;
+
+        @Builder
+        sign(
+                Long memberEmail,
+                String memberPassword,
+                String memberType,
+                String memberName,
+                String PhoneNumber,
+                LocalDateTime memberbirth
+        ){
+            this.memberEmail = memberEmail;
+            this.memberPassword = memberPassword;
+            this.memberType = memberType;
+            this.memberName = memberName;
+            this.memberPhoneNumber = PhoneNumber;
+            this.memberbirth = memberbirth;
+        }
+    }
     // ===============================================================================
     // 수정(비밀번호)
 
