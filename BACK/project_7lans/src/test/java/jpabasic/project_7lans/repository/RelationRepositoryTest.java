@@ -20,13 +20,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RelationRepositoryTest {
 
     @Autowired
-    RelationRepository repository;
+    ChildVolunteerRelationRepository repository;
 
     @Autowired
     MemberRepository memberRepository;
 
     @Autowired
-    CenterRepository centerRepository;
+    ChildCenterRepository centerRepository;
 
     @Test
     public void CRTest(){

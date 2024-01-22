@@ -11,11 +11,11 @@ public class WhisperRequestDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class create{
         @NotNull(message = "[WhisperRequestDto.create] writerId 는 Null 일 수 없습니다.")
-        Long writerId;
+        private Long writerId;
         @NotNull(message = "[WhisperRequestDto.create] childVolunteerRelationId 는 Null 일 수 없습니다.")
-        Long childVolunteerRelationId;
+        private Long childVolunteerRelationId;
         @NotNull(message = "[WhisperRequestDto.create] content 는 Null 일 수 없습니다.")
-        String content;
+        private String content;
 
         @Builder
         create(

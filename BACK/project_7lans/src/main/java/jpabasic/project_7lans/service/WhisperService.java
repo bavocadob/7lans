@@ -13,7 +13,7 @@ public interface WhisperService {
 
     public void createWhisper(WhisperRequestDto.create whisperSaveDto);
 
-    public List<WhisperResponseDto> findWhispers(ChildVolunteerRelation relation);
+    public List<WhisperResponseDto.detail> findWhispers(Long relationId);
 
-    public List<WhisperResponseDto> findUnreadWhispers(ChildVolunteerRelation relation);
+    public List<WhisperResponseDto.detail> findUnreadWhispers(Long relationId);
 }
