@@ -15,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@DiscriminatorValue("V")
+@DiscriminatorValue("VOLUNTEER")
 @PrimaryKeyJoinColumn(name="VOLUNTEER_ID")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Volunteer extends Member{

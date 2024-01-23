@@ -22,11 +22,11 @@ public class ChildVolunteerRelation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "VOLUNTEER_ID", referencedColumnName = "ID")
-    private Member volunteer;
+    private Volunteer volunteer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CHILD_ID", referencedColumnName = "ID")
-    private Member child;
+    private Child child;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ChildCenter childCenter;

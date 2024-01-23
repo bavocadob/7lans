@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@DiscriminatorValue("M")
+@DiscriminatorValue("MANAGER")
 @PrimaryKeyJoinColumn(name="MANAGER_ID")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Manager extends Member{
