@@ -9,26 +9,23 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class EggImage {
+public class DinosaurCollection {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Egg egg;
+    private Dinosaur dinosaur;
 
-    private String imgPath;
-
-    public void changeImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    private DinosaurBook dinosaurBook;
 
     @Builder
-    public EggImage(
-            Egg egg,
-            String imgPath
+    public DinosaurCollection(
+            Dinosaur dinosaur,
+            DinosaurBook dinosaurBook
     ){
-        this.egg = egg;
-        this.imgPath = imgPath;
+        this.dinosaur = dinosaur;
+        this.dinosaurBook = dinosaurBook;
     }
 
 }

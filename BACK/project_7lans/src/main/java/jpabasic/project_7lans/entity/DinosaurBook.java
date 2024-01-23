@@ -3,32 +3,27 @@ package jpabasic.project_7lans.entity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 
-@Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Egg {
+public class DinosaurBook {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean volunteerCheck;
-
-    private boolean childCheck;
-
     @OneToOne
-    private Dinosaur dinosaur;
+    private Member member;
 
+    @OneToMany(mappedBy = "dinosaurBook")
+    private List<DinosaurCollection> dinosaurCollection;
 
     @Builder
-    public Egg(
-            Dinosaur dinosaur
+    public DinosaurBook(
+            Member member
     ){
-        this.volunteerCheck = false;
-        this.childCheck = false;
-        dinosaur = dinosaur;
+        this.member = member;
+
     }
 }
