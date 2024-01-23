@@ -16,26 +16,5 @@ public class EggServiceImpl {
 
     public final EggRepository eggRepository;
 
-    //관련된 전체 egg조회
-    public List<Egg> findAllEgg(ChildVolunteerRelation relation){
-        return eggRepository.findByChildVolunteerRelation(relation);
-    }
-
-    //egg open 후 새로운 egg 생성
-//    public Egg openEgg(Egg curEgg){
-//        //open
-//        curEgg.open();
-//
-//        Egg newEgg = Egg.createEgg(curEgg.getChildVolunteerRelation());
-//
-//        eggRepository.save(newEgg);
-//
-//        return newEgg;
-//    }
-
-    //openable
-//    public void changeEggOpenable(Egg egg){
-//        egg.changeStatusOpenable();
-//    }
 
 }
