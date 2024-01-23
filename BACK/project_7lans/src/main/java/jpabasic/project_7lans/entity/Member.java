@@ -40,6 +40,9 @@ public abstract class Member {
 
     private LocalDateTime enterDate;
 
+    @Column(name = "memberType")
+    private String memberType;
+
     public void changePassword(String password){
         this.password = password;
     }
