@@ -1,9 +1,9 @@
 import React from 'react'
 
-const date = () => {
+const Date = () => {
   return (
-    <div>date</div>
+    <div>Date</div>
   )
 }
 
-export default date
+export default Date

@@ -1,9 +1,9 @@
 import React from 'react'
 
-const locks = () => {
+const Locks = () => {
   return (
     <div>locks</div>
   )
 }
 
-export default locks
+export default Locks

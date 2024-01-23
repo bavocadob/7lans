@@ -1,9 +1,9 @@
 import React from 'react'
 
-const words = () => {
+const Words = () => {
   return (
-    <div>words</div>
+    <div>Words</div>
   )
 }
 
-export default words
+export default Words

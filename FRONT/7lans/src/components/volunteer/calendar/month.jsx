@@ -1,9 +1,9 @@
 import React from 'react'
 
-const month = () => {
+const Month = () => {
   return (
     <div>month</div>
   )
 }
 
-export default month
+export default Month

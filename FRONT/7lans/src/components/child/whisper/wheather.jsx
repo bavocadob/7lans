@@ -1,9 +1,9 @@
 import React from 'react'
 
-const wheather = () => {
+const Wheather = () => {
   return (
-    <div>wheather</div>
+    <div>Wheather</div>
   )
 }
 
-export default wheather
+export default Wheather

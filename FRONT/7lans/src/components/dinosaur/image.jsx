@@ -1,9 +1,9 @@
 import React from 'react'
 
-const image = () => {
+const Image = () => {
   return (
-    <div>image</div>
+    <div>Image</div>
   )
 }
 
-export default image
+export default Image

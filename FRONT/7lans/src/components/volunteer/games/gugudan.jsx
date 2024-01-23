@@ -1,9 +1,9 @@
 import React from 'react'
 
-const gugudan = () => {
+const Gugudan = () => {
   return (
-    <div>gugudan</div>
+    <div>Gugudan</div>
   )
 }
 
-export default gugudan
+export default Gugudan

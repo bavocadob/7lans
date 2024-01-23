@@ -1,9 +1,9 @@
 import React from 'react'
 
-const correct = () => {
+const Correct = () => {
   return (
-    <div>correct</div>
+    <div>Correct</div>
   )
 }
 
-export default correct
+export default Correct

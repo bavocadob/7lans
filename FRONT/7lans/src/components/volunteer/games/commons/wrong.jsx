@@ -1,9 +1,9 @@
 import React from 'react'
 
-const wrong = () => {
+const Wrong = () => {
   return (
-    <div>wrong</div>
+    <div>Wrong</div>
   )
 }
 
-export default wrong
+export default Wrong

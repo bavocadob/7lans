@@ -1,9 +1,9 @@
 import React from 'react'
 
-const hanoi = () => {
+const Hanoi = () => {
   return (
-    <div>hanoi</div>
+    <div>Hanoi</div>
   )
 }
 
-export default hanoi
+export default Hanoi
