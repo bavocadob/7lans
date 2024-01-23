@@ -60,6 +60,41 @@ public class ChildResponseDto {
         }
     }
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class list {
+        @NotNull(message = "[ChildResponseDto.detail] childId 는 Null 일 수 없습니다.")
+        private Long childId;
+        @NotNull(message = "[ChildResponseDto.detail] childName 은 Null 일 수 없습니다.")
+        private String childName;
+        @NotNull(message = "[ChildResponseDto.detail] childBirth 은 Null 일 수 없습니다.")
+        private LocalDate childBirth;
+        @NotNull(message = "[ChildResponseDto.detail] childProfileImagePath 는 Null 일 수 없습니다.")
+        private String childProfileImagePath;
+        @NotNull(message = "[ChildResponseDto.detail] childChildCenterId 는 Null 일 수 없습니다.")
+        private Long childChildCenterId;
+        @NotNull(message = "[ChildResponseDto.detail] childSpecialContent 는 Null 일 수 없습니다.")
+        private String childSpecialContent;
+
+
+        @Builder
+        list(
+                Long childId,
+                String childName,
+                LocalDate childBirth,
+                String childProfileImagePath,
+                Long childChildCenterId,
+                String childSpecialContent
+        ){
+            this.childId = childId;
+            this.childName = childName;
+            this.childBirth = childBirth;
+            this.childProfileImagePath = childProfileImagePath;
+            this.childChildCenterId = childChildCenterId;
+            this.childSpecialContent = childSpecialContent;
+        }
+    }
+
     // ===============================================================================
     // 수정??
 }
