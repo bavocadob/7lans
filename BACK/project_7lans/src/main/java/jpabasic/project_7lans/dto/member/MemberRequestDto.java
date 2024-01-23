@@ -81,19 +81,15 @@ public class MemberRequestDto {
         private String memberEmail;
         @NotNull(message = "[MemberRequestDto.login] memberPassword 는 null 이 될 수 없습니다.")
         private String memberPassword;
-        @NotNull(message = "[MemberRequestDto.login] memberType 는 null 이 될 수 없습니다.")
-        private String memberType;
 
         @Builder
         login(
                 String memberEmail,
-                String memberPassword,
-                String memberType
+                String memberPassword
 
         ){
             this.memberEmail = memberEmail;
             this.memberPassword = memberPassword;
-            this.memberType = memberType;
         }
     }
 

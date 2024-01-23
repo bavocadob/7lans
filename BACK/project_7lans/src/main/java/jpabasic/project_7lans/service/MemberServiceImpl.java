@@ -5,6 +5,7 @@ import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.manager.ManagerRequestDto;
 import jpabasic.project_7lans.dto.manager.ManagerResponseDto;
 import jpabasic.project_7lans.dto.member.MemberRequestDto;
+import jpabasic.project_7lans.dto.member.MemberResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.*;
@@ -28,7 +29,8 @@ public class MemberServiceImpl implements MemberService{
     private final ChildCenterRepository childCenterRepository;
     private final ChildVolunteerRelationRepository childVolunteerRelationRepository;
 
-
+//=========================================
+    //회원가입
     @Override
     public void childRegister(ChildRequestDto.register childRegisterDto) {
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
@@ -92,6 +94,20 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(manager);
     }
 
+    //================================================================================
+    //로그인
+    @Override
+    public Member login(MemberRequestDto.login memberRegisterDto) {
+
+        Member findMember = memberRepository.findByEmail(memberRegisterDto.getMemberEmail())
+                .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.login] 존재하지 않는 멤버 Email입니다."));
+        return findMember;
+    }
+
+
+
+    //================================================================================
+    //조회
     @Override
     public ChildResponseDto.detail childDetailById(ChildRequestDto.detailById childDto) {
         Child child = childRepository.findById(childDto.getChildId())
@@ -284,4 +300,6 @@ public class MemberServiceImpl implements MemberService{
         if(memberDto.getMemberPassword().equals(member.getPassword()))
             memberRepository.delete(member);
     }
+
+
 }

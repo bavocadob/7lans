@@ -48,6 +48,26 @@ public class ChildRequestDto {
         }
     }
 
+    //=============================================================
+    //로그인
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class login {
+        @NotNull(message = "[ChildRequestDto.register] childEmail 은 Null 일 수 없습니다.")
+        private String childEmail;
+        @NotNull(message = "[ChildRequestDto.register] childPassword 은 Null 일 수 없습니다.")
+        private String childPassword;
+
+        @Builder
+        login(
+                String childEmail,
+                String childPassword
+        ){
+            this.childEmail = childEmail;
+            this.childPassword = childPassword;
+        }
+    }
     // ===============================================================================
     // 조회
 

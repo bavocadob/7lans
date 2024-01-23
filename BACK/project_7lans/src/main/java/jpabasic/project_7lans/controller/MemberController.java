@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping(value = "/member")
@@ -74,28 +77,24 @@ public class MemberController {
         }
     }
 
-    @PostMapping("/register")
-    public ResponseEntity login(@RequestBody @Valid MemberRequestDto.login memberDto){
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, Object>> login(@RequestBody @Valid MemberRequestDto.login memberDto){
         // 회원가입
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        HttpStatus status = HttpStatus.OK;
         try{
-            System.out.println(memberDto.getMemberType());
-            if(memberDto.getMemberType().equals("V")){
 
+            Member find = service.login(memberDto);
 
-            }
-            else if(memberDto.getMemberType().equals("C")){
-
-
-
-            }
-            else{
-
-            }
-            return new ResponseEntity(HttpStatus.OK);
+            resultMap.put("id", find.getId());
+            //return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            //return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
+
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
 
