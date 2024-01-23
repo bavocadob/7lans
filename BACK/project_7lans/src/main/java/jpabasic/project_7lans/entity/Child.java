@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@DiscriminatorValue("C")
+@DiscriminatorValue("CHILD")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @PrimaryKeyJoinColumn(name="CHILD_ID")
 public class Child extends Member {

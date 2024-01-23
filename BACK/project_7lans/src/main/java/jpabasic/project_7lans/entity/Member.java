@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "memberType")
+@DiscriminatorColumn(name = "member_type" , discriminatorType = DiscriminatorType.STRING)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Member {
 
@@ -51,6 +51,9 @@ public abstract class Member {
     public void changeProfileImage(String profileImgPath){
         this.profileImgPath = profileImgPath;
     }
+
+    @Column(name= "member_type", insertable=false, updatable=false)
+    private MemberType type;
 
     public Member(
             String email,
