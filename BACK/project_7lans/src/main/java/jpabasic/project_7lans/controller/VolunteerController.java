@@ -1,9 +1,12 @@
 package jpabasic.project_7lans.controller;
 
+import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.entity.Child;
 import jpabasic.project_7lans.entity.ChildVolunteerRelation;
+import jpabasic.project_7lans.repository.ChildRepository;
 import jpabasic.project_7lans.service.ChildVolunteerRelationService;
+import jpabasic.project_7lans.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +23,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VolunteerController {
 
-    private final ChildVolunteerRelationService service;
+    private final ChildVolunteerRelationService relationService;
+    private final MemberService memberService;
 
     //해당 봉사자의 아동 리스트 반환
     @GetMapping("/list/{volunteerId}")
     public ResponseEntity<?> childList(@PathVariable("volunteerId") Long volunteerId){
         try{
 
-            List<ChildVolunteerRelation> relations = service.childList(volunteerId);
+            List<ChildVolunteerRelation> relations = relationService.childList(volunteerId);
             List<ChildResponseDto.list> children = new ArrayList<>();
 
             for(ChildVolunteerRelation relation : relations){
@@ -45,6 +49,20 @@ public class VolunteerController {
 
             }
             return new ResponseEntity<List<ChildResponseDto.list>>(children, HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/child/{childId}")
+    public ResponseEntity<?> childDetail(@PathVariable("childId") Long childId){
+        try{
+            ChildResponseDto.detail child = memberService.childDetailById(ChildRequestDto.detailById.builder()
+                    .childId(childId).build());
+
+            return new ResponseEntity<ChildResponseDto.detail>(child, HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
