@@ -11,12 +11,14 @@ import jpabasic.project_7lans.entity.*;
 import jpabasic.project_7lans.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
@@ -50,6 +52,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    @Transactional
     public void volunteerRegister(VolunteerRequestDto.register volunteerRegisterDto) {
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(volunteerRegisterDto.getVolunteerEmail()).isPresent())

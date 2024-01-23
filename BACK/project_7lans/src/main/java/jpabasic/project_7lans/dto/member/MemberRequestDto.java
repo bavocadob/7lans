@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class MemberRequestDto {
 
     // ===============================================================================
-    // 가입(비밀번호)
+    // 가입
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,7 +37,7 @@ public class MemberRequestDto {
                 String memberPassword,
                 String memberType,
                 String memberName,
-                String PhoneNumber,
+                String memberPhoneNumber,
                 LocalDate memberbirth,
                 Long centerId
         ){
@@ -45,7 +45,7 @@ public class MemberRequestDto {
             this.memberPassword = memberPassword;
             this.memberType = memberType;
             this.memberName = memberName;
-            this.memberPhoneNumber = PhoneNumber;
+            this.memberPhoneNumber = memberPhoneNumber;
             this.memberbirth = memberbirth;
             this.centerId = centerId;
         }
@@ -68,6 +68,32 @@ public class MemberRequestDto {
         ){
             this.memberId = memberId;
             this.memberPassword = memberPassword;
+        }
+    }
+
+    // ===============================================================================
+    // 로그인
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class login {
+        @NotNull(message = "[MemberRequestDto.login] memberId 는 null 이 될 수 없습니다.")
+        private String memberEmail;
+        @NotNull(message = "[MemberRequestDto.login] memberPassword 는 null 이 될 수 없습니다.")
+        private String memberPassword;
+        @NotNull(message = "[MemberRequestDto.login] memberType 는 null 이 될 수 없습니다.")
+        private String memberType;
+
+        @Builder
+        login(
+                String memberEmail,
+                String memberPassword,
+                String memberType
+
+        ){
+            this.memberEmail = memberEmail;
+            this.memberPassword = memberPassword;
+            this.memberType = memberType;
         }
     }
 

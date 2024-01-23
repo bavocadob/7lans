@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping
+@RequestMapping(value = "/member")
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -40,7 +40,6 @@ public class MemberController {
                         .volunteerBirth(memberDto.getMemberbirth())
                         .build();
                 service.volunteerRegister(registerDto);
-                System.out.println(registerDto);
 
             }
             else if(memberDto.getMemberType().equals("C")){
@@ -74,4 +73,30 @@ public class MemberController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/register")
+    public ResponseEntity login(@RequestBody @Valid MemberRequestDto.login memberDto){
+        // 회원가입
+        try{
+            System.out.println(memberDto.getMemberType());
+            if(memberDto.getMemberType().equals("V")){
+
+
+            }
+            else if(memberDto.getMemberType().equals("C")){
+
+
+
+            }
+            else{
+
+            }
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }
