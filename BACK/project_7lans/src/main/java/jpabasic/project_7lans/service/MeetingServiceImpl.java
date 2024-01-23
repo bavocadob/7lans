@@ -1,10 +1,9 @@
 package jpabasic.project_7lans.service;
 
-import jpabasic.project_7lans.entity.Child;
 import jpabasic.project_7lans.entity.ChildVolunteerRelation;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.entity.ScheduleType;
-import jpabasic.project_7lans.repository.MeetingRepository;
+import jpabasic.project_7lans.repository.MeetingScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MeetingServiceImpl implements MeetingService{
 
-    private final MeetingRepository meetingRepository;
+    private final MeetingScheduleRepository meetingRepository;
 
     //미팅 생성
     @Transactional
@@ -34,7 +33,7 @@ public class MeetingServiceImpl implements MeetingService{
 
     //해당 관계의 미팅 조회
     public List<MeetingSchedule> findMeetingsByRelation(ChildVolunteerRelation relation){
-        return meetingRepository.findByRelation(relation);
+        return null;//meetingRepository.findByRelation(relation);
     }
 
     //미팅 상태 확인(예정)

@@ -54,14 +54,14 @@ public class ActivityLogServiceImpl {
     //승인되지 않은 활동일지 조회
     public List<ActivityLog> findUnapproveLogs(ChildCenter center){
         //센터에 속한 모든 활동일지
-        List<ActivityLog> logs = activityLogRepository.findByChildCenter(center);
+        /*List<ActivityLog> logs = activityLogRepository.findByChildCenter(center);
 
         //승인되지 않은 것들만 뽑기
         logs = logs.stream()
                 .filter(l -> l.isApproveStatus()==false)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
 
-        return logs;
+        return null;//logs;
 
     }
 

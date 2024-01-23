@@ -24,7 +24,7 @@ public class MemberRequestDto {
         private String memberType;
         @NotNull(message = "[MemberRequestDto.sign] memberType 는 null 이 될 수 없습니다.")
         private String memberName;
-        @NotNull(message = "[MemberRequestDto.sign] memberPhoneNumber 는 null 이 될 수 없습니다.")
+        //@NotNull(message = "[MemberRequestDto.sign] memberPhoneNumber 는 null 이 될 수 없습니다.")
         private String memberPhoneNumber;
         @NotNull(message = "[MemberRequestDto.sign] memberbirth 는 null 이 될 수 없습니다.")
         private LocalDateTime memberbirth;

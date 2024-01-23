@@ -1,6 +1,6 @@
 package jpabasic.project_7lans.controller;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.member.MemberRequestDto;
 import jpabasic.project_7lans.entity.Member;
 import jpabasic.project_7lans.service.MemberService;
@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,9 +21,10 @@ public class MemberController {
     private MemberService service;
     // 회원가입
     @PostMapping("/register")
-    public ResponseEntity register(MemberRequestDto.sign memberDto){
+    public ResponseEntity register(@RequestBody @Valid MemberRequestDto.sign memberDto){
         // 회원가입
         try{
+            System.out.println(memberDto.getMemberType());
             if(memberDto.getMemberType().equals("V")){
                 System.out.println("v");
             }
