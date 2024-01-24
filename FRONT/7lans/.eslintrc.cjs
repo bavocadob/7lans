@@ -3,11 +3,13 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: 'airbnb',
+  extends: ['airbnb', 'prettier'],
   overrides: [
     {
       env: {
         node: true,
+        browser: true,
+		    es6: true,
       },
       files: [
         '.eslintrc.{js,cjs}',
@@ -22,5 +24,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'import/prefer-default-export': 'off',
+		'import/extensions': ['off'],
+    'linebreak-style': 0,
   },
 };

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 const NavBar = styled.nav`
-  position: absolute;
+  position: relative;
   top: 0;
   width: 100vw;
   height: 100px;
