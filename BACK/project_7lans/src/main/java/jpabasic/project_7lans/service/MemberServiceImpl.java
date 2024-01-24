@@ -31,7 +31,17 @@ public class MemberServiceImpl implements MemberService{
 //=========================================
     //회원가입
     @Override
-    public void childRegister(ChildRequestDto.register childRegisterDto) {
+    public void childRegister(MemberRequestDto.sign memberDto) {
+
+        ChildRequestDto.register childRegisterDto = ChildRequestDto.register.builder()
+                .childEmail(memberDto.getMemberEmail())
+                .childName(memberDto.getMemberName())
+                .childPassword(memberDto.getMemberPassword())
+                .childPhoneNumber(memberDto.getMemberPhoneNumber())
+                .childBirth(memberDto.getMemberbirth())
+                .childChildCenterId(10l)
+                .build();
+
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(childRegisterDto.getChildEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
@@ -54,7 +64,15 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
-    public void volunteerRegister(VolunteerRequestDto.register volunteerRegisterDto) {
+    public void volunteerRegister(MemberRequestDto.sign memberDto) {
+
+        VolunteerRequestDto.register volunteerRegisterDto = VolunteerRequestDto.register.builder()
+                .volunteerEmail(memberDto.getMemberEmail())
+                .volunteerName(memberDto.getMemberName())
+                .volunteerPassword(memberDto.getMemberPassword())
+                .volunteerPhoneNumber(memberDto.getMemberPhoneNumber())
+                .volunteerBirth(memberDto.getMemberbirth())
+                .build();
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(volunteerRegisterDto.getVolunteerEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
@@ -72,7 +90,16 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void managerRegister(ManagerRequestDto.register managerRegisterDto) {
+    public void managerRegister(MemberRequestDto.sign memberDto) {
+
+        ManagerRequestDto.register managerRegisterDto = ManagerRequestDto.register.builder()
+                .managerEmail(memberDto.getMemberEmail())
+                .managerName(memberDto.getMemberName())
+                .managerPassword(memberDto.getMemberPassword())
+                .managerPhoneNumber(memberDto.getMemberPhoneNumber())
+                .managerBirth(memberDto.getMemberbirth())
+                .managerChildCenterId(10l)
+                .build();
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(managerRegisterDto.getManagerEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");

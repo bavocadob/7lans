@@ -34,41 +34,18 @@ public class MemberController {
         try{
             System.out.println(memberDto.getMemberType());
             if(memberDto.getMemberType().equals("V")){
-                //System.out.println("v");
-                VolunteerRequestDto.register registerDto = VolunteerRequestDto.register.builder()
-                        .volunteerEmail(memberDto.getMemberEmail())
-                        .volunteerName(memberDto.getMemberName())
-                        .volunteerPassword(memberDto.getMemberPassword())
-                        .volunteerPhoneNumber(memberDto.getMemberPhoneNumber())
-                        .volunteerBirth(memberDto.getMemberbirth())
-                        .build();
-                service.volunteerRegister(registerDto);
+                service.volunteerRegister(memberDto);
 
             }
             else if(memberDto.getMemberType().equals("C")){
-                ChildRequestDto.register registerDto = ChildRequestDto.register.builder()
-                        .childEmail(memberDto.getMemberEmail())
-                        .childName(memberDto.getMemberName())
-                        .childPassword(memberDto.getMemberPassword())
-                        .childPhoneNumber(memberDto.getMemberPhoneNumber())
-                        .childBirth(memberDto.getMemberbirth())
-                        .childChildCenterId(10l)
-                        .build();
 
-                service.childRegister(registerDto);
+                service.childRegister(memberDto);
             }
             else{
                 //System.out.println("m");
-                ManagerRequestDto.register registerDto = ManagerRequestDto.register.builder()
-                        .managerEmail(memberDto.getMemberEmail())
-                        .managerName(memberDto.getMemberName())
-                        .managerPassword(memberDto.getMemberPassword())
-                        .managerPhoneNumber(memberDto.getMemberPhoneNumber())
-                        .managerBirth(memberDto.getMemberbirth())
-                        .managerChildCenterId(10l)
-                        .build();
 
-                service.managerRegister(registerDto);
+
+                service.managerRegister(memberDto);
             }
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
