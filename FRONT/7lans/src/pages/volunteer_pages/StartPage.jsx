@@ -17,17 +17,19 @@ const StartPage = () => {
     }}>
       <NormalNav />
       <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
-        <div style={{height: '100%', width: '90%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 255, 255)'}}>
+        <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
           <CommonSidePanel />
-          <body style={{width: '100%', flex: 1, borderRadius: '20px'}}>
+          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>
             body
-          </body>
+          </div>
+          <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
+            <PostIt/>
+            <PostIt/>
+            <PostIt/>
+            <PostIt/>
+          </div>
         </div>
           <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', right: '2%', top: '10rem'}}>
-            <PostIt/>
-            <PostIt/>
-            <PostIt/>
-            <PostIt/>
           </div>
       </div>
     </div>
