@@ -6,6 +6,7 @@ import jpabasic.project_7lans.entity.Child;
 import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.service.RelationService;
 import jpabasic.project_7lans.service.MemberService;
+import jpabasic.project_7lans.service.VolunteerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,32 +23,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VolunteerController {
 
-    private final RelationService relationService;
+    private final VolunteerService volunteerService;
     private final MemberService memberService;
 
-    //해당 봉사자의 아동 리스트 반환
+    //봉사자의 아동 리스트 반환
     @GetMapping("/list/{volunteerId}")
-    public ResponseEntity<?> childList(@PathVariable("volunteerId") Long volunteerId){
+    public ResponseEntity<List<ChildResponseDto.list>> childList(@PathVariable("volunteerId") Long volunteerId){
         try{
 
-            List<Relation> relations = relationService.childList(volunteerId);
-            List<ChildResponseDto.list> children = new ArrayList<>();
+            List<ChildResponseDto.list> children = volunteerService.childList(volunteerId);
 
-            for(Relation relation : relations){
-                //children.add((Child) relation.getChild());
-                //dto로 변환해서 가져와야함
-                Child child = (Child) relation.getChild();
-                children.add(ChildResponseDto.list.builder()
-                        .childId(child.getId())
-                        .childName(child.getName())
-                        .childBirth(child.getBirth())
-                        .childProfileImagePath(child.getProfileImgPath())
-                        .childChildCenterId(child.getChildCenter().getId())
-                        .childSpecialContent(child.getSpecialContent())
-                        .build());
-
-            }
             return new ResponseEntity<List<ChildResponseDto.list>>(children, HttpStatus.OK);
+
         }
         catch (Exception e){
             e.printStackTrace();
