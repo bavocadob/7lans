@@ -42,7 +42,7 @@ public class Relation {
     @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)
     private List<Whisper> whisperList = new ArrayList<>();
 
-    
+
     @Builder
     public Relation(
             Volunteer volunteer,
