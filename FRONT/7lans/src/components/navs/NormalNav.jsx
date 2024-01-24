@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 const NavBar = styled.nav`
-  position: absolute;
+  position: relative;
   top: 0;
   width: 100vw;
   height: 100px;
@@ -13,11 +13,12 @@ const NavBar = styled.nav`
 
 const LogoImage = styled.img`
   height: 70px;
-  margin: 15px;
+  margin-left: 40px;
+  margin-top: 15px;
 `;
 
 
-const NormalNav = ( ) => {
+const NormalNav = () => {
   return (
       <NavBar>
         <Link to="/main">
