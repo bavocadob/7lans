@@ -58,7 +58,7 @@ const VolunteerMainPage = () => {
         <Link to={'/'}>로그아웃</Link>
       </header>
       <span>
-        <Link to={'/'}>나의 아이들</Link>
+        <Link to={'/volunteer_start'}>나의 아이들</Link>
       </span>
     </Container>
   );

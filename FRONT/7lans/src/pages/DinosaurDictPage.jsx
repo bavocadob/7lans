@@ -4,19 +4,6 @@ import DinosaurSidePanel from '../components/side_panels/DinosaurSidePanel';
 import { Link } from 'react-router-dom';
 import NormalNav from '../components/navs/NormalNav';
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(255, 226, 123);
-  height: 100vh; /* Adjust as needed */
-`;
-
-const ContentContainer = styled.div`
-  background-color: rgb(255, 255, 255);
-  flex: 1;
-  margin: 20px;
-  border-radius: 20px;
-`;
 
 const DinosaurDictPage = () => {
   return (

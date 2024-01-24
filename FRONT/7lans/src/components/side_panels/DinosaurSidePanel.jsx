@@ -28,8 +28,8 @@ const InnerContainer = styled.div`
 const CloseButton = styled.button`
   position: absolute;
   left: 85%;
-  top: 5%;
   border-radius: 25px;
+  border: none;
   background-color: rgb(255, 248, 223);
   font-weight: bold;
   color: rgb(240, 165, 8);
@@ -116,7 +116,7 @@ const DinosaurSidePanel = () => {
       );
     } else {
       return (
-        <button style={{ borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
+        <button style={{ borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem', border: 'none' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
       );
     }
   };
