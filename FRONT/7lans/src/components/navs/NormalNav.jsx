@@ -1,10 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom';
-
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const NavBar = styled.nav`
-  position: absolute;
+  position: relative;
   top: 0;
   width: 100vw;
   height: 100px;
@@ -16,15 +15,14 @@ const LogoImage = styled.img`
   margin: 15px;
 `;
 
-
-const NormalNav = ( ) => {
+const NormalNav = () => {
   return (
-      <NavBar>
-        <Link to="/main">
-          <LogoImage src="./7lans_logo.png" alt="logo" />
-        </Link>
-      </NavBar>
-  )
-}
+    <NavBar>
+      <Link to="/main">
+        <LogoImage src="./7lans_logo.png" alt="logo" />
+      </Link>
+    </NavBar>
+  );
+};
 
-export default NormalNav
+export default NormalNav;
