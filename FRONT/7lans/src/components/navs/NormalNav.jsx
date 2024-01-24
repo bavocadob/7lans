@@ -21,7 +21,7 @@ const LogoImage = styled.img`
 const NormalNav = () => {
   return (
       <NavBar>
-        <Link to="/main">
+        <Link to="/volunteer_main">
           <LogoImage src="./7lans_logo.png" alt="logo" />
         </Link>
       </NavBar>
