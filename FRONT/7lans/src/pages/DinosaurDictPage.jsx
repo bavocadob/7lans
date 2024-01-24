@@ -7,6 +7,7 @@ import NormalNav from '../components/navs/NormalNav';
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: rgb(255, 226, 123);
   height: 100vh; /* Adjust as needed */
 `;
 
@@ -20,11 +21,19 @@ const ContentContainer = styled.div`
 const DinosaurDictPage = () => {
   return (
     <>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      width: '100vw',
+    }}>
       <NormalNav />
-      <DinosaurSidePanel />
-      <PageContainer>
-        <ContentContainer></ContentContainer>
-      </PageContainer>
+      <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
+        <div style={{height: '100%',borderRadius: '20px', backgroundColor: 'rgb(255, 255, 255)'}}>
+          <DinosaurSidePanel />
+        </div>
+      </div>
+    </div>
     </>
   );
 };
