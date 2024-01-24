@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.dto.child;
 
 import jakarta.validation.constraints.NotNull;
+import jpabasic.project_7lans.entity.Child;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,9 +13,8 @@ import java.time.LocalDateTime;
 public class ChildResponseDto {
     // ===============================================================================
     // 조회
-
     @Getter
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Builder
     public static class detail {
         @NotNull(message = "[ChildResponseDto.detail] childId 는 Null 일 수 없습니다.")
         private Long childId;
@@ -35,28 +35,18 @@ public class ChildResponseDto {
         @NotNull(message = "[ChildResponseDto.detail] childSpecialContent 는 Null 일 수 없습니다.")
         private String childSpecialContent;
 
-
-        @Builder
-        detail(
-                Long childId,
-                String childEmail,
-                String childName,
-                String childPhoneNumber,
-                LocalDate childBirth,
-                String childProfileImagePath,
-                LocalDateTime childEnterDate,
-                Long childChildCenterId,
-                String childSpecialContent
-        ){
-            this.childId = childId;
-            this.childEmail = childEmail;
-            this.childName = childName;
-            this.childPhoneNumber = childPhoneNumber;
-            this.childBirth = childBirth;
-            this.childProfileImagePath = childProfileImagePath;
-            this.childEnterDate = childEnterDate;
-            this.childChildCenterId = childChildCenterId;
-            this.childSpecialContent = childSpecialContent;
+        public static ChildResponseDto.detail toDetailDto(Child child){
+            return ChildResponseDto.detail.builder()
+                    .childId(child.getId())
+                    .childEmail(child.getEmail())
+                    .childName(child.getName())
+                    .childPhoneNumber(child.getPhoneNumber())
+                    .childBirth(child.getBirth())
+                    .childProfileImagePath(child.getProfileImgPath())
+                    .childEnterDate(child.getEnterDate())
+                    .childChildCenterId(child.getChildCenter().getId())
+                    .childSpecialContent(child.getSpecialContent())
+                    .build();
         }
     }
 
