@@ -4,7 +4,7 @@ import Month from './Month'
 const Index = () => {
   return (
     <div>
-      <Month />
+      index
     </div>
   )
 }

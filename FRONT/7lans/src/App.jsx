@@ -4,6 +4,7 @@ import EntryPage from './pages/EntryPage'
 import MainPage from './pages/MainPage'
 import DinosaurDictPage from './pages/DinosaurDictPage'
 import ReactCalendar from './components/volunteer/ReactCalendar'
+import Index from './components/volunteer/calendar/Index'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path='/main' element={<MainPage/>} />
         <Route path='/dinosaur_dict' element={<DinosaurDictPage/>} />
         <Route path='/calendar' element={<ReactCalendar/>} />
+        
       </Routes>
     </>
   )
