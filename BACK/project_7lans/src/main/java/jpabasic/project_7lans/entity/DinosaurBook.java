@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,11 +14,11 @@ public class DinosaurBook {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "dinosaurBook",fetch = FetchType.LAZY)
     private Member member;
 
-    @OneToMany(mappedBy = "dinosaurBook")
-    private List<DinosaurCollection> dinosaurCollection;
+    @OneToMany(mappedBy = "dinosaurBook", cascade = CascadeType.ALL)
+    private List<DinosaurCollection> dinosaurCollection = new ArrayList<>();
 
     @Builder
     public DinosaurBook(

@@ -1,6 +1,6 @@
 package jpabasic.project_7lans.service;
 
-import jpabasic.project_7lans.entity.ChildVolunteerRelation;
+import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.entity.ScheduleType;
 import jpabasic.project_7lans.repository.MeetingScheduleRepository;
@@ -20,7 +20,7 @@ public class MeetingServiceImpl implements MeetingService{
 
     //미팅 생성
     @Transactional
-    public void createMeeting(ChildVolunteerRelation relation, LocalDateTime startTime, LocalDateTime endTime){
+    public void createMeeting(Relation relation, LocalDateTime startTime, LocalDateTime endTime){
         MeetingSchedule newMeeting = MeetingSchedule.create(relation, startTime, endTime);
         meetingRepository.save(newMeeting);
     }
@@ -32,7 +32,7 @@ public class MeetingServiceImpl implements MeetingService{
     }*/
 
     //해당 관계의 미팅 조회
-    public List<MeetingSchedule> findMeetingsByRelation(ChildVolunteerRelation relation){
+    public List<MeetingSchedule> findMeetingsByRelation(Relation relation){
         return null;//meetingRepository.findByRelation(relation);
     }
 

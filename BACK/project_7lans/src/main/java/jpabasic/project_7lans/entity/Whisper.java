@@ -19,7 +19,7 @@ public class Whisper {
     private Member writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ChildVolunteerRelation childVolunteerRelation;
+    private Relation relation;
 
     private String content;
 
@@ -30,11 +30,11 @@ public class Whisper {
     @Builder
     public Whisper(
             Member writer,
-            ChildVolunteerRelation childVolunteerRelation,
+            Relation relation,
             String content
     ){
         this.writer = writer;
-        this.childVolunteerRelation = childVolunteerRelation;
+        this.relation = relation;
         this.content = content;
         this.createDate = LocalDateTime.now(); // 작성 했을 때의 기본 시간
         this.readStatus = false; // 작성 후의 기본 상태는 false(읽지 않음) 상태이다.

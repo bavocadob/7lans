@@ -21,6 +21,9 @@ public abstract class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name= "member_type", insertable=false, updatable=false)
+    private MemberType memberType;
+
     @NotNull(message = "[Member] email 은 Null 일 수 없습니다.")
     private String email;
 
@@ -40,6 +43,9 @@ public abstract class Member {
 
     private LocalDateTime enterDate;
 
+    @OneToOne
+    private DinosaurBook dinosaurBook;
+
     public void changePassword(String password){
         this.password = password;
     }
@@ -52,15 +58,13 @@ public abstract class Member {
         this.profileImgPath = profileImgPath;
     }
 
-    @Column(name= "member_type", insertable=false, updatable=false)
-    private MemberType type;
-
     public Member(
             String email,
             String name,
             String password,
             String phoneNumber,
-            LocalDate birth
+            LocalDate birth,
+            DinosaurBook dinosaurBook
     ){
         this.email = email;
         this.name = name;
@@ -68,6 +72,7 @@ public abstract class Member {
         this.phoneNumber = phoneNumber;
         this.profileImgPath = "please insert default Image Path.";
         this.birth = birth;
+        this.dinosaurBook = dinosaurBook;
         this.enterDate = LocalDateTime.now();
     }
 

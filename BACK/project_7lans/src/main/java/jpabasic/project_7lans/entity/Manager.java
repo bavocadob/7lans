@@ -45,7 +45,8 @@ public class Manager extends Member{
                 name,
                 password,
                 phoneNumber,
-                birth
+                birth,
+                null
         );
         this.childCenter = childCenter;
         this.approvedStatus = false;

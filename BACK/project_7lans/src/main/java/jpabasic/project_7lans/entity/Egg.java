@@ -19,9 +19,9 @@ public class Egg {
 
     private boolean childCheck;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private Dinosaur dinosaur;
-
 
     @Builder
     public Egg(
@@ -29,6 +29,6 @@ public class Egg {
     ){
         this.volunteerCheck = false;
         this.childCheck = false;
-        dinosaur = dinosaur;
+        this.dinosaur = dinosaur;
     }
 }

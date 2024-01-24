@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,11 +17,21 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @PrimaryKeyJoinColumn(name="CHILD_ID")
 public class Child extends Member {
-    @ManyToOne
+    // ==============================================================================================
+    // 필드
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @NotNull(message = "[Child] childCenter 은 Null 일 수 없습니다.")
     private ChildCenter childCenter;
 
     private String specialContent;
+
+    @OneToMany(mappedBy = "child" , cascade = CascadeType.ALL)
+    private List<ChildRelation> childRelations = new ArrayList<>();
+
+
+    // ==============================================================================================
+    // 메서드
 
     public void changeChildCenter(ChildCenter childCenter){
         this.childCenter = childCenter;
@@ -31,6 +41,10 @@ public class Child extends Member {
         this.specialContent = specialContent;
     }
 
+
+    // ==============================================================================================
+    // 생성자
+
     @Builder
     public Child(
             String email,
@@ -38,14 +52,17 @@ public class Child extends Member {
             String password,
             String phoneNumber,
             LocalDate birth,
-            ChildCenter childCenter
+            ChildCenter childCenter,
+            DinosaurBook dinosaurBook
+
     ){
         super(
                 email,
                 name,
                 password,
                 phoneNumber,
-                birth
+                birth,
+                dinosaurBook
         );
         this.childCenter = childCenter;
         this.specialContent = "";

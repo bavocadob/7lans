@@ -1,13 +1,13 @@
 package jpabasic.project_7lans.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,6 +21,12 @@ public class ChildCenter {
     private String address;
 
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "childCenter", cascade = CascadeType.ALL)
+    private List<CenterRalation> centerRalationList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "childCenter", cascade = CascadeType.ALL)
+    private List<CenterActivityLog> centerActivityLogList = new ArrayList<>();
 
     public void changeName(String name) {
         this.name = name;
