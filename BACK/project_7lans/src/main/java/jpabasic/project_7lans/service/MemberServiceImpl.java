@@ -5,7 +5,6 @@ import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.manager.ManagerRequestDto;
 import jpabasic.project_7lans.dto.manager.ManagerResponseDto;
 import jpabasic.project_7lans.dto.member.MemberRequestDto;
-import jpabasic.project_7lans.dto.member.MemberResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.*;
@@ -27,7 +26,7 @@ public class MemberServiceImpl implements MemberService{
     private final VolunteerRepository volunteerRepository;
     private final ManagerRepository managerRepository;
     private final ChildCenterRepository childCenterRepository;
-    private final ChildVolunteerRelationRepository childVolunteerRelationRepository;
+    private final RelationRepository relationRepository;
 
 //=========================================
     //회원가입
@@ -195,7 +194,7 @@ public class MemberServiceImpl implements MemberService{
         Child child = childRepository.findById(childDto.getChildId())
                 .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.volunteerListByChildId] 해당 아동 ID에 일치하는 아동이 존재하지 않습니다."));
 
-        List<Relation> relationList = childVolunteerRelationRepository.findByChild(child);
+        List<Relation> relationList = relationRepository.findByChild(child);
         List<VolunteerResponseDto.detail> relationDtoList = new ArrayList<>();
 
         for(Relation relation: relationList){
