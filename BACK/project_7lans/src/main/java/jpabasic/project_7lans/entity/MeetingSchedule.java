@@ -18,7 +18,7 @@ public class MeetingSchedule {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ChildVolunteerRelation childVolunteerRelation;
+    private Relation relation;
 
     private LocalDateTime ScheduledStartTime;
 
@@ -29,8 +29,13 @@ public class MeetingSchedule {
 
     private String thumbnailImgPath;
 
-    @OneToMany(mappedBy = "imgPath")
-    private ArrayList<MeetingImage> meetingImageList;
+    private String meetingUrl;
+
+    @OneToMany(mappedBy = "imgPath", cascade = CascadeType.ALL)
+    private ArrayList<MeetingImage> meetingImageList = new ArrayList<>();
+
+    @OneToOne
+    private ActivityLog activityLog;
 
     private void setStartTime(LocalDateTime time){
         this.ScheduledEndTime = time;
@@ -48,7 +53,7 @@ public class MeetingSchedule {
         this.thumbnailImgPath = thumnail;
     }
 
-    public static MeetingSchedule create(ChildVolunteerRelation relation, LocalDateTime startTime, LocalDateTime endTime) {
+    public static MeetingSchedule create(Relation relation, LocalDateTime startTime, LocalDateTime endTime) {
         MeetingSchedule newMeeting = new MeetingSchedule();
         newMeeting.setStartTime(startTime);
         newMeeting.setEndtime(endTime);
@@ -58,17 +63,18 @@ public class MeetingSchedule {
     }
     @Builder
     public MeetingSchedule(
-            ChildVolunteerRelation childVolunteerRelation,
+            Relation relation,
             LocalDateTime ScheduledStartTime,
             LocalDateTime ScheduledEndTime,
             String thumbnailImgPath,
-            ArrayList<MeetingImage> meetingImageList
+            ActivityLog activityLog
     ){
-        this.childVolunteerRelation = childVolunteerRelation;
+        this.relation = relation;
         this.ScheduledStartTime = ScheduledStartTime;
         this.ScheduledEndTime = ScheduledEndTime;
         this.status = ScheduleType.CLOSED; // 미팅 스케줄 잡힌 직후는 닫힌 상태이다.
         this.thumbnailImgPath = thumbnailImgPath;
-        this.meetingImageList = meetingImageList;
+        this.activityLog = activityLog;
+        this.meetingUrl = null;
     }
 }

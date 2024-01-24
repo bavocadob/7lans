@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
         )
 })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ChildVolunteerRelation {
+public class Relation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -28,17 +30,27 @@ public class ChildVolunteerRelation {
     @JoinColumn(name = "CHILD_ID", referencedColumnName = "ID")
     private Child child;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private ChildCenter childCenter;
+    @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)
+    private List<CenterRalation> centerRalationList = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Egg egg;
+
+    @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)
+    private List<MeetingSchedule> meetingScheduleList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)
+    private List<Whisper> whisperList = new ArrayList<>();
+
+    
     @Builder
-    public ChildVolunteerRelation(
+    public Relation(
             Volunteer volunteer,
             Child child,
-            ChildCenter childCenter
+            Egg egg
     ){
         this.volunteer = volunteer;
         this.child = child;
-        this.childCenter = childCenter;
+        this.egg = egg;
     }
 }
