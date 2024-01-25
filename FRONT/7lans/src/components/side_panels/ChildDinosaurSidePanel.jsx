@@ -91,7 +91,7 @@ const DetailParagraph = styled.p`
   margin-bottom: 10px;
 `;
 
-const DinosaurSidePanel = () => {
+const ChildDinosaurSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
 
   const renderSidePanel = () => {
@@ -103,7 +103,7 @@ const DinosaurSidePanel = () => {
             <ProfileImage src="./anonymous.jpg" alt="" />
           </InnerContainer>
           <InfoContainer>
-            <NameHeader>박주헌 봉사자님</NameHeader>
+            <NameHeader>박주헌 학생</NameHeader>
             <DetailContainer>
               <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} />741u741@naver.com</DetailParagraph>
               <DetailParagraph><FaPhone style={{ marginRight: '10px' }} />010-2812-2515</DetailParagraph>
@@ -126,4 +126,4 @@ const DinosaurSidePanel = () => {
   );
 };
 
-export default DinosaurSidePanel;
+export default ChildDinosaurSidePanel;
