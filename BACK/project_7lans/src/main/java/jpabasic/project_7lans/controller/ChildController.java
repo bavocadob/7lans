@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.controller;
 
+import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.service.ChildService;
@@ -29,6 +30,19 @@ public class ChildController {
             List<VolunteerResponseDto.list> volunteers = childService.volunteerList(childId);
             return new ResponseEntity<List<VolunteerResponseDto.list>>(volunteers, HttpStatus.OK);
 
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/child/{childId}")
+    public ResponseEntity<?> childDetail(@PathVariable("childId") Long childId){
+        try{
+
+            ChildResponseDto.detail child = childService.childDetail(childId);
+            return new ResponseEntity<ChildResponseDto.detail>(child, HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();

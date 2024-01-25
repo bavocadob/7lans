@@ -42,17 +42,7 @@ public class VolunteerController {
         }
     }
 
-    @GetMapping("/child/{childId}")
-    public ResponseEntity<?> childDetail(@PathVariable("childId") Long childId){
-        try{
-            ChildResponseDto.detail child = memberService.childDetailById(ChildRequestDto.detailById.builder()
-                    .childId(childId).build());
 
-            return new ResponseEntity<ChildResponseDto.detail>(child, HttpStatus.OK);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+
+
 }
