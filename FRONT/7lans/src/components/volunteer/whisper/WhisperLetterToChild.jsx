@@ -14,20 +14,20 @@ const TextArea = styled.textarea`
   font-size: 16px;
   color: #060606;
   background-color: #f9f8f8;
-  width: 40%;
+  width: 100%;
   resize: none;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   &::placeholder {
-    font-size: 20px;
+    font-size: 16px; /* 플레이스홀더 글자 크기 수정 */
   }
   &:focus {
     outline: none;
-    border-color: #1d9bf0;
+    border-color: #1df095;
   }
 `;
 
-const WhisperLetter = () => {
+const WhisperLetterToChild = () => {
   const onChange = () => {};
   const onSubmit = () => {};
 
@@ -38,10 +38,10 @@ const WhisperLetter = () => {
         rows={5}
         maxLength={180}
         onChange={onChange}
-        placeholder="편지를 작성해주세요"
+        placeholder="편지를 작성해 주세요"
       />
     </Letter>
   );
 };
 
-export default WhisperLetter;
+export default WhisperLetterToChild;

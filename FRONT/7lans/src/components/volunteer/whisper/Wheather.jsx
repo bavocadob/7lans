@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
 
-const Wheather = () => {
+const Weather = () => {
   return (
-    <div>Wheather</div>
-  )
-}
+    <div>
+      <span role="img" aria-label="날씨">
+        그때의 날씨 ☀️
+      </span>{" "}
+      {/* 날씨 이모티콘 */}
+    </div>
+  );
+};
 
-export default Wheather
+export default Weather;
