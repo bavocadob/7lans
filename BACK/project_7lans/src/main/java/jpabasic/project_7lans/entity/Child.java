@@ -41,6 +41,11 @@ public class Child extends Member {
         this.specialContent = specialContent;
     }
 
+    public void addChildRelation(ChildRelation childRelation){
+        childRelations.add(childRelation);
+        //childRelation.setChild(this);
+    }
+
 
     // ==============================================================================================
     // 생성자

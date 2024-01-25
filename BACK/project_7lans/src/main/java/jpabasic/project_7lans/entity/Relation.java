@@ -42,7 +42,22 @@ public class Relation {
     @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)
     private List<Whisper> whisperList = new ArrayList<>();
 
+    // =================================================
+    // 메소드
+    public void addCenterRelation(CenterRalation centerRalation){
+        centerRalationList.add(centerRalation);
+        //centerRalation.setRelation(this);
+    }
 
+    public void addMeetingSchedule(MeetingSchedule meetingSchedule){
+        meetingScheduleList.add(meetingSchedule);
+        //meetingSchedule.setRelation(this);
+    }
+
+    public void addWhisperList(Whisper whisper){
+        whisperList.add(whisper);
+        //whisper.setRelation(this);
+    }
     @Builder
     public Relation(
             Volunteer volunteer,

@@ -28,7 +28,10 @@ public class Volunteer extends Member{
 
     // ================================================================================================
     // 메서드
-
+    public void addVolunteerRelation(VolunteerRelation volunteerRelation){
+        volunteerRelations.add(volunteerRelation);
+        //volunteerRelation.setVolunteer(this);
+    }
 
     // ================================================================================================
     // 생성자
