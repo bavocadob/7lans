@@ -23,16 +23,16 @@ const PageContainer = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 80%;
-  height: 500px;
+  width: 70%;
+  height: 70%;
   position: relative;
 `;
 
 const Container = styled.div`
   padding-top: 15%;
   display: flex;
-  width: 100%;
-  max-width: 1200px;
+  width: 80%;
+  max-width: 80%;
   justify-content: center;
   position: absolute;
   top: 50%;
@@ -42,7 +42,7 @@ const Container = styled.div`
 const FormToChild = styled.div`
   padding: 20px;
   width: 30%;
-  height: 600px;
+  height: 30%;
   font-family: Arial, sans-serif;
   margin-right: 80px;
 `;
