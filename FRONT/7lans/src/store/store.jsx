@@ -1,22 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import chatSlice from "./chatSlice";
 
 const store = configureStore({
     reducer: {
-
+        chat: chatSlice,
     },
 })
 
 export default store
-
-
-// reducer 사용예시
-// import { configureStore } from "@reduxjs/toolkit";
-// import userReducer from './userSlice';
-// import chatRoomReducer from './chatRoomSlice';
-
-// export const store = configureStore({
-//     reducer: {
-//         user: userReducer,
-//         chatRoom: chatRoomReducer
-//     }
-// }) 
