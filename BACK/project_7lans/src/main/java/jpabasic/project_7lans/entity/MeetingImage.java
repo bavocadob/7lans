@@ -1,10 +1,7 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
@@ -13,6 +10,7 @@ public class MeetingImage {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     private MeetingSchedule meetingSchedule;
 
@@ -20,10 +18,8 @@ public class MeetingImage {
 
     @Builder
     public MeetingImage(
-            MeetingSchedule meetingSchedule,
             String imgPath
     ){
-        this.meetingSchedule = meetingSchedule;
         this.imgPath = imgPath;
     }
 }

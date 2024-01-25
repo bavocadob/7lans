@@ -2,10 +2,7 @@ package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +14,7 @@ public class MeetingSchedule {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     private Relation relation;
 
@@ -41,7 +39,7 @@ public class MeetingSchedule {
         this.ScheduledEndTime = time;
     }
 
-    private void setEndtime(LocalDateTime time){
+    private void setEndTime(LocalDateTime time){
         this.ScheduledEndTime = time;
     }
 
@@ -49,32 +47,35 @@ public class MeetingSchedule {
         this.status = status;
     }
 
-    public void changeThumnail(String thumnail){
-        this.thumbnailImgPath = thumnail;
+    public void changeThumbnail(String thumbnail){
+        this.thumbnailImgPath = thumbnail;
     }
 
     public static MeetingSchedule create(Relation relation, LocalDateTime startTime, LocalDateTime endTime) {
         MeetingSchedule newMeeting = new MeetingSchedule();
         newMeeting.setStartTime(startTime);
-        newMeeting.setEndtime(endTime);
+        newMeeting.setEndTime(endTime);
         newMeeting.setStatus(ScheduleType.SCHEDULED);
 
         return newMeeting;
     }
     @Builder
     public MeetingSchedule(
-            Relation relation,
             LocalDateTime ScheduledStartTime,
             LocalDateTime ScheduledEndTime,
             String thumbnailImgPath,
             ActivityLog activityLog
     ){
-        this.relation = relation;
         this.ScheduledStartTime = ScheduledStartTime;
         this.ScheduledEndTime = ScheduledEndTime;
         this.status = ScheduleType.CLOSED; // 미팅 스케줄 잡힌 직후는 닫힌 상태이다.
         this.thumbnailImgPath = thumbnailImgPath;
         this.activityLog = activityLog;
         this.meetingUrl = null;
+    }
+
+    public void addMeetingImage(MeetingImage meetingImage) {
+        this.meetingImageList.add(meetingImage);
+        meetingImage.setMeetingSchedule(this);
     }
 }

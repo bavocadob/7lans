@@ -50,8 +50,8 @@ public class MeetingServiceImpl implements MeetingService{
     }
 
     //썸네일 수정
-    public void changeThumnail(MeetingSchedule meetingSchedule, String thumnail){
-        meetingSchedule.changeThumnail(thumnail);
+    public void changeThumbnail(MeetingSchedule meetingSchedule, String thumnail){
+        meetingSchedule.changeThumbnail(thumnail);
     }
 
 

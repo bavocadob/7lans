@@ -1,10 +1,7 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +15,7 @@ public class Whisper {
     @OneToOne
     private Member writer;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     private Relation relation;
 
