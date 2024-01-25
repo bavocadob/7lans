@@ -2,6 +2,7 @@ package jpabasic.project_7lans.service;
 
 
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
+import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.Child;
 import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.entity.Volunteer;
@@ -25,7 +26,7 @@ public class VolunteerServiceImpl implements VolunteerService{
     @Override
     public List<ChildResponseDto.list> childList(Long volunteerId) {
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
-                .orElseThrow(()-> new IllegalArgumentException("[MemberServiceImpl.deleteMember] 해당 Id와 일치하는 Volunteer가 존재하지 않습니다."));
+                .orElseThrow(()-> new IllegalArgumentException("[VolunteerServiceImpl.childList] 해당 Id와 일치하는 Volunteer가 존재하지 않습니다."));
 
         //List<Relation> relations = relationRepository.findByVolunteer(volunteer);
         List<VolunteerRelation> relations = volunteer.getVolunteerRelations();
@@ -45,5 +46,20 @@ public class VolunteerServiceImpl implements VolunteerService{
         }
 
         return children;
+    }
+
+    @Override
+    public VolunteerResponseDto.detail volunteerDetail(Long volunteerId) {
+        Volunteer volunteer = volunteerRepository.findById(volunteerId)
+                .orElseThrow(()-> new IllegalArgumentException("[VolunteerServiceImpl.volunteerDetail] 해당 Id와 일치하는 Volunteer가 존재하지 않습니다."));
+        return VolunteerResponseDto.detail.builder()
+                .volunteerId(volunteer.getId())
+                .volunteerEmail(volunteer.getEmail())
+                .volunteerName(volunteer.getName())
+                .volunteerPhoneNumber(volunteer.getPhoneNumber())
+                .volunteerBirth(volunteer.getBirth())
+                .volunteerProfileImagePath(volunteer.getProfileImgPath())
+                .volunteerEnterDate(volunteer.getEnterDate())
+                .build();
     }
 }

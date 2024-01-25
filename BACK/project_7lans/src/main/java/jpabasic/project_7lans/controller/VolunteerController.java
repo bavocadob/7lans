@@ -2,6 +2,7 @@ package jpabasic.project_7lans.controller;
 
 import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
+import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.Child;
 import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.service.RelationService;
@@ -24,7 +25,6 @@ import java.util.List;
 public class VolunteerController {
 
     private final VolunteerService volunteerService;
-    private final MemberService memberService;
 
     //봉사자의 아동 리스트 반환
     @GetMapping("/list/{volunteerId}")
@@ -42,6 +42,18 @@ public class VolunteerController {
         }
     }
 
+    //봉사자 상세보기
+    @GetMapping("/{volunteerId}")
+    public ResponseEntity<?> volunteerDetail(@PathVariable("volunteerId") Long volunteerId){
+        try{
+            VolunteerResponseDto.detail volunteer = volunteerService.volunteerDetail(volunteerId);
+            return new ResponseEntity<VolunteerResponseDto.detail>(volunteer, HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 

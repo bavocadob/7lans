@@ -37,7 +37,8 @@ public class ChildController {
         }
     }
 
-    @GetMapping("/child/{childId}")
+    //아동 상세보기
+    @GetMapping("/{childId}")
     public ResponseEntity<?> childDetail(@PathVariable("childId") Long childId){
         try{
 
