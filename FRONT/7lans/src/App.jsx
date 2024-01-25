@@ -1,7 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import EntryPage from './pages/EntryPage'
+
 import DinosaurDictPage from './pages/DinosaurDictPage'
+import ReactCalendar from './components/volunteer/ReactCalendar'
 import VolunteerMainPage from './pages/volunteer_pages/VolunteerMainPage'
 import StartPage from './pages/volunteer_pages/StartPage'
 import ActiveDoc from './pages/volunteer_pages/ActiveDoc'
@@ -24,6 +26,9 @@ function App() {
         <Route path='/volunteer_active_doc' element={<ActiveDoc/>} />
         <Route path='/volunteer_whispher' element={<WhisperPage/>} />
         <Route path='/volunteer_raise_egg' element={<RaiseEggPage/>} />
+
+        <Route path='/calendar' element={<ReactCalendar/>} />
+
       </Routes>
     </>
   )
