@@ -2,17 +2,21 @@ import React from "react";
 import styled from "styled-components";
 
 const TitleContainer = styled.div`
+  border: solid black 2px;
   display: flex;
   align-items: center;
+  flex-direction: row; /* 가로 방향으로 정렬되도록 수정 */
 `;
 
 const Label = styled.label`
-  margin-right: 10px;
+  padding-left: 3%;
+  width: 20%;
 `;
 
 const Input = styled.input`
   border: none;
-  border-bottom: 1px solid black;
+  border-left: solid 2px black;
+  width: 100%;
   padding: 5px;
 `;
 
