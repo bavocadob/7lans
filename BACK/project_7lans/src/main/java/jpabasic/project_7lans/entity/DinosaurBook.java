@@ -25,6 +25,10 @@ public class DinosaurBook {
             Member member
     ){
         this.member = member;
+    }
 
+    public void addDinosaurCollection(DinosaurCollection collection) {
+        this.dinosaurCollection.add(collection);
+        collection.setDinosaurBook(this);
     }
 }
