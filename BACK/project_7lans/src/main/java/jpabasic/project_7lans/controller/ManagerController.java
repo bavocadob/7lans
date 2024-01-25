@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/manager")
 @RequiredArgsConstructor
-public class managerController {
+public class ManagerController {
 
     private final ChildCenterService childCenterService;
     
