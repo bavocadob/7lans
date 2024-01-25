@@ -25,8 +25,6 @@ public class ChildController {
     @GetMapping("/list/{childId}")
     public ResponseEntity<List<VolunteerResponseDto.list>> volunteerList(@PathVariable("childId") Long childId){
         try{
-
-            //List<ChildResponseDto.list> children = volunteerService.childList(volunteerId);
             List<VolunteerResponseDto.list> volunteers = childService.volunteerList(childId);
             return new ResponseEntity<List<VolunteerResponseDto.list>>(volunteers, HttpStatus.OK);
 
