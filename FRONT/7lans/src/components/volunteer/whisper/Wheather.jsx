@@ -1,9 +1,20 @@
-import React from 'react'
+import React from "react";
+import styled from "styled-components";
 
-const Wheather = () => {
+const WheaterDiv = styled.div`
+  text-align: center;
+  align-content: center;
+`;
+
+const Weather = () => {
   return (
-    <div>Wheather</div>
-  )
-}
+    <WheaterDiv>
+      <span role="img" aria-label="날씨">
+        그때의 날씨 ☀️
+      </span>{" "}
+      {/* 날씨 이모티콘 */}
+    </WheaterDiv>
+  );
+};
 
-export default Wheather
+export default Weather;

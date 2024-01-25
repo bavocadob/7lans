@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import DinosaurSidePanel from '../components/side_panels/DinosaurSidePanel';
 import { Link } from 'react-router-dom';
-import NormalNav from '../components/navs/NormalNav';
+import ChildNormalNav from '../components/navs/ChildNormalNav';
+import ChildDinosaurSidePanel from '../components/side_panels/ChildDinosaurSidePanel';
 
 
-const DinosaurDictPage = () => {
+const ChildDinosaurDictPage = () => {
   return (
     <>
     <div style={{
@@ -14,10 +14,10 @@ const DinosaurDictPage = () => {
       height: '100vh',
       width: '100vw',
     }}>
-      <NormalNav />
+      <ChildNormalNav />
       <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
         <div style={{height: '100%',borderRadius: '20px', backgroundColor: 'rgb(255, 255, 255)'}}>
-          <DinosaurSidePanel />
+          <ChildDinosaurSidePanel />
         </div>
       </div>
     </div>
@@ -25,4 +25,4 @@ const DinosaurDictPage = () => {
   );
 };
 
-export default DinosaurDictPage;
+export default ChildDinosaurDictPage;

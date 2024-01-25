@@ -1,7 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom';
-
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const NavBar = styled.nav`
   position: relative;
@@ -17,15 +16,14 @@ const LogoImage = styled.img`
   margin-top: 15px;
 `;
 
-
 const NormalNav = () => {
   return (
-      <NavBar>
-        <Link to="/volunteer_main">
-          <LogoImage src="./7lans_logo.png" alt="logo" />
-        </Link>
-      </NavBar>
-  )
-}
+    <NavBar className="shadow">
+      <Link to="/volunteer_main">
+        <LogoImage src="./7lans_logo.png" alt="logo" />
+      </Link>
+    </NavBar>
+  );
+};
 
-export default NormalNav
+export default NormalNav;

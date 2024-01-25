@@ -6,7 +6,7 @@ const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  max-width: 300px;
+  width: 350px;
   border-radius: 20px 0 0 20px;
   height: 100%;
   
@@ -28,8 +28,8 @@ const InnerContainer = styled.div`
 const CloseButton = styled.button`
   position: absolute;
   left: 85%;
-  top: 5%;
   border-radius: 25px;
+  border: none;
   background-color: rgb(255, 248, 223);
   font-weight: bold;
   color: rgb(240, 165, 8);
@@ -41,10 +41,10 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 12%;
-  top: 8%;
-  height: 11rem;
-  width: 11rem;
+  left: 25%;
+  top: 2%;
+  height: 9rem;
+  width: 9rem;
   border-radius: 100px;
   border: 5px solid rgb(0, 0, 0);
   
@@ -105,18 +105,16 @@ const CommonSidePanel = () => {
           <InfoContainer>
             <NameHeader>박주헌 봉사자님</NameHeader>
             <DetailContainer>
-              <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} />741u741@naver.com</DetailParagraph>
-              <DetailParagraph><FaPhone style={{ marginRight: '10px' }} />010-2812-2515</DetailParagraph>
-              <DetailParagraph><FaHome style={{ marginRight: '10px' }} />SSAFY 보듬 센터</DetailParagraph>
-              <DetailParagraph><FaClock style={{ marginRight: '10px' }} />2024.01.24</DetailParagraph>
-              <DetailParagraph><FaBirthdayCake style={{ marginRight: '10px' }} />1995.08.03</DetailParagraph>
+
             </DetailContainer>
           </InfoContainer>
         </StyledCommonSidePanel>
       );
     } else {
       return (
-        <button style={{ borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
+        <div style={{backgroundColor: 'rgb(255, 255, 255)', borderRadius: '20px 0 0 20px'}}>
+          <button style={{height: '25px', borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem', border: 'none' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
+        </div>
       );
     }
   };
