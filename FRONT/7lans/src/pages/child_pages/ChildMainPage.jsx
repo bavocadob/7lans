@@ -54,7 +54,7 @@ const ChildMainPage = () => {
     <Container>
       <header>
         <LogoImage src='./7lans_logo.png' />
-        <Link to={'/dinosaur_dict'}>공룡도감</Link>
+        <Link to={'/child_dinosaur_dict'}>공룡도감</Link>
         <Link to={'/'}>로그아웃</Link>
       </header>
       <span>

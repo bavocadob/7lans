@@ -16,6 +16,7 @@ import ChildStartPage from './pages/child_pages/ChildStartPage'
 import ChildVideoChattingStartPage from './pages/child_pages/ChildVideoChattingStartPage'
 import ChildWhisperPage from './pages/child_pages/ChildWhisperPage'
 import ChildRaiseEggPage from './pages/child_pages/ChildRaiseEggPage'
+import ChildDinosaurDictPage from './pages/ChildDinosaurDictPage'
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
         <Route path='/volunteer_raise_egg' element={<RaiseEggPage/>} />
 
         <Route path='/child_main' element={<ChildMainPage/>} />
-        <Route path='/dinosaur_dict' element={<DinosaurDictPage/>} />
+        <Route path='/child_dinosaur_dict' element={<ChildDinosaurDictPage/>} />
         <Route path='/child_start' element={<ChildStartPage/>} />
         <Route path='/child_video_chatting_start' element={<ChildVideoChattingStartPage/>} />
         <Route path='/child_whispher' element={<ChildWhisperPage/>} />
