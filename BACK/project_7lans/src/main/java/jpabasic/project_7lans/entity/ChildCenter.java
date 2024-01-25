@@ -23,31 +23,31 @@ public class ChildCenter {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "childCenter", cascade = CascadeType.ALL)
-    private List<CenterRalation> centerRalationList = new ArrayList<>();
+    private List<CenterRelation> centerRelationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "childCenter", cascade = CascadeType.ALL)
     private List<CenterActivityLog> centerActivityLogList = new ArrayList<>();
 
-    public void changeName(String name) {
-        this.name = name;
+    public void addCenterRelation(CenterRelation centerRelation){
+        centerRelation.setChildCenter(this);
+        this.centerRelationList.add(centerRelation);
     }
 
-    public void changeAddress(String address) {
-        this.address = address;
-    }
-
-    public void changePhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void addCenterActivityLog (CenterActivityLog centerActivityLog){
+        centerActivityLog.setChildCenter(this);
+        this.centerActivityLogList.add(centerActivityLog);
     }
 
     @Builder
-    public ChildCenter(
+    public static ChildCenter createChildCenter (
             String name,
             String address,
             String phoneNumber
     ){
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+        return ChildCenter.builder()
+                .name(name)
+                .address(address)
+                .phoneNumber(phoneNumber)
+                .build();
     }
 }

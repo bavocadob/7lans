@@ -21,7 +21,7 @@ public class Manager extends Member{
     @NotNull(message = "[Manager] childCenter 은 Null 일 수 없습니다.")
     private ChildCenter childCenter;
 
-    private boolean approvedStatus;
+    private boolean approvedStatus = false;
 
     public void changeChildCenter(ChildCenter childCenter) {
         this.childCenter = childCenter;
@@ -32,7 +32,7 @@ public class Manager extends Member{
     }
 
     @Builder
-    public Manager(
+    public static Manager createManager(
             String email,
             String name,
             String password,
@@ -40,15 +40,13 @@ public class Manager extends Member{
             LocalDate birth,
             ChildCenter childCenter
     ){
-        super(
-                email,
-                name,
-                password,
-                phoneNumber,
-                birth,
-                null
-        );
-        this.childCenter = childCenter;
-        this.approvedStatus = false;
+        return Manager.builder()
+                .email(email)
+                .name(name)
+                .password(password)
+                .phoneNumber(phoneNumber)
+                .birth(birth)
+                .childCenter(childCenter)
+                .build();
     }
 }

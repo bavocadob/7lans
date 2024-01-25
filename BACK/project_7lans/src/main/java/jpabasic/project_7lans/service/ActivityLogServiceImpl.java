@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.service;
 
 import jpabasic.project_7lans.entity.ActivityLog;
+import jpabasic.project_7lans.entity.CenterActivityLog;
 import jpabasic.project_7lans.entity.ChildCenter;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.repository.ActivityLogRepository;
@@ -21,7 +22,7 @@ public class ActivityLogServiceImpl {
     //일지 생성
     @Transactional
     public void createActivityLog(MeetingSchedule meeting, LocalDateTime startTime, LocalDateTime endTime){
-        ActivityLog activityLog = ActivityLog.create(meeting, startTime, endTime);
+        ActivityLog activityLog = ActivityLog.createActivityLog(startTime, endTime);
         activityLogRepository.save(activityLog);
     }
 
@@ -29,7 +30,7 @@ public class ActivityLogServiceImpl {
     @Transactional
     public void updateContent(Long activityId, String content){
         ActivityLog activityLog = activityLogRepository.findById(activityId).orElseThrow(() -> new IllegalArgumentException("no such data"));
-        activityLog.updateContent(content);
+        activityLog.changeContent(content);
     }
 
     //해당 미팅에 해당하는 일지 조회
