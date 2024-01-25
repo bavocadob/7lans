@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   height: 10vh;
-  width: 160px;
   background-image: url('/post_it.png');
   background-size: cover;
   background-position: center;

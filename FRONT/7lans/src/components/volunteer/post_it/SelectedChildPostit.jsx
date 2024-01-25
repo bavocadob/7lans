@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  height: 10vh;
-  background-image: url('/selected_post_it.png');
+  height: 20vh;
+  background-image: url('/selected_child_post_it.png');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -18,21 +18,20 @@ const Container = styled.div`
   cursor: pointer;
 `;
 
-const SelectedPostit = (props) => {
+const SelectedChildPostit = (props) => {
 
   const navigate = {
-    '/volunteer_video_chatting_start': '화상채팅',
-    '/volunteer_active_doc':' 활동일지',
-    '/volunteer_whispher': '속닥속닥',
-    '/volunteer_raise_egg': '알키우기',
+    '/child_video_chatting_start': '화상채팅',
+    '/child_whispher': '속닥속닥',
+    '/child_raise_egg': '알키우기',
   }
-  const valounteerAddress = props.message
+  const childAddress = props.message
   
   return (
     <Container>
-        {navigate[valounteerAddress]}
+        {navigate[childAddress]}
     </Container>
   )
 }
 
-export default SelectedPostit
+export default SelectedChildPostit
