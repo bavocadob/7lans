@@ -11,12 +11,14 @@ import jpabasic.project_7lans.entity.*;
 import jpabasic.project_7lans.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
@@ -24,11 +26,22 @@ public class MemberServiceImpl implements MemberService{
     private final VolunteerRepository volunteerRepository;
     private final ManagerRepository managerRepository;
     private final ChildCenterRepository childCenterRepository;
-    private final ChildVolunteerRelationRepository childVolunteerRelationRepository;
+    private final RelationRepository relationRepository;
 
-
+//=========================================
+    //회원가입
     @Override
-    public void childRegister(ChildRequestDto.register childRegisterDto) {
+    public void childRegister(MemberRequestDto.sign memberDto) {
+
+        ChildRequestDto.register childRegisterDto = ChildRequestDto.register.builder()
+                .childEmail(memberDto.getMemberEmail())
+                .childName(memberDto.getMemberName())
+                .childPassword(memberDto.getMemberPassword())
+                .childPhoneNumber(memberDto.getMemberPhoneNumber())
+                .childBirth(memberDto.getMemberbirth())
+                .childChildCenterId(10l)
+                .build();
+
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(childRegisterDto.getChildEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
@@ -50,7 +63,16 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void volunteerRegister(VolunteerRequestDto.register volunteerRegisterDto) {
+    @Transactional
+    public void volunteerRegister(MemberRequestDto.sign memberDto) {
+
+        VolunteerRequestDto.register volunteerRegisterDto = VolunteerRequestDto.register.builder()
+                .volunteerEmail(memberDto.getMemberEmail())
+                .volunteerName(memberDto.getMemberName())
+                .volunteerPassword(memberDto.getMemberPassword())
+                .volunteerPhoneNumber(memberDto.getMemberPhoneNumber())
+                .volunteerBirth(memberDto.getMemberbirth())
+                .build();
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(volunteerRegisterDto.getVolunteerEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
@@ -68,7 +90,16 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void managerRegister(ManagerRequestDto.register managerRegisterDto) {
+    public void managerRegister(MemberRequestDto.sign memberDto) {
+
+        ManagerRequestDto.register managerRegisterDto = ManagerRequestDto.register.builder()
+                .managerEmail(memberDto.getMemberEmail())
+                .managerName(memberDto.getMemberName())
+                .managerPassword(memberDto.getMemberPassword())
+                .managerPhoneNumber(memberDto.getMemberPhoneNumber())
+                .managerBirth(memberDto.getMemberbirth())
+                .managerChildCenterId(10l)
+                .build();
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(managerRegisterDto.getManagerEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
@@ -89,6 +120,20 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(manager);
     }
 
+    //================================================================================
+    //로그인
+    @Override
+    public Member login(MemberRequestDto.login memberRegisterDto) {
+
+        Member findMember = memberRepository.findByEmail(memberRegisterDto.getMemberEmail())
+                .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.login] 존재하지 않는 멤버 Email입니다."));
+        return findMember;
+    }
+
+
+
+    //================================================================================
+    //조회
     @Override
     public ChildResponseDto.detail childDetailById(ChildRequestDto.detailById childDto) {
         Child child = childRepository.findById(childDto.getChildId())
@@ -176,7 +221,7 @@ public class MemberServiceImpl implements MemberService{
         Child child = childRepository.findById(childDto.getChildId())
                 .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.volunteerListByChildId] 해당 아동 ID에 일치하는 아동이 존재하지 않습니다."));
 
-        List<Relation> relationList = childVolunteerRelationRepository.findByChild(child);
+        List<Relation> relationList = relationRepository.findByChild(child);
         List<VolunteerResponseDto.detail> relationDtoList = new ArrayList<>();
 
         for(Relation relation: relationList){
@@ -281,4 +326,6 @@ public class MemberServiceImpl implements MemberService{
         if(memberDto.getMemberPassword().equals(member.getPassword()))
             memberRepository.delete(member);
     }
+
+
 }

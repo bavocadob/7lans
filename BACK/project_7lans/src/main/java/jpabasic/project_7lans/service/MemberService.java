@@ -8,6 +8,7 @@ import jpabasic.project_7lans.dto.member.MemberRequestDto;
 import jpabasic.project_7lans.dto.member.MemberResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
+import jpabasic.project_7lans.entity.Member;
 
 import java.util.List;
 
@@ -17,13 +18,17 @@ public interface    MemberService {
     // 회원가입
 
     // 아동 회원가입
-    public void childRegister(ChildRequestDto.register childRegisterDto);
+    public void childRegister(MemberRequestDto.sign memberDto);
 
     // 봉사자 회원가입
-    public void volunteerRegister(VolunteerRequestDto.register volunteerRegisterDto);
+    public void volunteerRegister(MemberRequestDto.sign memberDto);
 
     // 관리자 회원가입
-    public void managerRegister(ManagerRequestDto.register managerRegisterDto);
+    public void managerRegister(MemberRequestDto.sign memberDto);
+
+    //===============================================================================
+    //로그인
+    public Member login(MemberRequestDto.login memberRegisterDto);
 
     // ===============================================================================
     // 조회

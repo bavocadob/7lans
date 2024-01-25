@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RelationRepositoryTest {
 
     @Autowired
-    ChildVolunteerRelationRepository repository;
+    RelationRepository repository;
 
     @Autowired
     MemberRepository memberRepository;
