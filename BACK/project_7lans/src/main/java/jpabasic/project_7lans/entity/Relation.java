@@ -44,8 +44,8 @@ public class Relation {
 
     // =================================================
     // 메소드
-    public void addCenterRelation(CenterRalation centerRalation){
-        centerRalationList.add(centerRalation);
+    public void addCenterRelation(CenterRelation centerRalation){
+        centerRelationList.add(centerRalation);
         //centerRalation.setRelation(this);
     }
 
