@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,20 +13,26 @@ public class Egg {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean volunteerCheck;
+    private boolean volunteerCheck = false;
 
-    private boolean childCheck;
+    private boolean childCheck = false;
+
+    private Integer experience = 0;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private Dinosaur dinosaur;
 
+    public void addExperience(Integer exp){
+        this.experience += exp;
+    }
+
     @Builder
-    public Egg(
+    public static Egg createEgg(
             Dinosaur dinosaur
     ){
-        this.volunteerCheck = false;
-        this.childCheck = false;
-        this.dinosaur = dinosaur;
+        return Egg.builder()
+                .dinosaur(dinosaur)
+                .build();
     }
 }

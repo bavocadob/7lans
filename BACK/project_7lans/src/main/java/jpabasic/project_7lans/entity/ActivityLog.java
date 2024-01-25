@@ -12,6 +12,7 @@ public class ActivityLog {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @OneToOne(mappedBy = "activityLog", fetch = FetchType.LAZY)
     private MeetingSchedule meetingSchedule;
 
@@ -19,60 +20,22 @@ public class ActivityLog {
 
     private LocalDateTime realEndTime;
 
-    private String content;
+    private String content = null;
 
-    private boolean approveStatus;
+    private boolean approveStatus = false;
 
 
-    private void setMeetingSchedule(MeetingSchedule meetingSchedule){
-        this.meetingSchedule = meetingSchedule;
+    public void changeContent(String newContent){
+        this.content = newContent;
     }
 
-    private void setRealStartTime(LocalDateTime startTime){
-        this.realStartTime = startTime;
-    }
-
-    private void setRealEndTime(LocalDateTime endTime){
-        this.realEndTime = endTime;
-    }
-
-    private void initApproveStatus(){
-        this.approveStatus = false;
-    }
-
-
-    public static ActivityLog create(MeetingSchedule meeting, LocalDateTime startTime, LocalDateTime endTime){
-        ActivityLog newLog = new ActivityLog();
-        newLog.setMeetingSchedule(meeting);
-        newLog.setRealStartTime(startTime);
-        newLog.setRealEndTime(endTime);
-        newLog.initApproveStatus();
-
-       // ChildCenter center = meeting.getRelation().getChildCenter();
-        //newLog.setCenter(center);
-
-
-        return newLog;
-    }
-
-    public void updateContent(String content){
-        this.content = content;
+    public void changeTime(LocalDateTime realStartTime, LocalDateTime realEndTime){
+        this.realStartTime = realStartTime;
+        this.realEndTime = realEndTime;
     }
 
     public void changeMeetingSchedule(MeetingSchedule meetingSchedule){
         this.meetingSchedule = meetingSchedule;
-    }
-
-    public void changeRealStartTime(LocalDateTime realStartTime){
-        this.realStartTime = realStartTime;
-    }
-
-    public void changeRealEndTime(LocalDateTime realEndTime){
-        this.realEndTime = realEndTime;
-    }
-
-    public void changeContent(String content){
-        this.content = content;
     }
 
     public void approve(){
@@ -84,11 +47,12 @@ public class ActivityLog {
     }
 
     @Builder
-    public ActivityLog(MeetingSchedule meetingSchedule, LocalDateTime realStartTime, LocalDateTime realEndTime, String content){
-        this.meetingSchedule = meetingSchedule;
-        this.realStartTime = realStartTime;
-        this.realEndTime = realEndTime;
-        this.content = content;
-        this.approveStatus = false; // 작성 후의 기본적인 상태는 미승인(false)
+    public static ActivityLog createActivityLog(
+            LocalDateTime startTime, LocalDateTime endTime
+    ){
+        return ActivityLog.builder()
+                .startTime(startTime)
+                .endTime(endTime)
+                .build();
     }
 }

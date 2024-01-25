@@ -13,8 +13,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@Builder
 @DiscriminatorValue("CHILD")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @PrimaryKeyJoinColumn(name="CHILD_ID")
 public class Child extends Member {
     // ==============================================================================================
@@ -45,7 +45,6 @@ public class Child extends Member {
     // ==============================================================================================
     // 생성자
 
-    @Builder
     public Child(
             String email,
             String name,
