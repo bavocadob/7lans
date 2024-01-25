@@ -21,21 +21,23 @@ public class Whisper {
 
     private String content;
 
-    private LocalDateTime createDate;
+    private LocalDateTime createDate = LocalDateTime.now();
 
-    private boolean readStatus;
+    private boolean readStatus = false;
+
+    public void changeReadStatusApprove(Member reader){
+        if(!writer.equals(reader)) readStatus = true;
+    }
 
     @Builder
-    public Whisper(
+    public static Whisper createWhisper(
             Member writer,
-            Relation relation,
             String content
     ){
-        this.writer = writer;
-        this.relation = relation;
-        this.content = content;
-        this.createDate = LocalDateTime.now(); // 작성 했을 때의 기본 시간
-        this.readStatus = false; // 작성 후의 기본 상태는 false(읽지 않음) 상태이다.
+        return Whisper.builder()
+                .writer(writer)
+                .content(content)
+                .build();
     }
 
 
