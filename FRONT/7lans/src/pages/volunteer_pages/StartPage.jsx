@@ -23,10 +23,10 @@ const StartPage = () => {
             body
           </div>
           <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
-            <PostIt/>
-            <PostIt/>
-            <PostIt/>
-            <PostIt/>
+            <PostIt message={'/volunteer_video_chatting_start'}/>
+            <PostIt message={'/volunteer_active_doc'}/>
+            <PostIt message={'/volunteer_whispher'}/>
+            <PostIt message={'/volunteer_raise_egg'}/>
           </div>
         </div>
           <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', right: '2%', top: '10rem'}}>

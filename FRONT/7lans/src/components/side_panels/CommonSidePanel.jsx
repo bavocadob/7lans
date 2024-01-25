@@ -6,7 +6,7 @@ const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  width: 250px;
+  width: 350px;
   border-radius: 20px 0 0 20px;
   height: 100%;
   
@@ -41,7 +41,7 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 10%;
+  left: 25%;
   top: 2%;
   height: 9rem;
   width: 9rem;
@@ -112,7 +112,9 @@ const CommonSidePanel = () => {
       );
     } else {
       return (
-        <button style={{height: '25px', borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem', border: 'none' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
+        <div style={{backgroundColor: 'rgb(255, 255, 255)', borderRadius: '20px 0 0 20px'}}>
+          <button style={{height: '25px', borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem', border: 'none' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
+        </div>
       );
     }
   };

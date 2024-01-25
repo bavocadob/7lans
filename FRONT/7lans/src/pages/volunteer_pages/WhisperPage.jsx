@@ -7,7 +7,7 @@ import PostIt from '../../components/volunteer/post_it/PostIt';
 import SelectedPostit from '../../components/volunteer/post_it/SelectedPostit';
 
 
-const ActiveDoc = () => {
+const WhisperPage = () => {
   return (
     <>
     <div style={{
@@ -21,12 +21,12 @@ const ActiveDoc = () => {
         <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
           <CommonSidePanel />
           <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>
-            활동일지
+            속닥속닥
           </div>
           <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
             <PostIt message={'/volunteer_video_chatting_start'}/>
-            <SelectedPostit message={'/volunteer_active_doc'}/>
-            <PostIt message={'/volunteer_whispher'}/>
+            <PostIt message={'/volunteer_active_doc'}/>
+            <SelectedPostit message={'/volunteer_whispher'}/>
             <PostIt message={'/volunteer_raise_egg'}/>
           </div>
         </div>
@@ -38,4 +38,4 @@ const ActiveDoc = () => {
   );
 };
 
-export default ActiveDoc;
+export default WhisperPage;
