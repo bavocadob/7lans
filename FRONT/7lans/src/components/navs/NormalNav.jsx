@@ -12,13 +12,14 @@ const NavBar = styled.nav`
 
 const LogoImage = styled.img`
   height: 70px;
-  margin: 15px;
+  margin-left: 40px;
+  margin-top: 15px;
 `;
 
 const NormalNav = () => {
   return (
-    <NavBar>
-      <Link to="/main">
+    <NavBar className="shadow">
+      <Link to="/volunteer_main">
         <LogoImage src="./7lans_logo.png" alt="logo" />
       </Link>
     </NavBar>

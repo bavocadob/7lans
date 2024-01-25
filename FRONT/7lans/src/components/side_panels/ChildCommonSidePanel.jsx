@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { FaEnvelope, FaPhone, FaHome, FaClock, FaBirthdayCake } from 'react-icons/fa';
 import styled from 'styled-components';
 
-const StyledDinosaurSidePanel = styled.div`
+const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  max-width: 300px;
+  width: 350px;
   border-radius: 20px 0 0 20px;
   height: 100%;
   
@@ -41,7 +41,7 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 18%;
+  left: 25%;
   top: 2%;
   height: 9rem;
   width: 9rem;
@@ -91,32 +91,30 @@ const DetailParagraph = styled.p`
   margin-bottom: 10px;
 `;
 
-const DinosaurSidePanel = () => {
+const ChildCommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
 
   const renderSidePanel = () => {
     if (sidePanelStatus) {
       return (
-        <StyledDinosaurSidePanel>
+        <StyledCommonSidePanel>
           <InnerContainer>
             <CloseButton onClick={() => setSidePanelStatus(false)}>{"<<"}</CloseButton>
             <ProfileImage src="./anonymous.jpg" alt="" />
           </InnerContainer>
           <InfoContainer>
-            <NameHeader>박주헌 봉사자님</NameHeader>
+            <NameHeader>박주헌 학생</NameHeader>
             <DetailContainer>
-              <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} />741u741@naver.com</DetailParagraph>
-              <DetailParagraph><FaPhone style={{ marginRight: '10px' }} />010-2812-2515</DetailParagraph>
-              <DetailParagraph><FaHome style={{ marginRight: '10px' }} />SSAFY 보듬 센터</DetailParagraph>
-              <DetailParagraph><FaClock style={{ marginRight: '10px' }} />2024.01.24</DetailParagraph>
-              <DetailParagraph><FaBirthdayCake style={{ marginRight: '10px' }} />1995.08.03</DetailParagraph>
+
             </DetailContainer>
           </InfoContainer>
-        </StyledDinosaurSidePanel>
+        </StyledCommonSidePanel>
       );
     } else {
       return (
-        <button style={{height: '25px', borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem', border: 'none' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
+        <div style={{backgroundColor: 'rgb(255, 255, 255)', borderRadius: '20px 0 0 20px'}}>
+          <button style={{height: '25px', borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem', border: 'none' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
+        </div>
       );
     }
   };
@@ -126,4 +124,4 @@ const DinosaurSidePanel = () => {
   );
 };
 
-export default DinosaurSidePanel;
+export default ChildCommonSidePanel;
