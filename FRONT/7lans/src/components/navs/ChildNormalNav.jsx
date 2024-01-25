@@ -20,7 +20,7 @@ const LogoImage = styled.img`
 
 const ChildNormalNav = () => {
   return (
-      <NavBar>
+      <NavBar className='shadow'>
         <Link to="/child_main">
           <LogoImage src="./7lans_logo.png" alt="logo" />
         </Link>
