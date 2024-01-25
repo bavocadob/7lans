@@ -5,6 +5,7 @@ import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.entity.Child;
 import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.entity.Volunteer;
+import jpabasic.project_7lans.entity.VolunteerRelation;
 import jpabasic.project_7lans.repository.RelationRepository;
 import jpabasic.project_7lans.repository.VolunteerRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +27,12 @@ public class VolunteerServiceImpl implements VolunteerService{
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
                 .orElseThrow(()-> new IllegalArgumentException("[MemberServiceImpl.deleteMember] 해당 Id와 일치하는 Volunteer가 존재하지 않습니다."));
 
-        List<Relation> relations = relationRepository.findByVolunteer(volunteer);
+        //List<Relation> relations = relationRepository.findByVolunteer(volunteer);
+        List<VolunteerRelation> relations = volunteer.getVolunteerRelations();
         List<ChildResponseDto.list> children = new ArrayList<>();
 
-        for(Relation relation : relations){
-            //children.add((Child) relation.getChild());
-            //dto로 변환해서 가져와야함
-            Child child = (Child) relation.getChild();
+        for(VolunteerRelation relation : relations){
+            Child child = relation.getRelation().getChild();
             children.add(ChildResponseDto.list.builder()
                     .childId(child.getId())
                     .childName(child.getName())
