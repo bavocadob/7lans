@@ -3,7 +3,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import dayjs from "dayjs"; // dayjs 라이브러리를 사용하여 현재 날짜를 가져옵니다...
+import dayjs from "dayjs"; // dayjs 라이브러리를 사용하여 현재 날짜를 가져옵니다.....
 
 function DateTime() {
   const [selectedDate, setSelectedDate] = useState(dayjs()); // 현재 날짜를 기본값으로 설정(클릭한 날짜가 나오게 수정필요)
