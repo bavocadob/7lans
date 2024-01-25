@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.dto.volunteer;
 
 import jakarta.validation.constraints.NotNull;
+import jpabasic.project_7lans.entity.Volunteer;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -80,6 +81,16 @@ public class VolunteerResponseDto {
             this.volunteerProfileImagePath = volunteerProfileImagePath;
         }
     }
+
     // ===============================================================================
-    // 수정??
+    // 생성자 메소드
+    public static VolunteerResponseDto.list toListDto(Volunteer volunteer){
+        return VolunteerResponseDto.list.builder()
+                .volunteerId(volunteer.getId())
+                .volunteerEmail(volunteer.getEmail())
+                .volunteerName(volunteer.getName())
+                .volunteerBirth(volunteer.getBirth())
+                .volunteerProfileImagePath(volunteer.getProfileImgPath())
+                .build();
+    }
 }

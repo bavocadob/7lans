@@ -9,4 +9,6 @@ public interface VolunteerService {
     public List<ChildResponseDto.list> childList(Long volunteerId);
 
     public VolunteerResponseDto.detail volunteerDetail(Long volunteerId);
+
+    public VolunteerResponseDto.list volunteerListByName(String volunteerName);
 }

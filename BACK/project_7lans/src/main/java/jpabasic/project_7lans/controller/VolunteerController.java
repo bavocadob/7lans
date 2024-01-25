@@ -55,6 +55,23 @@ public class VolunteerController {
         }
     }
 
+    @GetMapping("/search/{volunteerName}")
+    public ResponseEntity<?> volunteersearchByName(@PathVariable("volunteerName") String volunteerName){
+        try{
+            /*VolunteerResponseDto.detail volunteer = volunteerService.volunteerDetail(volunteerId);
+            return new ResponseEntity<VolunteerResponseDto.detail>(volunteer, HttpStatus.OK);*/
+
+            VolunteerResponseDto.list volunteers = volunteerService.volunteerListByName(volunteerName);
+            return null;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
 
 
 }

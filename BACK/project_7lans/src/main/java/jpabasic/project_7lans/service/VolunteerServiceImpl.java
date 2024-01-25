@@ -23,6 +23,8 @@ public class VolunteerServiceImpl implements VolunteerService{
 
     private final VolunteerRepository volunteerRepository;
     private final RelationRepository relationRepository;
+
+    //해당 봉사자의 아이 리스트
     @Override
     public List<ChildResponseDto.list> childList(Long volunteerId) {
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
@@ -48,6 +50,8 @@ public class VolunteerServiceImpl implements VolunteerService{
         return children;
     }
 
+
+    //봉사자 상세 정보
     @Override
     public VolunteerResponseDto.detail volunteerDetail(Long volunteerId) {
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
@@ -61,5 +65,17 @@ public class VolunteerServiceImpl implements VolunteerService{
                 .volunteerProfileImagePath(volunteer.getProfileImgPath())
                 .volunteerEnterDate(volunteer.getEnterDate())
                 .build();
+    }
+
+    //봉사자 이름으로 검색
+    @Override
+    public VolunteerResponseDto.list volunteerListByName(String volunteerName) {
+        List<Volunteer> volunteerList = volunteerRepository.findByNameLike(volunteerName);
+        List<VolunteerResponseDto.list> volunteers = new ArrayList<>();
+
+        for(Volunteer volunteer : volunteerList){
+            volunteers.add(VolunteerResponseDto.toListDto(volunteer));
+        }
+        return null;
     }
 }

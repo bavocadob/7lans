@@ -29,13 +29,7 @@ public class ChildServiceImpl implements ChildService {
         for (ChildRelation relation : relations) {
             Volunteer volunteer = relation.getRelation().getVolunteer();
 
-            volunteers.add(VolunteerResponseDto.list.builder()
-                    .volunteerId(volunteer.getId())
-                    .volunteerEmail(volunteer.getEmail())
-                    .volunteerName(volunteer.getName())
-                    .volunteerBirth(volunteer.getBirth())
-                    .volunteerProfileImagePath(volunteer.getProfileImgPath())
-                    .build());
+            volunteers.add(VolunteerResponseDto.toListDto(volunteer));
 
         }
         return volunteers;
