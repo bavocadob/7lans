@@ -1,6 +1,9 @@
 package jpabasic.project_7lans.dto.child;
 
 import jakarta.validation.constraints.NotNull;
+import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
+import jpabasic.project_7lans.entity.Child;
+import jpabasic.project_7lans.entity.Volunteer;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ChildResponseDto {
+
     // ===============================================================================
     // 조회
 
@@ -96,5 +100,17 @@ public class ChildResponseDto {
     }
 
     // ===============================================================================
-    // 수정??
+    // 생성 매소드
+
+    public static ChildResponseDto.list toListDto(Child child) {
+        return ChildResponseDto.list.builder()
+                .childId(child.getId())
+                .childName(child.getName())
+                .childBirth(child.getBirth())
+                .childProfileImagePath(child.getProfileImgPath())
+                .childChildCenterId(child.getChildCenter().getId())
+                .childSpecialContent(child.getSpecialContent())
+                .build();
+    }
+
 }

@@ -36,14 +36,7 @@ public class VolunteerServiceImpl implements VolunteerService{
 
         for(VolunteerRelation relation : relations){
             Child child = relation.getRelation().getChild();
-            children.add(ChildResponseDto.list.builder()
-                    .childId(child.getId())
-                    .childName(child.getName())
-                    .childBirth(child.getBirth())
-                    .childProfileImagePath(child.getProfileImgPath())
-                    .childChildCenterId(child.getChildCenter().getId())
-                    .childSpecialContent(child.getSpecialContent())
-                    .build());
+            children.add(ChildResponseDto.toListDto(child));
 
         }
 
