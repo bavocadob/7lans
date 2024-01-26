@@ -32,21 +32,25 @@ public class Manager extends Member{
     }
 
     @Builder
-    public static Manager createManager(
+    public Manager(
             String email,
             String name,
             String password,
             String phoneNumber,
             LocalDate birth,
-            ChildCenter childCenter
+            ChildCenter childCenter,
+            MemberType memberType
     ){
-        return Manager.builder()
-                .email(email)
-                .name(name)
-                .password(password)
-                .phoneNumber(phoneNumber)
-                .birth(birth)
-                .childCenter(childCenter)
-                .build();
+        super(
+                email,
+                name,
+                password,
+                phoneNumber,
+                birth,
+                null,
+                memberType
+        );
+        this.childCenter = childCenter;
+        this.approvedStatus = false;
     }
 }

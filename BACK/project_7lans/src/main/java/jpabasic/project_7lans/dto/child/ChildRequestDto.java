@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.dto.child;
 
 import jakarta.validation.constraints.NotNull;
+import jpabasic.project_7lans.entity.MemberType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,6 +49,26 @@ public class ChildRequestDto {
         }
     }
 
+    //=============================================================
+    //로그인
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class login {
+        @NotNull(message = "[ChildRequestDto.register] childEmail 은 Null 일 수 없습니다.")
+        private String childEmail;
+        @NotNull(message = "[ChildRequestDto.register] childPassword 은 Null 일 수 없습니다.")
+        private String childPassword;
+
+        @Builder
+        login(
+                String childEmail,
+                String childPassword
+        ){
+            this.childEmail = childEmail;
+            this.childPassword = childPassword;
+        }
+    }
     // ===============================================================================
     // 조회
 
@@ -110,6 +131,30 @@ public class ChildRequestDto {
             this.childCenterId = childCenterId;
         }
     }
+
+    // ===============================================================================
+    // 특이사항 수정
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class childWithContent{
+        @NotNull(message = "[ChildRequestDto.writeChildContent] childId 은 Null 일 수 없습니다.")
+        private Long id;
+        @NotNull(message = "[ChildRequestDto.writeChildContent] content 은 Null 일 수 없습니다.")
+        private String specialContent;
+
+        @Builder
+        childWithContent(
+                Long id,
+                String specialContent
+        ){
+            this.id = id;
+            this.specialContent = specialContent;
+        }
+    }
+
+
+
+
 
     // ===============================================================================
     // 수정

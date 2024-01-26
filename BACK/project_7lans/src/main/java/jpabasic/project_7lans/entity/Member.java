@@ -14,14 +14,15 @@ import java.util.List;
 @Entity
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "member_type" , discriminatorType = DiscriminatorType.STRING)
+//@DiscriminatorColumn(name = "member_type" , discriminatorType = DiscriminatorType.STRING)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name= "member_type", insertable=false, updatable=false)
+    //@Column(name= "member_type", insertable=false, updatable=false)
+    @Enumerated(EnumType.STRING)
     private MemberType memberType;
 
     @NotNull(message = "[Member] email 은 Null 일 수 없습니다.")
@@ -64,7 +65,8 @@ public abstract class Member {
             String password,
             String phoneNumber,
             LocalDate birth,
-            DinosaurBook dinosaurBook
+            DinosaurBook dinosaurBook,
+            MemberType memberType
     ){
         this.email = email;
         this.name = name;
@@ -74,6 +76,7 @@ public abstract class Member {
         this.birth = birth;
         this.dinosaurBook = dinosaurBook;
         this.enterDate = LocalDateTime.now();
+        this.memberType = memberType;
     }
 
 }

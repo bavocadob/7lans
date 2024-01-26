@@ -1,19 +1,8 @@
 package jpabasic.project_7lans.service;
 
-import jpabasic.project_7lans.dto.whisepr.WhisperRequestDto;
-import jpabasic.project_7lans.dto.whisepr.WhisperResponseDto;
-import jpabasic.project_7lans.entity.Relation;
-import jpabasic.project_7lans.entity.Member;
-import jpabasic.project_7lans.entity.Whisper;
-import jpabasic.project_7lans.repository.MemberRepository;
-import jpabasic.project_7lans.repository.RelationRepository;
-import jpabasic.project_7lans.repository.WhisperRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)

@@ -11,12 +11,14 @@ import jpabasic.project_7lans.entity.*;
 import jpabasic.project_7lans.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
@@ -24,15 +26,29 @@ public class MemberServiceImpl implements MemberService{
     private final VolunteerRepository volunteerRepository;
     private final ManagerRepository managerRepository;
     private final ChildCenterRepository childCenterRepository;
-    private final ChildVolunteerRelationRepository childVolunteerRelationRepository;
+    private final RelationRepository relationRepository;
 
-
+//=========================================
+    //회원가입
     @Override
-    public void childRegister(ChildRequestDto.register childRegisterDto) {
+    @Transactional
+    public void childRegister(MemberRequestDto.sign memberDto) {
+
+        ChildRequestDto.register childRegisterDto = ChildRequestDto.register.builder()
+                .childEmail(memberDto.getMemberEmail())
+                .childName(memberDto.getMemberName())
+                .childPassword(memberDto.getMemberPassword())
+                .childPhoneNumber(memberDto.getMemberPhoneNumber())
+                .childBirth(memberDto.getMemberbirth())
+                .childChildCenterId(memberDto.getCenterId())
+                .build();
+
+
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(childRegisterDto.getChildEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
 
+        System.out.println(childRegisterDto.getChildChildCenterId());
         // 예외가 발생 안하면 가입 처리
         ChildCenter childCenter = childCenterRepository.findById(childRegisterDto.getChildChildCenterId())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.childRegister] 해당 센터 ID와 일치하는 센터가 존재하지 않습니다."));
@@ -44,13 +60,23 @@ public class MemberServiceImpl implements MemberService{
                 .phoneNumber(childRegisterDto.getChildPhoneNumber())
                 .birth(childRegisterDto.getChildBirth())
                 .childCenter(childCenter)
+                .memberType(MemberType.CHILD)
                 .build();
 
         memberRepository.save(child);
     }
 
     @Override
-    public void volunteerRegister(VolunteerRequestDto.register volunteerRegisterDto) {
+    @Transactional
+    public void volunteerRegister(MemberRequestDto.sign memberDto) {
+
+        VolunteerRequestDto.register volunteerRegisterDto = VolunteerRequestDto.register.builder()
+                .volunteerEmail(memberDto.getMemberEmail())
+                .volunteerName(memberDto.getMemberName())
+                .volunteerPassword(memberDto.getMemberPassword())
+                .volunteerPhoneNumber(memberDto.getMemberPhoneNumber())
+                .volunteerBirth(memberDto.getMemberbirth())
+                .build();
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(volunteerRegisterDto.getVolunteerEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
@@ -62,13 +88,23 @@ public class MemberServiceImpl implements MemberService{
                 .password(volunteerRegisterDto.getVolunteerPassword())
                 .phoneNumber(volunteerRegisterDto.getVolunteerPhoneNumber())
                 .birth(volunteerRegisterDto.getVolunteerBirth())
+                .memberType(MemberType.VOLUNTEER)
                 .build();
 
         memberRepository.save(volunteer);
     }
 
     @Override
-    public void managerRegister(ManagerRequestDto.register managerRegisterDto) {
+    public void managerRegister(MemberRequestDto.sign memberDto) {
+
+        ManagerRequestDto.register managerRegisterDto = ManagerRequestDto.register.builder()
+                .managerEmail(memberDto.getMemberEmail())
+                .managerName(memberDto.getMemberName())
+                .managerPassword(memberDto.getMemberPassword())
+                .managerPhoneNumber(memberDto.getMemberPhoneNumber())
+                .managerBirth(memberDto.getMemberbirth())
+                .managerChildCenterId(10l)
+                .build();
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(managerRegisterDto.getManagerEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
@@ -84,191 +120,20 @@ public class MemberServiceImpl implements MemberService{
                 .phoneNumber(managerRegisterDto.getManagerPhoneNumber())
                 .birth(managerRegisterDto.getManagerBirth())
                 .childCenter(childCenter)
+                .memberType(MemberType.MANAGER)
                 .build();
 
         memberRepository.save(manager);
     }
 
+    //================================================================================
+    //로그인
     @Override
-    public ChildResponseDto.detail childDetailById(ChildRequestDto.detailById childDto) {
-        Child child = childRepository.findById(childDto.getChildId())
-                .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.childDetailById] 해당 아동 ID에 일치하는 아동이 존재하지 않습니다."));
+    public Member login(MemberRequestDto.login memberRegisterDto) {
 
-        return ChildResponseDto.detail.builder()
-                .childId(child.getId())
-                .childEmail(child.getEmail())
-                .childName(child.getName())
-                .childPhoneNumber(child.getPhoneNumber())
-                .childBirth(child.getBirth())
-                .childProfileImagePath(child.getProfileImgPath())
-                .childEnterDate(child.getEnterDate())
-                .childChildCenterId(child.getChildCenter().getId())
-                .childSpecialContent(child.getSpecialContent())
-                .build();
-    }
-
-    @Override
-    public ChildResponseDto.detail childDetailByEmail(ChildRequestDto.detailByEmail childDto) {
-        Child child = childRepository.findByEmail(childDto.getChildEmail())
-                .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.childDetailByEmail] 해당 아동 ID에 일치하는 아동이 존재하지 않습니다."));
-
-        return ChildResponseDto.detail.builder()
-                .childId(child.getId())
-                .childEmail(child.getEmail())
-                .childName(child.getName())
-                .childPhoneNumber(child.getPhoneNumber())
-                .childBirth(child.getBirth())
-                .childProfileImagePath(child.getProfileImgPath())
-                .childEnterDate(child.getEnterDate())
-                .childChildCenterId(child.getChildCenter().getId())
-                .childSpecialContent(child.getSpecialContent())
-                .build();
-    }
-
-    @Override
-    public ChildResponseDto.detail childDetailByName(ChildRequestDto.detailByName childDto) {
-        Child child = childRepository.findByName(childDto.getChildName())
-                .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.childDetailByName] 해당 아동 ID에 일치하는 아동이 존재하지 않습니다."));
-
-        return ChildResponseDto.detail.builder()
-                .childId(child.getId())
-                .childEmail(child.getEmail())
-                .childName(child.getName())
-                .childPhoneNumber(child.getPhoneNumber())
-                .childBirth(child.getBirth())
-                .childProfileImagePath(child.getProfileImgPath())
-                .childEnterDate(child.getEnterDate())
-                .childChildCenterId(child.getChildCenter().getId())
-                .childSpecialContent(child.getSpecialContent())
-                .build();
-    }
-
-    @Override
-    public List<ChildResponseDto.detail> childListByCenterId(ChildRequestDto.childListByChildCenter childCenterDto) {
-        ChildCenter childCenter = childCenterRepository.findById(childCenterDto.getChildCenterId())
-                .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.managerRegister] 해당 센터 ID와 일치하는 센터가 존재하지 않습니다."));
-
-        List<Child> childList = childRepository.findByChildCenter(childCenter);
-        ArrayList<ChildResponseDto.detail> childDtoList = new ArrayList<>();
-
-        for (int i = 0, childListSize = childList.size(); i < childListSize; i++) {
-            Child child = childList.get(i);
-            ChildResponseDto.detail childDto = ChildResponseDto.detail.builder()
-                    .childId(child.getId())
-                    .childEmail(child.getEmail())
-                    .childName(child.getName())
-                    .childPhoneNumber(child.getPhoneNumber())
-                    .childBirth(child.getBirth())
-                    .childProfileImagePath(child.getProfileImgPath())
-                    .childEnterDate(child.getEnterDate())
-                    .childChildCenterId(child.getChildCenter().getId())
-                    .childSpecialContent(child.getSpecialContent())
-                    .build();
-
-            childDtoList.add(childDto);
-        }
-
-        return childDtoList;
-    }
-
-    @Override
-    public List<VolunteerResponseDto.detail> volunteerListByChildId(ChildRequestDto.detailById childDto) {
-        Child child = childRepository.findById(childDto.getChildId())
-                .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.volunteerListByChildId] 해당 아동 ID에 일치하는 아동이 존재하지 않습니다."));
-
-        List<Relation> relationList = childVolunteerRelationRepository.findByChild(child);
-        List<VolunteerResponseDto.detail> relationDtoList = new ArrayList<>();
-
-        for(Relation relation: relationList){
-            VolunteerResponseDto.detail volunteerDto = VolunteerResponseDto.detail.builder()
-                    .volunteerId(relation.getVolunteer().getId())
-                    .volunteerEmail(relation.getVolunteer().getEmail())
-                    .volunteerName(relation.getVolunteer().getName())
-                    .volunteerPhoneNumber(relation.getVolunteer().getPhoneNumber())
-                    .volunteerBirth(relation.getVolunteer().getBirth())
-                    .volunteerProfileImagePath(relation.getVolunteer().getProfileImgPath())
-                    .volunteerEnterDate(relation.getVolunteer().getEnterDate())
-                    .build();
-
-            relationDtoList.add(volunteerDto);
-        }
-
-        return relationDtoList;
-    }
-
-    @Override
-    public List<ChildResponseDto.detail> childList() {
-        List<Child> childList = childRepository.findAll();
-        List<ChildResponseDto.detail> childDtoList = new ArrayList<>();
-
-        for (int i = 0, childListSize = childList.size(); i < childListSize; i++) {
-            Child child = childList.get(i);
-            ChildResponseDto.detail childDto = ChildResponseDto.detail.builder()
-                    .childId(child.getId())
-                    .childEmail(child.getEmail())
-                    .childName(child.getName())
-                    .childPhoneNumber(child.getPhoneNumber())
-                    .childBirth(child.getBirth())
-                    .childProfileImagePath(child.getProfileImgPath())
-                    .childEnterDate(child.getEnterDate())
-                    .childChildCenterId(child.getChildCenter().getId())
-                    .childSpecialContent(child.getSpecialContent())
-                    .build();
-
-            childDtoList.add(childDto);
-        }
-
-        return childDtoList;
-    }
-
-    @Override
-    public VolunteerResponseDto.detail volunteerDetailById(VolunteerRequestDto.detailById volunteerDto) {
-        return null;
-    }
-
-    @Override
-    public VolunteerResponseDto.detail volunteerDetailByEmail(VolunteerRequestDto.detailByEmail volunteerDto) {
-        return null;
-    }
-
-    @Override
-    public VolunteerResponseDto.detail volunteerDetailByName(VolunteerRequestDto.detailByName volunteerDto) {
-        return null;
-    }
-
-    @Override
-    public List<ChildResponseDto.detail> childListByVolunteer(VolunteerRequestDto.detailById volunteerDto) {
-        return null;
-    }
-
-    @Override
-    public List<VolunteerResponseDto.detail> volunteerList() {
-        return null;
-    }
-
-    @Override
-    public ManagerResponseDto.detail managerDetailById(ManagerRequestDto.detailById managerDto) {
-        return null;
-    }
-
-    @Override
-    public ManagerResponseDto.detail managerDetailByEmail(ManagerRequestDto.detailByEmail managerDto) {
-        return null;
-    }
-
-    @Override
-    public ManagerResponseDto.detail managerDetailByName(ManagerRequestDto.detailByName managerDto) {
-        return null;
-    }
-
-    @Override
-    public List<ManagerResponseDto.detail> managerList() {
-        return null;
-    }
-
-    @Override
-    public void modifyMemberPassword(MemberRequestDto.modifyPassword memberDto) {
-
+        Member findMember = memberRepository.findByEmail(memberRegisterDto.getMemberEmail())
+                .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.login] 존재하지 않는 멤버 Email입니다."));
+        return findMember;
     }
 
     @Override
@@ -281,4 +146,6 @@ public class MemberServiceImpl implements MemberService{
         if(memberDto.getMemberPassword().equals(member.getPassword()))
             memberRepository.delete(member);
     }
+
+
 }
