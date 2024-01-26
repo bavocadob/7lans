@@ -31,7 +31,7 @@ public class Relation {
     private Child child;
 
     @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)
-    private List<CenterRalation> centerRalationList = new ArrayList<>();
+    private List<CenterRelation> centerRelationList = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     private Egg egg;

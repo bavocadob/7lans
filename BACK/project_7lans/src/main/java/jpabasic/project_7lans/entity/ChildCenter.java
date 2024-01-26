@@ -23,10 +23,13 @@ public class ChildCenter {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "childCenter", cascade = CascadeType.ALL)
-    private List<CenterRalation> centerRalationList = new ArrayList<>();
+    private List<CenterRelation> centerRelationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "childCenter", cascade = CascadeType.ALL)
     private List<CenterActivityLog> centerActivityLogList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "childCenter", cascade = CascadeType.ALL)
+    private List<Child> childList = new ArrayList<>();
 
     public void changeName(String name) {
         this.name = name;
@@ -39,6 +42,13 @@ public class ChildCenter {
     public void changePhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+
+    public void addChildList(Child child) {
+        this.childList.add(child);
+        child.setChildCenter(this);
+    }
+
 
     @Builder
     public ChildCenter(
