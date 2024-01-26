@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
+import testSlice from "./testSlice";
 
 const store = configureStore({
-    reducer: {
+  reducer: {
+    test: testSlice,
+  },
+});
 
-    },
-})
-
-export default store
-
+export default store;
 
 // reducer 사용예시
 // import { configureStore } from "@reduxjs/toolkit";
@@ -19,4 +19,4 @@ export default store
 //         user: userReducer,
 //         chatRoom: chatRoomReducer
 //     }
-// }) 
+// })

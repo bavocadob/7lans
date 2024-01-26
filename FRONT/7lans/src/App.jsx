@@ -26,6 +26,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/main" element={<MainPage />} /> */}
         <Route path="/whisper_page" element={<WhisperPage />} />
+
         <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
 
         <Route path="/volunteer_main" element={<VolunteerMainPage />} />

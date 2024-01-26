@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
-import { FaEnvelope, FaPhone, FaHome, FaClock, FaBirthdayCake } from 'react-icons/fa';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaHome,
+  FaClock,
+  FaBirthdayCake,
+} from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { test } from "../../store/testSlice";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -9,7 +18,7 @@ const StyledCommonSidePanel = styled.div`
   width: 350px;
   border-radius: 20px 0 0 20px;
   height: 100%;
-  
+
   @media (max-width: 768px) {
     max-width: 100%;
     border-radius: 0;
@@ -19,7 +28,7 @@ const StyledCommonSidePanel = styled.div`
 const InnerContainer = styled.div`
   height: 40%;
   position: relative;
-  
+
   @media (max-width: 768px) {
     height: 100%;
   }
@@ -33,7 +42,7 @@ const CloseButton = styled.button`
   background-color: rgb(255, 248, 223);
   font-weight: bold;
   color: rgb(240, 165, 8);
-  
+
   @media (max-width: 768px) {
     left: 85%;
   }
@@ -47,7 +56,7 @@ const ProfileImage = styled.img`
   width: 9rem;
   border-radius: 100px;
   border: 5px solid rgb(0, 0, 0);
-  
+
   @media (max-width: 768px) {
     position: relative;
     left: 0;
@@ -61,15 +70,22 @@ const InfoContainer = styled.div`
   height: 60%;
   flex-direction: column;
   align-items: center;
-  
+
   @media (max-width: 768px) {
     height: auto;
   }
 `;
 
+// test 용으로 Link 연결해봄
 const NameHeader = styled.h4`
   font-weight: bolder;
   color: rgb(0, 0, 0);
+  color: #007bff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const DetailContainer = styled.div`
@@ -79,7 +95,7 @@ const DetailContainer = styled.div`
   color: rgb(0, 0, 0);
   padding: 1rem;
   background-color: rgb(255, 255, 255);
-  
+
   @media (max-width: 768px) {
     margin-top: 0;
   }
@@ -93,35 +109,58 @@ const DetailParagraph = styled.p`
 
 const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
+  const [id, setId] = useState(" ");
+  const dispatch = useDispatch();
+  const func = () => {
+    dispatch(test(12));
+  };
 
   const renderSidePanel = () => {
     if (sidePanelStatus) {
       return (
         <StyledCommonSidePanel>
           <InnerContainer>
-            <CloseButton onClick={() => setSidePanelStatus(false)}>{"<<"}</CloseButton>
+            <CloseButton onClick={() => setSidePanelStatus(false)}>
+              {"<<"}
+            </CloseButton>
             <ProfileImage src="./anonymous.jpg" alt="" />
           </InnerContainer>
           <InfoContainer>
             <NameHeader>박주헌 봉사자님</NameHeader>
             <DetailContainer>
-
+              <button onClick={func()}></button>
             </DetailContainer>
           </InfoContainer>
         </StyledCommonSidePanel>
       );
     } else {
       return (
-        <div style={{backgroundColor: 'rgb(255, 255, 255)', borderRadius: '20px 0 0 20px'}}>
-          <button style={{height: '25px', borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem', border: 'none' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
+        <div
+          style={{
+            backgroundColor: "rgb(255, 255, 255)",
+            borderRadius: "20px 0 0 20px",
+          }}
+        >
+          <button
+            style={{
+              height: "25px",
+              borderRadius: "25px",
+              backgroundColor: "rgb(255, 248, 223)",
+              fontWeight: "bold",
+              color: "rgb(240, 165, 8)",
+              margin: "2rem",
+              border: "none",
+            }}
+            onClick={() => setSidePanelStatus(true)}
+          >
+            {">>"}
+          </button>
         </div>
       );
     }
   };
 
-  return (
-    renderSidePanel()
-  );
+  return renderSidePanel();
 };
 
 export default CommonSidePanel;
