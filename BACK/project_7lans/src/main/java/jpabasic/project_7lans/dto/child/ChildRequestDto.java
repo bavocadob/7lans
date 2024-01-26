@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.dto.child;
 
 import jakarta.validation.constraints.NotNull;
+import jpabasic.project_7lans.entity.MemberType;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -136,18 +137,18 @@ public class ChildRequestDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class childWithContent{
-        @NotNull(message = "[ChildRequestDto.writeChildContent] childCenterId 은 Null 일 수 없습니다.")
-        private Long childId;
+        @NotNull(message = "[ChildRequestDto.writeChildContent] childId 은 Null 일 수 없습니다.")
+        private Long id;
         @NotNull(message = "[ChildRequestDto.writeChildContent] content 은 Null 일 수 없습니다.")
-        private String content;
+        private String specialContent;
 
         @Builder
         childWithContent(
-                Long childId,
-                String content
+                Long id,
+                String specialContent
         ){
-            this.childId = childId;
-            this.content = content;
+            this.id = id;
+            this.specialContent = specialContent;
         }
     }
 

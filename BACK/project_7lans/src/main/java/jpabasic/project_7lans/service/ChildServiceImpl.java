@@ -7,6 +7,7 @@ import jpabasic.project_7lans.entity.Child;
 import jpabasic.project_7lans.entity.ChildRelation;
 import jpabasic.project_7lans.entity.Volunteer;
 import jpabasic.project_7lans.repository.ChildRepository;
+import jpabasic.project_7lans.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ import java.util.List;
 public class ChildServiceImpl implements ChildService {
 
     private final ChildRepository childRepository;
+
+    private final MemberRepository memberRepository;
 
     public List<VolunteerResponseDto.list> volunteerList(Long childId) {
         Child child = childRepository.findById(childId)
@@ -56,11 +59,14 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     @Transactional
-    public void modifyContent(ChildRequestDto.childWithContent childWtihContent) {
-        Child child = childRepository.findById(childWtihContent.getChildId())
+    public void modifyContent(ChildRequestDto.childWithContent childWithContent) {
+        //System.out.println(childWithContent.getId());
+
+        //memberRepository.findById(childWithContent.getId());
+        Child child = childRepository.findById(childWithContent.getId())
                 .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.modifyContent] 해당 Id와 일치하는 child가 존재하지 않습니다."));
 
-        child.changeSpecialContent(childWtihContent.getContent());
+        child.changeSpecialContent(childWithContent.getSpecialContent());
         childRepository.save(child);
     }
 

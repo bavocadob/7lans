@@ -51,10 +51,11 @@ public class ManagerController {
 
     //특이사항 작성하기
     @PostMapping("/content")
-    public ResponseEntity writeContent(@RequestBody @Valid ChildRequestDto.childWithContent childWtihContent){
+    public ResponseEntity writeContent(@RequestBody ChildRequestDto.childWithContent childWithContent){
         try{
 
-            childService.modifyContent(childWtihContent);
+            System.out.println(childWithContent.getId());
+            childService.modifyContent(childWithContent);
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();

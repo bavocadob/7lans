@@ -5,13 +5,16 @@ import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.manager.ManagerRequestDto;
 import jpabasic.project_7lans.dto.member.MemberRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerRequestDto;
+import jpabasic.project_7lans.entity.ChildCenter;
 import jpabasic.project_7lans.entity.Member;
+import jpabasic.project_7lans.repository.ChildCenterRepository;
 import jpabasic.project_7lans.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,8 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService service;
+
+    private final ChildCenterRepository childCenterRepository;
     // 회원가입
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid MemberRequestDto.sign memberDto){
@@ -38,6 +43,10 @@ public class MemberController {
 
             }
             else if(memberDto.getMemberType().equals("C")){
+
+                ChildCenter childCenter = ChildCenter.builder().name("k").address("a").phoneNumber("0").build();
+
+                childCenterRepository.save(childCenter);
 
                 service.childRegister(memberDto);
             }

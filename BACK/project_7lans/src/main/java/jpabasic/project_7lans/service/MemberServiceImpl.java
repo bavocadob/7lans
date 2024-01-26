@@ -31,6 +31,7 @@ public class MemberServiceImpl implements MemberService{
 //=========================================
     //회원가입
     @Override
+    @Transactional
     public void childRegister(MemberRequestDto.sign memberDto) {
 
         ChildRequestDto.register childRegisterDto = ChildRequestDto.register.builder()
@@ -39,13 +40,15 @@ public class MemberServiceImpl implements MemberService{
                 .childPassword(memberDto.getMemberPassword())
                 .childPhoneNumber(memberDto.getMemberPhoneNumber())
                 .childBirth(memberDto.getMemberbirth())
-                .childChildCenterId(10l)
+                .childChildCenterId(memberDto.getCenterId())
                 .build();
+
 
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(childRegisterDto.getChildEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
 
+        System.out.println(childRegisterDto.getChildChildCenterId());
         // 예외가 발생 안하면 가입 처리
         ChildCenter childCenter = childCenterRepository.findById(childRegisterDto.getChildChildCenterId())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.childRegister] 해당 센터 ID와 일치하는 센터가 존재하지 않습니다."));
@@ -57,6 +60,7 @@ public class MemberServiceImpl implements MemberService{
                 .phoneNumber(childRegisterDto.getChildPhoneNumber())
                 .birth(childRegisterDto.getChildBirth())
                 .childCenter(childCenter)
+                .memberType(MemberType.CHILD)
                 .build();
 
         memberRepository.save(child);
@@ -84,6 +88,7 @@ public class MemberServiceImpl implements MemberService{
                 .password(volunteerRegisterDto.getVolunteerPassword())
                 .phoneNumber(volunteerRegisterDto.getVolunteerPhoneNumber())
                 .birth(volunteerRegisterDto.getVolunteerBirth())
+                .memberType(MemberType.VOLUNTEER)
                 .build();
 
         memberRepository.save(volunteer);
@@ -115,6 +120,7 @@ public class MemberServiceImpl implements MemberService{
                 .phoneNumber(managerRegisterDto.getManagerPhoneNumber())
                 .birth(managerRegisterDto.getManagerBirth())
                 .childCenter(childCenter)
+                .memberType(MemberType.MANAGER)
                 .build();
 
         memberRepository.save(manager);
