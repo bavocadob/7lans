@@ -40,7 +40,8 @@ public class Volunteer extends Member{
             String phoneNumber,
             LocalDate birth,
             Long volunteerTime,
-            DinosaurBook dinosaurBook
+            DinosaurBook dinosaurBook,
+            MemberType memberType
     ){
         super(
                 email,
@@ -48,7 +49,8 @@ public class Volunteer extends Member{
                 password,
                 phoneNumber,
                 birth,
-                dinosaurBook
+                dinosaurBook,
+                memberType
         );
 
         this.volunteerTime = volunteerTime;

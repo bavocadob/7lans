@@ -38,7 +38,8 @@ public class Manager extends Member{
             String password,
             String phoneNumber,
             LocalDate birth,
-            ChildCenter childCenter
+            ChildCenter childCenter,
+            MemberType memberType
     ){
         super(
                 email,
@@ -46,7 +47,8 @@ public class Manager extends Member{
                 password,
                 phoneNumber,
                 birth,
-                null
+                null,
+                memberType
         );
         this.childCenter = childCenter;
         this.approvedStatus = false;
