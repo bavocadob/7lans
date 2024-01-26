@@ -50,6 +50,7 @@ public class Child extends Member {
     // ==============================================================================================
     // 생성자
 
+    @Builder
     public Child(
             String email,
             String name,
