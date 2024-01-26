@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ChildVolunteerRelationRepository extends JpaRepository<Relation, Long> {
+public interface RelationRepository extends JpaRepository<Relation, Long> {
     List<Relation> findByChild(Child child);
 }

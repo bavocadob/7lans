@@ -56,7 +56,7 @@ public class Relation {
 
     public void addWhisperList(Whisper whisper){
         whisperList.add(whisper);
-        //whisper.setRelation(this);
+        whisper.setRelation(this);
     }
     @Builder
     public Relation(

@@ -1,6 +1,8 @@
 package jpabasic.project_7lans.dto.whisepr;
 
 import jakarta.validation.constraints.NotNull;
+import jpabasic.project_7lans.dto.child.ChildResponseDto;
+import jpabasic.project_7lans.entity.Child;
 import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.entity.Member;
 import jpabasic.project_7lans.entity.Whisper;
@@ -17,16 +19,16 @@ public class WhisperResponseDto {
     // ===================================================================================================
     // 속닥속닥 1건 조회용
     @Getter
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Builder
     public static class detail {
         @NotNull(message = "[WhisperResponseDto.detail] whisperId 는 Null 일 수 없습니다.")
         private Long whisperId;
 
         @NotNull(message = "[WhisperResponseDto.detail] writer 는 Null 일 수 없습니다.")
-        private Member writer;
+        private String writer;
 
         @NotNull(message = "[WhisperResponseDto.detail] relation 는 Null 일 수 없습니다.")
-        private Relation relation;
+        private Long relationId;
 
         @NotNull(message = "[WhisperResponseDto.detail] content 는 Null 일 수 없습니다.")
         private String content;
@@ -34,35 +36,13 @@ public class WhisperResponseDto {
         @NotNull(message = "[WhisperResponseDto.detail] createDate 는 Null 일 수 없습니다.")
         private LocalDateTime createDate;
 
-        @NotNull(message = "[WhisperResponseDto.detail] readStatus 는 Null 일 수 없습니다.")
-        private boolean readStatus;
-
-        @Builder
-        public static detail createDetail(
-                Long whisperId,
-                Member writer,
-                Relation relation,
-                String content,
-                LocalDateTime createDate,
-                boolean readStatus
-        ) {
-            return detail.builder()
-                    .whisperId(whisperId)
-                    .writer(writer)
-                    .relation(relation)
-                    .content(content)
-                    .createDate(createDate)
-                    .readStatus(readStatus)
-                    .build();
-        }
-
-        public static WhisperResponseDto.detail convertToDetailDto(Whisper whisper) {
+        public static WhisperResponseDto.detail toDetailDto(Whisper whisper){
             return WhisperResponseDto.detail.builder()
                     .whisperId(whisper.getId())
-                    .writer(whisper.getWriter())
+                    .writer(whisper.getWriter().getName())
                     .content(whisper.getContent())
+                    .relationId(whisper.getRelation().getId())
                     .createDate(whisper.getCreateDate())
-                    .readStatus(whisper.isReadStatus())
                     .build();
         }
 
@@ -70,47 +50,34 @@ public class WhisperResponseDto {
 
     // ===================================================================================================
     // 메인화면 속닥속닥 리스트 조회용
-    @Getter
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class whisperForList {
-        @NotNull(message = "[WhisperResponseDto.detail] whisperId 는 Null 일 수 없습니다.")
-        private Long whisperId;
-
-        @NotNull(message = "[WhisperResponseDto.detail] childVolunteerRelationId 는 Null 일 수 없습니다.")
-        private Relation relation;
-
-        @NotNull(message = "[WhisperResponseDto.detail] readStatus 는 Null 일 수 없습니다.")
-        private boolean readStatus;
-
-        @Builder
-        public static WhisperResponseDto.whisperForList createDetail(
-                Long whisperId,
-                Member writer,
-                Relation relation,
-                String content,
-                LocalDateTime createDate,
-                boolean readStatus
-        ) {
-            return WhisperResponseDto.whisperForList.builder()
-                    .whisperId(whisperId)
-                    .writer(writer)
-                    .relation(relation)
-                    .content(content)
-                    .createDate(createDate)
-                    .readStatus(readStatus)
-                    .build();
-        }
-
-        public static WhisperResponseDto.whisperForList convertToWhisperForList(Whisper whisper) {
-            return WhisperResponseDto.whisperForList.builder()
-                    .whisperId(whisper.getId())
-                    .writer(whisper.getWriter())
-                    .content(whisper.getContent())
-                    .createDate(whisper.getCreateDate())
-                    .readStatus(whisper.isReadStatus())
-                    .build();
-        }
-    }
+//    @Getter
+//    @Builder
+//    public static class whisperForList {
+//        @NotNull(message = "[WhisperResponseDto.whisperForList] whisperId 는 Null 일 수 없습니다.")
+//        private Long whisperId;
+//
+//        @NotNull(message = "[WhisperResponseDto.whisperForList] writer 는 Null 일 수 없습니다.")
+//        private String writer;
+//
+//        @NotNull(message = "[WhisperResponseDto.whisperForList] content 는 Null 일 수 없습니다.")
+//        private String content;
+//
+//        @NotNull(message = "[WhisperResponseDto.whisperForList] childVolunteerRelationId 는 Null 일 수 없습니다.")
+//        private Long relationId;
+//
+//        @NotNull(message = "[WhisperResponseDto.whisperForList] createDate 는 Null 일 수 없습니다.")
+//        private LocalDateTime createDate;
+//
+//        public static WhisperResponseDto.whisperForList toListDto(Whisper whisper){
+//            return WhisperResponseDto.whisperForList.builder()
+//                    .whisperId(whisper.getId())
+//                    .writer(whisper.getWriter().getName())
+//                    .content(whisper.getContent())
+//                    .relationId(whisper.getRelation().getId())
+//                    .createDate(whisper.getCreateDate())
+//                    .build();
+//        }
+//    }
 
     // ===================================================================================================
     // 여기부터 새로 추가

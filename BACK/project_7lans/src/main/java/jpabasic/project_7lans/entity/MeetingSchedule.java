@@ -2,6 +2,7 @@ package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
 
+import jpabasic.project_7lans.dto.whisepr.WhisperRequestDto;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -23,17 +24,21 @@ public class MeetingSchedule {
     private LocalDateTime ScheduledEndTime;
 
     @Enumerated(EnumType.STRING)
-    private ScheduleType status;
+    private ScheduleType status = ScheduleType.SCHEDULED;
 
-    private String thumbnailImgPath;
+    private String thumbnailImgPath = "defaultThumbnailImgPath";
 
-    private String meetingUrl;
+    private String meetingUrl = "meetingUrl";
 
     @OneToMany(mappedBy = "imgPath", cascade = CascadeType.ALL)
     private ArrayList<MeetingImage> meetingImageList = new ArrayList<>();
 
     @OneToOne
     private ActivityLog activityLog;
+
+
+    // =========================================================================================
+    // 메서드
 
     private void setStartTime(LocalDateTime time){
         this.ScheduledEndTime = time;
@@ -43,39 +48,30 @@ public class MeetingSchedule {
         this.ScheduledEndTime = time;
     }
 
-    private void setStatus(ScheduleType status){
-        this.status = status;
-    }
+    private void setStatus(ScheduleType status){this.status = status;}
 
     public void changeThumbnail(String thumbnail){
         this.thumbnailImgPath = thumbnail;
     }
 
-    public static MeetingSchedule create(Relation relation, LocalDateTime startTime, LocalDateTime endTime) {
-        MeetingSchedule newMeeting = new MeetingSchedule();
-        newMeeting.setStartTime(startTime);
-        newMeeting.setEndTime(endTime);
-        newMeeting.setStatus(ScheduleType.SCHEDULED);
-
-        return newMeeting;
-    }
-    @Builder
-    public MeetingSchedule(
-            LocalDateTime ScheduledStartTime,
-            LocalDateTime ScheduledEndTime,
-            String thumbnailImgPath,
-            ActivityLog activityLog
-    ){
-        this.ScheduledStartTime = ScheduledStartTime;
-        this.ScheduledEndTime = ScheduledEndTime;
-        this.status = ScheduleType.CLOSED; // 미팅 스케줄 잡힌 직후는 닫힌 상태이다.
-        this.thumbnailImgPath = thumbnailImgPath;
-        this.activityLog = activityLog;
-        this.meetingUrl = null;
-    }
-
     public void addMeetingImage(MeetingImage meetingImage) {
         this.meetingImageList.add(meetingImage);
         meetingImage.setMeetingSchedule(this);
+    }
+
+    // =========================================================================================
+    // 생성자
+
+    @Builder
+    public static MeetingSchedule create(
+            LocalDateTime startTime,
+            LocalDateTime endTime,
+            ActivityLog activityLog
+    ){
+        return MeetingSchedule.builder()
+                .startTime(startTime)
+                .endTime(endTime)
+                .activityLog(activityLog)
+                .build();
     }
 }

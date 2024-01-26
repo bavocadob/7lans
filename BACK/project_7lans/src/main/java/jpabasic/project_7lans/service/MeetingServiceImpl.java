@@ -21,8 +21,8 @@ public class MeetingServiceImpl implements MeetingService{
     //미팅 생성
     @Transactional
     public void createMeeting(Relation relation, LocalDateTime startTime, LocalDateTime endTime){
-        MeetingSchedule newMeeting = MeetingSchedule.create(relation, startTime, endTime);
-        meetingRepository.save(newMeeting);
+//        MeetingSchedule newMeeting = MeetingSchedule.create(startTime, endTime, a)
+//        meetingRepository.save(newMeeting);
     }
 
     //예정 미팅 수정

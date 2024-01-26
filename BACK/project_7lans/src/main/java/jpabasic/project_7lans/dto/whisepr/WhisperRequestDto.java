@@ -33,16 +33,33 @@ public class WhisperRequestDto {
     }
 
     @Getter
-    @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detailById{
         @NotNull(message = "[WhisperRequestDto.detailById] whisperId 는 Null 일 수 없습니다.")
         private Long whisperId;
 
-        public static WhisperRequestDto.detailById createDetailById(
+        @Builder
+        public static WhisperRequestDto.detailById createDto(
                 Long whisperId
         ){
             return WhisperRequestDto.detailById.builder()
                     .whisperId(whisperId)
+                    .build();
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public class listById{
+        @NotNull(message = "[WhisperRequestDto.detailById] whisperId 는 Null 일 수 없습니다.")
+        private Long relationId;
+
+        @Builder
+        public static WhisperRequestDto.listById createDto(
+                Long relationId
+        ){
+            return WhisperRequestDto.listById.builder()
+                    .relationId(relationId)
                     .build();
         }
     }
