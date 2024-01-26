@@ -50,7 +50,7 @@ public class WhisperRequestDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public class listById{
+    public static class listById{
         @NotNull(message = "[WhisperRequestDto.detailById] whisperId 는 Null 일 수 없습니다.")
         private Long relationId;
 

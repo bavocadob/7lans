@@ -24,10 +24,10 @@ public class ChildCenterServiceImpl implements ChildCenterService{
         ChildCenter childCenter = childCenterRepository.findById(centerId)
             .orElseThrow(() -> new IllegalArgumentException("[ChildCenterServiceImpl.volunteerList] 해당 Id와 일치하는 center가 존재하지 않습니다."));
 
-        List<CenterRalation> relations = childCenter.getCenterRalationList();
+        List<CenterRelation> relations = childCenter.getCenterRelationList();
         List<VolunteerResponseDto.list> volunteers = new ArrayList<>();
 
-        for(CenterRalation relation : relations){
+        for(CenterRelation relation : relations){
             Volunteer volunteer = relation.getRelation().getVolunteer();
             volunteers.add(VolunteerResponseDto.toListDto(volunteer));
         }
@@ -39,10 +39,10 @@ public class ChildCenterServiceImpl implements ChildCenterService{
         ChildCenter childCenter = childCenterRepository.findById(centerId)
                 .orElseThrow(() -> new IllegalArgumentException("[ChildCenterServiceImpl.childList] 해당 Id와 일치하는 center가 존재하지 않습니다."));
 
-        List<CenterRalation> relations = childCenter.getCenterRalationList();
+        List<CenterRelation> relations = childCenter.getCenterRelationList();
         List<ChildResponseDto.list> children = new ArrayList<>();
 
-        for(CenterRalation relation : relations){
+        for(CenterRelation relation : relations){
             Child child = relation.getRelation().getChild();
             children.add(ChildResponseDto.toListDto(child));
         }

@@ -13,7 +13,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
 @DiscriminatorValue("CHILD")
 @PrimaryKeyJoinColumn(name="CHILD_ID")
 public class Child extends Member {

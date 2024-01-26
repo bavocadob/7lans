@@ -1,8 +1,6 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
-import jpabasic.project_7lans.dto.child.ChildResponseDto;
-import jpabasic.project_7lans.dto.whisepr.WhisperRequestDto;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -25,10 +23,10 @@ public class Whisper {
 
     private LocalDateTime createDate = LocalDateTime.now();
 
-    private boolean read = false;
+    private boolean readStatus = false;
 
     public void changeReadStatusApprove(Member reader){
-        if(!writer.equals(reader)) read = true;
+        if(!writer.equals(reader)) readStatus = true;
     }
 
     @Builder
