@@ -132,6 +132,30 @@ public class ChildRequestDto {
     }
 
     // ===============================================================================
+    // 특이사항 수정
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class childWithContent{
+        @NotNull(message = "[ChildRequestDto.writeChildContent] childCenterId 은 Null 일 수 없습니다.")
+        private Long childId;
+        @NotNull(message = "[ChildRequestDto.writeChildContent] content 은 Null 일 수 없습니다.")
+        private String content;
+
+        @Builder
+        childWithContent(
+                Long childId,
+                String content
+        ){
+            this.childId = childId;
+            this.content = content;
+        }
+    }
+
+
+
+
+
+    // ===============================================================================
     // 수정
 
     // 수정(비밀번호) -> MemberRequestDto에 존재.

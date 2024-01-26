@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.service;
 
+import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.Child;
@@ -51,6 +52,16 @@ public class ChildServiceImpl implements ChildService {
                 .childChildCenterId(child.getChildCenter().getId())
                 .childSpecialContent(child.getSpecialContent())
                 .build();
+    }
+
+    @Override
+    @Transactional
+    public void modifyContent(ChildRequestDto.childWithContent childWtihContent) {
+        Child child = childRepository.findById(childWtihContent.getChildId())
+                .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.modifyContent] 해당 Id와 일치하는 child가 존재하지 않습니다."));
+
+        child.changeSpecialContent(childWtihContent.getContent());
+        childRepository.save(child);
     }
 
 }

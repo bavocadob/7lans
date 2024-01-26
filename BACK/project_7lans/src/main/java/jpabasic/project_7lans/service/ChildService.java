@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.service;
 
+import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 
@@ -9,4 +10,6 @@ public interface ChildService {
     public List<VolunteerResponseDto.list> volunteerList(Long childId);
 
     public ChildResponseDto.detail childDetail(Long childId);
+
+    public void modifyContent(ChildRequestDto.childWithContent childWtihContent);
 }

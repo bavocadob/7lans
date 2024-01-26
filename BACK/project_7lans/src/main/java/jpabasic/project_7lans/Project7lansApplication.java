@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Project7lansApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(Project7lansApplication.class, args);
+
 	}
 
 }
