@@ -38,7 +38,8 @@ public class Manager extends Member{
             String password,
             String phoneNumber,
             LocalDate birth,
-            ChildCenter childCenter
+            ChildCenter childCenter,
+            MemberType memberType
     ){
         return Manager.builder()
                 .email(email)
@@ -47,6 +48,7 @@ public class Manager extends Member{
                 .phoneNumber(phoneNumber)
                 .birth(birth)
                 .childCenter(childCenter)
+                .memberType(memberType)
                 .build();
     }
 }
