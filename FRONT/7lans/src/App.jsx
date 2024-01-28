@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import EntryPage from "./pages/EntryPage";
 // import MainPage from "./pages/MainPage";
@@ -17,12 +17,28 @@ import ChildVideoChattingStartPage from "./pages/child_pages/ChildVideoChattingS
 import ChildWhisperPage from "./pages/child_pages/ChildWhisperPage";
 import ChildRaiseEggPage from "./pages/child_pages/ChildRaiseEggPage";
 import ChildDinosaurDictPage from "./pages/ChildDinosaurDictPage";
+import NormalNav from "./components/navs/NormalNav";
+
+const NormalLayout = () => {
+  return (
+    <>
+    <NormalNav />
+    <CommonSidePanel />
+    <main>
+      <Outlet />
+    </main>
+    </>
+  )
+}
+
+
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<EntryPage />} />
+        {/* <Route path="/" element={<EntryPage />} /> */}
+        <Route path="/" element={<NormalLayout />} />
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/main" element={<MainPage />} /> */}
         <Route path="/whisper_page" element={<WhisperPage />} />
