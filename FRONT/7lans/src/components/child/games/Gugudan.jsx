@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeDan } from '../../../store/gugudanSlice';
 
 const Gugudan = () => {
   const [dan, setDan] = useState('none');
+  const [multipleNum, setMultipleNum] =useState('')
+  const [nowAns, setNowAns] = useState('')
+  const gugudanState = useSelector((state) => state.gugudan.value)
 
-  const renderSpan = (danValue) => {
+  const dispatch = useDispatch()
+
+  const renderSpan = (danValue, key) => {
     return (
       <span
+        key={key}
         style={{
           width: '10%',
           cursor: 'pointer',
@@ -22,49 +30,95 @@ const Gugudan = () => {
     );
   };
 
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (Number(dan)*Number(multipleNum) === Number(nowAns)) {
+        setNowAns('')
+        setMultipleNum(Number(multipleNum) + 1)
+      }
+      }
+  }
+  const renderGugudanGame = (dan) => {
+    if (multipleNum === Number(10)) {
+      resetGame()
+    }
+    else if (dan !== 'none') {
+      return(
+        <div>
+          <p>{dan} X {multipleNum} = ?</p>
+          <input type="text" onKeyUp={handleEnter} onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
+        </div>
+      )
+    }  
+
+  }
+
+  const startGame = (dan) => {
+    dispatch(changeDan(dan))
+    setMultipleNum(1)
+  }
+
+  const resetGame = () => {
+    dispatch(changeDan('none'))
+    setDan('none')
+  }
+
   const danArray = Array.from({ length: 10 }, (_, index) => index + 1);
 
   const renderGugudan = () => {
-    
+    if (gugudanState === 'none') {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+        <h1 style={{ marginTop: '4%', fontWeight: 'bolder', color: 'rgb(255, 215, 3)', textShadow: '2px 2px 2px black' }}>
+          몇 단을 출제하실 건가요??
+        </h1>
+        <div
+          className='shadow'
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            border: '5px solid black',
+            borderRadius: '20px',
+            width: '90%',
+            flex: 1,
+            margin: '2rem',
+            backgroundColor: 'rgb(255, 250, 233)',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              backgroundColor: 'rgb(251, 243, 212)',
+              height: '70%',
+              margin: '3%',
+              borderRadius: '10px',
+              border: '5px solid black',
+            }}
+          >
+            {danArray.map((danValue) => renderSpan(danValue, danValue))}
+          </div>
+          <button className='shadow' style={{width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 215, 3)'}} onClick={() => startGame(dan)}>선택 완료</button>
+        </div>
+      </div>
+      )
+    }
+    else {
+      return (
+        <div>
+          {renderGugudanGame(gugudanState)}
+          <button onClick={resetGame}>돌아가기</button>
+        </div>
+      )
+    }
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
-      <h1 style={{ marginTop: '4%', fontWeight: 'bolder', color: 'rgb(255, 215, 3)', textShadow: '2px 2px 2px black' }}>
-        몇 단을 출제하실 건가요??
-      </h1>
-      <div
-        className='shadow'
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          border: '5px solid black',
-          borderRadius: '20px',
-          width: '90%',
-          flex: 1,
-          margin: '2rem',
-          backgroundColor: 'rgb(255, 250, 233)',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-            backgroundColor: 'rgb(251, 243, 212)',
-            height: '70%',
-            margin: '3%',
-            borderRadius: '10px',
-            border: '5px solid black',
-          }}
-        >
-          {danArray.map((danValue) => renderSpan(danValue))}
-        </div>
-        <button className='shadow' style={{width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 215, 3)'}}>선택 완료</button>
-      </div>
-    </div>
+    renderGugudan()
   );
 };
 
