@@ -6,11 +6,15 @@ const Words = () => {
   const [nowWord, setNowWord] = useState('')
   const word = useSelector((state) => state.words.value)
   const dispatch = useDispatch()
+  const [word1, setWord1] = useState('')
+  const [word2, setWord2] = useState('')
+  const [word3, setWord3] = useState('')
+  const [word4, setWord4] = useState('')
 
-
-  useEffect(() => {
-
-  }, [nowWord])
+  const reset = () => {
+    dispatch(addWord(''))
+    setNowWord('')
+  }
 
 
   if (word === '') {
@@ -27,17 +31,14 @@ const Words = () => {
       <div>
         <p>"{word}"을 포함한 문장을 만들어 보아요</p>
 
-        <input type="text" placeholder='문장을 만들어 보세요' />
-        <input type="text" placeholder='문장을 만들어 보세요' />
-        <input type="text" placeholder='문장을 만들어 보세요' />
-        <input type="text" placeholder='문장을 만들어 보세요' />
+        <input type="text" value={word1} readOnly />
+        <input type="text" value={word2} readOnly/>
+        <input type="text" value={word3} readOnly/>
+        <input type="text" value={word4} readOnly/>
+        <button onClick={reset}>돌아가기</button>
       </div>
     )
   }
-
-  return (
-    <div></div>
-  )
 }
 
 export default Words

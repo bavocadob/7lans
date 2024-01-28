@@ -10,6 +10,12 @@ const Gugudan = () => {
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (multipleNum === Number(10)) {
+      resetGame()
+    }
+  }, [multipleNum])
+
   const renderSpan = (danValue, key) => {
     return (
       <span
@@ -40,10 +46,7 @@ const Gugudan = () => {
       }
   }
   const renderGugudanGame = (dan) => {
-    if (multipleNum === Number(10)) {
-      resetGame()
-    }
-    else if (dan !== 'none') {
+    if (dan !== 'none') {
       return(
         <div>
           <p>{dan} X {multipleNum} = ?</p>
