@@ -1,7 +1,7 @@
 // 넓게 통용되는 것들
-@use 'assets/styles/_theme.scss';
+@use '../src/assets/styles/theme';
 
-@mixin size($width: 14px, $height: 14px) {
+@mixin size($width: 14px, $height: 50px) {
     width: $width;
     height: $height;
 }

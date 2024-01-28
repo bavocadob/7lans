@@ -1,11 +1,11 @@
-@use 'assets/styles/_theme.scss';
-@use 'assets/styles/common/_common.scss' as common;
+@use '../src/assets/styles/theme.scss';
+@use './common' as common;
 
 .calendar {
     @include common.size(60%, 90%);
     .header {
         @include common.size(100%, 7%);
-        @include common.flex-row(space-between, baseline);
+        @include common.flex-row(space-between);
         .col.col-first {
             @include common.size(80%, 100%);
             @include common.flex-column(center, flex-start);
@@ -24,7 +24,7 @@
             @include common.flex-row(flex-end, baseline);
             svg {
                 @include common.size(11%, fit-content);
-                margin-left: 5%;
+                margin-left: 95%;
                 color: transparentize(gray, 0.2);
                 &:hover {
                     @include common.hover-event();
@@ -53,6 +53,7 @@
         @include common.size(100%, 89%);
         @include common.flex-column();
         .row {
+            border: 2px solid rgb(255, 209, 45);
             @include common.size(100%, 100%);
             @include common.flex-row(space-between, center);
             .col {
@@ -73,6 +74,7 @@
                 }
             }
             .col.cell.valid {
+                background-color: rgb(255, 233, 156);
                 &:hover {
                     @include common.hover-event();
                     @include common.shadow(1.5px, theme.$dark-gray-color, 0.1);

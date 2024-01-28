@@ -18,6 +18,7 @@ import ChildWhisperPage from "./pages/child_pages/ChildWhisperPage";
 import ChildRaiseEggPage from "./pages/child_pages/ChildRaiseEggPage";
 import ChildDinosaurDictPage from "./pages/ChildDinosaurDictPage";
 import NormalNav from "./components/navs/NormalNav";
+import '../scss/main.scss'
 
 const NormalLayout = () => {
   return (
@@ -31,14 +32,12 @@ const NormalLayout = () => {
   )
 }
 
-
-
 function App() {
   return (
     <>
       <Routes>
-        {/* <Route path="/" element={<EntryPage />} /> */}
-        <Route path="/" element={<NormalLayout />} />
+        <Route path="/" element={<EntryPage />} />
+        {/* <Route path="/" element={<NormalLayout />} /> */}
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/main" element={<MainPage />} /> */}
         <Route path="/whisper_page" element={<WhisperPage />} />
