@@ -97,7 +97,9 @@ const VolunteerCalendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const navigate = useNavigate();
-    
+    const currentDate = new Date();
+    const dayOfMonth = currentDate.getDate();
+   
 
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
@@ -106,8 +108,9 @@ const VolunteerCalendar = () => {
         setCurrentMonth(addMonths(currentMonth, 1));
     };
     const onDateClick = (day) => {
-      console.log(Date())
-      if (day) { // day가 유효한지 확인
+      console.log(dayOfMonth)
+      console.log(day,'day')
+      if (day.getDate() <= dayOfMonth) { // day가 유효한지 확인
         setSelectedDate(day);
         navigate('/volunteer_ChoosePicturePage');
       }
