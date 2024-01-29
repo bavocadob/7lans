@@ -9,4 +9,6 @@ import java.util.List;
 public interface MeetingService {
 
     public List<MeetingScheduleResponseDto.monthList> findMeetingsByRelation(Long relationId, int month);
+
+    List<MeetingScheduleResponseDto.imgList> getImgList(Long meetingId);
 }

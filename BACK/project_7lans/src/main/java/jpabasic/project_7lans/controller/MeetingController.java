@@ -27,7 +27,6 @@ public class MeetingController {
         try{
             List<MeetingScheduleResponseDto.monthList> meetingSchedule = meetingService.findMeetingsByRelation(relationId, month);
 
-
             return new ResponseEntity<List<MeetingScheduleResponseDto.monthList>>(meetingSchedule, HttpStatus.OK);
 
         }
@@ -35,7 +34,24 @@ public class MeetingController {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
+
+    //해당 날짜 사진들 보기
+    @GetMapping("/image/{meetingId}")
+    public ResponseEntity<?> imageList(@PathVariable("meetingId") Long meetingId){
+        try{
+            List<MeetingScheduleResponseDto.imgList> imgList = meetingService.getImgList(meetingId);
+
+            return new ResponseEntity<List<MeetingScheduleResponseDto.imgList>>(imgList, HttpStatus.OK);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //미팅 추가 하기
+
 
 }

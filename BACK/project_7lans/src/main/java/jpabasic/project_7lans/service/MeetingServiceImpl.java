@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.service;
 
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleResponseDto;
+import jpabasic.project_7lans.entity.MeetingImage;
 import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.entity.ScheduleType;
@@ -50,7 +51,7 @@ public class MeetingServiceImpl implements MeetingService{
         for(MeetingSchedule meeting : totalMeeting){
             if(meeting.getScheduledStartTime().getMonthValue() == month){
                 monthMeeting.add(MeetingScheduleResponseDto.monthList.builder()
-                        .id(meeting.getId())
+                        .meetingId(meeting.getId())
                         .thumbnailImgPath(meeting.getThumbnailImgPath())
                         .meetingUrl(meeting.getMeetingUrl())
                         .status(meeting.getStatus())
@@ -59,6 +60,24 @@ public class MeetingServiceImpl implements MeetingService{
             }
         }
         return monthMeeting;
+    }
+
+    @Override
+    public List<MeetingScheduleResponseDto.imgList> getImgList(Long meetingId) {
+        MeetingSchedule meetingSchedule = meetingRepository.findById(meetingId)
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.getImgList] 해당 Id와 일치하는 meeting이 존재하지 않습니다."));
+
+        List<MeetingImage> images = meetingSchedule.getMeetingImageList();
+
+        List<MeetingScheduleResponseDto.imgList> responseImg = new ArrayList<>();
+        for(MeetingImage img : images){
+            responseImg.add(MeetingScheduleResponseDto.imgList.builder()
+                    .imgId(img.getId())
+                    .imgPath(img.getImgPath())
+                    .build());
+        }
+
+        return responseImg;
     }
 
     //미팅 상태 확인(예정)
