@@ -22,7 +22,8 @@ public class ActivityLog {
 
     private String content = null;
 
-    private boolean approveStatus = false;
+    private boolean writeStatus = false; // 작성 완료 여부
+    private boolean approveStatus = false; // 승인 완료 여부
 
 
     public void changeContent(String newContent){
@@ -38,6 +39,12 @@ public class ActivityLog {
         this.meetingSchedule = meetingSchedule;
     }
 
+    // 작성 완료 여부 관련
+    public void writeDone(){ this.writeStatus = true; }
+
+    public void writeNotDone(){ this.writeStatus = false; }
+
+    // 승인 완료 여부 관련
     public void approve(){
         this.approveStatus = true;
     }

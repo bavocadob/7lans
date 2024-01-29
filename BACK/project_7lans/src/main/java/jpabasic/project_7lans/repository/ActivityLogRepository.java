@@ -11,6 +11,5 @@ import java.util.Optional;
 
 
 public interface ActivityLogRepository extends JpaRepository<ActivityLog, Long> {
-    Optional<ActivityLog> findByMeetingSchedule(MeetingSchedule meetingSchedule);
-    //List<ActivityLog> findByChildCenter(ChildCenter childCenter);
+
 }
