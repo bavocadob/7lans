@@ -41,6 +41,7 @@ export default function WhisperFirst() {
   return (
     <>
       <Box>
+        {/* 이미지를 바꿀 수 있게 수정하기*/}
         <Image src="/Whisper/sampleDia.png" alt="dinosaur" />
         <TextContainer>
           <Text>어떤 학생의 속닥속닥을 보실건가요? 학생을 선택해 주세요</Text>

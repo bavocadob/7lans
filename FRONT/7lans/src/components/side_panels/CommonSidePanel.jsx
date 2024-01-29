@@ -82,10 +82,6 @@ const NameHeader = styled.h4`
   color: rgb(0, 0, 0);
   color: #007bff;
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 const DetailContainer = styled.div`
