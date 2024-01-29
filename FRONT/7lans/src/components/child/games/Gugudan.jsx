@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDan } from '../../../store/gugudanSlice';
 import { gameChange } from '../../../store/isPlayGameNow';
@@ -8,6 +8,8 @@ const Gugudan = () => {
   const [multipleNum, setMultipleNum] =useState('')
   const [nowAns, setNowAns] = useState('')
   const [correct, setCorrect] = useState('')
+
+  const inputRef = useRef(null)
 
   const gugudanState = useSelector((state) => state.gugudan.value)
 
@@ -22,6 +24,9 @@ const Gugudan = () => {
         setCorrect('')
       }, 2000)
       return () => clearTimeout(timeoutId)
+    }
+    if (inputRef.current) {
+      inputRef.current.focus();
     }
   }, [multipleNum, correct])
 
@@ -69,7 +74,7 @@ const Gugudan = () => {
               <h2>정답을 입력해 주세요</h2>
             </div>
             <div style={{display:'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', border: '5px solid black', borderRadius: '0 0 20px 20px'}}>
-              <input style={{backgroundColor: 'rgb(255, 215, 3)', borderRadius: '0 0 15px 15px', border: 'none', width: '100%', height: '100%', textAlign: 'center'}} type="text" onKeyUp={handleEnter} onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
+              <input ref={inputRef} style={{backgroundColor: 'rgb(255, 215, 3)', borderRadius: '0 0 15px 15px', border: 'none', width: '100%', height: '100%', textAlign: 'center'}} type="text" onKeyUp={handleEnter} onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
             </div>
           </div>
         </div>
