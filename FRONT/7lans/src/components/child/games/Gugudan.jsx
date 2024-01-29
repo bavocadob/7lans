@@ -6,6 +6,7 @@ const Gugudan = () => {
   const [dan, setDan] = useState('none');
   const [multipleNum, setMultipleNum] =useState('')
   const [nowAns, setNowAns] = useState('')
+  const [correct, setCorrect] = useState('')
   const gugudanState = useSelector((state) => state.gugudan.value)
 
   const dispatch = useDispatch()
@@ -14,7 +15,13 @@ const Gugudan = () => {
     if (multipleNum === Number(10)) {
       resetGame()
     }
-  }, [multipleNum])
+    if (correct !== '') {
+      const timeoutId = setTimeout(() => {
+        setCorrect('')
+      }, 3000)
+      return () => clearTimeout(timeoutId)
+    }
+  }, [multipleNum, correct])
 
   const renderSpan = (danValue, key) => {
     return (
@@ -42,18 +49,33 @@ const Gugudan = () => {
       if (Number(dan)*Number(multipleNum) === Number(nowAns)) {
         setNowAns('')
         setMultipleNum(Number(multipleNum) + 1)
+        setCorrect('정답')
+      }
+      else {
+        setNowAns('')
+        setCorrect('오답')
       }
       }
   }
   const renderGugudanGame = (dan) => {
-    if (dan !== 'none') {
+    if (dan !== 'none' && correct === '') {
       return(
-        <div>
-          <p>{dan} X {multipleNum} = ?</p>
-          <input type="text" onKeyUp={handleEnter} onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
+        <div style={{display: 'flex'}}>
+          <h1 style={{width: '100%', alignSelf: 'center', marginTop: '4%', fontWeight: 'bolder', color: 'rgb(255, 215, 3)', textShadow: '2px 2px 2px black' }}>{dan} X {multipleNum} = ?</h1>
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+            <h2>정답을 입렵해 주세요</h2>
+            <input type="text" onKeyUp={handleEnter} onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
+          </div>
         </div>
       )
-    }  
+    }
+    else {
+      return(
+        <div>
+          {correct}
+        </div>
+      )
+    }
 
   }
 
