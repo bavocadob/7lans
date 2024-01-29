@@ -9,6 +9,7 @@ import {
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { changecompo } from "../../store/changeCompoSlice";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -75,6 +76,18 @@ const InfoContainer = styled.div`
   }
 `;
 
+// test 용으로 Link 연결해봄
+const NameHeader = styled.h4`
+  font-weight: bolder;
+  color: rgb(0, 0, 0);
+  color: #007bff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const DetailContainer = styled.div`
   margin-top: 15px;
   width: 100%;
@@ -88,7 +101,7 @@ const DetailContainer = styled.div`
   }
 `;
 
-const DetailParagraph = styled.p`
+const DetailParagraph = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -96,8 +109,14 @@ const DetailParagraph = styled.p`
 
 const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
+
   const [id, setId] = useState(" ");
   const dispatch = useDispatch();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(changecompo());
+  };
 
   const renderSidePanel = () => {
     if (sidePanelStatus) {
@@ -112,7 +131,12 @@ const CommonSidePanel = () => {
           <InfoContainer>
             <NameHeader>박주헌 봉사자님</NameHeader>
             <DetailContainer>
-              <button onClick={func()}></button>
+              <DetailParagraph>
+                <form onSubmit={onSubmit}>
+                  옥세훈 프로필 카드
+                  <input type="submit" value="move" />
+                </form>
+              </DetailParagraph>
             </DetailContainer>
           </InfoContainer>
         </StyledCommonSidePanel>

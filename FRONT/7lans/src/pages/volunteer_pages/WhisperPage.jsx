@@ -5,6 +5,7 @@ import NormalNav from "../../components/navs/NormalNav";
 import PostIt from "../../components/volunteer/post_it/PostIt";
 import SelectedPostit from "../../components/volunteer/post_it/SelectedPostit";
 import WhisperFirst from "../../components/volunteer/whisper/WhisperFirst";
+import WhisperLetter from "./WhisperLetter";
 import styled from "styled-components";
 
 const MainPanel = styled.div`
@@ -17,6 +18,9 @@ const MainPanel = styled.div`
 `;
 
 const WhisperPage = () => {
+  const changeCompo = useSelector((state) => state.changecompo.value);
+  console.log(changeCompo);
+
   return (
     <div
       style={{
@@ -54,7 +58,7 @@ const WhisperPage = () => {
             }}
           >
             {/* 사이드패널에서 프로필카드를 누른다면 WhisperFirst페이지가 해당 ID를 가진 WisperLetter 페이지로 이동. */}
-            <WhisperFirst />
+            {changeCompo ? <WhisperLetter /> : <WhisperFirst />}
           </MainPanel>
 
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>
@@ -72,9 +76,7 @@ const WhisperPage = () => {
             right: "2%",
             top: "10rem",
           }}
-        >
-          {" "}
-        </div>
+        ></div>
       </div>
     </div>
   );

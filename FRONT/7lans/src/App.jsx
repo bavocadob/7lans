@@ -9,6 +9,8 @@ import VolunteerMainPage from "./pages/volunteer_pages/VolunteerMainPage";
 import StartPage from "./pages/volunteer_pages/StartPage";
 import ActiveDoc from "./pages/volunteer_pages/ActiveDoc";
 import WhisperPage from "./pages/volunteer_pages/WhisperPage";
+import WhisperLetter from "./pages/volunteer_pages/WhisperLetter";
+
 import RaiseEggPage from "./pages/volunteer_pages/RaiseEggPage";
 import VideoChattingStartPage from "./pages/volunteer_pages/VideoChattingStartPage";
 import ChildMainPage from "./pages/child_pages/ChildMainPage";
@@ -22,7 +24,6 @@ import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
 import ChildVideoChattingPage from "./pages/child_pages/ChildVideoChattingPage";
 import ChildGamePage from "./pages/child_pages/ChildGamePage";
 
-
 function App() {
   return (
     <>
@@ -31,6 +32,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         {/* <Route path="/main" element={<MainPage />} /> */}
         <Route path="/whisper_page" element={<WhisperPage />} />
+        <Route path="/whisper_letter" element={<WhisperLetter />} />
 
         <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
 
@@ -43,7 +45,10 @@ function App() {
         <Route path="/volunteer_active_doc" element={<ActiveDoc />} />
         <Route path="/volunteer_whispher" element={<WhisperPage />} />
         <Route path="/volunteer_raise_egg" element={<RaiseEggPage />} />
-        <Route path="/volunteer_video_chatting" element={<VideoChattingPage />} />
+        <Route
+          path="/volunteer_video_chatting"
+          element={<VideoChattingPage />}
+        />
         <Route path="/volunteer_game" element={<VolunteerGamePage />} />
 
         <Route path="/child_main" element={<ChildMainPage />} />
@@ -58,7 +63,10 @@ function App() {
         />
         <Route path="/child_whispher" element={<ChildWhisperPage />} />
         <Route path="/child_raise_egg" element={<ChildRaiseEggPage />} />
-        <Route path="/child_video_chatting" element={<ChildVideoChattingPage />} />
+        <Route
+          path="/child_video_chatting"
+          element={<ChildVideoChattingPage />}
+        />
         <Route path="/child_game" element={<ChildGamePage />} />
 
         <Route path="/calendar" element={<ReactCalendar />} />

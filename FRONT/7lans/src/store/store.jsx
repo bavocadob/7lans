@@ -4,16 +4,17 @@ import chooseGameSlice from "./chooseGameSlice";
 import gugudanSlice from "./gugudanSlice";
 import quizSlice from "./quizSlice";
 import wordsSlice from "./wordsSlice";
+import changeCompoSlice from "./changeCompoSlice";
 
 const store = configureStore({
-    reducer: {
-        chat: chatSlice,
-        chooseGame: chooseGameSlice,
-        gugudan: gugudanSlice,
-        quiz: quizSlice,
-        words: wordsSlice,
-    },
-})
+  reducer: {
+    chat: chatSlice,
+    chooseGame: chooseGameSlice,
+    gugudan: gugudanSlice,
+    quiz: quizSlice,
+    words: wordsSlice,
+    changecompo: changeCompoSlice,
+  },
+});
 
-export default store
->>>>>>> front
+export default store;
