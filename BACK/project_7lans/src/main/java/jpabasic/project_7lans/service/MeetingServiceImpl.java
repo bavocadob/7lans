@@ -1,14 +1,17 @@
 package jpabasic.project_7lans.service;
 
+import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleResponseDto;
 import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.entity.ScheduleType;
 import jpabasic.project_7lans.repository.MeetingScheduleRepository;
+import jpabasic.project_7lans.repository.RelationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,6 +20,7 @@ import java.util.List;
 public class MeetingServiceImpl implements MeetingService{
 
     private final MeetingScheduleRepository meetingRepository;
+    private final RelationRepository relationRepository;
 
     //미팅 생성
     @Transactional
@@ -32,8 +36,29 @@ public class MeetingServiceImpl implements MeetingService{
     }*/
 
     //해당 관계의 미팅 조회
-    public List<MeetingSchedule> findMeetingsByRelation(Relation relation){
-        return null;//meetingRepository.findByRelation(relation);
+    public List<MeetingScheduleResponseDto.monthList> findMeetingsByRelation(Long relationId, int month){
+        //관계 찾기
+        Relation relation = relationRepository.findById(relationId)
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.findMeetingsByRelation] 해당 Id와 일치하는 relation이 존재하지 않습니다."));
+
+        //관계된 모든 일정 받기 -> 월을 먼저 걸러서 받는 방법?
+        List<MeetingSchedule> totalMeeting = relation.getMeetingScheduleList();
+
+        //response
+        List<MeetingScheduleResponseDto.monthList> monthMeeting = new ArrayList<>();
+
+        for(MeetingSchedule meeting : totalMeeting){
+            if(meeting.getScheduledStartTime().getMonthValue() == month){
+                monthMeeting.add(MeetingScheduleResponseDto.monthList.builder()
+                        .id(meeting.getId())
+                        .thumbnailImgPath(meeting.getThumbnailImgPath())
+                        .meetingUrl(meeting.getMeetingUrl())
+                        .status(meeting.getStatus())
+                        .day(meeting.getScheduledStartTime().getDayOfMonth())
+                        .build());
+            }
+        }
+        return monthMeeting;
     }
 
     //미팅 상태 확인(예정)
@@ -53,8 +78,6 @@ public class MeetingServiceImpl implements MeetingService{
     public void changeThumnail(MeetingSchedule meetingSchedule, String thumnail){
         meetingSchedule.changeThumnail(thumnail);
     }
-
-
 
 
 }
