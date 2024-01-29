@@ -67,4 +67,19 @@ public class MeetingController {
         }
     }
 
+    //썸네일 수정하기
+    @GetMapping("/changethumbnail/{imgId}")
+    public ResponseEntity changeThumbnail(@PathVariable("imgId") Long imgId){
+        try{
+            meetingService.changeThumbnail(imgId);
+
+            return new ResponseEntity(HttpStatus.OK);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

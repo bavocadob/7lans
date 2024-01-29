@@ -13,4 +13,6 @@ public interface MeetingService {
     List<MeetingScheduleResponseDto.imgList> getImgList(Long meetingId);
 
     void create(Long relationId);
+
+    void changeThumbnail(Long imgId);
 }

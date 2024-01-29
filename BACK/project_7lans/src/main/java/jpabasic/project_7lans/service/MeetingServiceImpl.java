@@ -5,6 +5,7 @@ import jpabasic.project_7lans.entity.MeetingImage;
 import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.entity.ScheduleType;
+import jpabasic.project_7lans.repository.MeetingImageRepository;
 import jpabasic.project_7lans.repository.MeetingScheduleRepository;
 import jpabasic.project_7lans.repository.RelationRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class MeetingServiceImpl implements MeetingService{
 
     private final MeetingScheduleRepository meetingRepository;
     private final RelationRepository relationRepository;
+    private final MeetingImageRepository meetingImageRepository;
 
     //미팅 생성
     @Transactional
@@ -88,6 +90,17 @@ public class MeetingServiceImpl implements MeetingService{
 
     }
 
+    //썸네일 수정
+    @Override
+    public void changeThumbnail(Long imgId) {
+        MeetingImage img = meetingImageRepository.findById(imgId)
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.changeThumbnail] 해당 Id와 일치하는 meetingImg가 존재하지 않습니다."));
+
+        MeetingSchedule meetingSchedule = img.getMeetingSchedule();
+
+        meetingSchedule.changeThumnail(img.getImgPath());
+    }
+
     //미팅 상태 확인(예정)
     public boolean isScheduled(MeetingSchedule meetingSchedule){
         return meetingSchedule.getStatus().equals(ScheduleType.SCHEDULED);
@@ -99,11 +112,6 @@ public class MeetingServiceImpl implements MeetingService{
     //미팅 상태 확인(종료됨)
     public boolean isClosed(MeetingSchedule meetingSchedule){
         return meetingSchedule.getStatus().equals(ScheduleType.CLOSED);
-    }
-
-    //썸네일 수정
-    public void changeThumnail(MeetingSchedule meetingSchedule, String thumnail){
-        meetingSchedule.changeThumnail(thumnail);
     }
 
 
