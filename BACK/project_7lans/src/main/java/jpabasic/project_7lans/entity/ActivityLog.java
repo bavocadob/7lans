@@ -22,8 +22,8 @@ public class ActivityLog {
 
     private String content = null;
 
-    private boolean writeStatus = false; // 작성 완료 여부
-    private boolean approveStatus = false; // 승인 완료 여부
+    private Boolean writeStatus = false; // 작성 완료 여부
+    private Boolean approveStatus = false; // 승인 완료 여부
 
 
     public void changeContent(String newContent){

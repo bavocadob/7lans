@@ -50,7 +50,7 @@ public class ActivityLogResponseDto {
         @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] dateInfo 은 Null 일 수 없습니다.")
         private LocalDate dateInfo;
         @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] activityTime 은 Null 일 수 없습니다.")
-        private Integer activityTime;
+        private Long activityTime;
         @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] centerName 은 Null 일 수 없습니다.")
         private String centerName;
         @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] volunteerName 은 Null 일 수 없습니다.")
@@ -67,7 +67,7 @@ public class ActivityLogResponseDto {
         detailByVolunteer(
                 Long activityLogId,
                 LocalDate dateInfo,
-                Integer activityTime,
+                Long activityTime,
                 String centerName,
                 String volunteerName,
                 String content,

@@ -19,6 +19,8 @@ public class ActivityLogRequestDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detailListByVolunteer {
+        @NotNull(message = "[ActivityLogRequestDto.detailListByVolunteer] volunteerId 은 Null 일 수 없습니다.")
+        private Long volunteerId;
         @NotNull(message = "[ActivityLogRequestDto.detailListByVolunteer] RelationId 은 Null 일 수 없습니다.")
         private Long RelationId;
         @NotNull(message = "[ActivityLogRequestDto.detailListByVolunteer] dateInfo 은 Null 일 수 없습니다.")
@@ -26,9 +28,11 @@ public class ActivityLogRequestDto {
 
         @Builder
         detailListByVolunteer(
+                Long volunteerId,
                 Long RelationId,
                 LocalDate dateInfo
         ){
+            this.volunteerId = volunteerId;
             this.RelationId = RelationId;
             this.dateInfo = dateInfo;
         }
@@ -40,6 +44,8 @@ public class ActivityLogRequestDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detailByVolunteer {
+        @NotNull(message = "[ActivityLogRequestDto.detailByVolunteer] volunteerId 은 Null 일 수 없습니다.")
+        private Long volunteerId;
         @NotNull(message = "[ActivityLogRequestDto.detailByVolunteer] RelationId 은 Null 일 수 없습니다.")
         private Long RelationId;
         @NotNull(message = "[ActivityLogRequestDto.detailByVolunteer] activityLogId 은 Null 일 수 없습니다.")
@@ -47,9 +53,11 @@ public class ActivityLogRequestDto {
 
         @Builder
         detailByVolunteer(
+                Long volunteerId,
                 Long RelationId,
                 Long activityLogId
         ){
+            this.volunteerId = volunteerId;
             this.RelationId = RelationId;
             this.activityLogId = activityLogId;
         }
@@ -61,6 +69,8 @@ public class ActivityLogRequestDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class modifyByVolunteer {
+        @NotNull(message = "[ActivityLogRequestDto.modifyByVolunteer] volunteerId 은 Null 일 수 없습니다.")
+        private Long volunteerId;
         @NotNull(message = "[ActivityLogRequestDto.modifyByVolunteer] RelationId 은 Null 일 수 없습니다.")
         private Long RelationId;
         @NotNull(message = "[ActivityLogRequestDto.modifyByVolunteer] activityLogId 은 Null 일 수 없습니다.")
@@ -70,10 +80,12 @@ public class ActivityLogRequestDto {
 
         @Builder
         modifyByVolunteer(
+                Long volunteerId,
                 Long RelationId,
                 Long activityLogId,
                 String content
         ){
+            this.volunteerId = volunteerId;
             this.RelationId = RelationId;
             this.activityLogId = activityLogId;
             this.content = content;
@@ -86,6 +98,8 @@ public class ActivityLogRequestDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class writeDoneByVolunteer {
+        @NotNull(message = "[ActivityLogRequestDto.writeDoneByVolunteer] volunteerId 은 Null 일 수 없습니다.")
+        private Long volunteerId;
         @NotNull(message = "[ActivityLogRequestDto.writeDoneByVolunteer] RelationId 은 Null 일 수 없습니다.")
         private Long RelationId;
         @NotNull(message = "[ActivityLogRequestDto.writeDoneByVolunteer] activityLogId 은 Null 일 수 없습니다.")
@@ -95,10 +109,12 @@ public class ActivityLogRequestDto {
 
         @Builder
         writeDoneByVolunteer(
+                Long volunteerId,
                 Long RelationId,
                 Long activityLogId,
                 String content
         ){
+            this.volunteerId = volunteerId;
             this.RelationId = RelationId;
             this.activityLogId = activityLogId;
             this.content = content;
@@ -116,7 +132,6 @@ public class ActivityLogRequestDto {
     public static class listApprovedByManager {
         @NotNull(message = "[ActivityLogRequestDto.listApprovedByManager] centerId 은 Null 일 수 없습니다.")
         private Long centerId;
-
 
         @Builder
         listApprovedByManager(
@@ -145,11 +160,13 @@ public class ActivityLogRequestDto {
     }
 
     // 관리자 활동 일지 상세 조회
-    // Req: Relation Id, activityLog Id
+    // Req: CenterId, Relation Id, activityLog Id
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detailByManager {
+        @NotNull(message = "[ActivityLogRequestDto.detailByManager] RelationId 은 Null 일 수 없습니다.")
+        private Long centerId;
         @NotNull(message = "[ActivityLogRequestDto.detailByManager] RelationId 은 Null 일 수 없습니다.")
         private Long RelationId;
         @NotNull(message = "[ActivityLogRequestDto.detailByManager] activityLogId 은 Null 일 수 없습니다.")
@@ -157,20 +174,24 @@ public class ActivityLogRequestDto {
 
         @Builder
         detailByManager(
+                Long centerId,
                 Long RelationId,
                 Long activityLogId
         ){
+            this.centerId = centerId;
             this.RelationId = RelationId;
             this.activityLogId = activityLogId;
         }
     }
 
     // 관리자 활동 일지 승인
-    // Req: 관계 Id, 활동 일지 Id
+    // Req: CenterId, RelationId, activityLogId
     // Res: 없음
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class approveByManager {
+        @NotNull(message = "[ActivityLogRequestDto.approveByManager] centerId 은 Null 일 수 없습니다.")
+        private Long centerId;
         @NotNull(message = "[ActivityLogRequestDto.approveByManager] RelationId 은 Null 일 수 없습니다.")
         private Long RelationId;
         @NotNull(message = "[ActivityLogRequestDto.approveByManager] activityLogId 은 Null 일 수 없습니다.")
@@ -178,9 +199,11 @@ public class ActivityLogRequestDto {
 
         @Builder
         approveByManager(
+                Long centerId,
                 Long RelationId,
                 Long activityLogId
         ){
+            this.centerId = centerId;
             this.RelationId = RelationId;
             this.activityLogId = activityLogId;
         }
