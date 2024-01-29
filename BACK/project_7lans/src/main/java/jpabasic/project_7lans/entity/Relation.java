@@ -44,10 +44,10 @@ public class Relation {
 
     // =================================================
     // 메소드
-//    public void addCenterRelation(CenterRalation centerRalation){
-//        centerRalationList.add(centerRalation);
-//        //centerRalation.setRelation(this);
-//    }
+    public void addCenterRelation(CenterRelation centerRalation){
+        centerRelationList.add(centerRalation);
+        //centerRalation.setRelation(this);
+    }
 
     public void addMeetingSchedule(MeetingSchedule meetingSchedule){
         meetingScheduleList.add(meetingSchedule);
