@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @DiscriminatorValue("CHILD")
 @PrimaryKeyJoinColumn(name="CHILD_ID")
+@NoArgsConstructor
 public class Child extends Member {
     // ==============================================================================================
     // 필드

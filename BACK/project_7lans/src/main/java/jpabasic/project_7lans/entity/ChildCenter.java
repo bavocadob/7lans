@@ -53,15 +53,14 @@ public class ChildCenter {
 
 
     @Builder
-    public static ChildCenter createChildCenter (
+    public ChildCenter(
             String name,
             String address,
             String phoneNumber
     ){
-        return ChildCenter.builder()
-                .name(name)
-                .address(address)
-                .phoneNumber(phoneNumber)
-                .build();
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
     }
+
 }
