@@ -31,6 +31,11 @@ const NormalLayout = () => {
     </>
   )
 }
+import VideoChattingPage from "./pages/volunteer_pages/VideoChattingPage";
+import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
+import ChildVideoChattingPage from "./pages/child_pages/ChildVideoChattingPage";
+import ChildGamePage from "./pages/child_pages/ChildGamePage";
+
 
 function App() {
   return (
@@ -52,6 +57,8 @@ function App() {
         <Route path="/volunteer_active_doc" element={<ActiveDoc />} />
         <Route path="/volunteer_whispher" element={<WhisperPage />} />
         <Route path="/volunteer_raise_egg" element={<RaiseEggPage />} />
+        <Route path="/volunteer_video_chatting" element={<VideoChattingPage />} />
+        <Route path="/volunteer_game" element={<VolunteerGamePage />} />
 
         <Route path="/child_main" element={<ChildMainPage />} />
         <Route
@@ -65,6 +72,8 @@ function App() {
         />
         <Route path="/child_whispher" element={<ChildWhisperPage />} />
         <Route path="/child_raise_egg" element={<ChildRaiseEggPage />} />
+        <Route path="/child_video_chatting" element={<ChildVideoChattingPage />} />
+        <Route path="/child_game" element={<ChildGamePage />} />
 
         <Route path="/calendar" element={<ReactCalendar />} />
       </Routes>
