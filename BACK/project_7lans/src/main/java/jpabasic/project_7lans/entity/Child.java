@@ -46,6 +46,7 @@ public class Child extends Member {
     }
 
 
+    public void setChildCenter(ChildCenter childCenter) { this.childCenter = childCenter;}
     // ==============================================================================================
     // 생성자
 

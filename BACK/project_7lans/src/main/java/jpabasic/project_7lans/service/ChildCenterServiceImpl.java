@@ -39,14 +39,14 @@ public class ChildCenterServiceImpl implements ChildCenterService{
         ChildCenter childCenter = childCenterRepository.findById(centerId)
                 .orElseThrow(() -> new IllegalArgumentException("[ChildCenterServiceImpl.childList] 해당 Id와 일치하는 center가 존재하지 않습니다."));
 
-        List<CenterRelation> relations = childCenter.getCenterRelationList();
-        List<ChildResponseDto.list> children = new ArrayList<>();
+        //List<CenterRelation> relations = childCenter.getCenterRelationList();
+        List<Child> children = childCenter.getChildList();
+        List<ChildResponseDto.list> childrenResponse = new ArrayList<>();
 
-        for(CenterRelation relation : relations){
-            Child child = relation.getRelation().getChild();
-            children.add(ChildResponseDto.toListDto(child));
+        for(Child child : children){
+            childrenResponse.add(ChildResponseDto.toListDto(child));
         }
-        return children;
+        return childrenResponse;
 
     }
 

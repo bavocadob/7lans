@@ -28,15 +28,29 @@ public class ChildCenter {
     @OneToMany(mappedBy = "childCenter", cascade = CascadeType.ALL)
     private List<CenterActivityLog> centerActivityLogList = new ArrayList<>();
 
-    public void addCenterRelation(CenterRelation centerRelation){
+    @OneToMany(mappedBy = "childCenter", cascade = CascadeType.ALL)
+    private List<Child> childList = new ArrayList<>();
+
+    public void addCenterRelation(CenterRelation centerRelation) {
         centerRelation.setChildCenter(this);
         this.centerRelationList.add(centerRelation);
+    }
+
+    public void changeName(String name) {
+        this.name = name;
     }
 
     public void addCenterActivityLog (CenterActivityLog centerActivityLog){
         centerActivityLog.setChildCenter(this);
         this.centerActivityLogList.add(centerActivityLog);
     }
+
+
+    public void addChildList(Child child) {
+        this.childList.add(child);
+        child.setChildCenter(this);
+    }
+
 
     @Builder
     public static ChildCenter createChildCenter (

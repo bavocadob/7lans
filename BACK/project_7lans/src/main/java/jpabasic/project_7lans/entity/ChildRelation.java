@@ -19,6 +19,8 @@ public class ChildRelation {
     @ManyToOne(fetch = FetchType.LAZY)
     private Relation relation;
 
+
+
     @Builder
     public ChildRelation(
             Child child,

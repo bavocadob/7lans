@@ -60,9 +60,6 @@ public class ChildServiceImpl implements ChildService {
     @Override
     @Transactional
     public void modifyContent(ChildRequestDto.childWithContent childWithContent) {
-        //System.out.println(childWithContent.getId());
-
-        //memberRepository.findById(childWithContent.getId());
         Child child = childRepository.findById(childWithContent.getId())
                 .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.modifyContent] 해당 Id와 일치하는 child가 존재하지 않습니다."));
 
