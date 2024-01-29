@@ -9,7 +9,6 @@ import {
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { test } from "../../store/testSlice";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -76,18 +75,6 @@ const InfoContainer = styled.div`
   }
 `;
 
-// test 용으로 Link 연결해봄
-const NameHeader = styled.h4`
-  font-weight: bolder;
-  color: rgb(0, 0, 0);
-  color: #007bff;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
 const DetailContainer = styled.div`
   margin-top: 15px;
   width: 100%;
@@ -111,9 +98,6 @@ const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
   const [id, setId] = useState(" ");
   const dispatch = useDispatch();
-  const func = () => {
-    dispatch(test(12));
-  };
 
   const renderSidePanel = () => {
     if (sidePanelStatus) {

@@ -17,9 +17,6 @@ const MainPanel = styled.div`
 `;
 
 const WhisperPage = () => {
-  // const testValue = useSele
-  const testValue = useSelector((state) => state.test.value);
-
   return (
     <div
       style={{
@@ -58,7 +55,6 @@ const WhisperPage = () => {
           >
             {/* 사이드패널에서 프로필카드를 누른다면 WhisperFirst페이지가 해당 ID를 가진 WisperLetter 페이지로 이동. */}
             <WhisperFirst />
-            {testValue}
           </MainPanel>
 
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>
