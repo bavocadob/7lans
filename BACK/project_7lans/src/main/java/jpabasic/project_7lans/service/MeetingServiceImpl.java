@@ -80,6 +80,14 @@ public class MeetingServiceImpl implements MeetingService{
         return responseImg;
     }
 
+    //미팅 생성
+    @Override
+    @Transactional
+    public void create(Long relationId) {
+        //미팅을 만들고 relation에 넣어주기
+
+    }
+
     //미팅 상태 확인(예정)
     public boolean isScheduled(MeetingSchedule meetingSchedule){
         return meetingSchedule.getStatus().equals(ScheduleType.SCHEDULED);

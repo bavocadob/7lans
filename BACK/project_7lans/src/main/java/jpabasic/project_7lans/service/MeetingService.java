@@ -11,4 +11,6 @@ public interface MeetingService {
     public List<MeetingScheduleResponseDto.monthList> findMeetingsByRelation(Long relationId, int month);
 
     List<MeetingScheduleResponseDto.imgList> getImgList(Long meetingId);
+
+    void create(Long relationId);
 }

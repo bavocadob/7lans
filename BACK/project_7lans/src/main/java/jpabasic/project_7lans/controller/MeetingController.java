@@ -7,6 +7,7 @@ import jpabasic.project_7lans.service.MeetingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +53,18 @@ public class MeetingController {
     }
 
     //미팅 추가 하기
+    @GetMapping("/create/{relationId}")
+    public ResponseEntity create(@PathVariable("relationId") Long relationId){
+        try{
+            meetingService.create(relationId);
 
+            return new ResponseEntity(HttpStatus.OK);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
