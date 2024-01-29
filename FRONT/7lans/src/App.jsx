@@ -76,7 +76,7 @@ function App() {
 
 
 
-        <Route path="/child_main" element={<ChildMainPage />} />
+        <Route path="/child_main" eleent={<ChildMainPage />} />
         <Route
           path="/child_dinosaur_dict"
           element={<ChildDinosaurDictPage />}

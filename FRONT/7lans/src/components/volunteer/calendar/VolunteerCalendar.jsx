@@ -4,6 +4,8 @@ import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
+// import NormalNav from '../../components/navs/NormalNav'
 import ChoosePicturePage from '../../../pages/volunteer_pages/ChoosePicturePage'
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
@@ -96,6 +98,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
 const VolunteerCalendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
     const navigate = useNavigate();
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
@@ -110,14 +113,48 @@ const VolunteerCalendar = () => {
     const onDateClick = (day) => {
       console.log(dayOfMonth)
       console.log(day,'day')
+      // 오늘 날짜 이전은 사진고를 수 있는 페이지로 이동하게 됨
       if (day.getDate() <= dayOfMonth) { // day가 유효한지 확인
         setSelectedDate(day);
-        navigate('/volunteer_ChoosePicturePage');
+        navigate('/volunteer_ChoosePicturePage'); 
+      }
+      else {
+        // 오늘날짜 이후로는 화상채팅약속시간 잡을 수 있는 모달 창이 떠야 함
+        setModalOpen(true)
       }
     };
+
+
+      const closeModal = () => {
+        // 모달을 닫을 때 호출되는 함수
+        setModalOpen(false);
+      };
+    
+    //   return (
+    //     <div className="Calendar">
+    //       {/* RenderHeader, RenderDays, RenderCells 등 기존의 컴포넌트들 */}
+    //       {/* ... */}
+    
+    //       {/* 모달 창 */}
+    //       {isModalOpen && (
+    //         <div className="modal">
+    //           <div className="modal-content">
+    //             {/* 모달 내용 */}
+    //             <p>화상채팅 약속시간을 잡을 수 있는 모달입니다.</p>
+    //             {/* 모달 닫기 버튼 */}
+    //             <button onClick={closeModal}>모달 닫기</button>
+    //           </div>
+    //         </div>
+    //       )}
+    //     </div>
+    //   );
+    // };
+    
+    // export default VolunteerCalendar;
+    
   
     return (
-  
+      
         <div className="Calendar">
             <RenderHeader
                 currentMonth={currentMonth}
@@ -130,8 +167,17 @@ const VolunteerCalendar = () => {
                 selectedDate={selectedDate}
                 onDateClick={onDateClick}
             />
+           {isModalOpen && (
+             <div className="modal">
+             <div className="modal-content">
+               {/* 모달 내용 */}
+                 <p>화상채팅 약속시간을 잡을 수 있는 모달입니다.</p>
+                {/* 모달 닫기 버튼 */}
+                <button onClick={closeModal}>모달 닫기</button>
+              </div>
+           </div>
+         )}
         </div>
-
     );
 };
 
