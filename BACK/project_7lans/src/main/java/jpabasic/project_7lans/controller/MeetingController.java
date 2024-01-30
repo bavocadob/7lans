@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.controller;
 
+import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleRequestDto;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleResponseDto;
@@ -79,5 +80,33 @@ public class MeetingController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    //사진 1장 저장(캡쳐하면 1차적으로 무조건 저장)
+    @PostMapping("/image/saveImg")
+    public ResponseEntity<Long> saveImg(@RequestBody @Valid MeetingScheduleRequestDto.saveImg img){
+        try{
+            return new ResponseEntity<>(meetingService.saveImg(img), HttpStatus.OK);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //화상 종료 시 선택한 사진들 삭제하기
+    @PostMapping("/image/choice")
+    public ResponseEntity choiceImg(@RequestBody @Valid List<MeetingScheduleRequestDto.choiceImg> imgs){
+        try{
+            meetingService.choiceImg(imgs);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 }

@@ -16,7 +16,6 @@ public class RelationResponseDto {
         // 필요하게 될 때 객체가 아닌 DTO로 return 할 수 있도록 수정
         private Volunteer volunteer;
         private Child child;
-        private List<CenterRelation> centerRelationList;
         private Egg egg;
         private List<MeetingSchedule> meetingScheduleList;
         private List<Whisper> whisperList;
@@ -28,7 +27,6 @@ public class RelationResponseDto {
     public static class info {
         private Long volunteerId;
         private Long childId;
-
         private Long eggId;
 
         @Builder

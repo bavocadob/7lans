@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class ActivityLog {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class ActivityLog {
 
     private String content = null;
 
-    private boolean approveStatus = false;
+    private Boolean approveStatus = false;
 
 
     public void changeContent(String newContent){
@@ -46,11 +46,4 @@ public class ActivityLog {
         this.approveStatus = false;
     }
 
-    @Builder
-    ActivityLog(
-            LocalDateTime startTime, LocalDateTime endTime
-    ){
-        this.realStartTime = startTime;
-        this.realEndTime = endTime;
-    }
 }

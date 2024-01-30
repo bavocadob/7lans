@@ -20,14 +20,14 @@ public class ActivityLogServiceImpl {
 
     ActivityLogRepository activityLogRepository;
     //일지 생성
-    @Transactional
+/*    @Transactional
     public void createActivityLog(MeetingSchedule meeting, LocalDateTime startTime, LocalDateTime endTime){
         ActivityLog activityLog = ActivityLog.builder()
                 .startTime(startTime)
                 .endTime(endTime)
                 .build();//createActivityLog(startTime, endTime);
         activityLogRepository.save(activityLog);
-    }
+    }*/
 
     //글 쓰기, 수정
     @Transactional
@@ -45,7 +45,7 @@ public class ActivityLogServiceImpl {
     //승인 시 true, 아직 승인 안 했을 시 false
     public boolean isApprove(Long id){
         ActivityLog findLog = activityLogRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("no such activity log"));
-        return findLog.isApproveStatus();
+        return findLog.getApproveStatus();
     }
 
     //승인 변경
