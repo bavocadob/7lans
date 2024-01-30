@@ -10,6 +10,7 @@ import jpabasic.project_7lans.repository.MeetingImageRepository;
 import jpabasic.project_7lans.repository.MeetingScheduleRepository;
 import jpabasic.project_7lans.repository.RelationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -111,6 +112,7 @@ public class MeetingServiceImpl implements MeetingService{
     }
 
     @Override
+    @Transactional
     public Long saveImg(MeetingScheduleRequestDto.saveImg img) {
         String uploadPath = "https://i10e103.p.ssafy.io/images/";
 
@@ -155,12 +157,20 @@ public class MeetingServiceImpl implements MeetingService{
                     .build()).getId();
         }
         catch (Exception e){
-
+            e.printStackTrace();
+            return null;
         }
 
-
-        return null;
     }
+
+    @Override
+    @Transactional
+    public void choiceImg(List<MeetingScheduleRequestDto.choiceImg> imgs) {
+           for(MeetingScheduleRequestDto.choiceImg imgDto : imgs){
+                meetingImageRepository.deleteById(imgDto.getImgId());
+           }
+    }
+
 
     //미팅 상태 확인(예정)
     public boolean isScheduled(MeetingSchedule meetingSchedule){

@@ -22,8 +22,6 @@ public class MeetingScheduleRequestDto {
         @NotNull(message = "[MeetingScheduleRequestDto.saveImgList] meetingId 는 Null 일 수 없습니다.")
         MultipartFile file;
 
-
-
         @Builder
         saveImg(
                 Long meetingId,
@@ -31,6 +29,21 @@ public class MeetingScheduleRequestDto {
         ){
             this.meetingId = meetingId;
             this.file = file;
+
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class choiceImg{
+        @NotNull(message = "[MeetingScheduleRequestDto.choiceImg] imgId 는 Null 일 수 없습니다.")
+        Long imgId;
+
+        @Builder
+        choiceImg(
+                Long imgId
+        ){
+            this.imgId = imgId;
 
         }
     }

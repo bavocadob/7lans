@@ -94,4 +94,19 @@ public class MeetingController {
         }
     }
 
+    //화상 종료 시 선택한 사진들 삭제하기
+    @PostMapping("/image/choice")
+    public ResponseEntity choiceImg(@RequestBody @Valid List<MeetingScheduleRequestDto.choiceImg> imgs){
+        try{
+            meetingService.choiceImg(imgs);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
 }

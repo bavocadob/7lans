@@ -4,6 +4,7 @@ import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleRequestDto;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleResponseDto;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.entity.Relation;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface MeetingService {
     void changeThumbnail(Long imgId);
 
     Long saveImg(MeetingScheduleRequestDto.saveImg img);
+
+    void choiceImg(List<MeetingScheduleRequestDto.choiceImg> imgs);
 }
