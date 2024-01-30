@@ -2,7 +2,10 @@
 @use './common' as common;
 
 .calendar {
-    @include common.size(60%, 90%);
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-top: 1rem;
+    @include common.size(95%, 90%);
     .header {
         @include common.size(100%, 7%);
         @include common.flex-row(space-between);
@@ -53,7 +56,7 @@
         @include common.size(100%, 89%);
         @include common.flex-column();
         .row {
-            border: 2px solid rgb(255, 209, 45);
+            // border: 2px solid rgb(255, 209, 45);
             @include common.size(100%, 100%);
             @include common.flex-row(space-between, center);
             .col {

@@ -28,7 +28,6 @@ import NormalNav from "./components/navs/NormalNav";
 
 import '../scss/main.scss'
 
-
 import VideoChattingPage from "./pages/volunteer_pages/VideoChattingPage";
 import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
 import ChildVideoChattingPage from "./pages/child_pages/ChildVideoChattingPage";
@@ -57,7 +56,6 @@ function App() {
         <Route path="/" element={<EntryPage />} />
         {/* <Route path="/" element={<NormalLayout />} /> */}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/calendar" element={<ReactCalendar />} />
 
         {/* 봉사자 */}
         <Route path="/volunteer_start" element={<StartPage />} />
