@@ -35,7 +35,7 @@ const GameNav = () => {
         <LogoImage src="./7lans_logo.png" alt="logo" />
       </Link>
         <button onClick={() => goToOtherGame(Number(1))}>퀴즈 출제하기</button>
-        <button onClick={() => goToOtherGame(Number(2))}>하노이</button>
+        <button onClick={() => goToOtherGame(Number(2))}>카드 뒤집기</button>
         <button onClick={() => goToOtherGame(Number(3))}>구구단</button>
         <button onClick={() => goToOtherGame(Number(4))}>문장 만들기</button>
     </NavBar>

@@ -3,9 +3,9 @@ import GameNav from '../../components/navs/GameNav'
 import Chat from '../../components/child/games/commons/Chatting'
 import { useSelector } from 'react-redux'
 import Gugudan from '../../components/child/games/Gugudan'
-import Hanoi from '../../components/child/games/Hanoi'
 import Quiz from '../../components/child/games/Quiz'
 import Words from '../../components/child/games/Words'
+import CardFind from '../../components/child/games/CardFind'
 
 const VolunteerGamePage = () => {
 
@@ -19,7 +19,7 @@ const VolunteerGamePage = () => {
     }
     if (gameSelector === 2) {
       return(
-        <Hanoi />
+        <CardFind />
       )
     }
     if (gameSelector === 3) {
