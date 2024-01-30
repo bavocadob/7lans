@@ -14,7 +14,7 @@ import java.util.List;
 @Table(uniqueConstraints = {
         @UniqueConstraint(
                 name = "VOLUNTEER_CHILD_UNIQUE",
-                columnNames = {"VOLUNTEER_ID", "CHILD_ID"}
+                columnNames = {"volunteer_id", "child_id"}
         )
 })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,15 +23,15 @@ public class Relation {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "VOLUNTEER_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "volunteer_id", referencedColumnName = "id")
     private Volunteer volunteer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CHILD_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "child_id", referencedColumnName = "id")
     private Child child;
 
-    @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)
-    private List<CenterRelation> centerRelationList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ChildCenter childCenter;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Egg egg;
@@ -44,10 +44,6 @@ public class Relation {
 
     // =================================================
     // 메소드
-    public void addCenterRelation(CenterRelation centerRalation){
-        centerRelationList.add(centerRalation);
-        //centerRalation.setRelation(this);
-    }
 
     public void addMeetingSchedule(MeetingSchedule meetingSchedule){
         meetingScheduleList.add(meetingSchedule);
@@ -62,10 +58,12 @@ public class Relation {
     public Relation(
             Volunteer volunteer,
             Child child,
+            ChildCenter childCenter,
             Egg egg
     ){
         this.volunteer = volunteer;
         this.child = child;
+        this.childCenter = childCenter;
         this.egg = egg;
     }
 }
