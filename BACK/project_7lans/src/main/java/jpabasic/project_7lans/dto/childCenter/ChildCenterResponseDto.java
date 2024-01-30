@@ -34,4 +34,24 @@ public class ChildCenterResponseDto {
             this.childCenterPhoneNumber = childCenterPhoneNumber;
         }
     }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class list{
+        @NotNull(message = "[ChildCenterResponseDto.detail] childCenterId 는 Null 일 수 없습니다.")
+        private Long childCenterId;
+        @NotNull(message = "[ChildCenterResponseDto.detail] childCenterName 는 Null 일 수 없습니다.")
+        private String childCenterName;
+
+        @Builder
+        list(
+                Long childCenterId,
+                String childCenterName
+        ){
+            this.childCenterId = childCenterId;
+            this.childCenterName = childCenterName;
+        }
+    }
+
+
 }
