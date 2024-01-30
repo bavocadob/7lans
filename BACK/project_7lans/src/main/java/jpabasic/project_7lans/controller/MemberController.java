@@ -37,7 +37,6 @@ public class MemberController {
     public ResponseEntity register(@RequestBody @Valid MemberRequestDto.sign memberDto){
         // 회원가입
         try{
-            System.out.println(memberDto.getMemberType());
             if(memberDto.getMemberType().equals("V")){
                 service.volunteerRegister(memberDto);
 

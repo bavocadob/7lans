@@ -4,10 +4,11 @@ import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.Child;
-import jpabasic.project_7lans.entity.ChildRelation;
+import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.entity.Volunteer;
 import jpabasic.project_7lans.repository.ChildRepository;
 import jpabasic.project_7lans.repository.MemberRepository;
+import jpabasic.project_7lans.repository.RelationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ChildServiceImpl implements ChildService {
 
+    private final RelationRepository relationRepository;
     private final ChildRepository childRepository;
 
     private final MemberRepository memberRepository;
@@ -28,14 +30,14 @@ public class ChildServiceImpl implements ChildService {
         Child child = childRepository.findById(childId)
                 .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.volunteerList] 해당 Id와 일치하는 Volunteer가 존재하지 않습니다."));
 
-        List<ChildRelation> relations = child.getChildRelations();
+        List<Relation> relationsList = relationRepository.findByChild(child);
+
         List<VolunteerResponseDto.list> volunteers = new ArrayList<>();
-        for (ChildRelation relation : relations) {
-            Volunteer volunteer = relation.getRelation().getVolunteer();
-
+        for (Relation relation : relationsList) {
+            Volunteer volunteer = relation.getVolunteer();
             volunteers.add(VolunteerResponseDto.toListDto(volunteer));
-
         }
+
         return volunteers;
     }
 
@@ -60,9 +62,6 @@ public class ChildServiceImpl implements ChildService {
     @Override
     @Transactional
     public void modifyContent(ChildRequestDto.childWithContent childWithContent) {
-        //System.out.println(childWithContent.getId());
-
-        //memberRepository.findById(childWithContent.getId());
         Child child = childRepository.findById(childWithContent.getId())
                 .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.modifyContent] 해당 Id와 일치하는 child가 존재하지 않습니다."));
 

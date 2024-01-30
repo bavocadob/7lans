@@ -23,14 +23,12 @@ public class Volunteer extends Member{
 
     private Long volunteerTime;
 
-    @OneToMany(mappedBy = "volunteer", cascade = CascadeType.ALL)
-    private List<VolunteerRelation> volunteerRelations = new ArrayList<>();
-
     // ================================================================================================
     // 메서드
-    public void addVolunteerRelation(VolunteerRelation volunteerRelation){
-        volunteerRelations.add(volunteerRelation);
-        //volunteerRelation.setVolunteer(this);
+
+    // 봉사 시간 추가
+    public void addVolunteerTime(Long time){
+        this.volunteerTime += time;
     }
 
     // ================================================================================================
@@ -42,7 +40,6 @@ public class Volunteer extends Member{
             String password,
             String phoneNumber,
             LocalDate birth,
-            Long volunteerTime,
             DinosaurBook dinosaurBook,
             MemberType memberType
     ){
@@ -56,7 +53,7 @@ public class Volunteer extends Member{
                 memberType
         );
 
-        this.volunteerTime = volunteerTime;
+        this.volunteerTime = 0L;
     }
 
 }

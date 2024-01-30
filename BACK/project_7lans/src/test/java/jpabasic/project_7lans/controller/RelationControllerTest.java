@@ -24,20 +24,6 @@ class RelationControllerTest {
     private MockMvc mockMvc;
 
 
-    @public void testChild() throws Exception{
-        Child child = Child.builder()
-                .email("1")
-                .name("1")
-                .password("1")
-                .phoneNumber("1")
-                .build();
-
-        child.getChildRelation();
-    }
-
-
-
-
 //    @MockBean
 //    private ChildVolunteerRelationServiceImpl childVolunteerRelationService;
 //

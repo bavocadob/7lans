@@ -41,6 +41,7 @@ public class ManagerController {
     public ResponseEntity<List<ChildResponseDto.list>> childList(@PathVariable("centerId") Long centerId){
         try{
             List<ChildResponseDto.list> children = childCenterService.childList(centerId);
+            System.out.println(children.size());
             return new ResponseEntity<List<ChildResponseDto.list>>(children, HttpStatus.OK);
         }
         catch (Exception e){
@@ -54,7 +55,6 @@ public class ManagerController {
     public ResponseEntity writeContent(@RequestBody ChildRequestDto.childWithContent childWithContent){
         try{
 
-            System.out.println(childWithContent.getId());
             childService.modifyContent(childWithContent);
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){

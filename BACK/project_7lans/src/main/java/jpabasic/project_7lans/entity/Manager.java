@@ -2,10 +2,7 @@ package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,11 +14,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Manager extends Member{
 
-    @ManyToOne
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
     @NotNull(message = "[Manager] childCenter 은 Null 일 수 없습니다.")
     private ChildCenter childCenter;
 
-    private boolean approvedStatus = false;
+    private Boolean approvedStatus;
 
     public void changeChildCenter(ChildCenter childCenter) {
         this.childCenter = childCenter;

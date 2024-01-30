@@ -2,10 +2,7 @@ package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,19 +12,17 @@ import java.util.List;
 @Getter
 @DiscriminatorValue("CHILD")
 @PrimaryKeyJoinColumn(name="CHILD_ID")
+@NoArgsConstructor
 public class Child extends Member {
     // ==============================================================================================
     // 필드
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull(message = "[Child] childCenter 은 Null 일 수 없습니다.")
     private ChildCenter childCenter;
 
     private String specialContent;
-
-    @OneToMany(mappedBy = "child" , cascade = CascadeType.ALL)
-    private List<ChildRelation> childRelations = new ArrayList<>();
-
 
     // ==============================================================================================
     // 메서드
@@ -39,12 +34,6 @@ public class Child extends Member {
     public void changeSpecialContent(String specialContent){
         this.specialContent = specialContent;
     }
-
-    public void addChildRelation(ChildRelation childRelation){
-        childRelations.add(childRelation);
-        //childRelation.setChild(this);
-    }
-
 
     // ==============================================================================================
     // 생성자
