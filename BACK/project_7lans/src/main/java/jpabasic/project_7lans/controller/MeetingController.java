@@ -81,7 +81,7 @@ public class MeetingController {
         }
     }
 
-    //사진 추가하기
+    //사진 1장 저장(캡쳐하면 1차적으로 무조건 저장)
     @PostMapping("/image/saveImg")
     public ResponseEntity<Long> saveImg(@RequestBody @Valid MeetingScheduleRequestDto.saveImg img){
         try{
