@@ -96,6 +96,7 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(volunteer);
     }
 
+    @Transactional
     @Override
     public void managerRegister(MemberRequestDto.sign memberDto) {
 
@@ -105,12 +106,14 @@ public class MemberServiceImpl implements MemberService{
                 .managerPassword(memberDto.getMemberPassword())
                 .managerPhoneNumber(memberDto.getMemberPhoneNumber())
                 .managerBirth(memberDto.getMemberbirth())
-                .managerChildCenterId(10l)
+                .managerChildCenterId(memberDto.getCenterId())
                 .build();
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(managerRegisterDto.getManagerEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
 
+
+        System.out.println(managerRegisterDto.getManagerChildCenterId());
         // 예외가 발생 안하면 가입 처리
         ChildCenter childCenter = childCenterRepository.findById(managerRegisterDto.getManagerChildCenterId())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.managerRegister] 해당 센터 ID와 일치하는 센터가 존재하지 않습니다."));
@@ -138,6 +141,7 @@ public class MemberServiceImpl implements MemberService{
         return findMember;
     }
 
+    @Transactional
     @Override
     public void deleteMember(MemberRequestDto.delete memberDto) {
         // 해당 사람의 비밀번호가 일치하는지 확인

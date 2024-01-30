@@ -4,8 +4,10 @@ package jpabasic.project_7lans.service;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.Child;
+import jpabasic.project_7lans.entity.Member;
 import jpabasic.project_7lans.entity.Relation;
 import jpabasic.project_7lans.entity.Volunteer;
+import jpabasic.project_7lans.repository.MemberRepository;
 import jpabasic.project_7lans.repository.RelationRepository;
 import jpabasic.project_7lans.repository.VolunteerRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class VolunteerServiceImpl implements VolunteerService{
 
     private final VolunteerRepository volunteerRepository;
     private final RelationRepository relationRepository;
+    private final MemberRepository memberRepository;
 
     //해당 봉사자의 아이 리스트
     @Override
@@ -61,14 +64,14 @@ public class VolunteerServiceImpl implements VolunteerService{
 
     //봉사자 이름으로 검색
     @Override
-    public VolunteerResponseDto.list volunteerListByName(String volunteerName) {
-        List<Volunteer> volunteerList = volunteerRepository.findByNameLike(volunteerName);
+    public List<VolunteerResponseDto.list> volunteerListByName(String volunteerName) {
+        List<Member> volunteerList = memberRepository.findByNameLike(volunteerName);
         List<VolunteerResponseDto.list> volunteers = new ArrayList<>();
 
-        for(Volunteer volunteer : volunteerList){
-            volunteers.add(VolunteerResponseDto.toListDto(volunteer));
+        for(Member volunteer : volunteerList){
+            volunteers.add(VolunteerResponseDto.toListDto((Volunteer) volunteer));
         }
 
-        return null;
+        return volunteers;
     }
 }

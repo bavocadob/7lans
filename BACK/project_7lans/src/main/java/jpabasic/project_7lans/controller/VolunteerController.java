@@ -58,11 +58,9 @@ public class VolunteerController {
     @GetMapping("/search/{volunteerName}")
     public ResponseEntity<?> volunteersearchByName(@PathVariable("volunteerName") String volunteerName){
         try{
-            /*VolunteerResponseDto.detail volunteer = volunteerService.volunteerDetail(volunteerId);
-            return new ResponseEntity<VolunteerResponseDto.detail>(volunteer, HttpStatus.OK);*/
 
-            VolunteerResponseDto.list volunteers = volunteerService.volunteerListByName(volunteerName);
-            return null;
+            List<VolunteerResponseDto.list> volunteers = volunteerService.volunteerListByName(volunteerName);
+            return new ResponseEntity<List<VolunteerResponseDto.list>>(volunteers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         catch (Exception e){
             e.printStackTrace();
