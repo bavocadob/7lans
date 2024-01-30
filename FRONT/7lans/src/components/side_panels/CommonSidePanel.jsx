@@ -76,7 +76,6 @@ const InfoContainer = styled.div`
   }
 `;
 
-// test 용으로 Link 연결해봄
 const NameHeader = styled.h4`
   font-weight: bolder;
   color: rgb(0, 0, 0);
