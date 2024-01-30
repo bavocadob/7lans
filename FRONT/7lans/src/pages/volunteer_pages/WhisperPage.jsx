@@ -5,7 +5,7 @@ import NormalNav from "../../components/navs/NormalNav";
 import PostIt from "../../components/volunteer/post_it/PostIt";
 import SelectedPostit from "../../components/volunteer/post_it/SelectedPostit";
 import WhisperFirst from "../../components/volunteer/whisper/WhisperFirst";
-import WhisperLetter from "./WhisperLetter";
+import WhisperLetter from "../../components/volunteer/whisper/WhisperLetter";
 import styled from "styled-components";
 
 const MainPanel = styled.div`

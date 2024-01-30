@@ -9,7 +9,7 @@ import VolunteerMainPage from "./pages/volunteer_pages/VolunteerMainPage";
 import StartPage from "./pages/volunteer_pages/StartPage";
 import ActiveDoc from "./pages/volunteer_pages/ActiveDoc";
 import WhisperPage from "./pages/volunteer_pages/WhisperPage";
-import WhisperLetter from "./pages/volunteer_pages/WhisperLetter";
+import WhisperLetter from "./components/volunteer/whisper/WhisperLetter";
 import RaiseEggPage from "./pages/volunteer_pages/RaiseEggPage";
 import VideoChattingStartPage from "./pages/volunteer_pages/VideoChattingStartPage";
 import ChildMainPage from "./pages/child_pages/ChildMainPage";
