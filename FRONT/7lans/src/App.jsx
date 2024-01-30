@@ -47,7 +47,6 @@ function App() {
         <Route path="/volunteer_game" element={<VolunteerGamePage />} />
         <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
         
-        
         {/* 피봉사자 */}
         <Route path="/child_main" element={<ChildMainPage />} />
         <Route path="/child_dinosaur_dict" element={<ChildDinosaurDictPage />} />
