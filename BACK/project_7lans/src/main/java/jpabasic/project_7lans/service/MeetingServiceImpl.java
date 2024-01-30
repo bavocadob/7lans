@@ -1,10 +1,8 @@
 package jpabasic.project_7lans.service;
 
+import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleRequestDto;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleResponseDto;
-import jpabasic.project_7lans.entity.MeetingImage;
-import jpabasic.project_7lans.entity.Relation;
-import jpabasic.project_7lans.entity.MeetingSchedule;
-import jpabasic.project_7lans.entity.ScheduleType;
+import jpabasic.project_7lans.entity.*;
 import jpabasic.project_7lans.repository.MeetingImageRepository;
 import jpabasic.project_7lans.repository.MeetingScheduleRepository;
 import jpabasic.project_7lans.repository.RelationRepository;
@@ -85,9 +83,14 @@ public class MeetingServiceImpl implements MeetingService{
     //미팅 생성
     @Override
     @Transactional
-    public void create(Long relationId) {
-        //미팅을 만들고 relation에 넣어주기
+    public void create(MeetingScheduleRequestDto.create meeting) {
 
+        Relation relation = relationRepository.findById(meeting.getRelationId())
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.create] 해당 Id와 일치하는 relation이 존재하지 않습니다."));
+        //미팅을 만들고 relation에 넣어주기
+        MeetingSchedule newMeeting = MeetingSchedule.create(relation, meeting.getScheduledStartTime(), meeting.getScheduledEndTime());
+
+        meetingRepository.save(newMeeting);
     }
 
     //썸네일 수정
