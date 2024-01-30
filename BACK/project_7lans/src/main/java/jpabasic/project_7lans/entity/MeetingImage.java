@@ -18,12 +18,28 @@ public class MeetingImage {
 
     private String imgPath;
 
+    private String serverFileName;
+
+    private String originFileName;
+
+    private String contentType;
+
+    private long fileSize;
+
     @Builder
     public MeetingImage(
             MeetingSchedule meetingSchedule,
-            String imgPath
+            String imgPath,
+            String serverFileName,
+            String originFileName,
+            String contentType,
+            long fileSize
     ){
         this.meetingSchedule = meetingSchedule;
         this.imgPath = imgPath;
+        this.serverFileName = serverFileName;
+        this.originFileName = originFileName;
+        this.contentType = contentType;
+        this.fileSize = fileSize;
     }
 }

@@ -1,6 +1,8 @@
 package jpabasic.project_7lans.controller;
 
+import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
+import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleRequestDto;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleResponseDto;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.service.MeetingService;
@@ -8,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -74,6 +73,19 @@ public class MeetingController {
             meetingService.changeThumbnail(imgId);
 
             return new ResponseEntity(HttpStatus.OK);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //사진 추가하기
+    @PostMapping("/image/saveImg")
+    public ResponseEntity<Long> saveImg(@RequestBody @Valid MeetingScheduleRequestDto.saveImg img){
+        try{
+            return new ResponseEntity<>(meetingService.saveImg(img), HttpStatus.OK);
 
         }
         catch (Exception e){

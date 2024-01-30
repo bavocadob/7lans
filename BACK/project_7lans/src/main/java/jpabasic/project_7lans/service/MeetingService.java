@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.service;
 
+import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleRequestDto;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleResponseDto;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.entity.Relation;
@@ -15,4 +16,6 @@ public interface MeetingService {
     void create(Long relationId);
 
     void changeThumbnail(Long imgId);
+
+    Long saveImg(MeetingScheduleRequestDto.saveImg img);
 }
