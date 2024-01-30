@@ -22,7 +22,10 @@ public class ActivityLogServiceImpl {
     //일지 생성
     @Transactional
     public void createActivityLog(MeetingSchedule meeting, LocalDateTime startTime, LocalDateTime endTime){
-        ActivityLog activityLog = ActivityLog.createActivityLog(startTime, endTime);
+        ActivityLog activityLog = ActivityLog.builder()
+                .startTime(startTime)
+                .endTime(endTime)
+                .build();//createActivityLog(startTime, endTime);
         activityLogRepository.save(activityLog);
     }
 

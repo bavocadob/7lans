@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.controller;
 
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
+import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleRequestDto;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleResponseDto;
 import jpabasic.project_7lans.entity.MeetingSchedule;
 import jpabasic.project_7lans.service.MeetingService;
@@ -8,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,10 +51,10 @@ public class MeetingController {
     }
 
     //미팅 추가 하기
-    @GetMapping("/create/{relationId}")
-    public ResponseEntity create(@PathVariable("relationId") Long relationId){
+    @PostMapping("/create")
+    public ResponseEntity create(@RequestBody MeetingScheduleRequestDto.create newMeeting){
         try{
-            meetingService.create(relationId);
+            meetingService.create(newMeeting);
 
             return new ResponseEntity(HttpStatus.OK);
 

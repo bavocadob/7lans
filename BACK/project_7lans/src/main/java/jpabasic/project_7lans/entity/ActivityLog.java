@@ -47,12 +47,10 @@ public class ActivityLog {
     }
 
     @Builder
-    public static ActivityLog createActivityLog(
+    ActivityLog(
             LocalDateTime startTime, LocalDateTime endTime
     ){
-        return ActivityLog.builder()
-                .startTime(startTime)
-                .endTime(endTime)
-                .build();
+        this.realStartTime = startTime;
+        this.realEndTime = endTime;
     }
 }

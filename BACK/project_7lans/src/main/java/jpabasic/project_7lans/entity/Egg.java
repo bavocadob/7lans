@@ -27,12 +27,45 @@ public class Egg {
         this.experience += exp;
     }
 
+    public void changeVolunteerCheck() {
+        this.volunteerCheck = !this.volunteerCheck;
+    }
+
+    public void changeChildCheck() {
+        this.childCheck = !this.childCheck;
+    }
+
     @Builder
-    public static Egg createEgg(
+    public Egg(
             Dinosaur dinosaur
     ){
-        return Egg.builder()
-                .dinosaur(dinosaur)
-                .build();
+
+        this.dinosaur = dinosaur;
     }
+
+    public void changeCheckByMemberType(Member member) {
+        if (member instanceof Volunteer) {
+            this.changeVolunteerCheck();
+        } else if (member instanceof Child) {
+            this.changeChildCheck();
+        }
+    }
+
+    public void resetEgg(Dinosaur newDinosaur) {
+        this.dinosaur = newDinosaur;
+        this.experience = 0;
+        this.volunteerCheck = false;
+        this.childCheck = false;
+    }
+
+    // FIXME 알의 경험치 상승 로직 실제 사용될때 수정해야 하는 부분이 있을때 추가/삭제/수정 필요
+    public int increaseExpByWritingWhisper() {
+        return this.experience = Math.min(100, this.experience + 5);
+    }
+
+    public int increaseExpByMeeting() {
+        return this.experience = Math.min(100, this.experience + 15);
+    }
+
+
 }
