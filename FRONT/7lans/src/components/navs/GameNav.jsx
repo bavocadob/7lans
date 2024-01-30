@@ -10,6 +10,7 @@ const NavBar = styled.nav`
   width: 100vw;
   height: 100px;
   background-color: rgb(255, 215, 3);
+  display: flex;
 `;
 
 const LogoImage = styled.img`
@@ -34,10 +35,12 @@ const GameNav = () => {
       <Link to="/volunteer_main">
         <LogoImage src="./7lans_logo.png" alt="logo" />
       </Link>
-        <button onClick={() => goToOtherGame(Number(1))}>퀴즈 출제하기</button>
-        <button onClick={() => goToOtherGame(Number(2))}>카드 뒤집기</button>
-        <button onClick={() => goToOtherGame(Number(3))}>구구단</button>
-        <button onClick={() => goToOtherGame(Number(4))}>문장 만들기</button>
+      <div style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
+        <button className='shadow' style={{width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 237, 170)', margin: '0 1rem 0 0'}} onClick={() => goToOtherGame(Number(1))}>퀴즈 출제하기</button>
+        <button className='shadow' style={{width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 237, 170)', margin: '0 1rem 0 0'}} onClick={() => goToOtherGame(Number(2))}>카드 뒤집기</button>
+        <button className='shadow' style={{width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 237, 170)', margin: '0 1rem 0 0'}} onClick={() => goToOtherGame(Number(3))}>구구단</button>
+        <button className='shadow' style={{width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 237, 170)', margin: '0 1rem 0 0'}} onClick={() => goToOtherGame(Number(4))}>문장 만들기</button>
+      </div>
     </NavBar>
   );
 };

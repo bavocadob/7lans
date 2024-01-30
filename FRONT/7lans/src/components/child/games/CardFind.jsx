@@ -1,40 +1,86 @@
+import { te, tr } from 'date-fns/locale';
 import React, { useEffect, useRef, useState } from 'react'
 
 const cardNum = Array.from({ length: 16 }, (_, index) => index + 1);
 const CardFind = () => {
-
+    
   const [flippedCard, setFlippedCard] = useState([])
-  const copyCardList = useRef([])
+  const [nowCard, setNowCard] = useState([])
+  const [mount, setMount] = useState([])
+  const [flipping, setFlipping] = useState(false)
+  const [correct, setCorrect] = useState(false)
+  
 
   useEffect(() => {
     shuffle(cardNum)
+    setMount(cardNum)
   }, [])
 
-  const handleCard = (n) => {
-    copyCardList.current = [...copyCardList.current, n]
-    if (copyCardList.current.length == 2) {
-        if (copyCardList.current[0]/2 == copyCardList.current[1] || copyCardList.current[1]/2 == copyCardList.current[0]) {
-            setFlippedCard(copyCardList.current)
-            copyCardList = []
-        }
-    }
-    
+  useEffect(() => {
+      if (nowCard.length == 2) {
+          if ((nowCard[0] > nowCard[1] && nowCard[0] == nowCard[1] + 8) || (nowCard[1] > nowCard[0] && nowCard[1]  == nowCard[0] + 8)) {
+              const temp = [...nowCard]
+              setFlippedCard([...flippedCard, ...temp])
+              setFlipping(true)
+              const timeoutfunc = setTimeout(() => {
+                  setNowCard([])
+                  setFlipping(false)
+              }, 1000)
+              
+              return () => clearTimeout(timeoutfunc)
+          }
+          else {
+            setFlipping(true)
+              const timeoutfunc = setTimeout(() => {
+                  setNowCard([])
+                  setFlipping(false)
+              }, 1000)
+              
+              return () => clearTimeout(timeoutfunc)
+          }
+      }
+      if (flippedCard.length == 16) {
+          setCorrect(true)
+          const timeoutfuncs = setTimeout(() => {
+            shuffle(cardNum)
+            setNowCard([])
+            setFlippedCard([])
+            setCorrect(false)
+        }, 3000)
+        return () => {clearTimeout(timeoutfuncs)}
+      }
+  }, [nowCard])
+
+  const handleCard = (e, num) => {
+    e.preventDefault()
+    console.log(num)
+    setNowCard((nowCard) => [...nowCard, num])
   }
 
   const shuffle = (arr) => {
     arr.sort(() => Math.random() -0.5)
   }
   
-  
-
   const renderCard = () => {
-    return (
-        <div>
-            {cardNum.map((num, index) => {return (
-                <button style={{height: '20px', width: '20px'}} key={index} onClick={() => handleCard(num)}>{flippedCard.includes(num)? Math.round(num/2): 'X'}</button>
-            )})}
-        </div>
-    )
+    if (correct) {
+        return (
+            <div>
+                성공
+            </div>
+        )
+    }
+    else {
+        return (
+            <div style={{display: 'flex', flexWrap: 'wrap', height: '100%', width: '100%', padding: '3rem' , alignItems: 'center', justifyContent: 'center'}}>
+                {cardNum.map((num, index) => {
+                    const isFlipped = nowCard.includes(num) || flippedCard.includes(num)
+                    return (
+                    <button disabled={(flippedCard.includes(num) || flipping)? true : false} style={{transform: (isFlipped ? 'rotateY(180deg)' : ''), transition: 'transform 0.5s', fontSize: '2rem' , height: '20%', width: '20%', margin: '1rem', border: '5px solid black', borderRadius: '20px', backgroundColor: 'rgb(255, 215, 3)'}} key={index} onClick={(e) => handleCard(e, num)}>{(nowCard.includes(num) || flippedCard.includes(num))? (num > 8 ? num - 8 : num) : ''}</button>
+                )})}
+            </div>
+        )
+    }
+
   }
   return (
     <div>
