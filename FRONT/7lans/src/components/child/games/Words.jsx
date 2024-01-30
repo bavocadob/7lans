@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addWord } from '../../../store/wordsSlice'
+import { gameChange } from '../../../store/isPlayGameNow'
 
 const Words = () => {
   const [nowWord, setNowWord] = useState('')
@@ -10,6 +11,15 @@ const Words = () => {
   const [word2, setWord2] = useState('')
   const [word3, setWord3] = useState('')
   const [word4, setWord4] = useState('')
+
+  useEffect(() => {
+    if (word !== '') {
+      dispatch(gameChange(false))
+    }
+    else {
+      dispatch(gameChange(true))
+    }
+  }, [word])
 
   const reset = () => {
     dispatch(addWord(''))

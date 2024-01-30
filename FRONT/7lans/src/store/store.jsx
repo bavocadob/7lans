@@ -5,6 +5,7 @@ import gugudanSlice from "./gugudanSlice";
 import quizSlice from "./quizSlice";
 import wordsSlice from "./wordsSlice";
 import changeCompoSlice from "./changeCompoSlice";
+import isPlayGameNow from "./isPlayGameNow";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     quiz: quizSlice,
     words: wordsSlice,
     changecompo: changeCompoSlice,
+    isPlayGameNow: isPlayGameNow,
   },
 });
 

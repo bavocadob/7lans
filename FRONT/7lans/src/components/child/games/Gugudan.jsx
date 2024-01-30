@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDan } from '../../../store/gugudanSlice';
+import { gameChange } from '../../../store/isPlayGameNow';
 
 const Gugudan = () => {
   const [dan, setDan] = useState('none');
   const [multipleNum, setMultipleNum] =useState('')
   const [nowAns, setNowAns] = useState('')
   const [correct, setCorrect] = useState('')
+
+  const inputRef = useRef(null)
+
   const gugudanState = useSelector((state) => state.gugudan.value)
 
   const dispatch = useDispatch()
@@ -18,8 +22,11 @@ const Gugudan = () => {
     if (correct !== '') {
       const timeoutId = setTimeout(() => {
         setCorrect('')
-      }, 3000)
+      }, 2000)
       return () => clearTimeout(timeoutId)
+    }
+    if (inputRef.current) {
+      inputRef.current.focus();
     }
   }, [multipleNum, correct])
 
@@ -60,11 +67,15 @@ const Gugudan = () => {
   const renderGugudanGame = (dan) => {
     if (dan !== 'none' && correct === '') {
       return(
-        <div style={{display: 'flex'}}>
-          <h1 style={{width: '100%', alignSelf: 'center', marginTop: '4%', fontWeight: 'bolder', color: 'rgb(255, 215, 3)', textShadow: '2px 2px 2px black' }}>{dan} X {multipleNum} = ?</h1>
-          <div style={{display: 'flex', flexDirection: 'column'}}>
-            <h2>정답을 입렵해 주세요</h2>
-            <input type="text" onKeyUp={handleEnter} onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', height: '80%', width: '50vw'}}>
+          <h1 style={{marginTop: '10%', fontWeight: 'bolder', color: 'rgb(255, 215, 3)', textShadow: '2px 2px 2px black', height: '30%' }}>{dan} X {multipleNum} = ?</h1>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '70%'}}>
+            <div style={{display:'flex', alignItems: 'center', justifyContent: 'center', height: '30%', width: '100%', border: '5px solid black', borderBottom: 'none', borderRadius: '20px 20px 0 0', backgroundColor: 'rgb(255, 237, 170)'}}>
+              <h2>정답을 입력해 주세요</h2>
+            </div>
+            <div style={{display:'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', border: '5px solid black', borderRadius: '0 0 20px 20px'}}>
+              <input ref={inputRef} style={{backgroundColor: 'rgb(255, 215, 3)', borderRadius: '0 0 15px 15px', border: 'none', width: '100%', height: '100%', textAlign: 'center'}} type="text" onKeyUp={handleEnter} onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
+            </div>
           </div>
         </div>
       )
@@ -82,11 +93,13 @@ const Gugudan = () => {
   const startGame = (dan) => {
     dispatch(changeDan(dan))
     setMultipleNum(1)
+    dispatch(gameChange(false))
   }
 
   const resetGame = () => {
     dispatch(changeDan('none'))
     setDan('none')
+    dispatch(gameChange(true))
   }
 
   const danArray = Array.from({ length: 10 }, (_, index) => index + 1);
@@ -134,9 +147,11 @@ const Gugudan = () => {
     }
     else {
       return (
-        <div>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
           {renderGugudanGame(gugudanState)}
-          <button onClick={resetGame}>돌아가기</button>
+          {!correct && 
+          <button className='shadow' style={{marginTop: '30px', width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 215, 3)'}} onClick={resetGame}>돌아가기</button>
+          }
         </div>
       )
     }

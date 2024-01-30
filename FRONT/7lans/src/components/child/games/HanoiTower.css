@@ -1,0 +1,45 @@
+.hanoi-container {
+  display: flex;
+}
+
+.hanoi-tower {
+  border: 2px solid black;
+  height: 200px;
+  margin: 0 10px;
+  display: flex;
+  flex-direction: column-reverse;
+  width: 200px;
+}
+
+.hanoi-disk {
+  background-color: #3498db;
+  color: white;
+  width: 100px;
+  height: 20px;
+  margin: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.hanoi-disk-1 {
+  width: 50px;
+}
+
+.hanoi-disk-2 {
+  width: 70px;
+}
+
+.hanoi-disk-3 {
+  width: 90px;
+}
+
+.hanoi-disk-4 {
+  width: 110px;
+}
+
+.hanoi-disk-5 {
+  width: 130px;
+}
