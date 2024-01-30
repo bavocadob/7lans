@@ -29,10 +29,10 @@ public class ActivityLogController {
     public ResponseEntity<List<ActivityLogResponseDto.detailListByVolunteer>> detailListByVolunteer(ActivityLogRequestDto.detailListByVolunteer listReqDto) {
         try{
             List<ActivityLogResponseDto.detailListByVolunteer> dtoResList = activityLogServiceImpl.detailListByVolunteer(listReqDto);
-            return new ResponseEntity<List<ActivityLogResponseDto.detailListByVolunteer>>(dtoResList, HttpStatus.OK);
+            return new ResponseEntity<>(dtoResList, HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
-            return new ResponseEntity<List<ActivityLogResponseDto.detailListByVolunteer>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -44,10 +44,10 @@ public class ActivityLogController {
     public ResponseEntity<ActivityLogResponseDto.detailByVolunteer> detailByVolunteer(ActivityLogRequestDto.detailByVolunteer detailReqDto) {
         try{
             ActivityLogResponseDto.detailByVolunteer detailResDto = activityLogServiceImpl.detailByVolunteer(detailReqDto);
-            return new ResponseEntity<ActivityLogResponseDto.detailByVolunteer>(detailResDto, HttpStatus.OK);
+            return new ResponseEntity<>(detailResDto, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<ActivityLogResponseDto.detailByVolunteer>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -66,7 +66,6 @@ public class ActivityLogController {
     }
 
 
-
     // 봉사자 활동 일지 작성 완료(작성 완료 후 동작 불가)
     // Req: Relation id, activityLog id, content
     // Res: 없음
@@ -80,6 +79,7 @@ public class ActivityLogController {
         }
     }
 
+
     // ==================================================================================================
     // 관리자
 
@@ -87,23 +87,52 @@ public class ActivityLogController {
     // Req: Center Id
     // Res: activityLog id, 제목, 봉사자 명, 아동 명, 날짜(년, 월, 일)
     @GetMapping(value = "/manager/disapprovedList/{centerId}")
-    public ResponseEntity<List<ActivityLogResponseDto.listDisapprovedByManager>> listDisapprovedByManager () {
-        return null;
+    public ResponseEntity<List<ActivityLogResponseDto.listDisapprovedByManager>> listDisapprovedByManager (@PathVariable Long centerId) {
+        ActivityLogRequestDto.listDisapprovedByManager reqDto = ActivityLogRequestDto.listDisapprovedByManager.builder()
+                .centerId(centerId)
+                .build();
+        try{
+            List<ActivityLogResponseDto.listDisapprovedByManager> resList = activityLogServiceImpl.listDisapprovedByManager(reqDto);
+            return new ResponseEntity<>(resList, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     // 관리자 활동 일지 리스트 조회(승인된)
     // Req: Center Id
     // Res: activityLog id, 제목, 봉사자 명, 아동 명, 날짜(년, 월, 일)
     @GetMapping(value = "/manager/approvedList/{centerId}")
-    public ResponseEntity<List<ActivityLogResponseDto.listApprovedByManager>> listApprovedByManager () {
-        return null;
+    public ResponseEntity<List<ActivityLogResponseDto.listApprovedByManager>> listApprovedByManager (@PathVariable Long centerId) {
+        ActivityLogRequestDto.listApprovedByManager reqDto = ActivityLogRequestDto.listApprovedByManager.builder()
+                .centerId(centerId)
+                .build();
+
+        try {
+            List<ActivityLogResponseDto.listApprovedByManager> resList = activityLogServiceImpl.listApprovedByManager(reqDto);
+            return new ResponseEntity<List<ActivityLogResponseDto.listApprovedByManager>>(resList, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     // 관리자 활동 일지 상세 조회
     // Req: Relation Id, activityLog Id
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
     @PostMapping(value = "/manager/detail")
-    public ResponseEntity<List<ActivityLogResponseDto.detailByManager>> detailByManager () {
-        return null;
+    public ResponseEntity<ActivityLogResponseDto.detailByManager> detailByManager (@PathVariable Long centerId) {
+        ActivityLogRequestDto.detailByManager reqDto = ActivityLogRequestDto.detailByManager.builder()
+                .centerId(centerId)
+                .build();
+
+        try {
+            ActivityLogResponseDto.detailByManager resDto = activityLogServiceImpl.detailByManager(reqDto);
+            return new ResponseEntity<>(resDto, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

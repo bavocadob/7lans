@@ -19,8 +19,6 @@ public class ActivityLogRequestDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detailListByVolunteer {
-        @NotNull(message = "[ActivityLogRequestDto.detailListByVolunteer] volunteerId 은 Null 일 수 없습니다.")
-        private Long volunteerId;
         @NotNull(message = "[ActivityLogRequestDto.detailListByVolunteer] RelationId 은 Null 일 수 없습니다.")
         private Long RelationId;
         @NotNull(message = "[ActivityLogRequestDto.detailListByVolunteer] dateInfo 은 Null 일 수 없습니다.")
@@ -28,11 +26,9 @@ public class ActivityLogRequestDto {
 
         @Builder
         detailListByVolunteer(
-                Long volunteerId,
                 Long RelationId,
                 LocalDate dateInfo
         ){
-            this.volunteerId = volunteerId;
             this.RelationId = RelationId;
             this.dateInfo = dateInfo;
         }
@@ -44,8 +40,6 @@ public class ActivityLogRequestDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detailByVolunteer {
-        @NotNull(message = "[ActivityLogRequestDto.detailByVolunteer] volunteerId 은 Null 일 수 없습니다.")
-        private Long volunteerId;
         @NotNull(message = "[ActivityLogRequestDto.detailByVolunteer] RelationId 은 Null 일 수 없습니다.")
         private Long RelationId;
         @NotNull(message = "[ActivityLogRequestDto.detailByVolunteer] activityLogId 은 Null 일 수 없습니다.")
@@ -53,11 +47,9 @@ public class ActivityLogRequestDto {
 
         @Builder
         detailByVolunteer(
-                Long volunteerId,
                 Long RelationId,
                 Long activityLogId
         ){
-            this.volunteerId = volunteerId;
             this.RelationId = RelationId;
             this.activityLogId = activityLogId;
         }

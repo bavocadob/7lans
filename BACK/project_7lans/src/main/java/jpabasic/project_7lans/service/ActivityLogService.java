@@ -51,5 +51,5 @@ public interface ActivityLogService {
     // 관리자 활동 일지 상세 조회
     // Req: Relation Id, activityLog Id
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
-    public List<ActivityLogResponseDto.detailByManager> detailByManager (ActivityLogRequestDto.detailByManager detailDto);
+    public ActivityLogResponseDto.detailByManager detailByManager (ActivityLogRequestDto.detailByManager detailDto);
 }
