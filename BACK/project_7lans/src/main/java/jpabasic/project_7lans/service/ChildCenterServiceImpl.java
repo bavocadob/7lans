@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.service;
 
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
+import jpabasic.project_7lans.dto.childCenter.ChildCenterResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.*;
 import jpabasic.project_7lans.repository.ChildCenterRepository;
@@ -53,5 +54,20 @@ public class ChildCenterServiceImpl implements ChildCenterService{
 
         return childrenResponse;
 
+    }
+
+    @Override
+    public List<ChildCenterResponseDto.list> list() {
+        List<ChildCenter> childcenters = childCenterRepository.findAll();
+
+        List<ChildCenterResponseDto.list> centerList = new ArrayList<>();
+
+        for(ChildCenter childCenter: childcenters){
+            centerList.add(ChildCenterResponseDto.list.builder()
+                    .childCenterId(childCenter.getId())
+                    .childCenterName(childCenter.getName())
+                    .build());
+        }
+        return centerList;
     }
 }

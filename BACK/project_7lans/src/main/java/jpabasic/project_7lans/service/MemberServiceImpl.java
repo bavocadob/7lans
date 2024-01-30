@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService{
     private final ChildCenterRepository childCenterRepository;
     private final RelationRepository relationRepository;
 
-//=========================================
+    //=========================================
     //회원가입
     @Override
     @Transactional
@@ -48,7 +48,7 @@ public class MemberServiceImpl implements MemberService{
         if(memberRepository.findByEmail(childRegisterDto.getChildEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
 
-       // System.out.println(childRegisterDto.getChildChildCenterId());
+        // System.out.println(childRegisterDto.getChildChildCenterId());
         // 예외가 발생 안하면 가입 처리
         ChildCenter childCenter = childCenterRepository.findById(childRegisterDto.getChildChildCenterId())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.childRegister] 해당 센터 ID와 일치하는 센터가 존재하지 않습니다."));
