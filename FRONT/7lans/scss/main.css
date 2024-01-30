@@ -12033,9 +12033,9 @@ body {
 }
 .calendar .header .col.col-end svg:hover {
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  transition: 0.3s ease-in-out;
   transform: scale(1.15);
-  color: #686868;
+  color: #ffb700;
 }
 .calendar .days {
   width: 100%;
@@ -12046,9 +12046,9 @@ body {
   justify-content: space-between;
   align-items: center;
   font-weight: 600;
-  font-size: 0.65em;
+  font-size: 1rem;
   padding: 2px;
-  color: #686868;
+  color: #ffb700;
 }
 .calendar .days .col {
   width: 12.9%;
@@ -12092,7 +12092,7 @@ body {
   margin: 4px 0 0 4px;
 }
 .calendar .body .row .col .not-valid {
-  color: #c4c4c4;
+  color: #ffb700;
 }
 .calendar .body .row .col img {
   opacity: 0.1;
@@ -12102,17 +12102,17 @@ body {
 }
 .calendar .body .row .col.cell.valid:hover {
   cursor: pointer;
-  transition: 0.2s ease-in-out;
-  box-shadow: 1.5px 1.5px 0px 0px rgba(104, 104, 104, 0.9);
+  transition: 0.3s ease-in-out;
+  box-shadow: 1.5px 1.5px 0px 0px rgba(255, 183, 0, 0.9);
   transform: scale(1.01);
   border: none;
-  background: rgba(196, 196, 196, 0.5);
+  background: rgba(255, 183, 0, 0.5);
 }
 .calendar .body .row .col.cell.selected {
   box-shadow: 1.5px 1.5px 0px 0px rgba(255, 233, 156, 0.9);
   transform: scale(1.02);
   border: none;
-  background: rgb(255, 215, 3);
+  background: #05a723;
   color: rgb(255, 233, 156);
   font-weight: 600;
 }/*# sourceMappingURL=main.css.map */

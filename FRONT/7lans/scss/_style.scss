@@ -41,7 +41,7 @@
         @include common.size(100%, fit-content);
         @include common.flex-row(space-between, center);
         font-weight: 600;
-        font-size: 0.65em;
+        font-size: 1rem;
         padding: 2px;
         color: theme.$dark-gray-color;
         .col {
@@ -90,7 +90,7 @@
                 @include common.shadow(1.5px, theme.$main-color, 0.1);
                 transform: scale(1.02);
                 border: none;
-                background: theme.$sub-color;
+                background: theme.$selected-color;
                 color: theme.$main-color;
                 font-weight: 600;
             }
