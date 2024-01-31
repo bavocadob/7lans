@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.childCenter.ChildCenterResponseDto;
 import jpabasic.project_7lans.dto.member.MemberRequestDto;
+import jpabasic.project_7lans.dto.member.MemberResponseDto;
 import jpabasic.project_7lans.entity.ChildCenter;
 import jpabasic.project_7lans.entity.Member;
 import jpabasic.project_7lans.repository.ChildCenterRepository;
@@ -65,21 +66,31 @@ public class MemberController {
 
     @Operation(summary = "로그인")
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody @Valid MemberRequestDto.login memberDto){
+    public ResponseEntity<?> login(@RequestBody @Valid MemberRequestDto.login memberDto){
         // 로그인
         Map<String, Object> resultMap = new HashMap<String, Object>();
         HttpStatus status = HttpStatus.OK;
         try{
             Member find = MemberService.login(memberDto);
+            MemberResponseDto.loginResponseDto user = MemberResponseDto.loginResponseDto.builder()
+                    .memberId(find.getId())
+                    .memberType(find.getMemberType())
+                    .email(find.getEmail())
+                    .password(find.getPassword())
+                    .phoneNumber(find.getPhoneNumber())
+                    .profileImgPath(find.getProfileImgPath())
+                    .birth(find.getBirth())
+                    .build();
             resultMap.put("id", find.getId());
             //return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<MemberResponseDto.loginResponseDto>(user, status);
         }catch(Exception e){
             e.printStackTrace();
-            //return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            //status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+
     }
 
     //센터 리스트 출력
