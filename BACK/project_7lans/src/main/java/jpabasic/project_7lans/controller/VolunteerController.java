@@ -69,12 +69,15 @@ public class VolunteerController {
         }
     }
 
+    //봉사 시간 출력
     @GetMapping("/time/{volunteerId}")
     public ResponseEntity<?> volunteerTime(@PathVariable("volunteerId") Long volunteerId){
         try{
 
             Integer volunteerTime = volunteerService.getVolunteerTime(volunteerId);
-            return new ResponseEntity<Integer>(volunteerTime, HttpStatus.INTERNAL_SERVER_ERROR);
+            VolunteerResponseDto.timeDto timeDto =
+                    VolunteerResponseDto.timeDto.builder().volunteerTime(volunteerTime).build();
+            return new ResponseEntity<VolunteerResponseDto.timeDto>(timeDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         catch (Exception e){
             e.printStackTrace();

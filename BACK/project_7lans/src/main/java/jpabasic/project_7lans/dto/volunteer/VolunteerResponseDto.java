@@ -82,6 +82,20 @@ public class VolunteerResponseDto {
         }
     }
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class timeDto {
+        @NotNull(message = "[VolunteerResponseDto.timeDto] timeDto 는 null 이 될 수 없습니다.")
+        private Integer volunteerTime;
+
+        @Builder
+        timeDto(
+                Integer volunteerTime
+        ){
+            this.volunteerTime = volunteerTime;
+        }
+    }
+
     // ===============================================================================
     // 생성자 메소드
     public static VolunteerResponseDto.list toListDto(Volunteer volunteer){
