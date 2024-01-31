@@ -3,10 +3,12 @@ import { Icon } from '@iconify/react';
 import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+// import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
+import NormalNav from '../../navs/NormalNav';
+import PostIt from '../../volunteer/post_it/PostIt';
+import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
-// import NormalNav from '../../components/navs/NormalNav'
-import ChoosePicturePage from '../../../pages/volunteer_pages/ChoosePicturePage'
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
     return (
@@ -95,6 +97,45 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
     return <div className="body">{rows}</div>;
 };
 
+const TimeModal = ({
+    backdrop_path,
+    title,
+    overview,
+    name,
+    release_date,
+    first_air_date,
+    vote_average,
+    setModalOpen,
+}) => {
+    return (
+        <div className='presentation' role="presentation">
+            <div className='wrapper-modal'>
+                <div className='modal'>
+                    <span
+                        onclick={() => setModalOpen(false)}
+                        classsName="modal-close">
+                            X
+                    </span>
+                    <img 
+                        className='modal_time-img'
+                        src={''}
+                        alt="modal_time_img"
+                        />
+                    <div className='modal_content'>
+                        <p className='modal_details'>
+                            <span className='modal_user_perc'></span>
+                            {" "} {release_date ? release_date : first_air_date}
+                        </p>
+                        <h2 className='modal_title'> title </h2>
+                        <p className='modal_overview'> content</p>
+                        <p className='modal_overview'> overview </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 const VolunteerCalendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -121,9 +162,9 @@ const VolunteerCalendar = () => {
       else {
         // 오늘날짜 이후로는 화상채팅약속시간 잡을 수 있는 모달 창이 떠야 함
         setModalOpen(true)
+        console.log('isModalOpen', isModalOpen);
       }
     };
-
 
       const closeModal = () => {
         // 모달을 닫을 때 호출되는 함수
@@ -154,30 +195,21 @@ const VolunteerCalendar = () => {
     
   
     return (
+       
+            <div className="calendar">
+                <RenderHeader
+                    currentMonth={currentMonth}
+                    prevMonth={prevMonth}
+                    nextMonth={nextMonth}
+                />
+                <RenderDays />
+                <RenderCells
+                    currentMonth={currentMonth}
+                    selectedDate={selectedDate}
+                    onDateClick={onDateClick}
+                />
+            </div>
       
-        <div className="Calendar">
-            <RenderHeader
-                currentMonth={currentMonth}
-                prevMonth={prevMonth}
-                nextMonth={nextMonth}
-            />
-            <RenderDays />
-            <RenderCells
-                currentMonth={currentMonth}
-                selectedDate={selectedDate}
-                onDateClick={onDateClick}
-            />
-           {isModalOpen && (
-             <div className="modal">
-             <div className="modal-content">
-               {/* 모달 내용 */}
-                 <p>화상채팅 약속시간을 잡을 수 있는 모달입니다.</p>
-                {/* 모달 닫기 버튼 */}
-                <button onClick={closeModal}>모달 닫기</button>
-              </div>
-           </div>
-         )}
-        </div>
     );
 };
 

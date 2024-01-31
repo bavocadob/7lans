@@ -24,7 +24,8 @@ import ChildDinosaurDictPage from "./pages/ChildDinosaurDictPage";
 
 import NormalNav from "./components/navs/NormalNav";
 
-import "../scss/main.scss";
+import '../scss/main.scss'
+
 
 import VideoChattingPage from "./pages/volunteer_pages/VideoChattingPage";
 import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
@@ -54,12 +55,7 @@ function App() {
         <Route path="/" element={<EntryPage />} />
         {/* <Route path="/" element={<NormalLayout />} /> */}
         <Route path="/login" element={<LoginPage />} />
-
-        <Route path="/register" element={<Register/> }/>
-        {/* <Route path="/main" element={<MainPage />} /> */}
-        <Route path="/whisper_page" element={<WhisperPage />} />
-        <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
-
+        <Route path="/calendar" element={<ReactCalendar />} />
 
         {/* 봉사자 */}
         <Route path="/volunteer_start" element={<StartPage />} />
