@@ -23,7 +23,7 @@ public class ActivityLogController {
     // 봉사자
 
     // 봉사자 활동 일지 조회 리스트
-    // Req: volunteerId, relationId, 날짜 정보(년, 월, 일)
+    // Req: relationId, 날짜 정보(년, 월, 일)
     // Res: activityLog id, 날짜 정보(년, 월, 일), 활동 일지 승인 여부
     @PostMapping(value = "/volunteer/list")
     public ResponseEntity<List<ActivityLogResponseDto.detailListByVolunteer>> detailListByVolunteer(ActivityLogRequestDto.detailListByVolunteer listReqDto) {
@@ -38,7 +38,7 @@ public class ActivityLogController {
 
 
     // 봉사자 활동 일지 상세 조회
-    // Req: volunteerId, relationId, activityLogId
+    // Req: relationId, activityLogId
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
     @PostMapping(value = "/volunteer")
     public ResponseEntity<ActivityLogResponseDto.detailByVolunteer> detailByVolunteer(ActivityLogRequestDto.detailByVolunteer detailReqDto) {
@@ -136,6 +136,7 @@ public class ActivityLogController {
         }
     }
 
+    // 관리자가 특정 활동 일지 승인
     @PostMapping(value = "/manager/approve")
     public ResponseEntity approveByManager (ActivityLogRequestDto.approveByManager approveReqDto) {
         try{

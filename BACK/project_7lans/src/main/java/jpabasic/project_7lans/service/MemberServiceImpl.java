@@ -31,7 +31,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public void childRegister(MemberRequestDto.sign memberDto) {
-        log.info("[MemberService.Impl.childRegister]childRegister Start...");
+        log.info("childRegister Start...");
         ChildRequestDto.register childRegisterDto = ChildRequestDto.register.builder()
                 .childEmail(memberDto.getMemberEmail())
                 .childName(memberDto.getMemberName())
@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService{
         System.out.println(childCenter.getChildList().get(0).getName());
         memberRepository.save(child);
 
-        log.info("[MemberService.Impl.childRegister]childRegister success return: childId:{} childName:{} childType:{}"+child.getId()+child.getName()+child.getMemberType());
+        log.info("childRegister success return: childId:{} childName:{} childType:{}"+child.getId()+child.getName()+child.getMemberType());
     }
 
     @Override
