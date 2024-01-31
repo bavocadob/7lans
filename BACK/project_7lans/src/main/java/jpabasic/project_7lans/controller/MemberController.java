@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.childCenter.ChildCenterResponseDto;
 import jpabasic.project_7lans.dto.member.MemberRequestDto;
@@ -30,6 +31,7 @@ public class MemberController {
     private final ChildCenterService childCenterService;
     private final ChildCenterRepository childCenterRepository;
     // 회원가입
+    @Operation(summary = "회원가입")
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid MemberRequestDto.sign memberDto){
         log.info("[MemberController.register] data input from FRONT email:{} name:{} password:{} type:{}", memberDto.getMemberEmail(),memberDto.getMemberName(),memberDto.getMemberPassword(),memberDto.getMemberType());
@@ -61,6 +63,7 @@ public class MemberController {
         }
     }
 
+    @Operation(summary = "로그인")
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody @Valid MemberRequestDto.login memberDto){
         // 로그인
@@ -80,6 +83,7 @@ public class MemberController {
     }
 
     //센터 리스트 출력
+    @Operation(summary = "회원가입시 센터 목록 출력")
     @GetMapping("/center")
     public ResponseEntity<?> centerList(){
         // 회원가입
@@ -103,6 +107,7 @@ public class MemberController {
         }
     }
 
+    @Operation(summary = "센터 등록")
     @PostMapping("/center/register")
     public ResponseEntity centerRegister(@RequestBody @Valid MemberRequestDto.centerDto centerDto){
 
