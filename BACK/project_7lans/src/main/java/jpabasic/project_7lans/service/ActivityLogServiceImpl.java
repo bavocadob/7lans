@@ -87,6 +87,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     // Req: Relation id, activityLog id, content
     // Res: 없음
     @Override
+    @Transactional
     public void modifyActivityLogByVolunteer(ActivityLogRequestDto.modifyByVolunteer modifyReqDto){
         Relation relation = relationRepository.findById(modifyReqDto.getRelationId())
                 .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.modifyActivityLogByVolunteer] no such relation"));
@@ -109,6 +110,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     // Req: activityLog id, content
     // Res: 없음
     @Override
+    @Transactional
     public void writeDoneActivityLogByVolunteer(ActivityLogRequestDto.writeDoneByVolunteer writeDoneReqDto){
 
         Volunteer volunteer = volunteerRepository.findById(writeDoneReqDto.getVolunteerId())
@@ -151,7 +153,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             for(int j=0; j<meetingListLength; j++){
 
                 // 활동일지가 승인되어 있으면
-                if(meetingScheduleList.get(j).getActivityLog().getApproveStatus()){
+                if((!meetingScheduleList.get(j).getActivityLog().getApproveStatus()) && meetingScheduleList.get(j).getActivityLog().getWriteStatus()){
                     ActivityLog activityLog = meetingScheduleList.get(j).getActivityLog();
 
                     // 리스트에 담을 DTO를 만들고
@@ -194,7 +196,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             for(int j=0; j<meetingListLength; j++){
 
                 // 활동일지가 승인되어있지 않고, 활동 일지가 작성 완료인 경우
-                if((!meetingScheduleList.get(j).getActivityLog().getApproveStatus()) && meetingScheduleList.get(j).getActivityLog().getWriteStatus()){
+                if(meetingScheduleList.get(j).getActivityLog().getApproveStatus()){
                     ActivityLog activityLog = meetingScheduleList.get(j).getActivityLog();
 
                     // 리스트에 담을 DTO를 만들고
@@ -241,6 +243,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     // Req: activityLogId
     // Res: 없음
     @Override
+    @Transactional
     public void approveByManager(ActivityLogRequestDto.approveByManager approveReqDto){
         ActivityLog activityLog = activityLogRepository.findById(approveReqDto.getActivityLogId())
                 .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.approveByManager] no such activityLog"));

@@ -40,9 +40,9 @@ public class MemberController {
             }
             else if(memberDto.getMemberType().equals("C")){
 
-                ChildCenter childCenter = ChildCenter.builder().name("k").address("a").phoneNumber("0").build();
+/*                ChildCenter childCenter = ChildCenter.builder().name("k").address("a").phoneNumber("0").build();
 
-                childCenterRepository.save(childCenter);
+                childCenterRepository.save(childCenter);*/
 
                 MemberService.childRegister(memberDto);
             }
@@ -102,6 +102,21 @@ public class MemberController {
             //status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
+
+    @PostMapping("/center/register")
+    public ResponseEntity centerRegister(@RequestBody @Valid MemberRequestDto.centerDto centerDto){
+
+        // 회원가입
+        try{
+            childCenterService.centerRegister(centerDto);
+            log.info("[MemberController.centerRegister] finish register center");
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
 }
