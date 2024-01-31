@@ -53,7 +53,7 @@ const RightContent = styled.div`
     justify-content: center;
   }
 
-  input, button {
+  input, button, select {
     background-color: rgb(255, 241, 165);
     border: none;
     border-radius: 1rem;
@@ -85,6 +85,29 @@ const Register = () => {
   const [birth, setBirth] = useState('')
   const [centerId, setCenterId] = useState('')
 
+    // userType 변경 함수
+    const handleUserTypeChange = (e) => {
+      setUserType(e.target.value);
+    };
+  
+    // centerId 변경 함수
+    const handleCenterIdChange = (e) => {
+      setCenterId(e.target.value);
+    };
+  
+    // birth 변경 함수
+    const handleBirthChange = (e) => {
+      setBirth(e.target.value);
+    };
+  
+    // phoneNumber 변경 함수 (자동으로 '-' 삽입)
+    const handlePhoneNumberChange = (e) => {
+      const value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 남기기
+      const formattedValue = value.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      setPhoneNumber(formattedValue);
+    };
+  
+
   const signUp = function (memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId) {
 
     axios({
@@ -95,7 +118,6 @@ const Register = () => {
       }
     })
       .then((res) => {
-        
         console.log(res.data)
         // token.value = res.data.key
         window.alert('회원가입을 축하합니다.')
@@ -123,17 +145,29 @@ const Register = () => {
           </InfoSpan>
         </LeftContent>
         <RightContent>
-          <div>
-            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <input type="text" value={userType} onChange={(e) => setUserType(e.target.value)} />
-            <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
-            <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-            <input type="text" value={birth} onChange={(e) => setBirth(e.target.value)} />
-            <input type="text" value={centerId} onChange={(e) => setCenterId(e.target.value)} />
-            <p>아이디 찾기 | 비밀번호 찾기 | 로그인</p>
+          <form>
+            <input type="text" placeholder={email? '': 'email'} value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="password" placeholder={password? '': 'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="text" placeholder={userName? '': 'userName'} value={userName} onChange={(e) => setUserName(e.target.value)} />
+            <select value={userType} onChange={handleUserTypeChange}>
+              <option value="">사용자 타입 선택</option>
+              <option value="V">봉사자</option>
+              <option value="C">학생</option>
+              <option value="M">관리자</option>
+            </select>
+            <select value={centerId} onChange={handleCenterIdChange}>
+              <option value="">센터 선택</option>
+              <option value={1}>A 센터</option>
+              <option value={2}>B 센터</option>
+              <option value={3}>C 센터</option>
+              <option value={3}>D 센터</option>
+            </select>
+            <input type="date" value={birth} onChange={handleBirthChange} />
+            <input type="text" placeholder={phoneNumber ? '' : 'phoneNumber'} value={phoneNumber} onChange={handlePhoneNumberChange} />
+            <p>아이디 찾기 | 비밀번호 찾기 | </p>
+            <Link to={'/login'}>로그인</Link>
             <button type='submit' onClick={() => signUp(email, password, userType, userName, phoneNumber, birth, centerId)}>회원가입</button>
-          </div>
+          </form>
         </RightContent>
       </ContentWrapper>
     </Container>

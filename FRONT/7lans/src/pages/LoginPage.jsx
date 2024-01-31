@@ -97,7 +97,8 @@ const LoginPage = () => {
           <form action="submit">
             <input type="text" placeholder='email' />
             <input type="password" placeholder='password' />
-            <p>아이디 찾기 | 비밀번호 찾기 | 회원가입</p>
+            <p>아이디 찾기 | 비밀번호 찾기 | </p>
+            <Link to={'/register'}>회원가입</Link>
             <button type='submit'>로그인</button>
           </form>
         </RightContent>
