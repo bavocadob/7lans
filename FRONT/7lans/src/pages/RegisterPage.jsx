@@ -155,13 +155,15 @@ const Register = () => {
               <option value="C">학생</option>
               <option value="M">관리자</option>
             </select>
-            <select value={centerId} onChange={handleCenterIdChange}>
-              <option value="">센터 선택</option>
-              <option value={1}>A 센터</option>
-              <option value={2}>B 센터</option>
-              <option value={3}>C 센터</option>
-              <option value={3}>D 센터</option>
-            </select>
+            {(userType == "C" || userType == "M") &&
+              <select value={centerId} onChange={handleCenterIdChange}>
+                <option value="">센터 선택</option>
+                <option value={1}>A 센터</option>
+                <option value={2}>B 센터</option>
+                <option value={3}>C 센터</option>
+                <option value={3}>D 센터</option>
+              </select>
+            }
             <input type="date" value={birth} onChange={handleBirthChange} />
             <input type="text" placeholder={phoneNumber ? '' : 'phoneNumber'} value={phoneNumber} onChange={handlePhoneNumberChange} />
             <p>아이디 찾기 | 비밀번호 찾기 | </p>
