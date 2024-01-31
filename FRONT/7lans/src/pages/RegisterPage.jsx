@@ -79,6 +79,11 @@ const InfoSpan = styled.span`
 const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [type, setType] = useState('')
+  const [userName, setUserName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [birth, setBirth] = useState('')
+  const [centerId, setCenterId] = useState('')
 
   const signUp = function (email, password) {
 
@@ -107,7 +112,7 @@ const Register = () => {
           <FaArrowLeft />
         </Link>
       </Header>
-      <H1>로그인</H1>
+      <H1>회원가입</H1>
       <ContentWrapper>
         <LeftContent>
           <LogoImage src="./7lans_logo.png" alt="" />
@@ -121,6 +126,11 @@ const Register = () => {
           <div>
             <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="text" value={type} onChange={(e) => setType(e.target.value)} />
+            <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
+            <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+            <input type="text" value={birth} onChange={(e) => setBirth(e.target.value)} />
+            <input type="text" value={centerId} onChange={(e) => setCenterId(e.target.value)} />
             <p>아이디 찾기 | 비밀번호 찾기 | 로그인</p>
             <button type='submit' onClick={() => signUp(email, password)}>회원가입</button>
           </div>
