@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.controller;
 
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jpabasic.project_7lans.dto.activityLog.ActivityLogRequestDto;
 import jpabasic.project_7lans.dto.activityLog.ActivityLogResponseDto;
@@ -26,8 +27,9 @@ public class ActivityLogController {
     // Req: relationId, 날짜 정보(년, 월, 일)
     // Res: activityLog id, 날짜 정보(년, 월, 일), 활동 일지 승인 여부
     @PostMapping(value = "/volunteer/list")
-    public ResponseEntity<List<ActivityLogResponseDto.detailListByVolunteer>> detailListByVolunteer(ActivityLogRequestDto.detailListByVolunteer listReqDto) {
+    public ResponseEntity<List<ActivityLogResponseDto.detailListByVolunteer>> detailListByVolunteer(@RequestBody @Valid ActivityLogRequestDto.detailListByVolunteer listReqDto) {
         try{
+            System.out.println("ActivityController : " + listReqDto.getRelationId());
             List<ActivityLogResponseDto.detailListByVolunteer> dtoResList = activityLogServiceImpl.detailListByVolunteer(listReqDto);
             return new ResponseEntity<>(dtoResList, HttpStatus.OK);
         }catch(Exception e){
@@ -41,7 +43,7 @@ public class ActivityLogController {
     // Req: relationId, activityLogId
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
     @PostMapping(value = "/volunteer")
-    public ResponseEntity<ActivityLogResponseDto.detailByVolunteer> detailByVolunteer(ActivityLogRequestDto.detailByVolunteer detailReqDto) {
+    public ResponseEntity<ActivityLogResponseDto.detailByVolunteer> detailByVolunteer(@RequestBody ActivityLogRequestDto.detailByVolunteer detailReqDto) {
         try{
             ActivityLogResponseDto.detailByVolunteer detailResDto = activityLogServiceImpl.detailByVolunteer(detailReqDto);
             return new ResponseEntity<>(detailResDto, HttpStatus.OK);
@@ -56,7 +58,7 @@ public class ActivityLogController {
     // Req: Relation id, activityLog id, content
     // Res: 없음
     @PutMapping(value = "/volunteer/modify")
-    public ResponseEntity modifyActivityLogByVolunteer(ActivityLogRequestDto.modifyByVolunteer modifyReqDto){
+    public ResponseEntity modifyActivityLogByVolunteer(@RequestBody ActivityLogRequestDto.modifyByVolunteer modifyReqDto){
         try{
             activityLogServiceImpl.modifyActivityLogByVolunteer(modifyReqDto);
             return new ResponseEntity(HttpStatus.OK);
@@ -70,7 +72,7 @@ public class ActivityLogController {
     // Req: Relation id, activityLog id, content
     // Res: 없음
     @PutMapping(value = "/volunteer/writeDone")
-    public ResponseEntity writeDoneActivityLogByVolunteer(ActivityLogRequestDto.writeDoneByVolunteer writeDoneReqDto){
+    public ResponseEntity writeDoneActivityLogByVolunteer(@RequestBody ActivityLogRequestDto.writeDoneByVolunteer writeDoneReqDto){
         try{
             activityLogServiceImpl.writeDoneActivityLogByVolunteer(writeDoneReqDto);
             return new ResponseEntity(HttpStatus.OK);
@@ -122,11 +124,7 @@ public class ActivityLogController {
     // Req: Relation Id, activityLog Id
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
     @PostMapping(value = "/manager/detail")
-    public ResponseEntity<ActivityLogResponseDto.detailByManager> detailByManager (@PathVariable Long centerId) {
-        ActivityLogRequestDto.detailByManager reqDto = ActivityLogRequestDto.detailByManager.builder()
-                .centerId(centerId)
-                .build();
-
+    public ResponseEntity<ActivityLogResponseDto.detailByManager> detailByManager (@RequestBody ActivityLogRequestDto.detailByManager reqDto) {
         try {
             ActivityLogResponseDto.detailByManager resDto = activityLogServiceImpl.detailByManager(reqDto);
             return new ResponseEntity<>(resDto, HttpStatus.OK);
@@ -138,9 +136,9 @@ public class ActivityLogController {
 
     // 관리자가 특정 활동 일지 승인
     @PostMapping(value = "/manager/approve")
-    public ResponseEntity approveByManager (ActivityLogRequestDto.approveByManager approveReqDto) {
+    public ResponseEntity approveByManager (@RequestBody ActivityLogRequestDto.approveByManager approveReqDto) {
         try{
-
+            activityLogServiceImpl.approveByManager(approveReqDto);
             return new ResponseEntity(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);

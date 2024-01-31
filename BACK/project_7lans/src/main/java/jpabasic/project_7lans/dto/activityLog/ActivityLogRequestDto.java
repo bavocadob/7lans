@@ -20,16 +20,16 @@ public class ActivityLogRequestDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detailListByVolunteer {
         @NotNull(message = "[ActivityLogRequestDto.detailListByVolunteer] RelationId 은 Null 일 수 없습니다.")
-        private Long RelationId;
+        private Long relationId;
         @NotNull(message = "[ActivityLogRequestDto.detailListByVolunteer] dateInfo 은 Null 일 수 없습니다.")
         private LocalDate dateInfo;
 
         @Builder
         detailListByVolunteer(
-                Long RelationId,
+                Long relationId,
                 LocalDate dateInfo
         ){
-            this.RelationId = RelationId;
+            this.relationId = relationId;
             this.dateInfo = dateInfo;
         }
     }
@@ -41,16 +41,16 @@ public class ActivityLogRequestDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detailByVolunteer {
         @NotNull(message = "[ActivityLogRequestDto.detailByVolunteer] RelationId 은 Null 일 수 없습니다.")
-        private Long RelationId;
+        private Long relationId;
         @NotNull(message = "[ActivityLogRequestDto.detailByVolunteer] activityLogId 은 Null 일 수 없습니다.")
         private Long activityLogId;
 
         @Builder
         detailByVolunteer(
-                Long RelationId,
+                Long relationId,
                 Long activityLogId
         ){
-            this.RelationId = RelationId;
+            this.relationId = relationId;
             this.activityLogId = activityLogId;
         }
     }
@@ -64,7 +64,7 @@ public class ActivityLogRequestDto {
         @NotNull(message = "[ActivityLogRequestDto.modifyByVolunteer] volunteerId 은 Null 일 수 없습니다.")
         private Long volunteerId;
         @NotNull(message = "[ActivityLogRequestDto.modifyByVolunteer] RelationId 은 Null 일 수 없습니다.")
-        private Long RelationId;
+        private Long relationId;
         @NotNull(message = "[ActivityLogRequestDto.modifyByVolunteer] activityLogId 은 Null 일 수 없습니다.")
         private Long activityLogId;
         @NotNull(message = "[ActivityLogRequestDto.modifyByVolunteer] activityLogId 은 Null 일 수 없습니다.")
@@ -73,12 +73,12 @@ public class ActivityLogRequestDto {
         @Builder
         modifyByVolunteer(
                 Long volunteerId,
-                Long RelationId,
+                Long relationId,
                 Long activityLogId,
                 String content
         ){
             this.volunteerId = volunteerId;
-            this.RelationId = RelationId;
+            this.relationId = relationId;
             this.activityLogId = activityLogId;
             this.content = content;
         }
@@ -157,18 +157,18 @@ public class ActivityLogRequestDto {
         @NotNull(message = "[ActivityLogRequestDto.detailByManager] RelationId 은 Null 일 수 없습니다.")
         private Long centerId;
         @NotNull(message = "[ActivityLogRequestDto.detailByManager] RelationId 은 Null 일 수 없습니다.")
-        private Long RelationId;
+        private Long relationId;
         @NotNull(message = "[ActivityLogRequestDto.detailByManager] activityLogId 은 Null 일 수 없습니다.")
         private Long activityLogId;
 
         @Builder
         detailByManager(
                 Long centerId,
-                Long RelationId,
+                Long relationId,
                 Long activityLogId
         ){
             this.centerId = centerId;
-            this.RelationId = RelationId;
+            this.relationId = relationId;
             this.activityLogId = activityLogId;
         }
     }
@@ -182,18 +182,18 @@ public class ActivityLogRequestDto {
         @NotNull(message = "[ActivityLogRequestDto.approveByManager] centerId 은 Null 일 수 없습니다.")
         private Long centerId;
         @NotNull(message = "[ActivityLogRequestDto.approveByManager] RelationId 은 Null 일 수 없습니다.")
-        private Long RelationId;
+        private Long relationId;
         @NotNull(message = "[ActivityLogRequestDto.approveByManager] activityLogId 은 Null 일 수 없습니다.")
         private Long activityLogId;
 
         @Builder
         approveByManager(
                 Long centerId,
-                Long RelationId,
+                Long relationId,
                 Long activityLogId
         ){
             this.centerId = centerId;
-            this.RelationId = RelationId;
+            this.relationId = relationId;
             this.activityLogId = activityLogId;
         }
     }
