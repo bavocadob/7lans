@@ -66,42 +66,24 @@ function App() {
         <Route path="/volunteer_main" element={<VolunteerMainPage />} />
         <Route path="/whisper_page" element={<WhisperPage />} />
         <Route path="/whisper_letter" element={<WhisperLetter />} />
-        <Route
-          path="/volunteer_video_chatting_start"
-          element={<VideoChattingStartPage />}
-        />
+        <Route path="/volunteer_video_chatting_start" element={<VideoChattingStartPage />}/>
         <Route path="/volunteer_active_doc" element={<ActiveDoc />} />
         <Route path="/volunteer_whispher" element={<WhisperPage />} />
         <Route path="/volunteer_raise_egg" element={<RaiseEggPage />} />
-        <Route
-          path="/volunteer_video_chatting"
-          element={<VideoChattingPage />}
-        />
+        <Route path="/volunteer_video_chatting" element={<VideoChattingPage />}/>
         <Route path="/volunteer_game" element={<VolunteerGamePage />} />
         <Route path="/volunteer_calendar" element={<VolunteerCalendar />} />
-        <Route
-          path="/volunteer_ChoosePicturePage"
-          element={<ChoosePicturePage />}
-        />
+        <Route path="/volunteer_ChoosePicturePage" element={<ChoosePicturePage />} />
         <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
 
         {/* 피봉사자 */}
         <Route path="/child_main" element={<ChildMainPage />} />
-        <Route
-          path="/child_dinosaur_dict"
-          element={<ChildDinosaurDictPage />}
-        />
+        <Route path="/child_dinosaur_dict" element={<ChildDinosaurDictPage />}/>
         <Route path="/child_start" element={<ChildStartPage />} />
-        <Route
-          path="/child_video_chatting_start"
-          element={<ChildVideoChattingStartPage />}
-        />
+        <Route path="/child_video_chatting_start" element={<ChildVideoChattingStartPage />}/>
         <Route path="/child_whispher" element={<ChildWhisperPage />} />
         <Route path="/child_raise_egg" element={<ChildRaiseEggPage />} />
-        <Route
-          path="/child_video_chatting"
-          element={<ChildVideoChattingPage />}
-        />
+        <Route path="/child_video_chatting"element={<ChildVideoChattingPage />}/>
         <Route path="/child_game" element={<ChildGamePage />} />
 
         {/* 관리자 */}

@@ -1,7 +1,7 @@
 import React from "react";
 
-function ChildMange() {
-  return <div>ChildMange</div>;
+function ChildManage() {
+  return <div>ChildManage</div>;
 }
 
-export default ChildMange;
+export default ChildManage;

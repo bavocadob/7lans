@@ -26,6 +26,7 @@ const LargeButton = styled.button`
   padding: 20px;
   text-align: center;
   margin-right: 20px;
+  margin-top: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
