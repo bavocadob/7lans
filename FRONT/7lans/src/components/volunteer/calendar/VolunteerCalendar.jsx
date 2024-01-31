@@ -97,6 +97,45 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
     return <div className="body">{rows}</div>;
 };
 
+const TimeModal = ({
+    backdrop_path,
+    title,
+    overview,
+    name,
+    release_date,
+    first_air_date,
+    vote_average,
+    setModalOpen,
+}) => {
+    return (
+        <div className='presentation' role="presentation">
+            <div className='wrapper-modal'>
+                <div className='modal'>
+                    <span
+                        onclick={() => setModalOpen(false)}
+                        classsName="modal-close">
+                            X
+                    </span>
+                    <img 
+                        className='modal_time-img'
+                        src={''}
+                        alt="modal_time_img"
+                        />
+                    <div className='modal_content'>
+                        <p className='modal_details'>
+                            <span className='modal_user_perc'></span>
+                            {" "} {release_date ? release_date : first_air_date}
+                        </p>
+                        <h2 className='modal_title'> title </h2>
+                        <p className='modal_overview'> content</p>
+                        <p className='modal_overview'> overview </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 const VolunteerCalendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
