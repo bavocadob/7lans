@@ -155,7 +155,7 @@ const Register = () => {
               <option value="C">학생</option>
               <option value="M">관리자</option>
             </select>
-            {(userType == "C" || userType == "M") &&
+            {(userType === "C" || userType === "M") &&
               <select value={centerId} onChange={handleCenterIdChange}>
                 <option value="">센터 선택</option>
                 <option value={1}>A 센터</option>
