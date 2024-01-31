@@ -51,7 +51,6 @@ const NormalLayout = () => {
 };
 
 // prettier-ignore
-
 function App() {
   return (
     <>
