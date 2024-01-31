@@ -5,7 +5,6 @@ import LoginPage from "./pages/LoginPage";
 import EntryPage from "./pages/EntryPage";
 import DinosaurDictPage from "./pages/DinosaurDictPage";
 
-
 import VolunteerCalendar from "./components/volunteer/calendar/VolunteerCalendar";
 import VolunteerMainPage from "./pages/volunteer_pages/VolunteerMainPage";
 import StartPage from "./pages/volunteer_pages/StartPage";
@@ -23,29 +22,26 @@ import ChildWhisperPage from "./pages/child_pages/ChildWhisperPage";
 import ChildRaiseEggPage from "./pages/child_pages/ChildRaiseEggPage";
 import ChildDinosaurDictPage from "./pages/ChildDinosaurDictPage";
 
-
 import NormalNav from "./components/navs/NormalNav";
 
-import '../scss/main.scss'
-
+import "../scss/main.scss";
 
 import VideoChattingPage from "./pages/volunteer_pages/VideoChattingPage";
 import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
 import ChildVideoChattingPage from "./pages/child_pages/ChildVideoChattingPage";
 import ChildGamePage from "./pages/child_pages/ChildGamePage";
 
-
 const NormalLayout = () => {
   return (
     <>
-    <NormalNav />
-    <CommonSidePanel />
-    <main>
-      <Outlet />
-    </main>
+      <NormalNav />
+      <CommonSidePanel />
+      <main>
+        <Outlet />
+      </main>
     </>
-  )
-}
+  );
+};
 
 // prettier-ignore
 
@@ -57,7 +53,7 @@ function App() {
         <Route path="/" element={<EntryPage />} />
         {/* <Route path="/" element={<NormalLayout />} /> */}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/calendar" element={<ReactCalendar />} />
+        {/* <Route path="/calendar" element={<ReactCalendar />} /> */}
 
         {/* 봉사자 */}
         <Route path="/volunteer_start" element={<StartPage />} />
