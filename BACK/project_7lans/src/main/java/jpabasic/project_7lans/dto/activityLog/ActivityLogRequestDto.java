@@ -92,8 +92,6 @@ public class ActivityLogRequestDto {
     public static class writeDoneByVolunteer {
         @NotNull(message = "[ActivityLogRequestDto.writeDoneByVolunteer] volunteerId 은 Null 일 수 없습니다.")
         private Long volunteerId;
-        @NotNull(message = "[ActivityLogRequestDto.writeDoneByVolunteer] RelationId 은 Null 일 수 없습니다.")
-        private Long RelationId;
         @NotNull(message = "[ActivityLogRequestDto.writeDoneByVolunteer] activityLogId 은 Null 일 수 없습니다.")
         private Long activityLogId;
         @NotNull(message = "[ActivityLogRequestDto.writeDoneByVolunteer] activityLogId 은 Null 일 수 없습니다.")

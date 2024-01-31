@@ -11,7 +11,6 @@ import jpabasic.project_7lans.repository.VolunteerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,31 +61,26 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     }
 
     // 봉사자 활동 일지 상세 조회
-    // Req: VolunteerId relationId, activityLogId
+    // Req: relationId, activityLogId
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
     @Override
     public ActivityLogResponseDto.detailByVolunteer detailByVolunteer(ActivityLogRequestDto.detailByVolunteer detailDto){
         Relation relation = relationRepository.findById(detailDto.getRelationId())
                 .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.detailByVolunteer] no such relation"));
 
-        List<MeetingSchedule> meetingScheduleList = relation.getMeetingScheduleList();
+        ActivityLog activityLog = activityLogRepository.findById(detailDto.getActivityLogId())
+                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.detailByVolunteer]no such activityLog"));
 
-        for(MeetingSchedule meetingSchedule : meetingScheduleList) {
-            if(meetingSchedule.getActivityLog().getId() == detailDto.getActivityLogId()){
-                ActivityLog activityLog = meetingSchedule.getActivityLog();
-                return ActivityLogResponseDto.detailByVolunteer.builder()
-                        .activityLogId(activityLog.getId())
-                        .dateInfo(activityLog.getRealStartTime().toLocalDate())
-                        .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
-                        .centerName(relation.getChildCenter().getName())
-                        .volunteerName(relation.getVolunteer().getName())
-                        .content(activityLog.getContent())
-                        .writeDoneStatus(activityLog.getWriteStatus())
-                        .approveStatus(activityLog.getApproveStatus())
-                        .build();
-            }
-        }
-        return null;
+        return ActivityLogResponseDto.detailByVolunteer.builder()
+                .activityLogId(activityLog.getId())
+                .dateInfo(activityLog.getRealStartTime().toLocalDate())
+                .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
+                .centerName(relation.getChildCenter().getName())
+                .volunteerName(relation.getVolunteer().getName())
+                .content(activityLog.getContent())
+                .writeDoneStatus(activityLog.getWriteStatus())
+                .approveStatus(activityLog.getApproveStatus())
+                .build();
     }
 
     // 봉사자 활동 일지 수정(작성 완료일 경우 수정 불가)
@@ -112,28 +106,23 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     }
 
     // 봉사자 활동 일지 작성 완료(작성 완료 후 동작 불가)
-    // Req: Relation id, activityLog id, content
+    // Req: activityLog id, content
     // Res: 없음
     @Override
     public void writeDoneActivityLogByVolunteer(ActivityLogRequestDto.writeDoneByVolunteer writeDoneReqDto){
-        Relation relation = relationRepository.findById(writeDoneReqDto.getRelationId())
-                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.writeDoneActivityLogByVolunteer] no such relation"));
 
-        List<MeetingSchedule> meetingScheduleList = relation.getMeetingScheduleList();
+        Volunteer volunteer = volunteerRepository.findById(writeDoneReqDto.getVolunteerId())
+                .orElseThrow(()-> new IllegalArgumentException("[ActivityLogServiceImpl.writeDoneActivityLogByVolunteer] no such volunteer"));
 
-        for(MeetingSchedule meetingSchedule : meetingScheduleList) {
-            if(meetingSchedule.getActivityLog().getId() == writeDoneReqDto.getActivityLogId()){
-                ActivityLog activityLog = meetingSchedule.getActivityLog();
-                // 작성 완료가 안되었거나, 승인이 안되었을 때만 수정 가능
-                if(!(activityLog.getWriteStatus() || activityLog.getApproveStatus())){
-                    activityLog.writeDone();
-                    activityLog.changeContent(writeDoneReqDto.getContent());
-                }
-                break;
-            }
+        ActivityLog activityLog = activityLogRepository.findById(writeDoneReqDto.getActivityLogId())
+                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.writeDoneActivityLogByVolunteer] no such activityLog"));
+
+        // 작성 완료가 안되었거나, 승인이 안되었을 때만 수정 가능
+        if(!(activityLog.getWriteStatus() || activityLog.getApproveStatus())){
+            activityLog.writeDone();
+            activityLog.changeContent(writeDoneReqDto.getContent());
         }
     }
-
 
     // ==================================================================================================
     // 관리자
@@ -233,25 +222,18 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         Relation relation = relationRepository.findById(detailDto.getRelationId())
                 .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.detailByManager] no such relation"));
 
-        List<MeetingSchedule> meetingScheduleList = relation.getMeetingScheduleList();
+        ActivityLog activityLog = activityLogRepository.findById(detailDto.getActivityLogId())
+                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.detailByManager] no such activityLog"));
 
-        for(MeetingSchedule meetingSchedule : meetingScheduleList){
-            if(meetingSchedule.getActivityLog().getId() == detailDto.getActivityLogId()){
-                ActivityLog activityLog = meetingSchedule.getActivityLog();
-                return ActivityLogResponseDto.detailByManager.builder()
-                        .activityLogId(activityLog.getId())
-                        .dateInfo(activityLog.getRealStartTime().toLocalDate())
-                        .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
-                        .centerName(relation.getChildCenter().getName())
-                        .volunteerName(relation.getVolunteer().getName())
-                        .content(activityLog.getContent())
-                        .writeDoneStatus(activityLog.getWriteStatus())
-                        .approveStatus(activityLog.getApproveStatus())
-                        .build();
-            }
-        }
-
-        return null;
+        return ActivityLogResponseDto.detailByManager.builder()
+                .activityLogId(activityLog.getId())
+                .dateInfo(activityLog.getRealStartTime().toLocalDate())
+                .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
+                .centerName(relation.getChildCenter().getName())
+                .volunteerName(relation.getVolunteer().getName())
+                .content(activityLog.getContent())
+                .writeDoneStatus(activityLog.getWriteStatus())
+                .approveStatus(activityLog.getApproveStatus())
+                .build();
     }
-
 }
