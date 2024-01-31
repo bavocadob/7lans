@@ -121,7 +121,7 @@ const Register = () => {
     })
       .then((res) => {
         console.log(res.data)
-        navigate('/login')
+        navigate("/login")
         window.alert('회원가입을 축하합니다.')
       })
       .catch((err) => {

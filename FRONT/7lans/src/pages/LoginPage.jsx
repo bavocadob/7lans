@@ -120,7 +120,7 @@ const LoginPage = () => {
             <input type="password" placeholder='password' />
             <p>아이디 찾기 | 비밀번호 찾기 | </p>
             <Link to={'/register'}>회원가입</Link>
-            <button type='submit'>로그인</button>
+            <button onClick={() => login()}>로그인</button>
           </form>
         </RightContent>
       </ContentWrapper>
