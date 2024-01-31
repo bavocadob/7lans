@@ -55,6 +55,7 @@ function App() {
         <Route path="/" element={<EntryPage />} />
         {/* <Route path="/" element={<NormalLayout />} /> */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<Register />} />
 
         {/* 봉사자 */}
         <Route path="/volunteer_start" element={<StartPage />} />

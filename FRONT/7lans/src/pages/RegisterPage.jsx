@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios'
 
 const Container = styled.div`
   height: 100vh;
@@ -76,32 +77,31 @@ const InfoSpan = styled.span`
 `;
 
 const Register = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [type, setType] = useState('')
+  const [userName, setUserName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [birth, setBirth] = useState('')
+  const [centerId, setCenterId] = useState('')
 
-  const signUp = function (payload) {
-    const { username, password1, password2 } = payload
+  const signUp = function (email, password) {
 
     axios({
       method: 'post',
-      url: 'http://127.0.0.1:8000/accounts/signup/',
+      url: 'https://i10e103.p.ssafy.io/api/v1/member/register',
       data: {
-        username, password1, password2
+        email, password
       }
     })
       .then((res) => {
         
         console.log(res.data)
         // token.value = res.data.key
-        router.push({ name: 'login' })
         window.alert('회원가입을 축하합니다.')
       })
       .catch((err) => {
         console.log(err)
-        if(password1 != password2){
-          window.alert('비밀번호가 다릅니다.')
-        }
-        else{
-          window.alert('특수문자 및 영문자와 숫자를 섞어 주세요.')
-        }
       })
   }
 
@@ -112,23 +112,28 @@ const Register = () => {
           <FaArrowLeft />
         </Link>
       </Header>
-      <H1>로그인</H1>
+      <H1>회원가입</H1>
       <ContentWrapper>
         <LeftContent>
           <LogoImage src="./7lans_logo.png" alt="" />
           <InfoSpan>
-            <h7>
+            <h5>
               봉사자와 피봉사자의 연결을 도와주는 보조 웹 사이트
-            </h7>
+            </h5>
           </InfoSpan>
         </LeftContent>
         <RightContent>
-          <form action="submit">
-            <input type="text" placeholder='email' />
-            <input type="password" placeholder='password' />
-            <p>아이디 찾기 | 비밀번호 찾기 | 회원가입</p>
-            <button type='submit'>로그인</button>
-          </form>
+          <div>
+            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="text" value={type} onChange={(e) => setType(e.target.value)} />
+            <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
+            <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+            <input type="text" value={birth} onChange={(e) => setBirth(e.target.value)} />
+            <input type="text" value={centerId} onChange={(e) => setCenterId(e.target.value)} />
+            <p>아이디 찾기 | 비밀번호 찾기 | 로그인</p>
+            <button type='submit' onClick={() => signUp(email, password)}>회원가입</button>
+          </div>
         </RightContent>
       </ContentWrapper>
     </Container>
