@@ -22,11 +22,7 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
-    private final ChildRepository childRepository;
-    private final VolunteerRepository volunteerRepository;
-    private final ManagerRepository managerRepository;
     private final ChildCenterRepository childCenterRepository;
-    private final RelationRepository relationRepository;
 
     //=========================================
     //회원가입
@@ -53,15 +49,22 @@ public class MemberServiceImpl implements MemberService{
         ChildCenter childCenter = childCenterRepository.findById(childRegisterDto.getChildChildCenterId())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.childRegister] 해당 센터 ID와 일치하는 센터가 존재하지 않습니다."));
 
+
+
         Child child = Child.builder()
                 .email(childRegisterDto.getChildEmail())
                 .name(childRegisterDto.getChildName())
                 .password(childRegisterDto.getChildPassword())
                 .phoneNumber(childRegisterDto.getChildPhoneNumber())
                 .birth(childRegisterDto.getChildBirth())
-                //.childCenter(childCenter)
                 .memberType(MemberType.CHILD)
                 .build();
+
+        DinosaurBook dinosaurBook = DinosaurBook.builder()
+                        .member(child)
+                        .build();
+
+        child.setDinosaurBook(dinosaurBook);
 
         childCenter.addChildList(child);
         System.out.println(childCenter.getChildList().get(0).getName());
@@ -92,6 +95,12 @@ public class MemberServiceImpl implements MemberService{
                 .birth(volunteerRegisterDto.getVolunteerBirth())
                 .memberType(MemberType.VOLUNTEER)
                 .build();
+
+        DinosaurBook dinosaurBook = DinosaurBook.builder()
+                .member(volunteer)
+                .build();
+
+        volunteer.setDinosaurBook(dinosaurBook);
 
         memberRepository.save(volunteer);
     }

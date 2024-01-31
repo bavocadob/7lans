@@ -2,10 +2,7 @@ package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,6 +41,7 @@ public abstract class Member {
 
     private LocalDateTime enterDate;
 
+    @Setter
     @OneToOne
     private DinosaurBook dinosaurBook;
 
@@ -65,7 +63,7 @@ public abstract class Member {
             String password,
             String phoneNumber,
             LocalDate birth,
-            DinosaurBook dinosaurBook,
+            //DinosaurBook dinosaurBook,
             MemberType memberType
     ){
         this.email = email;
@@ -74,7 +72,7 @@ public abstract class Member {
         this.phoneNumber = phoneNumber;
         this.profileImgPath = "please insert default Image Path.";
         this.birth = birth;
-        this.dinosaurBook = dinosaurBook;
+        //this.dinosaurBook = dinosaurBook;
         this.enterDate = LocalDateTime.now();
         this.memberType = memberType;
     }
