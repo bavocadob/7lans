@@ -32,7 +32,7 @@ public class MemberController {
     // 회원가입
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid MemberRequestDto.sign memberDto){
-        log.info("[MemberController.register] data input from FRONT"+memberDto.getMemberEmail()+memberDto.getMemberName()+memberDto.getMemberPassword()+memberDto.getMemberType());
+        log.info("[MemberController.register] data input from FRONT email:{} name:{} password:{} type:{}", memberDto.getMemberEmail(),memberDto.getMemberName(),memberDto.getMemberPassword(),memberDto.getMemberType());
         // 회원가입
         try{
             if(memberDto.getMemberType().equals("V")){

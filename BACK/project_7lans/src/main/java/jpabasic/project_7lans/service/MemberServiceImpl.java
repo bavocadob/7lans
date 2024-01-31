@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService{
         System.out.println(childCenter.getChildList().get(0).getName());
         memberRepository.save(child);
 
-        log.info("[MemberService.Impl.childRegister]childRegister success"+child.getId()+child.getName()+child.getMemberType());
+        log.info("[MemberService.Impl.childRegister]childRegister success return: childId:{} childName:{} childType:{}"+child.getId()+child.getName()+child.getMemberType());
     }
 
     @Override
