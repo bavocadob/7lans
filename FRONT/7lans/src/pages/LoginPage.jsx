@@ -92,12 +92,12 @@ const LoginPage = () => {
       }
     })
     .then((res) => {
-      console.log(res.data)
-      window.alert(res.data)
+      console.log(res)
+      window.alert(res)
     })
     .catch((err) => {
-      console.log(err.data)
-      window.alert(err.data)
+      console.log(err)
+      window.alert(err)
     })
   }
 
