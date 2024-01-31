@@ -13,7 +13,7 @@ public class ActivityLog {
     private Long id;
 
     @Setter
-    @OneToOne(mappedBy = "activityLog", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "activityLog", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private MeetingSchedule meetingSchedule;
 
     private LocalDateTime realStartTime;

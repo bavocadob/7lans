@@ -26,6 +26,7 @@ public class WhisperServiceImpl implements WhisperService{
 
     // 생성
     // 속닥속닥 하나 작성. (작성자 Id, 상대방과의 관계 Id, 작성 내용 데이터 필요)
+    @Transactional
     public void createWhisper(WhisperRequestDto.create whisperCreateDto){
         Member member = memberRepository.findById(whisperCreateDto.getWriterId())
                 .orElseThrow(()-> new IllegalArgumentException("[WhisperServiceImpl.createWhisper] no such member"));
@@ -34,12 +35,15 @@ public class WhisperServiceImpl implements WhisperService{
                 .orElseThrow(()-> new IllegalArgumentException("[WhisperServiceImpl.createWhisper] no such Relation"));
 
 
-        Whisper whisper = Whisper.createWhisper(member, whisperCreateDto.getContent());
+        Whisper whisper = Whisper.builder()
+                .writer(member)
+                .content(whisperCreateDto.getContent())
+                .build();
 
         relation.addWhisperList(whisper);
 
         // addWhisperList에 대한 테스트 필요.
-        // whisperRepository.save(whisper);
+        whisperRepository.save(whisper);
     };
 
     // 조회

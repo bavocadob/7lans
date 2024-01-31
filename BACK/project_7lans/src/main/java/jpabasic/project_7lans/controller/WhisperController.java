@@ -34,7 +34,9 @@ public class WhisperController {
     @GetMapping(path = "/whisper/{whisperId}")
     public ResponseEntity<WhisperResponseDto.detail> whisperDetail(@PathVariable Long whisperId){
         try{
-            WhisperResponseDto.detail whisperDTo = whisperServiceImpl.whisperDetail(WhisperRequestDto.detailById.createDto(whisperId));
+            WhisperResponseDto.detail whisperDTo = whisperServiceImpl.whisperDetail(WhisperRequestDto.detailById.builder()
+                    .whisperId(whisperId)
+                    .build());
             return new ResponseEntity<WhisperResponseDto.detail>(whisperDTo,HttpStatus.OK);
 
         }catch(Exception e){
@@ -47,7 +49,8 @@ public class WhisperController {
     @GetMapping(path = "/whisper/list/{relationId}")
     public ResponseEntity<List<WhisperResponseDto.detail>> whisperList(@PathVariable @Valid Long relationId){
         try{
-            List<WhisperResponseDto.detail> whisperList = whisperServiceImpl.whisperList(WhisperRequestDto.listById.createDto(relationId));
+            List<WhisperResponseDto.detail> whisperList = whisperServiceImpl.whisperList(WhisperRequestDto.listById.builder()
+                    .relationId(relationId).build());
             return new ResponseEntity<List<WhisperResponseDto.detail>>(whisperList,HttpStatus.OK);
 
         }catch(Exception e){
@@ -61,7 +64,7 @@ public class WhisperController {
     @GetMapping(path = "/whisper/unreadList/{relationId}")
     public ResponseEntity<List<WhisperResponseDto.detail>> whisperUnreadList(@PathVariable @Valid Long relationId){
         try{
-            List<WhisperResponseDto.detail> whisperList = whisperServiceImpl.whisperListUnread(WhisperRequestDto.listById.createDto(relationId));
+            List<WhisperResponseDto.detail> whisperList = whisperServiceImpl.whisperListUnread(WhisperRequestDto.listById.builder().relationId(relationId).build());
             return new ResponseEntity<List<WhisperResponseDto.detail>>(whisperList,HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();

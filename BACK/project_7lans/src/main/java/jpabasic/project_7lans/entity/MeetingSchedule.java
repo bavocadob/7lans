@@ -31,7 +31,7 @@ public class MeetingSchedule {
     private String meetingUrl = "meetingUrl";
 
     @OneToMany(mappedBy = "imgPath", cascade = CascadeType.ALL)
-    private ArrayList<MeetingImage> meetingImageList = new ArrayList<>();
+    private ArrayList<MeetingImage> meetingImageList;
 
     @OneToOne
     private ActivityLog activityLog;
@@ -63,15 +63,13 @@ public class MeetingSchedule {
     // 생성자
 
     @Builder
-    public static MeetingSchedule create(
+    public MeetingSchedule(
             LocalDateTime startTime,
             LocalDateTime endTime,
             ActivityLog activityLog
     ){
-        return MeetingSchedule.builder()
-                .startTime(startTime)
-                .endTime(endTime)
-                .activityLog(activityLog)
-                .build();
+        this.ScheduledStartTime = startTime;
+        this.ScheduledEndTime = endTime;
+        this.activityLog = activityLog;
     }
 }

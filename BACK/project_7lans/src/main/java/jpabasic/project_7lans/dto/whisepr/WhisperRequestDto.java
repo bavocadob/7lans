@@ -19,16 +19,14 @@ public class WhisperRequestDto {
         private String content;
 
         @Builder
-        public static WhisperRequestDto.create create(
+        public create(
                 Long writerId,
                 Long relationId,
                 String content
         ){
-            return WhisperRequestDto.create.builder()
-                    .writerId(writerId)
-                    .relationId(relationId)
-                    .content(content)
-                    .build();
+            this.writerId = writerId;
+            this.relationId = relationId;
+            this.content = content;
         }
     }
 
@@ -39,12 +37,10 @@ public class WhisperRequestDto {
         private Long whisperId;
 
         @Builder
-        public static WhisperRequestDto.detailById createDto(
+        public detailById(
                 Long whisperId
         ){
-            return WhisperRequestDto.detailById.builder()
-                    .whisperId(whisperId)
-                    .build();
+            this.whisperId = whisperId;
         }
     }
 
@@ -55,12 +51,10 @@ public class WhisperRequestDto {
         private Long relationId;
 
         @Builder
-        public static WhisperRequestDto.listById createDto(
+        public listById(
                 Long relationId
         ){
-            return WhisperRequestDto.listById.builder()
-                    .relationId(relationId)
-                    .build();
+            this.relationId = relationId;
         }
     }
 }

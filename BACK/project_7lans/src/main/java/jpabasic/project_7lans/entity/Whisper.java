@@ -30,13 +30,11 @@ public class Whisper {
     }
 
     @Builder
-    public static Whisper createWhisper(
+    public Whisper(
             Member writer,
             String content
     ){
-        return Whisper.builder()
-                .writer(writer)
-                .content(content)
-                .build();
+        this.writer = writer;
+        this.content = content;
     }
 }

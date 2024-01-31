@@ -101,8 +101,11 @@ public class MeetingServiceImpl implements MeetingService{
         ActivityLog activityLog = new ActivityLog();
 
 
-        MeetingSchedule newMeeting = MeetingSchedule.create(meeting.getScheduledStartTime(), meeting.getScheduledEndTime(), activityLog);
-        activityLog.setMeetingSchedule(newMeeting);
+        MeetingSchedule newMeeting = MeetingSchedule.builder()
+                .startTime(meeting.getScheduledStartTime())
+                .endTime(meeting.getScheduledEndTime())
+                .activityLog(activityLog)
+                .build();
 
         meetingRepository.save(newMeeting);
     }
