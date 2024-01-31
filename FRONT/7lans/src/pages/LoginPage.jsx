@@ -93,6 +93,7 @@ const LoginPage = () => {
     })
     .then((res) => {
       console.log(res.data)
+      window.alert(res.data)
     })
     .catch((err) => {
       console.log(err.data)
