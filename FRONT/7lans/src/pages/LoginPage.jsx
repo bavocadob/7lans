@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -77,6 +77,8 @@ const InfoSpan = styled.span`
 `;
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
 
@@ -116,11 +118,11 @@ const LoginPage = () => {
         </LeftContent>
         <RightContent>
           <form action="submit">
-            <input type="text" placeholder='email' />
-            <input type="password" placeholder='password' />
+            <input type="text" onChange={(e) => setEmail(e.target.value)} value={email? email:''} placeholder='email' />
+            <input type="password" onChange={(e) => setEmail(e.target.value)} value={password? password:''} placeholder='password' />
             <p>아이디 찾기 | 비밀번호 찾기 | </p>
             <Link to={'/register'}>회원가입</Link>
-            <button onClick={() => login()}>로그인</button>
+            <button onClick={() => login(email, password)}>로그인</button>
           </form>
         </RightContent>
       </ContentWrapper>
