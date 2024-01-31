@@ -40,7 +40,7 @@ const CuteButton = styled.button`
   font-size: 14px;
   color: white;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-left: 5px;
 `;
 
@@ -72,15 +72,16 @@ const InputRow = styled.div`
 
 const TextArea = styled.textarea`
   width: 80%;
-  height: 300px;
+  height: 200px;
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 2%;
-  margin-left: 57%;
+  /* margin-top: 2%; */
+  margin-left: 50%;
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  /* gap: 1px; */
+  margin-bottom: 2%;
 `;
 
 const CuteButtonWithMargin = styled(CuteButton)`
