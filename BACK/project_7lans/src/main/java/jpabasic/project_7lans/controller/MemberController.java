@@ -9,6 +9,7 @@ import jpabasic.project_7lans.repository.ChildCenterRepository;
 import jpabasic.project_7lans.service.ChildCenterService;
 import jpabasic.project_7lans.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/member")
 @RequiredArgsConstructor
@@ -30,11 +32,11 @@ public class MemberController {
     // 회원가입
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid MemberRequestDto.sign memberDto){
+        log.info("[MemberController.register] data input from FRONT email:{} name:{} password:{} type:{}", memberDto.getMemberEmail(),memberDto.getMemberName(),memberDto.getMemberPassword(),memberDto.getMemberType());
         // 회원가입
         try{
             if(memberDto.getMemberType().equals("V")){
                 MemberService.volunteerRegister(memberDto);
-
             }
             else if(memberDto.getMemberType().equals("C")){
 
@@ -50,6 +52,8 @@ public class MemberController {
 
                 MemberService.managerRegister(memberDto);
             }
+
+            log.info("[MemberController.register] finish register member");
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
@@ -59,13 +63,11 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody @Valid MemberRequestDto.login memberDto){
-        // 회원가입
+        // 로그인
         Map<String, Object> resultMap = new HashMap<String, Object>();
         HttpStatus status = HttpStatus.OK;
         try{
-
             Member find = MemberService.login(memberDto);
-
             resultMap.put("id", find.getId());
             //return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){

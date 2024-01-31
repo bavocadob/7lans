@@ -12,7 +12,7 @@ import jpabasic.project_7lans.entity.Member;
 
 import java.util.List;
 
-public interface    MemberService {
+public interface MemberService {
 
     // ===============================================================================
     // 회원가입

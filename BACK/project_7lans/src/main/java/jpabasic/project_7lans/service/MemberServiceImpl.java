@@ -10,12 +10,14 @@ import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.*;
 import jpabasic.project_7lans.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -29,7 +31,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public void childRegister(MemberRequestDto.sign memberDto) {
-
+        log.info("[MemberService.Impl.childRegister]childRegister Start...");
         ChildRequestDto.register childRegisterDto = ChildRequestDto.register.builder()
                 .childEmail(memberDto.getMemberEmail())
                 .childName(memberDto.getMemberName())
@@ -65,6 +67,8 @@ public class MemberServiceImpl implements MemberService{
         childCenter.addChildList(child);
         System.out.println(childCenter.getChildList().get(0).getName());
         memberRepository.save(child);
+
+        log.info("[MemberService.Impl.childRegister]childRegister success return: childId:{} childName:{} childType:{}"+child.getId()+child.getName()+child.getMemberType());
     }
 
     @Override
