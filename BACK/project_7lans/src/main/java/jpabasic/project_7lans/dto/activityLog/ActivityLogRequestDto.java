@@ -202,7 +202,7 @@ public class ActivityLogRequestDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public class startTime {
+    public static class startTime {
         @NotNull(message = "[ActivityLogRequestDto.startTime] meetingId 은 Null 일 수 없습니다.")
         private Long meetingId;
         @NotNull(message = "[ActivityLogRequestDto.startTime] startTime 은 Null 일 수 없습니다.")
@@ -221,7 +221,7 @@ public class ActivityLogRequestDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public class endTime {
+    public static class endTime {
         @NotNull(message = "[ActivityLogRequestDto.endTime] meetingId 은 Null 일 수 없습니다.")
         private Long meetingId;
         @NotNull(message = "[ActivityLogRequestDto.endTime] endTime 은 Null 일 수 없습니다.")

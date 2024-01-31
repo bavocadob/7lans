@@ -128,7 +128,7 @@ public class MeetingController {
     }
 
     //화상 종료
-    @PostMapping("/open")
+    @PostMapping("/close")
     public ResponseEntity closeMeeting(@RequestBody @Valid MeetingScheduleRequestDto.closeMeeting meetingDto){
         try{
             meetingService.closeMeeting(meetingDto);
