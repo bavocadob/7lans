@@ -83,7 +83,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
 
   const login = (memberEmail, memberPassword) => {
-    
+
     axios({
       method: 'post',
       url: 'https://i10e103.p.ssafy.io/api/v1/member/login',
