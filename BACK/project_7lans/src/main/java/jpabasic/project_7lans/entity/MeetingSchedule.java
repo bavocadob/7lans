@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import jpabasic.project_7lans.dto.whisepr.WhisperRequestDto;
@@ -7,6 +8,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,8 +21,10 @@ public class MeetingSchedule {
     @ManyToOne(fetch = FetchType.LAZY)
     private Relation relation;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime ScheduledStartTime;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime ScheduledEndTime;
 
     @Enumerated(EnumType.STRING)
@@ -30,8 +34,8 @@ public class MeetingSchedule {
 
     private String meetingUrl = "meetingUrl";
 
-    @OneToMany(mappedBy = "imgPath", cascade = CascadeType.ALL)
-    private ArrayList<MeetingImage> meetingImageList;
+    @OneToMany(mappedBy = "imgPath", cascade = CascadeType.PERSIST)
+    private List<MeetingImage> meetingImageList = new ArrayList<>();
 
     @OneToOne
     private ActivityLog activityLog;
