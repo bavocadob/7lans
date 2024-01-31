@@ -1,5 +1,9 @@
 import React from "react";
+import styled from "styled-components";
+import AdminMain from "../../components/admin/AdminMain";
 
-export const AdminMainPage = () => {
-  return <div>AdminMainPage</div>;
+const AdminMainPage = () => {
+  return <AdminMain />;
 };
+
+export default AdminMainPage;
