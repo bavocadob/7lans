@@ -105,7 +105,6 @@ public class ActivityLogRequestDto {
                 String content
         ){
             this.volunteerId = volunteerId;
-            this.RelationId = RelationId;
             this.activityLogId = activityLogId;
             this.content = content;
         }
