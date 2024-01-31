@@ -97,6 +97,7 @@ const LoginPage = () => {
     })
     .catch((err) => {
       console.log(err)
+      console.error(err)
       window.alert(err)
     })
   }
