@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,8 +17,12 @@ public class ActivityLog {
     @OneToOne(mappedBy = "activityLog", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private MeetingSchedule meetingSchedule;
 
+    @Setter
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime realStartTime;
 
+    @Setter
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime realEndTime;
 
     private String content = null;

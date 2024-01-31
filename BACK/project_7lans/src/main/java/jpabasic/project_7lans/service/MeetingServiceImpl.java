@@ -189,6 +189,24 @@ public class MeetingServiceImpl implements MeetingService{
            }
     }
 
+    @Override
+    public void openMeeting(MeetingScheduleRequestDto.openMeeting meetingDto) {
+        MeetingSchedule meeting = meetingRepository.findById(meetingDto.getMeetingId())
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.openMeeting] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
+
+        //미팅이 열림
+        meeting.changeStatus(ScheduleType.OPENED);
+    }
+
+    @Override
+    public void closeMeeting(MeetingScheduleRequestDto.closeMeeting meetingDto) {
+        MeetingSchedule meeting = meetingRepository.findById(meetingDto.getMeetingId())
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.openMeeting] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
+
+        //미팅이 열림
+        meeting.changeStatus(ScheduleType.CLOSED);
+    }
+
 
     //미팅 상태 확인(예정)
     public boolean isScheduled(MeetingSchedule meetingSchedule){

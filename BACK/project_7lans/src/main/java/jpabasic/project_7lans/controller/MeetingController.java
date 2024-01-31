@@ -113,4 +113,31 @@ public class MeetingController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    //화상 시작
+    @PostMapping("/open")
+    public ResponseEntity openMeeting(@RequestBody @Valid MeetingScheduleRequestDto.openMeeting meetingDto){
+        try{
+            meetingService.openMeeting(meetingDto);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //화상 종료
+    @PostMapping("/open")
+    public ResponseEntity closeMeeting(@RequestBody @Valid MeetingScheduleRequestDto.closeMeeting meetingDto){
+        try{
+            meetingService.closeMeeting(meetingDto);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

@@ -4,10 +4,7 @@ import jpabasic.project_7lans.dto.activityLog.ActivityLogRequestDto;
 import jpabasic.project_7lans.dto.activityLog.ActivityLogResponseDto;
 
 import jpabasic.project_7lans.entity.*;
-import jpabasic.project_7lans.repository.ActivityLogRepository;
-import jpabasic.project_7lans.repository.ChildCenterRepository;
-import jpabasic.project_7lans.repository.RelationRepository;
-import jpabasic.project_7lans.repository.VolunteerRepository;
+import jpabasic.project_7lans.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +21,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     private final ChildCenterRepository childCenterRepository;
     private final VolunteerRepository volunteerRepository;
     private final ActivityLogRepository activityLogRepository;
+    private final MeetingScheduleRepository meetingScheduleRepository;
 
     // ==================================================================================================
     // 봉사자
@@ -250,5 +248,24 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
         // 작성 완료 상태이면 활동 일지를 승인상태로 바꾼다.
         if(activityLog.getWriteStatus()) activityLog.approve();
+    }
+
+    public void setStartTime(ActivityLogRequestDto.startTime startTime) {
+           MeetingSchedule meetingSchedule = meetingScheduleRepository.findById(startTime.getMeetingId())
+                   .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.setStartTime] no such meetingSchedule"));
+
+           ActivityLog activityLog = meetingSchedule.getActivityLog();
+
+           activityLog.setRealStartTime(startTime.getStartTime());
+
+    }
+
+    public void setEndTime(ActivityLogRequestDto.endTime endTime) {
+        MeetingSchedule meetingSchedule = meetingScheduleRepository.findById(endTime.getMeetingId())
+                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.setEndTime] no such meetingSchedule"));
+
+        ActivityLog activityLog = meetingSchedule.getActivityLog();
+
+        activityLog.setRealEndTime(endTime.getEndTime());
     }
 }

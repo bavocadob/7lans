@@ -146,11 +146,34 @@ public class ActivityLogController {
     }
 
     // 관리자가 특정 활동 일지 승인
+    //승인
     @Operation(summary = "관리자가 특정 활동 일지 승인")
     @PostMapping(value = "/manager/approve")
     public ResponseEntity approveByManager (@RequestBody ActivityLogRequestDto.approveByManager approveReqDto) {
         try{
             activityLogServiceImpl.approveByManager(approveReqDto);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //시작 시간 입력
+    @PostMapping(value = "/manager/starttime")
+    public ResponseEntity setStartTime (@RequestBody ActivityLogRequestDto.startTime startTime) {
+        try{
+            activityLogServiceImpl.setStartTime(startTime);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //종료 시간 입력
+    @PostMapping(value = "/manager/endtime")
+    public ResponseEntity setEndTime (@RequestBody ActivityLogRequestDto.endTime endTime) {
+        try{
+            activityLogServiceImpl.setEndTime(endTime);
             return new ResponseEntity(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
