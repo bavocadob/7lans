@@ -79,4 +79,33 @@ public class MeetingScheduleRequestDto {
         }
     }
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class openMeeting{
+        @NotNull(message = "[MeetingScheduleRequestDto.openMeeting] meetingId 는 Null 일 수 없습니다.")
+        Long meetingId;
+
+        @Builder
+        openMeeting(
+                Long meetingId
+        ){
+            this.meetingId = meetingId;
+
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class closeMeeting{
+        @NotNull(message = "[MeetingScheduleRequestDto.closeMeeting] meetingId 는 Null 일 수 없습니다.")
+        Long meetingId;
+
+        @Builder
+        closeMeeting(
+                Long meetingId
+        ){
+            this.meetingId = meetingId;
+
+        }
+    }
 }

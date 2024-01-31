@@ -21,4 +21,8 @@ public interface MeetingService {
     Long saveImg(MeetingScheduleRequestDto.saveImg img);
 
     void choiceImg(List<MeetingScheduleRequestDto.choiceImg> imgs);
+
+    void openMeeting(MeetingScheduleRequestDto.openMeeting meetingDto);
+
+    void closeMeeting(MeetingScheduleRequestDto.closeMeeting meetingDto);
 }

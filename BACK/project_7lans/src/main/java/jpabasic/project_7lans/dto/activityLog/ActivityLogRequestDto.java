@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.dto.activityLog;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ActivityLogRequestDto {
 
@@ -195,6 +197,44 @@ public class ActivityLogRequestDto {
             this.centerId = centerId;
             this.relationId = relationId;
             this.activityLogId = activityLogId;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public class startTime {
+        @NotNull(message = "[ActivityLogRequestDto.startTime] meetingId 은 Null 일 수 없습니다.")
+        private Long meetingId;
+        @NotNull(message = "[ActivityLogRequestDto.startTime] startTime 은 Null 일 수 없습니다.")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+        private LocalDateTime startTime;
+
+        @Builder
+        startTime(
+                Long meetingId,
+                LocalDateTime startTime
+        ){
+            this.meetingId = meetingId;
+            this.startTime = startTime;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public class endTime {
+        @NotNull(message = "[ActivityLogRequestDto.endTime] meetingId 은 Null 일 수 없습니다.")
+        private Long meetingId;
+        @NotNull(message = "[ActivityLogRequestDto.endTime] endTime 은 Null 일 수 없습니다.")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+        private LocalDateTime endTime;
+
+        @Builder
+        endTime(
+                Long meetingId,
+                LocalDateTime endTime
+        ){
+            this.meetingId = meetingId;
+            this.endTime = endTime;
         }
     }
 }

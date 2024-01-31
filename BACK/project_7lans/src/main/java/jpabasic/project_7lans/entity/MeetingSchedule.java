@@ -52,11 +52,11 @@ public class MeetingSchedule {
         this.ScheduledEndTime = time;
     }
 
-    private void setStatus(ScheduleType status){this.status = status;}
-
     public void changeThumbnail(String thumbnail){
         this.thumbnailImgPath = thumbnail;
     }
+
+    public void changeStatus(ScheduleType status){this.status = status;}
 
     public void addMeetingImage(MeetingImage meetingImage) {
         this.meetingImageList.add(meetingImage);
