@@ -21,6 +21,7 @@ import VideoChattingPage from "./pages/volunteer_pages/VideoChattingPage";
 import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
 import ChildVideoChattingPage from "./pages/child_pages/ChildVideoChattingPage";
 import ChildGamePage from "./pages/child_pages/ChildGamePage";
+import Register from "./pages/RegisterPage";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path="/" element={<EntryPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<Register/> }/>
         {/* <Route path="/main" element={<MainPage />} /> */}
         <Route path="/whisper_page" element={<WhisperPage />} />
         <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
@@ -59,7 +61,6 @@ function App() {
         <Route path="/child_raise_egg" element={<ChildRaiseEggPage />} />
         <Route path="/child_video_chatting" element={<ChildVideoChattingPage />} />
         <Route path="/child_game" element={<ChildGamePage />} />
-
         <Route path="/calendar" element={<ReactCalendar />} />
       </Routes>
     </>
