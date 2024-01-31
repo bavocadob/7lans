@@ -117,13 +117,13 @@ const LoginPage = () => {
           </InfoSpan>
         </LeftContent>
         <RightContent>
-          <form action="submit">
+          <div>
             <input type="text" onChange={(e) => setEmail(e.target.value)} value={email? email:''} placeholder='email' />
             <input type="password" onChange={(e) => setPassword(e.target.value)} value={password? password:''} placeholder='password' />
             <p>아이디 찾기 | 비밀번호 찾기 | </p>
             <Link to={'/register'}>회원가입</Link>
             <button onClick={() => login(email, password)}>로그인</button>
-          </form>
+          </div>
         </RightContent>
       </ContentWrapper>
     </Container>
