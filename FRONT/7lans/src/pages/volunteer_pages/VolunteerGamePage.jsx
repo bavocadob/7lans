@@ -32,6 +32,9 @@ const VolunteerGamePage = () => {
         <Words />
       )
     }
+    return (
+      <div>게임을 골라주세요.</div>
+    )
   }
 
   return (

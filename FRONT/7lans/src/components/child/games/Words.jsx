@@ -29,23 +29,86 @@ const Words = () => {
 
   if (word === '') {
     return(
-      <div>
-        <p>단어를 제시해 주세요</p>
-        <input type="text" onChange={(e) => setNowWord(e.target.value)} value={nowWord} />
-        <button onClick={() => dispatch(addWord(nowWord))}>제출</button>
-      </div>
-    )
-  }
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+          <h1 style={{ marginTop: '4%', fontWeight: 'bolder', color: 'rgb(255, 215, 3)', textShadow: '2px 2px 2px black' }}>
+            단어를 제시해 주세요.
+          </h1>
+          <div
+            className='shadow'
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              border: '5px solid black',
+              borderRadius: '20px',
+              width: '90%',
+              flex: 1,
+              margin: '2rem',
+              backgroundColor: 'rgb(255, 250, 233)',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                backgroundColor: 'rgb(251, 243, 212)',
+                height: '70%',
+                margin: '3%',
+                borderRadius: '10px',
+                border: '5px solid black',
+              }}
+            >
+            <input style={{border: 'none', height: '100%', width: '100%', borderRadius: '10px', textAlign: 'center', fontSize: '50px', backgroundColor: 'rgb(251, 243, 212)'}} type="text" onChange={(e) => setNowWord(e.target.value)} value={nowWord} />
+            </div>
+            <button className='shadow' style={{width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 215, 3)'}} onClick={() => dispatch(addWord(nowWord))}>제출</button>
+          </div>
+        </div>
+      )
+    }
   else {
-    return (
-      <div>
-        <p>"{word}"을 포함한 문장을 만들어 보아요</p>
-
-        <input type="text" value={word1} readOnly />
-        <input type="text" value={word2} readOnly/>
-        <input type="text" value={word3} readOnly/>
-        <input type="text" value={word4} readOnly/>
-        <button onClick={reset}>돌아가기</button>
+    return(
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
+        <h1 style={{ marginTop: '4%', fontWeight: 'bolder', color: 'rgb(255, 215, 3)', textShadow: '2px 2px 2px black' }}>
+          "{word}"을 포함한 문장을 만들어 보아요
+        </h1>
+        <div
+          className='shadow'
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            border: '5px solid black',
+            borderRadius: '20px',
+            width: '90%',
+            flex: 1,
+            margin: '2rem',
+            backgroundColor: 'rgb(255, 250, 233)',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              backgroundColor: 'rgb(251, 243, 212)',
+              height: '70%',
+              margin: '3%',
+              borderRadius: '10px',
+              border: '5px solid black',
+            }}
+          >
+            <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', padding: '1rem', justifyContent: 'center'}}>
+              <input style={{border: '5px solid black', borderRadius: '10px', padding: '5px', margin: '0.5rem', fontSize: '20px'}} type="text" placeholder={word1? '': '문장을 완성해 주세요'} value={word1} onChange={(e) => setWord1(e.target.value)}/>
+              <input style={{border: '5px solid black', borderRadius: '10px', padding: '5px', margin: '0.5rem', fontSize: '20px'}} type="text" placeholder={word2? '': '문장을 완성해 주세요'} value={word2} onChange={(e) => setWord2(e.target.value)}/>
+              <input style={{border: '5px solid black', borderRadius: '10px', padding: '5px', margin: '0.5rem', fontSize: '20px'}} type="text" placeholder={word3? '': '문장을 완성해 주세요'} value={word3} onChange={(e) => setWord3(e.target.value)}/>
+              <input style={{border: '5px solid black', borderRadius: '10px', padding: '5px', margin: '0.5rem', fontSize: '20px'}} type="text" placeholder={word4? '': '문장을 완성해 주세요'} value={word4} onChange={(e) => setWord4(e.target.value)}/>
+            </div>
+          </div>
+          <button className='shadow' style={{width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 215, 3)'}} onClick={reset}>제출</button>
+        </div>
       </div>
     )
   }
