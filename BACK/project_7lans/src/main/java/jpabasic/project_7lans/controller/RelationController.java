@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import jpabasic.project_7lans.dto.relation.RelationRequestDto;
 import jpabasic.project_7lans.dto.relation.RelationResponseDto;
 import jpabasic.project_7lans.service.RelationService;
@@ -18,9 +19,9 @@ public class RelationController {
 
     private final RelationService relationService;
 
+    @Operation(summary = "관리자가 아동과 봉사자 친구 맺어주기")
     @PostMapping("/create")
     public ResponseEntity<RelationResponseDto.info> createRelation(@RequestBody RelationRequestDto.create requestDto) {
         return ResponseEntity.ok(relationService.createRelation(requestDto));
     }
-
 }

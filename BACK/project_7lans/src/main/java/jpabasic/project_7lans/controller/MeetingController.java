@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleRequestDto;
@@ -22,6 +23,7 @@ public class MeetingController {
     private final MeetingService meetingService;
 
     //해당 달 미팅 조회하기
+    @Operation(summary = "해당하는 달의 화상미팅 일정 조회")
     @GetMapping("/{relationId}/{month}")
     public ResponseEntity<?> monthList(@PathVariable("relationId") Long relationId, @PathVariable("month") int month){
         try{
@@ -37,6 +39,7 @@ public class MeetingController {
     }
 
     //해당 날짜 사진들 보기
+    @Operation(summary = "해낭 날짜 사진들 보기")
     @GetMapping("/image/{meetingId}")
     public ResponseEntity<?> imageList(@PathVariable("meetingId") Long meetingId){
         try{
@@ -52,6 +55,7 @@ public class MeetingController {
     }
 
     //미팅 추가 하기
+    @Operation(summary = "화상미팅 예약하기")
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody MeetingScheduleRequestDto.create newMeeting){
         try{
@@ -67,6 +71,7 @@ public class MeetingController {
     }
 
     //썸네일 수정하기
+    @Operation(summary = "지난(종료된) 화상미팅의 썸네일 사진 수정하기")
     @GetMapping("/changethumbnail/{imgId}")
     public ResponseEntity changeThumbnail(@PathVariable("imgId") Long imgId){
         try{
@@ -82,6 +87,7 @@ public class MeetingController {
     }
 
     //사진 1장 저장(캡쳐하면 1차적으로 무조건 저장)
+    @Operation(summary = "캡쳐시 사진 1장 저장")
     @PostMapping("/image/saveImg")
     public ResponseEntity<Long> saveImg(@RequestBody @Valid MeetingScheduleRequestDto.saveImg img){
         try{
@@ -94,7 +100,8 @@ public class MeetingController {
         }
     }
 
-    //화상 종료 시 선택한 사진들 삭제하기
+    //화상 종료 시 마음에 안드는 사진들 선택 및 삭제하기
+    @Operation(summary = "화상 종료 시 마음에 안드는 사진들 선택 및 삭제하기")
     @PostMapping("/image/choice")
     public ResponseEntity choiceImg(@RequestBody @Valid List<MeetingScheduleRequestDto.choiceImg> imgs){
         try{
@@ -106,7 +113,4 @@ public class MeetingController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
 }

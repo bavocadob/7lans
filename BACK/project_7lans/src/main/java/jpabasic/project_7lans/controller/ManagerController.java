@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
@@ -24,6 +25,7 @@ public class ManagerController {
     private final ChildService childService;
     
     //센터의 봉사자 리스트
+    @Operation(summary = "해당 센터의 아동과 친구추가 되어 있는 봉사자 리스트")
     @GetMapping("/volunteers/{centerId}")
     public ResponseEntity<List<VolunteerResponseDto.list>> volunteerList(@PathVariable("centerId") Long centerId){
         try{
@@ -37,6 +39,7 @@ public class ManagerController {
     }
 
     //센터 아동 리스트
+    @Operation(summary = "해당 센터의 아동 리스트")
     @GetMapping("/child/{centerId}")
     public ResponseEntity<List<ChildResponseDto.noRelationList>> childList(@PathVariable("centerId") Long centerId){
         try{
@@ -51,6 +54,7 @@ public class ManagerController {
     }
 
     //특이사항 작성하기
+    @Operation(summary = "해당 센터의 아동의 특이사항 작성하기")
     @PostMapping("/content")
     public ResponseEntity writeContent(@RequestBody ChildRequestDto.childWithContent childWithContent){
         try{
@@ -62,6 +66,4 @@ public class ManagerController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }

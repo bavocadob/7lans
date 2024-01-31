@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jpabasic.project_7lans.dto.dinosaur.DinosaurRequestDto;
 import jpabasic.project_7lans.dto.dinosaur.DinosaurResponseDto;
 import jpabasic.project_7lans.dto.egg.EggResponseDto;
@@ -18,10 +19,12 @@ public class DinosaurController {
 
     // TODO URL 및 PathVariable 추후 수정
     @GetMapping("/dinosaurs/{id}")
+    @Operation(summary = "유저가 가지고 있는 모든 공룡 리스트")
     public ResponseEntity<DinosaurResponseDto.list> getAllDinosaursForMember(@PathVariable Long id) {
         return ResponseEntity.ok(dinosaurService.getAllDinosaursForMember(id));
     }
 
+    @Operation(summary = "공룡 부화")
     @PostMapping("/dinosaurs/hatch")
     public ResponseEntity<DinosaurResponseDto.hatch> acquireDinosaur(@RequestBody DinosaurRequestDto.acquire requestDto) {
         try {
@@ -32,18 +35,16 @@ public class DinosaurController {
         }
     }
 
+    @Operation(summary = "유저가 가지고 있는 대표 공룡")
     @PutMapping("/collection")
     public ResponseEntity<Void> changeMyDinosaur(@RequestBody DinosaurRequestDto.change requestDto) {
         dinosaurService.changeMyDinosaur(requestDto);
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "친구 관계에 있는 알 정보")
     @GetMapping("/egg/{id}")
     public ResponseEntity<EggResponseDto.detail> getMyEgg(@PathVariable Long id) {
         return ResponseEntity.ok(dinosaurService.getMyEgg(id));
     }
-
-
-
-
 }

@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.whisepr.WhisperRequestDto;
 import jpabasic.project_7lans.dto.whisepr.WhisperResponseDto;
@@ -18,6 +19,7 @@ import java.util.List;
 public class WhisperController {
     private final WhisperServiceImpl whisperServiceImpl;
 
+    @Operation(summary = "속닥속닥 작성하기")
     // 속닥속닥 1건 작성(작성자 id, 상대방과의 관계 id, 작성 내용 content 받는다.)
     @PostMapping(path = "/whisper")
     public ResponseEntity createWhisper(@RequestBody WhisperRequestDto.create whisperCreateDto){
@@ -30,6 +32,7 @@ public class WhisperController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Operation(summary = "속닥속닥 1건 조회하기")
     // 속닥속닥 1건 조회 (관계 Id, 해당 속닥속닥 Id 필요)
     @GetMapping(path = "/whisper/{whisperId}")
     public ResponseEntity<WhisperResponseDto.detail> whisperDetail(@PathVariable Long whisperId){
@@ -45,7 +48,9 @@ public class WhisperController {
         }
     }
 
+
     // 나와 상대방의 관계의 속닥속닥 리스트 전체 조회 (관계 Id로 조회)
+    @Operation(summary = "아동과 봉사자의 속닥속닥 전체 리스트")
     @GetMapping(path = "/whisper/list/{relationId}")
     public ResponseEntity<List<WhisperResponseDto.detail>> whisperList(@PathVariable @Valid Long relationId){
         try{
@@ -61,6 +66,7 @@ public class WhisperController {
 
 
     // 나와 상대방의 관계에서 내가 읽지 않은 속닥속닥 리스트 전체 조회 (관계 Id 필요)
+    @Operation(summary = "아동과 봉사자의 읽지않은 속닥속닥 전체 리스트")
     @GetMapping(path = "/whisper/unreadList/{relationId}")
     public ResponseEntity<List<WhisperResponseDto.detail>> whisperUnreadList(@PathVariable @Valid Long relationId){
         try{

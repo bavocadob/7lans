@@ -1,5 +1,6 @@
 package jpabasic.project_7lans.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
@@ -27,6 +28,7 @@ public class VolunteerController {
     private final VolunteerService volunteerService;
 
     //봉사자의 아동 리스트 반환
+    @Operation(summary = "봉사자의 아동 리스트 반환")
     @GetMapping("/list/{volunteerId}")
     public ResponseEntity<List<ChildResponseDto.list>> childList(@PathVariable("volunteerId") Long volunteerId){
         try{
@@ -43,6 +45,7 @@ public class VolunteerController {
     }
 
     //봉사자 상세보기
+    @Operation(summary = "선택한 봉사자 정보 상세 보기")
     @GetMapping("/{volunteerId}")
     public ResponseEntity<?> volunteerDetail(@PathVariable("volunteerId") Long volunteerId){
         try{
@@ -56,6 +59,7 @@ public class VolunteerController {
     }
 
     //이름으로 전체 봉사자 검색(관리자용)
+    @Operation(summary = "관리페이지에서 봉사자 이름으로 검색")
     @GetMapping("/search/{volunteerName}")
     public ResponseEntity<?> volunteersearchByName(@PathVariable("volunteerName") String volunteerName){
         try{
@@ -70,6 +74,7 @@ public class VolunteerController {
     }
 
     //봉사 시간 출력
+    @Operation(summary = "봉사자의 나의 봉사 시간 출력")
     @GetMapping("/time/{volunteerId}")
     public ResponseEntity<?> volunteerTime(@PathVariable("volunteerId") Long volunteerId){
         try{
