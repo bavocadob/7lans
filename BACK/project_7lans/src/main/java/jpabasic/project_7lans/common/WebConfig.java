@@ -16,6 +16,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("https://localhost:30007")
                 .allowedOrigins("https://i10e103.p.ssafy.io:30007")
                 .allowedOrigins("https://i10e103.p.ssafy.io")
-                .allowedMethods("GET", "PUT", "POST", "DELETE");
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+//                .allowedHeaders("*")
+//                .allowCredentials(true)
+//                .maxAge(3000);
+        }
     }
 }
