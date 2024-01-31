@@ -193,8 +193,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             // 미팅 스케줄 리스트에서
             for(int j=0; j<meetingListLength; j++){
 
-                // 활동일지가 승인되어있지 있으면
-                if(! meetingScheduleList.get(j).getActivityLog().getApproveStatus()){
+                // 활동일지가 승인되어있지 않고, 활동 일지가 작성 완료인 경우
+                if((!meetingScheduleList.get(j).getActivityLog().getApproveStatus()) && meetingScheduleList.get(j).getActivityLog().getWriteStatus()){
                     ActivityLog activityLog = meetingScheduleList.get(j).getActivityLog();
 
                     // 리스트에 담을 DTO를 만들고
@@ -235,5 +235,17 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                 .writeDoneStatus(activityLog.getWriteStatus())
                 .approveStatus(activityLog.getApproveStatus())
                 .build();
+    }
+
+    // 관리자 활동 일지 승인
+    // Req: activityLogId
+    // Res: 없음
+    @Override
+    public void approveByManager(ActivityLogRequestDto.approveByManager approveReqDto){
+        ActivityLog activityLog = activityLogRepository.findById(approveReqDto.getActivityLogId())
+                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.approveByManager] no such activityLog"));
+
+        // 작성 완료 상태이면 활동 일지를 승인상태로 바꾼다.
+        if(activityLog.getWriteStatus()) activityLog.approve();
     }
 }

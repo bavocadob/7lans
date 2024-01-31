@@ -135,4 +135,14 @@ public class ActivityLogController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping(value = "/manager/approve")
+    public ResponseEntity approveByManager (ActivityLogRequestDto.approveByManager approveReqDto) {
+        try{
+
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

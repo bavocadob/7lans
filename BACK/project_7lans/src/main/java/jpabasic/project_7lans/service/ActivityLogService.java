@@ -52,4 +52,10 @@ public interface ActivityLogService {
     // Req: Relation Id, activityLog Id
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
     public ActivityLogResponseDto.detailByManager detailByManager (ActivityLogRequestDto.detailByManager detailDto);
+
+
+    // 관리자 활동 일지 승인
+    // Req: activityLogId
+    // Res: 없음
+    public void approveByManager(ActivityLogRequestDto.approveByManager approveReqDto);
 }
