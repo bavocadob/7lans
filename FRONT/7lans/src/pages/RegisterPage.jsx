@@ -110,8 +110,8 @@ const Register = () => {
   };
   
 
-  const signUp = function (memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId) {
-
+  const signUp = (memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId) => {
+    console.log('rkwk')
     axios({
       method: 'post',
       url: 'https://i10e103.p.ssafy.io/api/v1/member/register',
@@ -119,14 +119,16 @@ const Register = () => {
         memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId
       }
     })
-      .then((res) => {
-        console.log(res.data)
-        navigate("/login")
-        window.alert('회원가입을 축하합니다.')
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    .then((res) => {
+      console.log(res)
+      window.alert(res)
+      navigate("/")
+    })
+    .catch((err) => {
+      console.log(err)
+      console.error(err)
+      window.alert(err)
+    })
   }
 
   return (
@@ -151,14 +153,14 @@ const Register = () => {
             <input type="text" placeholder={email? '': 'email'} value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder={password? '': 'password'} value={password} onChange={(e) => setPassword(e.target.value)} />
             <input type="text" placeholder={userName? '': 'userName'} value={userName} onChange={(e) => setUserName(e.target.value)} />
-            <select value={userType} onChange={handleUserTypeChange}>
+            <select value={userType} onChange={(e) => handleUserTypeChange(e.target.value)}>
               <option value="">사용자 타입 선택</option>
               <option value="V">봉사자</option>
               <option value="C">학생</option>
               <option value="M">관리자</option>
             </select>
             {(userType === "C" || userType === "M") &&
-              <select value={centerId} onChange={handleCenterIdChange}>
+              <select value={centerId} onChange={(e) => handleCenterIdChange(e.target.value)}>
                 <option value="">센터 선택</option>
                 <option value={1}>A 센터</option>
                 <option value={2}>B 센터</option>
@@ -166,8 +168,8 @@ const Register = () => {
                 <option value={3}>D 센터</option>
               </select>
             }
-            <input type="date" value={birth} onChange={handleBirthChange} />
-            <input type="text" placeholder={phoneNumber ? '' : 'phoneNumber'} value={phoneNumber} onChange={handlePhoneNumberChange} />
+            <input type="date" value={birth} onChange={(e) => handleBirthChange(e.target.value)} />
+            <input type="text" placeholder={phoneNumber ? '' : 'phoneNumber'} value={phoneNumber} onChange={(e) => handlePhoneNumberChange(e.target.value)} />
             <p>아이디 찾기 | 비밀번호 찾기 | </p>
             <Link to={'/login'}>로그인</Link>
             <button type='submit' onClick={() => signUp(email, password, userType, userName, phoneNumber, birth, centerId)}>회원가입</button>

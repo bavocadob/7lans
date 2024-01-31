@@ -94,6 +94,7 @@ const LoginPage = () => {
     .then((res) => {
       console.log(res)
       window.alert(res)
+      navigate('/volunteer_main')
     })
     .catch((err) => {
       console.log(err)
