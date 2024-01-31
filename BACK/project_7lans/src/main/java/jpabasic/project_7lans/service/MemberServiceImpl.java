@@ -49,7 +49,8 @@ public class MemberServiceImpl implements MemberService{
         ChildCenter childCenter = childCenterRepository.findById(childRegisterDto.getChildChildCenterId())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.childRegister] 해당 센터 ID와 일치하는 센터가 존재하지 않습니다."));
 
-
+        DinosaurBook dinosaurBook = DinosaurBook.builder()
+                .build();
 
         Child child = Child.builder()
                 .email(childRegisterDto.getChildEmail())
@@ -57,14 +58,9 @@ public class MemberServiceImpl implements MemberService{
                 .password(childRegisterDto.getChildPassword())
                 .phoneNumber(childRegisterDto.getChildPhoneNumber())
                 .birth(childRegisterDto.getChildBirth())
+                .dinosaurBook(dinosaurBook)
                 .memberType(MemberType.CHILD)
                 .build();
-
-        DinosaurBook dinosaurBook = DinosaurBook.builder()
-                        .member(child)
-                        .build();
-
-        child.setDinosaurBook(dinosaurBook);
 
         childCenter.addChildList(child);
         System.out.println(childCenter.getChildList().get(0).getName());
@@ -86,6 +82,8 @@ public class MemberServiceImpl implements MemberService{
         if(memberRepository.findByEmail(volunteerRegisterDto.getVolunteerEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
 
+        DinosaurBook dinosaurBook = DinosaurBook.builder()
+                .build();
         // 예외가 발생 안하면 가입 처리
         Volunteer volunteer = Volunteer.builder()
                 .email(volunteerRegisterDto.getVolunteerEmail())
@@ -94,13 +92,8 @@ public class MemberServiceImpl implements MemberService{
                 .phoneNumber(volunteerRegisterDto.getVolunteerPhoneNumber())
                 .birth(volunteerRegisterDto.getVolunteerBirth())
                 .memberType(MemberType.VOLUNTEER)
+                .dinosaurBook(dinosaurBook)
                 .build();
-
-        DinosaurBook dinosaurBook = DinosaurBook.builder()
-                .member(volunteer)
-                .build();
-
-        volunteer.setDinosaurBook(dinosaurBook);
 
         memberRepository.save(volunteer);
     }

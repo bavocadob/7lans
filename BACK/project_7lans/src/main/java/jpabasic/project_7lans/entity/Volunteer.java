@@ -40,7 +40,7 @@ public class Volunteer extends Member{
             String password,
             String phoneNumber,
             LocalDate birth,
-           // DinosaurBook dinosaurBook,
+            DinosaurBook dinosaurBook,
             MemberType memberType
     ){
         super(
@@ -49,7 +49,7 @@ public class Volunteer extends Member{
                 password,
                 phoneNumber,
                 birth,
-                //dinosaurBook,
+                dinosaurBook,
                 memberType
         );
 

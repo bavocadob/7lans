@@ -46,7 +46,7 @@ public class Child extends Member {
             String phoneNumber,
             LocalDate birth,
             ChildCenter childCenter,
-          //  DinosaurBook dinosaurBook,
+            DinosaurBook dinosaurBook,
             MemberType memberType
 
     ){
@@ -56,7 +56,7 @@ public class Child extends Member {
                 password,
                 phoneNumber,
                 birth,
-                //dinosaurBook,
+                dinosaurBook,
                 memberType
         );
         this.childCenter = childCenter;

@@ -1,10 +1,7 @@
 package jpabasic.project_7lans.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -19,6 +16,7 @@ public class DinosaurBook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @OneToOne(mappedBy = "dinosaurBook", fetch = FetchType.LAZY)
     private Member member;
 

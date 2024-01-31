@@ -42,7 +42,7 @@ public abstract class Member {
     private LocalDateTime enterDate;
 
     @Setter
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private DinosaurBook dinosaurBook;
 
     public void changePassword(String password){
@@ -63,7 +63,7 @@ public abstract class Member {
             String password,
             String phoneNumber,
             LocalDate birth,
-            //DinosaurBook dinosaurBook,
+            DinosaurBook dinosaurBook,
             MemberType memberType
     ){
         this.email = email;
@@ -72,7 +72,7 @@ public abstract class Member {
         this.phoneNumber = phoneNumber;
         this.profileImgPath = "please insert default Image Path.";
         this.birth = birth;
-        //this.dinosaurBook = dinosaurBook;
+        this.dinosaurBook = dinosaurBook;
         this.enterDate = LocalDateTime.now();
         this.memberType = memberType;
     }
