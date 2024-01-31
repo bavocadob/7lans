@@ -47,7 +47,7 @@ public class Relation {
 
     public void addMeetingSchedule(MeetingSchedule meetingSchedule){
         meetingScheduleList.add(meetingSchedule);
-        //meetingSchedule.setRelation(this);
+        meetingSchedule.setRelation(this);
     }
 
     public void addWhisperList(Whisper whisper){

@@ -3,6 +3,7 @@ package jpabasic.project_7lans.service;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleRequestDto;
 import jpabasic.project_7lans.dto.meetingSchedule.MeetingScheduleResponseDto;
 import jpabasic.project_7lans.entity.*;
+import jpabasic.project_7lans.repository.ActivityLogRepository;
 import jpabasic.project_7lans.repository.MeetingImageRepository;
 import jpabasic.project_7lans.repository.MeetingScheduleRepository;
 import jpabasic.project_7lans.repository.RelationRepository;
@@ -31,7 +32,7 @@ public class MeetingServiceImpl implements MeetingService{
     private final MeetingScheduleRepository meetingRepository;
     private final RelationRepository relationRepository;
     private final MeetingImageRepository meetingImageRepository;
-
+    private final ActivityLogRepository activityLogRepository;
     //미팅 생성
     @Transactional
     public void createMeeting(Relation relation, LocalDateTime startTime, LocalDateTime endTime){
@@ -58,14 +59,16 @@ public class MeetingServiceImpl implements MeetingService{
         List<MeetingScheduleResponseDto.monthList> monthMeeting = new ArrayList<>();
 
         for(MeetingSchedule meeting : totalMeeting){
-            if(meeting.getScheduledStartTime().getMonthValue() == month){
-                monthMeeting.add(MeetingScheduleResponseDto.monthList.builder()
-                        .meetingId(meeting.getId())
-                        .thumbnailImgPath(meeting.getThumbnailImgPath())
-                        .meetingUrl(meeting.getMeetingUrl())
-                        .status(meeting.getStatus())
-                        .day(meeting.getScheduledStartTime().getDayOfMonth())
-                        .build());
+            if(meeting.getScheduledStartTime() != null &&
+                    meeting.getScheduledEndTime() != null &&
+                    meeting.getScheduledStartTime().getMonthValue() == month){
+                        monthMeeting.add(MeetingScheduleResponseDto.monthList.builder()
+                            .meetingId(meeting.getId())
+                            .thumbnailImgPath(meeting.getThumbnailImgPath())
+                            .meetingUrl(meeting.getMeetingUrl())
+                            .status(meeting.getStatus())
+                            .day(meeting.getScheduledStartTime().getDayOfMonth())
+                            .build());
             }
         }
         return monthMeeting;
@@ -99,13 +102,17 @@ public class MeetingServiceImpl implements MeetingService{
         //미팅을 만들고 relation에 넣어주기
 
         ActivityLog activityLog = new ActivityLog();
+        activityLogRepository.save(activityLog);
 
+        System.out.println(meeting.getScheduledStartTime());
 
         MeetingSchedule newMeeting = MeetingSchedule.builder()
                 .startTime(meeting.getScheduledStartTime())
                 .endTime(meeting.getScheduledEndTime())
                 .activityLog(activityLog)
                 .build();
+
+        relation.addMeetingSchedule(newMeeting);
 
         meetingRepository.save(newMeeting);
     }
