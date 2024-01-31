@@ -35,7 +35,7 @@ public class ChildServiceImpl implements ChildService {
         List<VolunteerResponseDto.list> volunteers = new ArrayList<>();
         for (Relation relation : relationsList) {
             Volunteer volunteer = relation.getVolunteer();
-            volunteers.add(VolunteerResponseDto.toListDto(volunteer));
+            volunteers.add(VolunteerResponseDto.toListDto(volunteer, relation));
         }
 
         return volunteers;

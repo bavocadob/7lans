@@ -38,7 +38,7 @@ public class VolunteerServiceImpl implements VolunteerService{
 
         for(Relation relation : relations){
             Child child = relation.getChild();
-            children.add(ChildResponseDto.toListDto(child));
+            children.add(ChildResponseDto.toListDto(child, relation));
 
         }
 
@@ -64,12 +64,12 @@ public class VolunteerServiceImpl implements VolunteerService{
 
     //봉사자 이름으로 검색
     @Override
-    public List<VolunteerResponseDto.list> volunteerListByName(String volunteerName) {
+    public List<VolunteerResponseDto.noRelationList> volunteerListByName(String volunteerName) {
         List<Member> volunteerList = memberRepository.findByNameLike(volunteerName);
-        List<VolunteerResponseDto.list> volunteers = new ArrayList<>();
+        List<VolunteerResponseDto.noRelationList> volunteers = new ArrayList<>();
 
         for(Member volunteer : volunteerList){
-            volunteers.add(VolunteerResponseDto.toListDto((Volunteer) volunteer));
+            volunteers.add(VolunteerResponseDto.toNoRelationListDto((Volunteer) volunteer));
         }
 
         return volunteers;

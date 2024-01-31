@@ -38,11 +38,11 @@ public class ManagerController {
 
     //센터 아동 리스트
     @GetMapping("/child/{centerId}")
-    public ResponseEntity<List<ChildResponseDto.list>> childList(@PathVariable("centerId") Long centerId){
+    public ResponseEntity<List<ChildResponseDto.noRelationList>> childList(@PathVariable("centerId") Long centerId){
         try{
-            List<ChildResponseDto.list> children = childCenterService.childList(centerId);
+            List<ChildResponseDto.noRelationList> children = childCenterService.childList(centerId);
             System.out.println(children.size());
-            return new ResponseEntity<List<ChildResponseDto.list>>(children, HttpStatus.OK);
+            return new ResponseEntity<List<ChildResponseDto.noRelationList>>(children, HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();

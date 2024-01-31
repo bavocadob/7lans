@@ -60,8 +60,8 @@ public class VolunteerController {
     public ResponseEntity<?> volunteersearchByName(@PathVariable("volunteerName") String volunteerName){
         try{
 
-            List<VolunteerResponseDto.list> volunteers = volunteerService.volunteerListByName(volunteerName);
-            return new ResponseEntity<List<VolunteerResponseDto.list>>(volunteers, HttpStatus.INTERNAL_SERVER_ERROR);
+            List<VolunteerResponseDto.noRelationList> volunteers = volunteerService.volunteerListByName(volunteerName);
+            return new ResponseEntity<List<VolunteerResponseDto.noRelationList>>(volunteers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         catch (Exception e){
             e.printStackTrace();

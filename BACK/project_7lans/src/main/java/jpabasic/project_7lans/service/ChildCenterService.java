@@ -10,7 +10,7 @@ public interface ChildCenterService {
 
     public List<VolunteerResponseDto.list> volunteerList(Long centerId);
 
-    public List<ChildResponseDto.list> childList(Long centerId);
+    public List<ChildResponseDto.noRelationList> childList(Long centerId);
 
     List<ChildCenterResponseDto.list> list();
 }

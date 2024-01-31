@@ -32,7 +32,7 @@ public class ChildCenterServiceImpl implements ChildCenterService{
         List<VolunteerResponseDto.list> volunteers = new ArrayList<>();
         for(Relation relation : relationList){
             Volunteer volunteer = relation.getVolunteer();
-            volunteers.add(VolunteerResponseDto.toListDto(volunteer));
+            volunteers.add(VolunteerResponseDto.toListDto(volunteer, relation));
         }
 
         return volunteers;
@@ -41,15 +41,15 @@ public class ChildCenterServiceImpl implements ChildCenterService{
 
     // 센터의 아이들 리스트
     @Override
-    public List<ChildResponseDto.list> childList(Long centerId) {
+    public List<ChildResponseDto.noRelationList> childList(Long centerId) {
         ChildCenter childCenter = childCenterRepository.findById(centerId)
                 .orElseThrow(() -> new IllegalArgumentException("[ChildCenterServiceImpl.childList] 해당 Id와 일치하는 center가 존재하지 않습니다."));
 
         List<Child> children = childCenter.getChildList();
 
-        List<ChildResponseDto.list> childrenResponse = new ArrayList<>();
+        List<ChildResponseDto.noRelationList> childrenResponse = new ArrayList<>();
         for(Child child : children){
-            childrenResponse.add(ChildResponseDto.toListDto(child));
+            childrenResponse.add(ChildResponseDto.toNoRelationListDto(child));
         }
 
         return childrenResponse;
