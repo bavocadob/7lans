@@ -183,8 +183,13 @@
         padding-top: 2rem;
     }
 
-    .modal {
+    .mmodal {
         overflow-y: scroll;
     }
 }
 
+@media screen and (max-width: 768px) {
+    .modal_overview {
+        font-size: 16px;
+    }
+}
