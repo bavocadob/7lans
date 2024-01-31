@@ -55,12 +55,26 @@ public class VolunteerController {
         }
     }
 
+    //이름으로 전체 봉사자 검색(관리자용)
     @GetMapping("/search/{volunteerName}")
     public ResponseEntity<?> volunteersearchByName(@PathVariable("volunteerName") String volunteerName){
         try{
 
             List<VolunteerResponseDto.list> volunteers = volunteerService.volunteerListByName(volunteerName);
             return new ResponseEntity<List<VolunteerResponseDto.list>>(volunteers, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/time/{volunteerId}")
+    public ResponseEntity<?> volunteerTime(@PathVariable("volunteerId") Long volunteerId){
+        try{
+
+            Integer volunteerTime = volunteerService.getVolunteerTime(volunteerId);
+            return new ResponseEntity<Integer>(volunteerTime, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         catch (Exception e){
             e.printStackTrace();

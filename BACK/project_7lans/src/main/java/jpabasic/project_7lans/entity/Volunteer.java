@@ -21,13 +21,13 @@ public class Volunteer extends Member{
     // ================================================================================================
     // 필드
 
-    private Long volunteerTime;
+    private Integer volunteerTime;
 
     // ================================================================================================
     // 메서드
 
     // 봉사 시간 추가
-    public void addVolunteerTime(Long time){
+    public void addVolunteerTime(Integer time){
         this.volunteerTime += time;
     }
 
@@ -40,7 +40,7 @@ public class Volunteer extends Member{
             String password,
             String phoneNumber,
             LocalDate birth,
-            DinosaurBook dinosaurBook,
+           // DinosaurBook dinosaurBook,
             MemberType memberType
     ){
         super(
@@ -49,11 +49,11 @@ public class Volunteer extends Member{
                 password,
                 phoneNumber,
                 birth,
-                dinosaurBook,
+                //dinosaurBook,
                 memberType
         );
 
-        this.volunteerTime = 0L;
+        this.volunteerTime = 0;
     }
 
 }

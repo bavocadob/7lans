@@ -11,4 +11,6 @@ public interface VolunteerService {
     public VolunteerResponseDto.detail volunteerDetail(Long volunteerId);
 
     public List<VolunteerResponseDto.list> volunteerListByName(String volunteerName);
+
+    public Integer getVolunteerTime(Long volunteerId);
 }

@@ -74,4 +74,12 @@ public class VolunteerServiceImpl implements VolunteerService{
 
         return volunteers;
     }
+
+    @Override
+    public Integer getVolunteerTime(Long volunteerId) {
+        Volunteer volunteer = volunteerRepository.findById(volunteerId)
+                .orElseThrow(()-> new IllegalArgumentException("[VolunteerServiceImpl.getVolunteerTime] 해당 Id와 일치하는 Volunteer가 존재하지 않습니다."));
+
+        return volunteer.getVolunteerTime();
+    }
 }
