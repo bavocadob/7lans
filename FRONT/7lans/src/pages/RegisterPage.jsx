@@ -79,19 +79,19 @@ const InfoSpan = styled.span`
 const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [type, setType] = useState('')
+  const [userType, setUserType] = useState('')
   const [userName, setUserName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [birth, setBirth] = useState('')
   const [centerId, setCenterId] = useState('')
 
-  const signUp = function (email, password) {
+  const signUp = function (memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId) {
 
     axios({
       method: 'post',
       url: 'https://i10e103.p.ssafy.io/api/v1/member/register',
       data: {
-        email, password
+        memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId
       }
     })
       .then((res) => {
@@ -126,13 +126,13 @@ const Register = () => {
           <div>
             <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <input type="text" value={type} onChange={(e) => setType(e.target.value)} />
+            <input type="text" value={userType} onChange={(e) => setUserType(e.target.value)} />
             <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
             <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
             <input type="text" value={birth} onChange={(e) => setBirth(e.target.value)} />
             <input type="text" value={centerId} onChange={(e) => setCenterId(e.target.value)} />
             <p>아이디 찾기 | 비밀번호 찾기 | 로그인</p>
-            <button type='submit' onClick={() => signUp(email, password)}>회원가입</button>
+            <button type='submit' onClick={() => signUp(email, password, userType, userName, phoneNumber, birth, centerId)}>회원가입</button>
           </div>
         </RightContent>
       </ContentWrapper>
