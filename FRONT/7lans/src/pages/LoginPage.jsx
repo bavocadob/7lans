@@ -1,7 +1,8 @@
 import React from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios'
 
 const Container = styled.div`
   height: 100vh;
@@ -76,6 +77,26 @@ const InfoSpan = styled.span`
 `;
 
 const LoginPage = () => {
+
+  const navigate = useNavigate()
+
+  const login = (memberEmail, memberPassword) => {
+    
+    axios({
+      method: 'post',
+      url: 'https://i10e103.p.ssafy.io/api/v1/member/login',
+      data: {
+        memberEmail, memberPassword
+      }
+    })
+    .then((res) => {
+      console.log(res.data)
+    })
+    .catch((err) => {
+      console.log(err.data)
+    })
+  }
+
   return (
     <Container>
       <Header>

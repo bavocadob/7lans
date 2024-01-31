@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios'
 
@@ -85,27 +85,29 @@ const Register = () => {
   const [birth, setBirth] = useState('')
   const [centerId, setCenterId] = useState('')
 
-    // userType 변경 함수
-    const handleUserTypeChange = (e) => {
-      setUserType(e.target.value);
-    };
-  
-    // centerId 변경 함수
-    const handleCenterIdChange = (e) => {
-      setCenterId(e.target.value);
-    };
-  
-    // birth 변경 함수
-    const handleBirthChange = (e) => {
-      setBirth(e.target.value);
-    };
-  
-    // phoneNumber 변경 함수 (자동으로 '-' 삽입)
-    const handlePhoneNumberChange = (e) => {
-      const value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 남기기
-      const formattedValue = value.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-      setPhoneNumber(formattedValue);
-    };
+  const navigate = useNavigate()
+
+  // userType 변경 함수
+  const handleUserTypeChange = (e) => {
+    setUserType(e.target.value);
+  };
+
+  // centerId 변경 함수
+  const handleCenterIdChange = (e) => {
+    setCenterId(e.target.value);
+  };
+
+  // birth 변경 함수
+  const handleBirthChange = (e) => {
+    setBirth(e.target.value);
+  };
+
+  // phoneNumber 변경 함수 (자동으로 '-' 삽입)
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 남기기
+    const formattedValue = value.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+    setPhoneNumber(formattedValue);
+  };
   
 
   const signUp = function (memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId) {
@@ -119,7 +121,7 @@ const Register = () => {
     })
       .then((res) => {
         console.log(res.data)
-        // token.value = res.data.key
+        navigate('/login')
         window.alert('회원가입을 축하합니다.')
       })
       .catch((err) => {
