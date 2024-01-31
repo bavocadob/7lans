@@ -10,7 +10,7 @@ import VolunteerMainPage from "./pages/volunteer_pages/VolunteerMainPage";
 import StartPage from "./pages/volunteer_pages/StartPage";
 import ActiveDoc from "./pages/volunteer_pages/ActiveDoc";
 import WhisperPage from "./pages/volunteer_pages/WhisperPage";
-import WhisperLetter from "./pages/volunteer_pages/WhisperLetter";
+import WhisperLetter from "./components/volunteer/whisper/WhisperLetter";
 import RaiseEggPage from "./pages/volunteer_pages/RaiseEggPage";
 import VideoChattingStartPage from "./pages/volunteer_pages/VideoChattingStartPage";
 import ChoosePicturePage from "./pages/volunteer_pages/ChoosePicturePage";
@@ -75,7 +75,6 @@ function App() {
         <Route path="/volunteer_calendar" element={<VolunteerCalendar />} />
         <Route path="/volunteer_ChoosePicturePage" element={<ChoosePicturePage />} />
         <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
-        
         
         {/* 피봉사자 */}
         <Route path="/child_main" element={<ChildMainPage />} />
