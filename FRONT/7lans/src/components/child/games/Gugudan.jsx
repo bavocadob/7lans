@@ -17,7 +17,10 @@ const Gugudan = () => {
 
   useEffect(() => {
     if (multipleNum === Number(10)) {
-      resetGame()
+      const timeoutIds = setTimeout(() => {
+        resetGame()
+      }, 2000)
+      return () => clearTimeout(timeoutIds)
     }
     if (correct !== '') {
       const timeoutId = setTimeout(() => {
