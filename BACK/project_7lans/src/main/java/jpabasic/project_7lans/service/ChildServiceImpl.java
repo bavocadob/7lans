@@ -54,7 +54,7 @@ public class ChildServiceImpl implements ChildService {
                 .childBirth(child.getBirth())
                 .childProfileImagePath(child.getProfileImgPath())
                 .childEnterDate(child.getEnterDate())
-                .childChildCenterId(child.getChildCenter().getId())
+                .childCenterName(child.getChildCenter().getName())
                 .childSpecialContent(child.getSpecialContent())
                 .build();
     }

@@ -34,13 +34,13 @@ public class ChildResponseDto {
         private String childProfileImagePath;
         @NotNull(message = "[ChildResponseDto.detail] childEnterDate 는 Null 일 수 없습니다.")
         private LocalDateTime childEnterDate;
-        @NotNull(message = "[ChildResponseDto.detail] childChildCenterId 는 Null 일 수 없습니다.")
-        private Long childChildCenterId;
+        @NotNull(message = "[ChildResponseDto.detail] childCenterName 는 Null 일 수 없습니다.")
+        private String childCenterName;
         @NotNull(message = "[ChildResponseDto.detail] childSpecialContent 는 Null 일 수 없습니다.")
         private String childSpecialContent;
 
         public static ChildResponseDto.detail toDetailDto(Child child){
-            return ChildResponseDto.detail.builder()
+            return detail.builder()
                     .childId(child.getId())
                     .childEmail(child.getEmail())
                     .childName(child.getName())
@@ -48,7 +48,7 @@ public class ChildResponseDto {
                     .childBirth(child.getBirth())
                     .childProfileImagePath(child.getProfileImgPath())
                     .childEnterDate(child.getEnterDate())
-                    .childChildCenterId(child.getChildCenter().getId())
+                    .childCenterName(child.getChildCenter().getName())
                     .childSpecialContent(child.getSpecialContent())
                     .build();
         }
@@ -65,8 +65,8 @@ public class ChildResponseDto {
         private LocalDate childBirth;
         @NotNull(message = "[ChildResponseDto.list] childProfileImagePath 는 Null 일 수 없습니다.")
         private String childProfileImagePath;
-        @NotNull(message = "[ChildResponseDto.list] childChildCenterId 는 Null 일 수 없습니다.")
-        private Long childChildCenterId;
+        @NotNull(message = "[ChildResponseDto.list] childCenterName 는 Null 일 수 없습니다.")
+        private String childCenterName;
         @NotNull(message = "[ChildResponseDto.list] childSpecialContent 는 Null 일 수 없습니다.")
         private String childSpecialContent;
         @NotNull(message = "[ChildResponseDto.list] relationId 는 Null 일 수 없습니다.")
@@ -80,7 +80,7 @@ public class ChildResponseDto {
                 String childName,
                 LocalDate childBirth,
                 String childProfileImagePath,
-                Long childChildCenterId,
+                String childCenterName,
                 String childSpecialContent,
                 Long relationId
         ){
@@ -88,7 +88,7 @@ public class ChildResponseDto {
             this.childName = childName;
             this.childBirth = childBirth;
             this.childProfileImagePath = childProfileImagePath;
-            this.childChildCenterId = childChildCenterId;
+            this.childCenterName = childCenterName;
             this.childSpecialContent = childSpecialContent;
             this.relationId = relationId;
         }
@@ -106,7 +106,7 @@ public class ChildResponseDto {
         @NotNull(message = "[ChildResponseDto.list] childProfileImagePath 는 Null 일 수 없습니다.")
         private String childProfileImagePath;
         @NotNull(message = "[ChildResponseDto.list] childChildCenterId 는 Null 일 수 없습니다.")
-        private Long childChildCenterId;
+        private String childCenterName;
         @NotNull(message = "[ChildResponseDto.list] childSpecialContent 는 Null 일 수 없습니다.")
         private String childSpecialContent;
 
@@ -116,14 +116,14 @@ public class ChildResponseDto {
                 String childName,
                 LocalDate childBirth,
                 String childProfileImagePath,
-                Long childChildCenterId,
+                String childCenterName,
                 String childSpecialContent
         ){
             this.childId = childId;
             this.childName = childName;
             this.childBirth = childBirth;
             this.childProfileImagePath = childProfileImagePath;
-            this.childChildCenterId = childChildCenterId;
+            this.childCenterName = childCenterName;
             this.childSpecialContent = childSpecialContent;
         }
     }
@@ -137,7 +137,7 @@ public class ChildResponseDto {
                 .childName(child.getName())
                 .childBirth(child.getBirth())
                 .childProfileImagePath(child.getProfileImgPath())
-                .childChildCenterId(child.getChildCenter().getId())
+                .childCenterName(child.getChildCenter().getName())
                 .childSpecialContent(child.getSpecialContent())
                 .relationId(relation.getId())
                 .build();
@@ -149,7 +149,7 @@ public class ChildResponseDto {
                 .childName(child.getName())
                 .childBirth(child.getBirth())
                 .childProfileImagePath(child.getProfileImgPath())
-                .childChildCenterId(child.getChildCenter().getId())
+                .childCenterName(child.getChildCenter().getName())
                 .childSpecialContent(child.getSpecialContent())
                 .build();
     }
