@@ -80,6 +80,7 @@ public class MemberController {
                     .phoneNumber(find.getPhoneNumber())
                     .profileImgPath(find.getProfileImgPath())
                     .birth(find.getBirth())
+                    .enterDate(find.getEnterDate().toLocalDate())
                     .build();
             resultMap.put("id", find.getId());
             //return new ResponseEntity(HttpStatus.OK);

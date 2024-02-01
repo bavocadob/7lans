@@ -25,6 +25,9 @@ public class MemberResponseDto {
         private String profileImgPath;
         @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
         private LocalDate birth;
+        @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
+        private LocalDate enterDate;
+
 
         @Builder
         loginResponseDto(
@@ -34,7 +37,8 @@ public class MemberResponseDto {
                 String password,
                 String phoneNumber,
                 String profileImgPath,
-                LocalDate birth
+                LocalDate birth,
+                LocalDate enterDate
         ){
            this.memberId = memberId;
            this.memberType = memberType;
@@ -43,6 +47,7 @@ public class MemberResponseDto {
            this.phoneNumber = phoneNumber;
            this.profileImgPath = profileImgPath;
            this.birth = birth;
+           this.enterDate = enterDate;
         }
     }
 }
