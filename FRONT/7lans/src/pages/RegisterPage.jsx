@@ -97,7 +97,6 @@ const Register = () => {
 
   const signUp = async (memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId) => {
     try {
-      console.log('rkwk');
       const res = await axios.post('https://i10e103.p.ssafy.io/api/v1/member/register', {
         memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId
       });

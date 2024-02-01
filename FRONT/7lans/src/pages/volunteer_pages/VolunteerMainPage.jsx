@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserInfo } from '../../store/userSlice';
 
 const Container = styled.div`
   height: 100vh;
@@ -50,16 +52,21 @@ const LogoImage = styled.img`
 `;
 
 const VolunteerMainPage = () => {
+
+  const userInfo = useSelector((state) => state.user.value)
+  const dispatch = useDispatch()
+
   return (
     <Container>
       <header>
         <LogoImage src='./7lans_logo.png' />
         <Link to={'/dinosaur_dict'}>공룡도감</Link>
-        <Link to={'/'}>로그아웃</Link>
+        <Link to={'/'} onClick={() => dispatch(updateUserInfo(''))}>로그아웃</Link>
       </header>
       <span>
         <Link to={'/volunteer_start'}>나의 아이들</Link>
       </span>
+      <button onClick={() => console.log(userInfo)}>+</button>
     </Container>
   );
 };

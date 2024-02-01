@@ -3,6 +3,8 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserInfo } from '../store/userSlice';
 
 const Container = styled.div`
   height: 100vh;
@@ -81,7 +83,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
-
+  const userInfo = useSelector((state) => state.user.value)
+  const dispatch = useDispatch()
 
   const login = async (memberEmail, memberPassword) => {
     try {
@@ -89,17 +92,15 @@ const LoginPage = () => {
         memberEmail,
         memberPassword
       });
-  
-      console.log(res);
-      window.alert(res.data);
-  
-      // 사용자가 로그인 성공하면 '/volunteer_main' 페이지로 이동
+      // console.log(res);
+      dispatch(updateUserInfo(res.data))
+      console.log(userInfo)
       navigate('/volunteer_main');
     } 
     catch (err) {
       console.error(err);
-      window.alert(err.message);
     }
+    console.log(userInfo)
   };
 
   return (
@@ -114,9 +115,9 @@ const LoginPage = () => {
         <LeftContent>
           <LogoImage src="./7lans_logo.png" alt="" />
           <InfoSpan>
-            <h7>
+            <h5>
               봉사자와 피봉사자의 연결을 도와주는 보조 웹 사이트
-            </h7>
+            </h5>
           </InfoSpan>
         </LeftContent>
         <RightContent>
