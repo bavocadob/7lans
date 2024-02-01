@@ -91,7 +91,8 @@ const CardFind = () => {
                                     fontSize: '2rem' , 
                                     height: '20%', 
                                     width: '20%', 
-                                    margin: '1rem', 
+                                    margin: '1rem',
+                                    marginBottom: '0', 
                                     border: '3px solid rgb(240, 165, 8)', 
                                     borderRadius: '17px', 
                                     backgroundColor: 'rgb(255, 215, 3)'}} 

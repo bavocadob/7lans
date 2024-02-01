@@ -60,7 +60,7 @@ const Quiz = () => {
                       marginTop: '4%', 
                       // marginBottom: '2%'
                     }}>
-            <span style={{ fontSize: '50px',
+            <span style={{fontSize: '50px',
                           fontWeight: 'bolder', 
                           color: 'rgb(45, 45, 45)', 
                           textShadow: '2px 2px 2px rgb(255, 215, 3)',
@@ -111,12 +111,12 @@ const Quiz = () => {
                           marginBottom: '2%'}}>
                 
                 <button onClick={() => setAns('O')} 
-                        style={{fontSize: '250px', 
+                        style={{fontSize: '200px', 
                                 margin: '0 45px 0 45px', 
                                 border: 'none',  
                                 fontWeight: 'bolder', 
                                 backgroundColor: 'rgb(251, 243, 212)', 
-                                color: ans === 'O'? 'rgb(240, 165, 8)':'rgb(45, 45, 45)'}}>O
+                                color: ans === 'O'? 'rgb(240, 165, 8)':'rgb(45, 45, 45)'}}> O
                 </button>
               </div>
             </div>
@@ -135,12 +135,12 @@ const Quiz = () => {
                           }}>
               
                 <button onClick={() => setAns('X')} 
-                        style={{fontSize: '250px', 
+                        style={{fontSize: '200px', 
                                 margin: '0 45px 0 45px', 
                                 border: 'none',  
                                 fontWeight: 'bolder',
                                 backgroundColor: 'rgb(251, 243, 212)', 
-                                color: ans === 'X'? 'rgb(240, 165, 8)':'rgb(62, 62, 62)'}}>X
+                                color: ans === 'X'? 'rgb(240, 165, 8)':'rgb(45, 45, 45)'}}>X
                 </button>
               </div>
             </div>
@@ -154,7 +154,7 @@ const Quiz = () => {
                             border: 'none', 
                             borderRadius: '16px', 
                             backgroundColor: 'rgb(255, 215, 3)',
-                            marginTop: '20px'
+                            marginBottom: '20px'
                           }}
                     onClick={() => changeProblem()}>입력 완료</button>
           </div>
@@ -175,34 +175,38 @@ const Quiz = () => {
     }
     else {
       return(
-        <div style={{width: '90%', 
-                    height: '95%',
+        <div style={{height: '93%', 
+                    width: '90%', 
                     display: 'flex', 
                     flexDirection: 'column', 
-                    // justifyContent: 'center', 
-                    background:'rgb(255, 248, 223)',
-                    border: '5px solid rgb(240, 165, 8)',
+                    padding: '1rem',
+                    // background:'rgb(255, 248, 223)',
+                    // border: '5px solid rgb(62, 62, 62)',
                     borderRadius: '20px',
-                    marginTop:'20px',
-                    alignItems: 'center'}}>
+                    marginTop:'2px',
+                    alignItems: 'center'}}> 
+          <h1 style={{fontSize: '30px', 
+                      fontWeight: 'bolder', 
+                      color: 'black', 
+                      textShadow: '2px 2px 2px rgb(255, 215, 3)',
+                      // marginTop:'1rem'
+                      }}>{'[ '}문제{' ]'}
+          </h1>
           <div className='shadow' 
-              style={{width: '80%',
+              style={{width: '95%',
                       height: '30%',
                       borderRadius: '20px',
                       backgroundColor:'rgb(255, 242, 176)',
-                      border: '5px solid rgb(240, 165, 8)',
+                      // border: '5px solid rgb(240, 165, 8)',
                       // boxShadow:'30px',
                       display: 'flex', 
                       flexDirection: 'column', 
                       justifyContent: 'center', 
                       alignItems: 'center',
-                      marginBottom:'50px',
-                      marginTop:'50px'
+                      // marginBottom:'50px',
+                      marginTop:'7px'
                       }}>
-          <h1 style={{fontSize: '40px', 
-                      fontWeight: 'bolder', 
-                      color: 'black', 
-                      textShadow: '2px 2px 2px rgb(255, 215, 3)' }}>{'[ '}문제{' ]'}</h1>
+         
           <h1 style={{fontSize: '80px', 
                       fontWeight: 'bolder', 
                       color: 'black', 
@@ -214,18 +218,20 @@ const Quiz = () => {
                       display: 'flex', 
                       justifyContent: 'center', 
                       alignItems: 'center'}} >
-            <div style={{display: 'flex', 
+            <div  className='shadow' 
+                  style={{display: 'flex', 
                         flexDirection: 'column', 
-                        width:'35%',
+                        width:'60%',
                         height:'70%',
                         justifyContent: 'center', 
                         alignItems: 'center',
                         borderRadius: '20px',
                         backgroundColor:'rgb(255, 242, 176)',
                         border: '5px solid rgb(240, 165, 8)',
-                        marginLeft: '4rem'
+                        marginLeft: '4rem',
+                        marginTop:'4rem'
                       }}>
-              <button style={{fontSize: '150px', 
+              <button style={{fontSize: '100px', 
                               margin: '0 60px 0 60px', 
                               border: 'none', 
                               fontWeight: 'bolder', 
@@ -235,9 +241,10 @@ const Quiz = () => {
               </button>
             </div>
 
-            <div style={{display: 'flex', 
+            <div className='shadow' 
+                  style={{display: 'flex', 
                         flexDirection: 'column', 
-                        width:'35%',
+                        width:'60%',
                         height:'70%',
                         justifyContent: 'center', 
                         alignItems: 'center',
@@ -245,9 +252,10 @@ const Quiz = () => {
                         backgroundColor:'rgb(255, 242, 176)',
                         border: '5px solid rgb(240, 165, 8)',
                         marginLeft: '6rem',
-                        marginRight: '5rem'
+                        marginRight: '5rem',
+                        marginTop:'4rem'
                       }}>
-              <button style={{fontSize: '150px',
+              <button style={{fontSize: '100px',
                               margin: '0 60px 0 60px', 
                               border: 'none',  
                               fontWeight: 'bolder', 
