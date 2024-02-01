@@ -82,26 +82,25 @@ const LoginPage = () => {
 
   const navigate = useNavigate()
 
-  const login = (memberEmail, memberPassword) => {
 
-    axios({
-      method: 'post',
-      url: 'https://i10e103.p.ssafy.io/api/v1/member/login',
-      data: {
-        memberEmail, memberPassword
-      }
-    })
-    .then((res) => {
-      console.log(res)
-      window.alert(res)
-      navigate('/volunteer_main')
-    })
-    .catch((err) => {
-      console.log(err)
-      console.error(err)
-      window.alert(err)
-    })
-  }
+  const login = async (memberEmail, memberPassword) => {
+    try {
+      const res = await axios.post('https://i10e103.p.ssafy.io/api/v1/member/login', {
+        memberEmail,
+        memberPassword
+      });
+  
+      console.log(res);
+      window.alert(res.data);
+  
+      // 사용자가 로그인 성공하면 '/volunteer_main' 페이지로 이동
+      navigate('/volunteer_main');
+    } 
+    catch (err) {
+      console.error(err);
+      window.alert(err.message);
+    }
+  };
 
   return (
     <Container>
