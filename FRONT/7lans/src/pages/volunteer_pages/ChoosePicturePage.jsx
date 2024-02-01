@@ -21,7 +21,7 @@ const ChoosePicturePage = () => {
         <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
           {/* <CommonSidePanel /> */}
 
-          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>
+          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgba(29, 73, 11, 1)'}}>
             <Picture/>
           </div>
           
