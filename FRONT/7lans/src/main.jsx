@@ -4,8 +4,8 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store, { persistor } from "./store/store";
 import { BrowserRouter } from "react-router-dom";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import { PersistGate } from "redux-persist/integration/react";
-import "bootstrap/dist/css/bootstrap.min.css";
 // import "./scss/main.scss";
 
 

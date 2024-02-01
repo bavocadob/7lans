@@ -23,7 +23,7 @@ const Container = styled.div`
 
   a {
     text-decoration: none; /* 밑줄 제거 */
-    color: rgb(0, 0, 0); /* 글자 색상 설정 */
+    color: rgb(45, 45, 45); /* 글자 색상 설정 */
     font-size: 18px; /* 글자 크기 설정 */
     font-weight: bolder;
     margin: 2rem;
@@ -41,7 +41,7 @@ const Container = styled.div`
     right: 20rem; /* 오른쪽 여백 조절 */
     font-size: 24px; /* 글자 크기 설정 */
     font-weight: bold;
-    color: rgb(0, 0, 0); /* 글자 색상 설정 */
+    color: rgb(45, 45, 45); /* 글자 색상 설정 */
   }
 `;
 
