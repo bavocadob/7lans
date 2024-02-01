@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
@@ -10,6 +10,7 @@ import NormalNav from '../../navs/NormalNav';
 import PostIt from '../../volunteer/post_it/PostIt';
 import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
+import { current } from '@reduxjs/toolkit';
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
     return (
@@ -45,32 +46,24 @@ const RenderDays = () => {
     return <div className="days row">{days}</div>;
 };
 
-const GetMeeting = (meetings, selectedDate) => {
-    //console.log("in getMeeting");
-        //이번 달 미팅 정보들
-        axios.post('http://localhost:8080/meetingSchedue/month',{
-            relationId: 1,
-            year: selectedDate.getFullYear(),
-            month: selectedDate.getMonth()
-        })
-        .then((res) => {
-            //console.log(res)
-            meetings = res;
-            console.log("in total");
-            console.log(meetings);
-        })
-        .catch((err) => {
-        })
+const GetMeeting = (meetings, cloneDay, currentMonth) => {
 
+    let meeting = '';
 
-    console.log(meetings);
-    for(var meet in meetings){
-        console.log(meet);
-    }
+    meetings.forEach(m => {
+        // console.log(cloneDay.getDate());
+        // console.log(m.day);
+        if(cloneDay.getDate() == m.day){
+            meeting = m;
+        }
+    })
+
+    return meeting;
+    
 }
 
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
+const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
@@ -86,7 +79,9 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
           const cloneDay = addDays(day, 1);
           formattedDate = format(cloneDay, 'd');
           //해당 날짜에 미팅이 있으면 담기
-          const meeting = GetMeeting(meetings, selectedDate);
+          const meeting = GetMeeting(meetings, cloneDay);
+          console.log(meeting);
+
           days.push(
               <div
                   className={`col cell ${
@@ -110,9 +105,10 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
                   >
                       {formattedDate}
                   </span>
-                  
+                  {meeting.day}
               </div>,
           );
+
           day = addDays(day, 1);
         }
         rows.push(
@@ -168,25 +164,23 @@ const VolunteerCalendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
+    const [meetings, setMeetings] = useState([]);
     const navigate = useNavigate();
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
-    let meetings = [];
 
-    // //이번 달 미팅 정보들
-    // axios.post('http://localhost:8080/meetingSchedue/month',{
-    //     relationId: 1,
-    //     year: currentDate.getFullYear(),
-    //     month: currentDate.getMonth()
-    // })
-    // .then((res) => {
-    //     //console.log(res)
-    //     meetings = res;
-    //     console.log("in total");
-    //     console.log(meetings);
-    // })
-    // .catch((err) => {
-    // })
+    //이번 달 미팅 정보들
+    useEffect(() => {axios.post('http://localhost:8080/meetingSchedue',{
+        relationId: 1,
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth()+1
+    })
+    .then((res) => {
+        setMeetings(res.data);
+    })
+    .catch((err) => {
+    });
+}, []);
 
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
