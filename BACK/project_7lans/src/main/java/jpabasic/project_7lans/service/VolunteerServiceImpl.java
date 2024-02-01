@@ -75,11 +75,33 @@ public class VolunteerServiceImpl implements VolunteerService{
         return volunteers;
     }
 
+
+
     @Override
     public Integer getVolunteerTime(Long volunteerId) {
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
                 .orElseThrow(()-> new IllegalArgumentException("[VolunteerServiceImpl.getVolunteerTime] 해당 Id와 일치하는 Volunteer가 존재하지 않습니다."));
 
         return volunteer.getVolunteerTime();
+    }
+
+    @Override
+    public List<VolunteerResponseDto.listByManager> volunteerListAllByManager() {
+        List<Volunteer> volunteerList = volunteerRepository.findAll();
+
+        List<VolunteerResponseDto.listByManager> volunteerDtoList = new ArrayList<>();
+
+        for(Volunteer volunteer: volunteerList){
+            VolunteerResponseDto.listByManager dto = VolunteerResponseDto.listByManager.builder()
+                    .volunteerId(volunteer.getId())
+                    .volunteerEmail(volunteer.getEmail())
+                    .volunteerName(volunteer.getName())
+                    .volunteerProfileImagePath(volunteer.getProfileImgPath())
+                    .volunteerBirth(volunteer.getBirth())
+                    .build();
+
+            volunteerDtoList.add(dto);
+        }
+        return volunteerDtoList;
     }
 }

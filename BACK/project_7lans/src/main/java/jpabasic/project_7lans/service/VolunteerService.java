@@ -13,4 +13,6 @@ public interface VolunteerService {
     public List<VolunteerResponseDto.noRelationList> volunteerListByName(String volunteerName);
 
     public Integer getVolunteerTime(Long volunteerId);
+
+    public List<VolunteerResponseDto.listByManager> volunteerListAllByManager();
 }

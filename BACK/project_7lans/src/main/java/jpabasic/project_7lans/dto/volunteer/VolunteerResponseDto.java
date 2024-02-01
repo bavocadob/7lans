@@ -89,6 +89,36 @@ public class VolunteerResponseDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class listByManager {
+        @NotNull(message = "[VolunteerResponseDto.list] volunteerId 는 null 이 될 수 없습니다.")
+        private Long volunteerId;
+        @NotNull(message = "[VolunteerResponseDto.list] volunteerEmail 는 null 이 될 수 없습니다.")
+        private String volunteerEmail;
+        @NotNull(message = "[VolunteerResponseDto.list] volunteerName 는 null 이 될 수 없습니다.")
+        private String volunteerName;
+        @NotNull(message = "[VolunteerResponseDto.list] volunteerBirth 는 null 이 될 수 없습니다.")
+        private LocalDate volunteerBirth;
+        @NotNull(message = "[VolunteerResponseDto.list] volunteerProfileImagePath 는 Null 일 수 없습니다.")
+        private String volunteerProfileImagePath;
+
+        @Builder
+        listByManager(
+                Long volunteerId,
+                String volunteerEmail,
+                String volunteerName,
+                LocalDate volunteerBirth,
+                String volunteerProfileImagePath
+        ){
+            this.volunteerId = volunteerId;
+            this.volunteerEmail = volunteerEmail;
+            this.volunteerName = volunteerName;
+            this.volunteerBirth = volunteerBirth;
+            this.volunteerProfileImagePath = volunteerProfileImagePath;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class noRelationList {
         @NotNull(message = "[VolunteerResponseDto.list] volunteerId 는 null 이 될 수 없습니다.")
         private Long volunteerId;

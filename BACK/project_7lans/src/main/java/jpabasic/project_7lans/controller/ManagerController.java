@@ -9,7 +9,9 @@ import jpabasic.project_7lans.dto.member.MemberRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.service.ChildCenterService;
 import jpabasic.project_7lans.service.ChildService;
+import jpabasic.project_7lans.service.VolunteerService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,7 @@ public class ManagerController {
 
     private final ChildCenterService childCenterService;
     private final ChildService childService;
+    private final VolunteerService volunteerService;
     
     //센터의 봉사자 리스트
     @Operation(summary = "해당 센터의 아동과 친구추가 되어 있는 봉사자 리스트")
@@ -62,6 +65,19 @@ public class ManagerController {
             childService.modifyContent(childWithContent);
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Operation(summary = "봉사자 전체 조회")
+    @GetMapping("/volunteerList")
+    public ResponseEntity<VolunteerResponseDto.listByManager> getVolunteerList(){
+        try{
+            List<VolunteerResponseDto.listByManager> list = volunteerService.volunteerListAllByManager();
+            return new ResponseEntity(list, HttpStatus.OK);
+        }
+        catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
