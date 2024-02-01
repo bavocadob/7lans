@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const NavBar = styled.nav`
   position: relative;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: 100px;
   background-color: rgb(255, 215, 3);
 `;
@@ -50,7 +50,9 @@ const NormalNav = () => {
   }
   else {
     return (
-      <></>
+    <NavBar className="shadow">
+      <LogoImage src="./7lans_logo.png" alt="logo" />
+    </NavBar>
     )
   }
 };

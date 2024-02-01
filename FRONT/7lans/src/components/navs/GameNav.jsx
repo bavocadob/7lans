@@ -8,10 +8,11 @@ import { motion } from "framer-motion"
 const NavBar = styled.nav`
   position: relative;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: 100px;
   background-color: rgb(255, 215, 3);
   display: flex;
+  padding-right: 15%;
 `;
 
 const LogoImage = styled.img`
@@ -37,7 +38,7 @@ const GameNav = () => {
         <LogoImage src="./7lans_logo.png" alt="logo" />
       </Link>
      
-      <div style={{display: 'flex', width: '100%', marginLeft:'40%'}}>
+      <div style={{display: 'flex', width: '100%', marginLeft:'25%'}}>
        <motion.a
             whileHover={{ scale: 1.1 }}
             onHoverStart={e => {}}
