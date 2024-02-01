@@ -23,7 +23,7 @@ const Chat = () => {
   const renderChatList = () => {
     return(
         // 채팅리스트 보이는 화면 div
-        <div style={{height: '85%', maxHeight: '300px', padding: '3%', marginBottom: '3%', overflowY: 'auto'}}>
+        <div style={{height: '75%', maxHeight: '280px', padding: '3%', marginBottom: '3%', overflowY: 'auto'}}>
             {chatList.map((chat, index) => (
                 <p key={index}>
                     {chat}
@@ -64,7 +64,7 @@ const Chat = () => {
                             borderRadius: '20px'}}>
                     {/* 채팅 보이는 창 */}
                     <div className= 'shadow' 
-                            style={{height: '80%', 
+                            style={{height: '75%', 
                                     width: '95%', 
                                     backgroundColor: 'rgb(255, 255, 255)', 
                                     margin: '5px', 

@@ -9,6 +9,7 @@ const NavBar = styled.nav`
   width: 100vw;
   height: 100px;
   background-color: rgb(255, 215, 3);
+  padding-right: 15%;
 `;
 
 const LogoImage = styled.img`
