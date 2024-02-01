@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { motion } from "framer-motion";
+// import "./styles.css";
+
 
 const Container = styled.div`
   height: 100vh;
@@ -49,7 +52,9 @@ const LogoImage = styled.img`
   height: 15vh;
 `;
 
+
 const VolunteerMainPage = () => {
+  
   return (
     <Container>
       <header>
@@ -65,3 +70,4 @@ const VolunteerMainPage = () => {
 };
 
 export default VolunteerMainPage;
+

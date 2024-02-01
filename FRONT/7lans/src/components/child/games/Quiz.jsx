@@ -150,7 +150,7 @@ const Quiz = () => {
                             backgroundColor: 'rgb(255, 215, 3)',
                             marginTop: '20px'
                           }}
-                    onClick={() => changeProblem()}>제출</button>
+                    onClick={() => changeProblem()}>입력 완료</button>
           </div>
         </div>
       )
