@@ -1,6 +1,14 @@
 // 넓게 통용되는 것들
 @use '../src/assets/styles/theme';
 
+@mixin center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
 @mixin size($width: 14px, $height: 50px) {
     width: $width;
     height: $height;

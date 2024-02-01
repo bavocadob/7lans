@@ -63,18 +63,41 @@ const CardFind = () => {
   const renderCard = () => {
     if (correct) {
         return (
-            <div>
+            <div style={{fontSize:'30px', 
+                display: 'flex',
+                flexDirection: 'column', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+              }}>
                 성공
             </div>
         )
     }
     else {
         return (
-            <div style={{display: 'flex', flexWrap: 'wrap', height: '100%', width: '100%', padding: '3rem' , alignItems: 'center', justifyContent: 'center'}}>
+            <div style={{display: 'flex', 
+                        flexWrap: 'wrap', 
+                        height: '100%', 
+                        width: '100%', 
+                        padding: '0' , 
+                        alignItems: 'center', 
+                        justifyContent: 'center'}}>
                 {cardNum.map((num, index) => {
                     const isFlipped = nowCard.includes(num) || flippedCard.includes(num)
                     return (
-                    <button disabled={(flippedCard.includes(num) || flipping)? true : false} style={{transform: (isFlipped ? 'rotateY(360deg)' : ''), transition: 'transform 0.5s', fontSize: '2rem' , height: '20%', width: '20%', margin: '1rem', border: '5px solid black', borderRadius: '20px', backgroundColor: 'rgb(255, 215, 3)'}} key={index} onClick={(e) => handleCard(e, num)}>{(nowCard.includes(num) || flippedCard.includes(num))? (num > 8 ? num - 8 : num) : ''}</button>
+                    <button disabled={(flippedCard.includes(num) || flipping)? true : false} 
+                            style={{transform: (isFlipped ? 'rotateY(360deg)' : ''), 
+                                    transition: 'transform 0.4s', 
+                                    fontSize: '2rem' , 
+                                    height: '20%', 
+                                    width: '20%', 
+                                    margin: '1rem', 
+                                    border: '3px solid rgb(240, 165, 8)', 
+                                    borderRadius: '17px', 
+                                    backgroundColor: 'rgb(255, 215, 3)'}} 
+                            key={index} 
+                            onClick={(e) => handleCard(e, num)}>{(nowCard.includes(num) || flippedCard.includes(num))? (num > 8 ? num - 8 : num) : ''}
+                    </button>
                 )})}
             </div>
         )

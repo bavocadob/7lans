@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../../store/userSlice';
+import { motion } from "framer-motion";
 
 const Container = styled.div`
   height: 100vh;
@@ -51,6 +52,7 @@ const LogoImage = styled.img`
   height: 15vh;
 `;
 
+
 const VolunteerMainPage = () => {
 
   const userInfo = useSelector((state) => state.user.value)
@@ -72,3 +74,4 @@ const VolunteerMainPage = () => {
 };
 
 export default VolunteerMainPage;
+
