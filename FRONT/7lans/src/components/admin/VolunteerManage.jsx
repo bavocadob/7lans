@@ -200,6 +200,34 @@ function VolunteerManage() {
     "봉사자 정보 4",
   ];
 
+  // `https://i10e103.p.ssafy.io/api/v1/vol/search/${옥세훈}`;
+  axios
+    .get(`https://i10e103.p.ssafy.io/api/v1/manager/volunteerList`)
+    .then((response) => {
+      console.log(response.data, "hi");
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .then(() => {
+      // 항상 실행
+    });
+
+  const volunteerName = {
+    volunteerName: "옥세훈",
+  };
+  axios
+    .get(`https://i10e103.p.ssafy.io/api/v1/vol/search/${volunteerName}`)
+    .then((response) => {
+      console.log(response.data, "hi");
+    })
+    .catch((error) => {
+      // 오류발생시 실행
+    })
+    .then(() => {
+      // 항상 실행
+    });
+
   // 검색어와 일치하는 봉사자 필터링
   const filteredVolunteers = volunteerList.filter((volunteer) =>
     volunteer.toLowerCase().includes(search.toLowerCase())
