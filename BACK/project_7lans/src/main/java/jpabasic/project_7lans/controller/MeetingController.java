@@ -24,17 +24,17 @@ public class MeetingController {
 
     //해당 달 미팅 조회하기
     @Operation(summary = "해당하는 달의 화상미팅 일정 조회")
-    @GetMapping("/{relationId}/{month}")
-    public ResponseEntity<?> monthList(@PathVariable("relationId") Long relationId, @PathVariable("month") int month){
+    @PostMapping("")
+    public ResponseEntity<?> monthList(@RequestBody @Valid MeetingScheduleRequestDto.meetings meetingsDto){
         try{
-            List<MeetingScheduleResponseDto.monthList> meetingSchedule = meetingService.findMeetingsByRelation(relationId, month);
+            List<MeetingScheduleResponseDto.monthList> meetingSchedule = meetingService.findMeetingsByRelation(meetingsDto);
 
             return new ResponseEntity<List<MeetingScheduleResponseDto.monthList>>(meetingSchedule, HttpStatus.OK);
 
         }
         catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(HttpStmoatus.INTERNAL_SERVER_ERROR);
         }
     }
 

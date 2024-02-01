@@ -47,9 +47,10 @@ public class MeetingServiceImpl implements MeetingService{
     }*/
 
     //해당 관계의 미팅 조회
-    public List<MeetingScheduleResponseDto.monthList> findMeetingsByRelation(Long relationId, int month){
+    @Override
+    public List<MeetingScheduleResponseDto.monthList> findMeetingsByRelation(MeetingScheduleRequestDto.meetings meetingsDto){
         //관계 찾기
-        Relation relation = relationRepository.findById(relationId)
+        Relation relation = relationRepository.findById(meetingsDto.getRelationId())
                 .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.findMeetingsByRelation] 해당 Id와 일치하는 relation이 존재하지 않습니다."));
 
         //관계된 모든 일정 받기 -> 월을 먼저 걸러서 받는 방법?
@@ -61,7 +62,8 @@ public class MeetingServiceImpl implements MeetingService{
         for(MeetingSchedule meeting : totalMeeting){
             if(meeting.getScheduledStartTime() != null &&
                     meeting.getScheduledEndTime() != null &&
-                    meeting.getScheduledStartTime().getMonthValue() == month){
+                    meeting.getScheduledStartTime().getMonthValue() == meetingsDto.getMonth() &&
+                    meeting.getScheduledStartTime().getYear() == meetingsDto.getYear()){
                         monthMeeting.add(MeetingScheduleResponseDto.monthList.builder()
                             .meetingId(meeting.getId())
                             .thumbnailImgPath(meeting.getThumbnailImgPath())

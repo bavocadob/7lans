@@ -14,6 +14,30 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MeetingScheduleRequestDto {
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class meetings {
+        @NotNull(message = "[MeetingScheduleRequestDto.meetings] relationId 은 Null 일 수 없습니다.")
+        private Long relationId;
+        @NotNull(message = "[MeetingScheduleRequestDto.meetings] year 은 Null 일 수 없습니다.")
+        private Long year;
+        @NotNull(message = "[MeetingScheduleRequestDto.meetings] month 은 Null 일 수 없습니다.")
+        private Long month;
+
+        @Builder
+        meetings(
+                Long relationId,
+                Long year,
+                Long month
+        ){
+            this.relationId = relationId;
+            this.year = year;
+            this.month = month;
+
+        }
+    }
+
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class create {
