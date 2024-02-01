@@ -38,7 +38,11 @@ const GameNav = () => {
         <LogoImage src="./7lans_logo.png" alt="logo" />
       </Link>
      
+<<<<<<< HEAD
       <div style={{display: 'flex', width: '100%', marginLeft:'33%'}}>
+=======
+      <div style={{display: 'flex', width: '100%', marginLeft:'25%'}}>
+>>>>>>> feature/front/dinosaur-page
        <motion.a
             whileHover={{ scale: 1.1 }}
             onHoverStart={e => {}}

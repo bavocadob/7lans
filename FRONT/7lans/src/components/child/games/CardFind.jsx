@@ -95,9 +95,11 @@ const CardFind = () => {
                                     marginBottom: '0', 
                                     border: '3px solid rgb(240, 165, 8)', 
                                     borderRadius: '17px', 
-                                    backgroundColor: 'rgb(255, 215, 3)'}} 
+                                    backgroundColor: 'rgb(255, 215, 3)',
+                                  }} 
                             key={index} 
-                            onClick={(e) => handleCard(e, num)}>{(nowCard.includes(num) || flippedCard.includes(num))? (num > 8 ? num - 8 : num) : ''}
+                            onClick={(e) => handleCard(e, num)}>{(nowCard.includes(num) || flippedCard.includes(num))? (num > 8 ? <img src={`./cardImage/cardImage${num-8}.png`} alt="" style={{height: '40%', width: '40%'}} /> : <img src={`./cardImage/cardImage${num}.png`} alt="" style={{height: '40%', width: '40%'}} />) : ''}
+                            <img src={`./cardImage/cardImage${num}`} alt="" />
                     </button>
                 )})}
             </div>

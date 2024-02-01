@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaEnvelope, FaPhone, FaHome, FaClock, FaBirthdayCake } from 'react-icons/fa';
 import styled from 'styled-components';
+import {useSelector} from 'react-redux'
 
 const StyledDinosaurSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -41,7 +42,7 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 18%;
+  left: 9%;
   top: 2%;
   height: 9rem;
   width: 9rem;
@@ -93,6 +94,7 @@ const DetailParagraph = styled.p`
 
 const DinosaurSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
+  const userInfo = useSelector((state) => state.user.value)
 
   const renderSidePanel = () => {
     if (sidePanelStatus) {
@@ -105,11 +107,11 @@ const DinosaurSidePanel = () => {
           <InfoContainer>
             <NameHeader>박주헌 봉사자님</NameHeader>
             <DetailContainer>
-              <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} />741u741@naver.com</DetailParagraph>
-              <DetailParagraph><FaPhone style={{ marginRight: '10px' }} />010-2812-2515</DetailParagraph>
+              <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} />{userInfo.email}</DetailParagraph>
+              <DetailParagraph><FaPhone style={{ marginRight: '10px' }} />{userInfo.phoneNumber}</DetailParagraph>
               <DetailParagraph><FaHome style={{ marginRight: '10px' }} />SSAFY 보듬 센터</DetailParagraph>
-              <DetailParagraph><FaClock style={{ marginRight: '10px' }} />2024.01.24</DetailParagraph>
-              <DetailParagraph><FaBirthdayCake style={{ marginRight: '10px' }} />1995.08.03</DetailParagraph>
+              <DetailParagraph><FaClock style={{ marginRight: '10px' }} />{userInfo.birth[0]}-{userInfo.birth[1]>9? userInfo.birth[1]:'0' + userInfo.birth[1]}-{userInfo.birth[2]>9? userInfo.birth[2]:'0' + userInfo.birth[2]}</DetailParagraph>
+              <DetailParagraph><FaBirthdayCake style={{ marginRight: '10px' }} />{userInfo.birth[0]}-{userInfo.birth[1]>9? userInfo.birth[1]:'0' + userInfo.birth[1]}-{userInfo.birth[2]>9? userInfo.birth[2]:'0' + userInfo.birth[2]}</DetailParagraph>
             </DetailContainer>
           </InfoContainer>
         </StyledDinosaurSidePanel>
