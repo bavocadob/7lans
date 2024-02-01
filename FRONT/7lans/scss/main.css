@@ -4,7 +4,6 @@
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url("https://fonts.googleapis.com/css2?family=Poor+Story&display=swap");
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -12115,4 +12114,12 @@ body {
   background: #05a723;
   color: rgb(255, 233, 156);
   font-weight: 600;
+}
+
+.rednerSidePanel {
+  width: "50%";
+  background: "rgb(255, 248, 224)";
+  margin: "5px";
+  border: "5px solid black";
+  border-radius: "20px";
 }/*# sourceMappingURL=main.css.map */

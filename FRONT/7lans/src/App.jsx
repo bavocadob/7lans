@@ -1,5 +1,6 @@
 // prettier-ignore
 import React from "react";
+import "../scss/main.scss";
 import { Outlet, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import EntryPage from "./pages/EntryPage";
@@ -24,7 +25,6 @@ import ChildDinosaurDictPage from "./pages/ChildDinosaurDictPage";
 
 import NormalNav from "./components/navs/NormalNav";
 
-import "../scss/main.scss";
 
 import VideoChattingPage from "./pages/volunteer_pages/VideoChattingPage";
 import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
@@ -37,6 +37,7 @@ import AdminMainPage from "./pages/admin_pages/AdminMainPage";
 import VolunteerManage from "./components/admin/VolunteerManage";
 import ChildManage from "./components/admin/ChildManage";
 import ActiveManage from "./components/admin/ActiveManage";
+
 
 const NormalLayout = () => {
   return (
