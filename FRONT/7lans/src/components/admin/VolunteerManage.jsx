@@ -202,6 +202,18 @@ function VolunteerManage() {
 
   // `https://i10e103.p.ssafy.io/api/v1/vol/search/${옥세훈}`;
   axios
+    .post(`https://i10e103.p.ssafy.io/api/v1/vol/search/${"옥세훈"}`)
+    .then((response) => {
+      console.log(response.data, "bye");
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .then(() => {
+      // 항상 실행
+    });
+
+  axios
     .get(`https://i10e103.p.ssafy.io/api/v1/manager/volunteerList`)
     .then((response) => {
       console.log(response.data, "hi");
