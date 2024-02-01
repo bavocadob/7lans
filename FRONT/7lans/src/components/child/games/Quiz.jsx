@@ -52,7 +52,7 @@ const Quiz = () => {
                       alignItems: 'center', 
                       backgroundColor: 'rgb(255, 250, 231)', 
                       width: '90%', 
-                      height: '95%',
+                      height: '93%',
                       borderRadius: '20px', 
                       border: '5px solid rgb(45, 45, 45)'}}>
           <div style={{display: 'flex', 
