@@ -4,6 +4,7 @@ import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 // import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
 import NormalNav from '../../navs/NormalNav';
 import PostIt from '../../volunteer/post_it/PostIt';
@@ -44,8 +45,32 @@ const RenderDays = () => {
     return <div className="days row">{days}</div>;
 };
 
+const GetMeeting = (meetings, selectedDate) => {
+    //console.log("in getMeeting");
+        //이번 달 미팅 정보들
+        axios.post('http://localhost:8080/meetingSchedue/month',{
+            relationId: 1,
+            year: selectedDate.getFullYear(),
+            month: selectedDate.getMonth()
+        })
+        .then((res) => {
+            //console.log(res)
+            meetings = res;
+            console.log("in total");
+            console.log(meetings);
+        })
+        .catch((err) => {
+        })
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
+
+    console.log(meetings);
+    for(var meet in meetings){
+        console.log(meet);
+    }
+}
+
+
+const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
@@ -60,6 +85,8 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
         for (let i = 0; i < 7; i++) {
           const cloneDay = addDays(day, 1);
           formattedDate = format(cloneDay, 'd');
+          //해당 날짜에 미팅이 있으면 담기
+          const meeting = GetMeeting(meetings, selectedDate);
           days.push(
               <div
                   className={`col cell ${
@@ -83,6 +110,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
                   >
                       {formattedDate}
                   </span>
+                  
               </div>,
           );
           day = addDays(day, 1);
@@ -143,7 +171,22 @@ const VolunteerCalendar = () => {
     const navigate = useNavigate();
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
-   
+    let meetings = [];
+
+    // //이번 달 미팅 정보들
+    // axios.post('http://localhost:8080/meetingSchedue/month',{
+    //     relationId: 1,
+    //     year: currentDate.getFullYear(),
+    //     month: currentDate.getMonth()
+    // })
+    // .then((res) => {
+    //     //console.log(res)
+    //     meetings = res;
+    //     console.log("in total");
+    //     console.log(meetings);
+    // })
+    // .catch((err) => {
+    // })
 
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
@@ -214,6 +257,7 @@ const VolunteerCalendar = () => {
                     currentMonth={currentMonth}
                     selectedDate={selectedDate}
                     onDateClick={onDateClick}
+                    meetings = {meetings}
                 />
             </div>
       
