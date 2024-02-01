@@ -59,7 +59,7 @@ public class VolunteerController {
     }
 
     //이름으로 전체 봉사자 검색(관리자용)
-    @Operation(summary = "관리페이지에서 봉사자 이름으로 검색")
+    @Operation(summary = "관리페이지에서 봉사자 이름으로 검색 후 검색 리스트 출력")
     @GetMapping("/search/{volunteerName}")
     public ResponseEntity<?> volunteersearchByName(@PathVariable("volunteerName") String volunteerName){
         try{
