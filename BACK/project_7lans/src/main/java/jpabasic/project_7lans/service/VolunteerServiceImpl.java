@@ -65,7 +65,7 @@ public class VolunteerServiceImpl implements VolunteerService{
     //봉사자 이름으로 검색
     @Override
     public List<VolunteerResponseDto.noRelationList> volunteerListByName(String volunteerName) {
-        List<Member> volunteerList = memberRepository.findByNameLike(volunteerName);
+        List<Member> volunteerList = memberRepository.findByNameContaining(volunteerName);
         List<VolunteerResponseDto.noRelationList> volunteers = new ArrayList<>();
 
         for(Member volunteer : volunteerList){
