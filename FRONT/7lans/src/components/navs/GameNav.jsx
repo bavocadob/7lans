@@ -37,7 +37,7 @@ const GameNav = () => {
         <LogoImage src="./7lans_logo.png" alt="logo" />
       </Link>
      
-      <div style={{display: 'flex', width: '100%', marginLeft:'30%'}}>
+      <div style={{display: 'flex', width: '100%', marginLeft:'40%'}}>
        <motion.a
             whileHover={{ scale: 1.1 }}
             onHoverStart={e => {}}
@@ -50,7 +50,7 @@ const GameNav = () => {
                         border: 'none',
                         borderRadius: '20px',
                         backgroundColor: 'rgb(255, 237, 170)', 
-                        margin: '0 2rem 0 0'}}
+                        margin: '0 3rem 0 0'}}
           >
         <button className='shadow' 
                 style={{width: '150px', 
@@ -61,7 +61,7 @@ const GameNav = () => {
                         border: 'none',
                         borderRadius: '20px',
                         backgroundColor: 'rgb(255, 237, 170)', 
-                        margin: '0 2rem 0 0'}} 
+                        margin: '0 3rem 0 0'}} 
                 onClick={() => goToOtherGame(Number(1))}> 퀴즈 출제
         </button></motion.a>
 
@@ -77,7 +77,7 @@ const GameNav = () => {
                         border: 'none',
                         borderRadius: '20px',
                         backgroundColor: 'rgb(255, 237, 170)', 
-                        margin: '0 2rem 0 0'}}
+                        margin: '0 3rem 0 0'}}
           >
         <button className='shadow' 
                 style={{width: '150px', 
@@ -88,7 +88,7 @@ const GameNav = () => {
                         border: 'none',
                         borderRadius: '20px',
                         backgroundColor: 'rgb(255, 237, 170)', 
-                        margin: '0 2rem 0 0'}}  onClick={() => goToOtherGame(Number(2))}> 카드 짝찾기
+                        margin: '0 3rem 0 0'}}  onClick={() => goToOtherGame(Number(2))}> 카드 짝찾기
         </button></motion.a>
 
         <motion.a
@@ -103,7 +103,7 @@ const GameNav = () => {
                         border: 'none',
                         borderRadius: '20px',
                         backgroundColor: 'rgb(255, 237, 170)', 
-                        margin: '0 2rem 0 0'}}
+                        margin: '0 3rem 0 0'}}
           >
         <button className='shadow' 
                 style={{width: '150px', 
@@ -114,7 +114,7 @@ const GameNav = () => {
                         border: 'none', 
                         borderRadius: '20px',
                         backgroundColor: 'rgb(255, 237, 170)', 
-                        margin: '0 2rem 0 0'}} 
+                        margin: '0 3rem 0 0'}} 
                 onClick={() => goToOtherGame(Number(3))}> 구구단
         </button></motion.a>
 
@@ -130,7 +130,7 @@ const GameNav = () => {
                         border: 'none',
                         borderRadius: '20px',
                         backgroundColor: 'rgb(255, 237, 170)', 
-                        margin: '0 2rem 0 0'}}
+                        margin: '0 3rem 0 0'}}
           >
         <button className='shadow' 
                 style={{width: '150px', 
@@ -141,7 +141,7 @@ const GameNav = () => {
                         border: 'none', 
                         borderRadius: '20px',
                         backgroundColor: 'rgb(255, 237, 170)', 
-                        margin: '0 2rem 0 0'}} 
+                        margin: '0 3rem 0 0'}} 
                 onClick={() => goToOtherGame(Number(4))}> 문장 만들기
         </button></motion.a>
       </div>

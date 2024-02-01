@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    value: ''
+    value: 3
 }
 
 const chooseGame = createSlice({

@@ -33,6 +33,7 @@ const Gugudan = () => {
     }
   }, [multipleNum, correct])
 
+  // 몇 단???
   const renderSpan = (danValue, key) => {
     return (
       <span
@@ -41,14 +42,14 @@ const Gugudan = () => {
           width: '10%',
           cursor: 'pointer',
           margin: '5%',
-          fontSize: '30px',
+          fontSize: '40px',
           fontWeight: 'bold',
           transition: 'color 0.3s', // Added transition for a smooth effect
-          color: dan === danValue ? 'blue' : 'black', // Highlight the selected dan
+          color: dan === danValue ? 'red' : 'black', // Highlight the selected dan
         }}
         onClick={() => setDan(danValue)}
       >
-        {danValue}단
+        {danValue} 단
       </span>
     );
   };
@@ -67,17 +68,66 @@ const Gugudan = () => {
       }
       }
   }
+
+  // 구구단 문제 출제되는 것
   const renderGugudanGame = (dan) => {
     if (dan !== 'none' && correct === '') {
       return(
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', height: '80%', width: '50vw'}}>
-          <h1 style={{marginTop: '10%', fontWeight: 'bolder', color: 'rgb(255, 215, 3)', textShadow: '2px 2px 2px black', height: '30%' }}>{dan} X {multipleNum} = ?</h1>
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '70%'}}>
-            <div style={{display:'flex', alignItems: 'center', justifyContent: 'center', height: '30%', width: '100%', border: '5px solid black', borderBottom: 'none', borderRadius: '20px 20px 0 0', backgroundColor: 'rgb(255, 237, 170)'}}>
+        <div style={{display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    height: '700px', 
+                    width: '50vw',
+                    fontSize:'0'
+                    }}>
+          <h1 style={{marginTop: '10%',
+                      marginBottom: '4%', 
+                      fontWeight: 'bolder', 
+                      fontSize: '100px',
+                      color: 'black', 
+                      textShadow: '2px 2px 2px rgb(255, 215, 3)', 
+                      // height: '20%' 
+                      }}>
+            {dan} X {multipleNum} = ?
+          </h1>
+          <div style={{display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        width: '100%', 
+                        height: '50%',
+                        marginBottom:'0'
+                        }}>
+            <div style={{display:'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        height: '30%', 
+                        width: '100%', 
+                        border: '5px solid black',
+                        borderBottom: '0', 
+                        borderRadius: '20px 20px 0 0', 
+                        backgroundColor: 'rgb(255, 237, 170)'}}>
               <h2>정답을 입력해 주세요</h2>
             </div>
-            <div style={{display:'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', border: '5px solid black', borderRadius: '0 0 20px 20px'}}>
-              <input ref={inputRef} style={{backgroundColor: 'rgb(255, 215, 3)', borderRadius: '0 0 15px 15px', border: 'none', width: '100%', height: '100%', textAlign: 'center'}} type="text" onKeyUp={handleEnter} onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
+            <div style={{display:'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        height: '100%', 
+                        width: '100%', 
+                        border: '5px solid black',
+                        borderRadius: '0 0 20px 20px',
+                        marginBottom:'0'
+                        }}>
+              <input ref={inputRef} 
+                    style={{backgroundColor: 'rgb(255, 215, 3)', 
+                            borderRadius: '0 0 15px 15px', 
+                            border: 'none', 
+                            width: '100%', 
+                            height: '100%', 
+                            textAlign: 'center',
+                            fontSize: '100px'}} 
+                    type="text" 
+                    onKeyUp={handleEnter} 
+                    onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
             </div>
           </div>
         </div>
@@ -110,10 +160,11 @@ const Gugudan = () => {
   const renderGugudan = () => {
     if (gugudanState === 'none') {
       return (
-        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
-        <h1 style={{ marginTop: '4%', fontWeight: 'bolder', color: 'rgb(255, 215, 3)', textShadow: '2px 2px 2px black' }}>
-          몇 단을 출제하실 건가요??
-        </h1>
+        <div style={{ display: 'flex', 
+                      flexDirection: 'column', 
+                      width: '100%', 
+                      alignItems: 'center' }}>
+        
         <div
           className='shadow'
           style={{
@@ -127,33 +178,65 @@ const Gugudan = () => {
             backgroundColor: 'rgb(255, 250, 233)',
           }}
         >
+          <h1 style={{ marginTop: '4%', 
+                      fontWeight: 'bolder', 
+                      color: 'rgb(41, 40, 38)', 
+                      textShadow: '2px 2px 2px rgb(255, 215, 3)', 
+                      display: 'felx',
+                      textAlign: 'center',
+                      marginTop:'3rem',
+                      marginBottom: '0'
+                      }}>
+          몇 단을 출제하실 건가요??
+        </h1>
           <div
             style={{
               display: 'flex',
               flexWrap: 'wrap',
-              justifyContent: 'center',
+              // justifyContent: 'center',
               alignItems: 'center',
               textAlign: 'center',
               backgroundColor: 'rgb(251, 243, 212)',
+              margin: '8%',
+              marginTop:'35px',
+              marginBottom:'40px',
               height: '70%',
-              margin: '3%',
-              borderRadius: '10px',
+              borderRadius: '16px',
               border: '5px solid black',
             }}
           >
             {danArray.map((danValue) => renderSpan(danValue, danValue))}
           </div>
-          <button className='shadow' style={{width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 215, 3)'}} onClick={() => startGame(dan)}>선택 완료</button>
+          <button className='shadow' 
+                  style={{width: '150px', 
+                        height:'60px',
+                        alignSelf: 'center', 
+                        fontWeight: 'bolder', 
+                        fontSize: '25px', 
+                        border: 'none', 
+                        borderRadius: '16px', 
+                        backgroundColor: 'rgb(255, 215, 3)'}} 
+                  onClick={() => startGame(dan)}> 선택 완료 </button>
         </div>
       </div>
       )
     }
     else {
       return (
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent:'center', fontSize:'0'}}>
           {renderGugudanGame(gugudanState)}
           {!correct && 
-          <button className='shadow' style={{marginTop: '30px', width: '150px', alignSelf: 'center', fontWeight: 'bolder', fontSize: '20px', border: 'none', borderRadius: '20px', backgroundColor: 'rgb(255, 215, 3)'}} onClick={resetGame}>돌아가기</button>
+          <button className='shadow' 
+                  style={{width: '150px', 
+                          height:'60px',
+                          alignSelf: 'center',
+                          textAlign:'center', 
+                          fontWeight: 'bolder', 
+                          fontSize: '25px', 
+                          border: 'none', 
+                          borderRadius: '16px', 
+                          backgroundColor: 'rgb(255, 215, 3)'}}
+                  onClick={resetGame}>돌아가기</button>
           }
         </div>
       )
