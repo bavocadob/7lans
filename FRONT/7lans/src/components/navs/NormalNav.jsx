@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 
 const NavBar = styled.nav`
   position: relative;
@@ -17,13 +18,41 @@ const LogoImage = styled.img`
 `;
 
 const NormalNav = () => {
-  return (
-    <NavBar className="shadow">
-      <Link to="/volunteer_main">
-        <LogoImage src="./7lans_logo.png" alt="logo" />
-      </Link>
-    </NavBar>
-  );
+  const userInfo = useSelector((state) => state.user.value)
+  const userType = useRef('')
+  userType.current = userInfo.memberType
+  if (userType.current === 'CHILD') {
+    return (
+      <NavBar className="shadow">
+        <Link to="/child_main">
+          <LogoImage src="./7lans_logo.png" alt="logo" />
+        </Link>
+      </NavBar>
+    );
+  }
+  else if (userType.current === 'VOLUNTEER') {
+    return (
+      <NavBar className="shadow">
+        <Link to="/volunteer_main">
+          <LogoImage src="./7lans_logo.png" alt="logo" />
+        </Link>
+      </NavBar>
+    );
+  }
+  else if (userType.current === 'MANAGER') {
+    return (
+      <NavBar className="shadow">
+        <Link to="/admin_main_page">
+          <LogoImage src="./7lans_logo.png" alt="logo" />
+        </Link>
+      </NavBar>
+    );
+  }
+  else {
+    return (
+      <></>
+    )
+  }
 };
 
 export default NormalNav;
