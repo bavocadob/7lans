@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.child.ChildRequestDto;
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.member.MemberRequestDto;
+import jpabasic.project_7lans.dto.volunteer.VolunteerRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.service.ChildCenterService;
 import jpabasic.project_7lans.service.ChildService;
@@ -76,6 +77,20 @@ public class ManagerController {
         try{
             List<VolunteerResponseDto.listByManager> list = volunteerService.volunteerListAllByManager();
             return new ResponseEntity(list, HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //이름으로 전체 봉사자 검색(관리자용)
+    @Operation(summary = "관리페이지에서 봉사자 이름으로 검색 후 검색 리스트 출력")
+    @PostMapping("/searchVolunteer")
+    public ResponseEntity<List<VolunteerResponseDto.noRelationList>> volunteersearchByName(@RequestBody VolunteerRequestDto.detailByName reqDto){
+        try{
+            List<VolunteerResponseDto.noRelationList> volunteers = volunteerService.volunteerListByName(reqDto);
+            return new ResponseEntity<>(volunteers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         catch (Exception e){
             e.printStackTrace();

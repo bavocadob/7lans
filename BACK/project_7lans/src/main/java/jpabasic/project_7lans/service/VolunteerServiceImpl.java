@@ -2,6 +2,7 @@ package jpabasic.project_7lans.service;
 
 
 import jpabasic.project_7lans.dto.child.ChildResponseDto;
+import jpabasic.project_7lans.dto.volunteer.VolunteerRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.Child;
 import jpabasic.project_7lans.entity.Member;
@@ -64,8 +65,8 @@ public class VolunteerServiceImpl implements VolunteerService{
 
     //봉사자 이름으로 검색
     @Override
-    public List<VolunteerResponseDto.noRelationList> volunteerListByName(String volunteerName) {
-        List<Member> volunteerList = memberRepository.findByNameContaining(volunteerName);
+    public List<VolunteerResponseDto.noRelationList> volunteerListByName(VolunteerRequestDto.detailByName reqDto) {
+        List<Member> volunteerList = memberRepository.findByNameContaining(reqDto.getVolunteerName());
         List<VolunteerResponseDto.noRelationList> volunteers = new ArrayList<>();
 
         for(Member volunteer : volunteerList){
