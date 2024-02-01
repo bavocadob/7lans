@@ -93,9 +93,18 @@ const LoginPage = () => {
         memberPassword
       });
       // console.log(res);
-      dispatch(updateUserInfo(res.data))
-      console.log(userInfo)
-      navigate('/volunteer_main');
+      if (res && res.data.memberType === 'CHILD') {
+        navigate('/child_main');
+        dispatch(updateUserInfo(res.data))
+      }
+      else if (res && res.data.memberType === 'VOLUNTEER') {
+        navigate('/volunteer_main')
+        dispatch(updateUserInfo(res.data))
+      }
+      else if (res && res.data.memberType === 'MANAGER') {
+        navigate('/admin_main_page')
+        dispatch(updateUserInfo(res.data))
+      }
     } 
     catch (err) {
       console.error(err);

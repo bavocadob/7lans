@@ -24,6 +24,10 @@ const Words = () => {
   const reset = () => {
     dispatch(addWord(''))
     setNowWord('')
+    setWord1('')
+    setWord2('')
+    setWord3('')
+    setWord4('')
   }
 
 
