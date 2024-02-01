@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios'
 
 const Container = styled.div`
   height: 100vh;
@@ -76,6 +77,31 @@ const InfoSpan = styled.span`
 `;
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const navigate = useNavigate()
+
+  const login = (memberEmail, memberPassword) => {
+    
+    axios({
+      method: 'post',
+      url: 'https://i10e103.p.ssafy.io/api/v1/member/login',
+      data: {
+        memberEmail, memberPassword
+      }
+    })
+    .then((res) => {
+      console.log(res)
+      window.alert(res)
+    })
+    .catch((err) => {
+      console.log(err)
+      console.error(err)
+      window.alert(err)
+    })
+  }
+
   return (
     <Container>
       <Header>
@@ -94,12 +120,13 @@ const LoginPage = () => {
           </InfoSpan>
         </LeftContent>
         <RightContent>
-          <form action="submit">
-            <input type="text" placeholder='email' />
-            <input type="password" placeholder='password' />
-            <p>아이디 찾기 | 비밀번호 찾기 | 회원가입</p>
-            <button type='submit'>로그인</button>
-          </form>
+          <div>
+            <input type="text" onChange={(e) => setEmail(e.target.value)} value={email? email:''} placeholder='email' />
+            <input type="password" onChange={(e) => setPassword(e.target.value)} value={password? password:''} placeholder='password' />
+            <p>아이디 찾기 | 비밀번호 찾기 | </p>
+            <Link to={'/register'}>회원가입</Link>
+            <button onClick={() => login(email, password)}>로그인</button>
+          </div>
         </RightContent>
       </ContentWrapper>
     </Container>
