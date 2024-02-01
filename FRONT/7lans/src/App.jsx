@@ -24,14 +24,19 @@ import ChildDinosaurDictPage from "./pages/ChildDinosaurDictPage";
 
 import NormalNav from "./components/navs/NormalNav";
 
-import '../scss/main.scss'
-
+import "../scss/main.scss";
 
 import VideoChattingPage from "./pages/volunteer_pages/VideoChattingPage";
 import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
 import ChildVideoChattingPage from "./pages/child_pages/ChildVideoChattingPage";
 import ChildGamePage from "./pages/child_pages/ChildGamePage";
 import Register from "./pages/RegisterPage";
+
+// 관리자
+import AdminMainPage from "./pages/admin_pages/AdminMainPage";
+import VolunteerManage from "./components/admin/VolunteerManage";
+import ChildManage from "./components/admin/ChildManage";
+import ActiveManage from "./components/admin/ActiveManage";
 
 const NormalLayout = () => {
   return (
@@ -46,7 +51,6 @@ const NormalLayout = () => {
 };
 
 // prettier-ignore
-
 function App() {
   return (
     <>
@@ -71,20 +75,22 @@ function App() {
         <Route path="/volunteer_calendar" element={<VolunteerCalendar />} />
         <Route path="/volunteer_ChoosePicturePage" element={<ChoosePicturePage />} />
         <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
-        
+
         {/* 피봉사자 */}
         <Route path="/child_main" element={<ChildMainPage />} />
-        <Route path="/child_dinosaur_dict" element={<ChildDinosaurDictPage />} />
+        <Route path="/child_dinosaur_dict" element={<ChildDinosaurDictPage />}/>
         <Route path="/child_start" element={<ChildStartPage />} />
         <Route path="/child_video_chatting_start" element={<ChildVideoChattingStartPage />}/>
         <Route path="/child_whispher" element={<ChildWhisperPage />} />
         <Route path="/child_raise_egg" element={<ChildRaiseEggPage />} />
-        <Route path="/child_video_chatting" element={<ChildVideoChattingPage />}/>
+        <Route path="/child_video_chatting"element={<ChildVideoChattingPage />}/>
         <Route path="/child_game" element={<ChildGamePage />} />
-        
+
         {/* 관리자 */}
-
-
+        <Route path="/admin_main_page" element={<AdminMainPage />} />
+        <Route path="/volunteer_manage" element={<VolunteerManage />} />
+        <Route path="/child_manage" element={<ChildManage />} />
+        <Route path="/active_manage" element={<ActiveManage />} />
       </Routes>
     </>
   );
