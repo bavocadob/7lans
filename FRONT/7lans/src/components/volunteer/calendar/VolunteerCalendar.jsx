@@ -185,6 +185,7 @@ const VolunteerCalendar = ({child}) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
     const [meetings, setMeetings] = useState([]);
+    const [relationId, setRelation] = useState(1);
     const navigate = useNavigate();
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
@@ -192,6 +193,8 @@ const VolunteerCalendar = ({child}) => {
     //해당 아동의 미팅 정보 불러오기
     useEffect(() => {
         console.log("change")
+
+        setRelation(child.relationId);
 
         axios.post('http://localhost:8080/meetingSchedue',{
         relationId: child.relationId,
