@@ -65,7 +65,7 @@ const VolunteerGamePage = () => {
   return (
     <div style={{
       height: '100vh',
-      width: '100wh',
+      width: '100%',
       display: 'flex',
       flexDirection: 'column',
     }}>

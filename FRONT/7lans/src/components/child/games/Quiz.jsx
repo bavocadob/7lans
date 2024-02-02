@@ -52,7 +52,7 @@ const Quiz = () => {
                       alignItems: 'center', 
                       backgroundColor: 'rgb(255, 250, 231)', 
                       width: '90%', 
-                      height: '95%',
+                      height: '93%',
                       borderRadius: '20px', 
                       border: '5px solid rgb(45, 45, 45)'}}>
           <div style={{display: 'flex', 
@@ -60,7 +60,7 @@ const Quiz = () => {
                       marginTop: '4%', 
                       // marginBottom: '2%'
                     }}>
-            <span style={{ fontSize: '50px',
+            <span style={{fontSize: '50px',
                           fontWeight: 'bolder', 
                           color: 'rgb(45, 45, 45)', 
                           textShadow: '2px 2px 2px rgb(255, 215, 3)',
@@ -111,12 +111,12 @@ const Quiz = () => {
                           marginBottom: '2%'}}>
                 
                 <button onClick={() => setAns('O')} 
-                        style={{fontSize: '250px', 
+                        style={{fontSize: '200px', 
                                 margin: '0 45px 0 45px', 
                                 border: 'none',  
                                 fontWeight: 'bolder', 
                                 backgroundColor: 'rgb(251, 243, 212)', 
-                                color: ans === 'O'? 'rgb(240, 165, 8)':'rgb(45, 45, 45)'}}>O
+                                color: ans === 'O'? 'rgb(240, 165, 8)':'rgb(45, 45, 45)'}}> O
                 </button>
               </div>
             </div>
@@ -135,12 +135,12 @@ const Quiz = () => {
                           }}>
               
                 <button onClick={() => setAns('X')} 
-                        style={{fontSize: '250px', 
+                        style={{fontSize: '200px', 
                                 margin: '0 45px 0 45px', 
                                 border: 'none',  
                                 fontWeight: 'bolder',
                                 backgroundColor: 'rgb(251, 243, 212)', 
-                                color: ans === 'X'? 'rgb(240, 165, 8)':'rgb(62, 62, 62)'}}>X
+                                color: ans === 'X'? 'rgb(240, 165, 8)':'rgb(45, 45, 45)'}}>X
                 </button>
               </div>
             </div>
@@ -154,7 +154,7 @@ const Quiz = () => {
                             border: 'none', 
                             borderRadius: '16px', 
                             backgroundColor: 'rgb(255, 215, 3)',
-                            marginTop: '20px'
+                            marginBottom: '20px'
                           }}
                     onClick={() => changeProblem()}>입력 완료</button>
           </div>
@@ -175,53 +175,99 @@ const Quiz = () => {
     }
     else {
       return(
-        <div style={{width: '100%', 
+        <div style={{height: '93%', 
+                    width: '90%', 
                     display: 'flex', 
                     flexDirection: 'column', 
-                    // justifyContent: 'center', 
-                    marginTop:'20px',
-                    alignItems: 'center'}}>
+                    padding: '1rem',
+                    // background:'rgb(255, 248, 223)',
+                    // border: '5px solid rgb(62, 62, 62)',
+                    borderRadius: '20px',
+                    marginTop:'2px',
+                    alignItems: 'center'}}> 
+          <h1 style={{fontSize: '30px', 
+                      fontWeight: 'bolder', 
+                      color: 'black', 
+                      textShadow: '2px 2px 2px rgb(255, 215, 3)',
+                      // marginTop:'1rem'
+                      }}>{'[ '}문제{' ]'}
+          </h1>
           <div className='shadow' 
-              style={{width: '90%',
-                      height: '25%',
+              style={{width: '95%',
+                      height: '30%',
                       borderRadius: '20px',
                       backgroundColor:'rgb(255, 242, 176)',
+                      // border: '5px solid rgb(240, 165, 8)',
                       // boxShadow:'30px',
                       display: 'flex', 
                       flexDirection: 'column', 
                       justifyContent: 'center', 
                       alignItems: 'center',
-                      marginBottom:'50px'
+                      // marginBottom:'50px',
+                      marginTop:'7px'
                       }}>
-          <h1 style={{fontSize: '40px', 
-                      fontWeight: 'bolder', 
-                      color: 'black', 
-                      textShadow: '2px 2px 2px rgb(255, 215, 3)' }}>{'[ '}문제{' ]'}</h1>
+         
           <h1 style={{fontSize: '80px', 
                       fontWeight: 'bolder', 
                       color: 'black', 
                       textShadow: '2px 2px 2px rgb(255, 215, 3)' }}>{problem}</h1>
-         </div>
+          </div>
+          
           <div style={{width: '100%', 
+                      height:'55%',
                       display: 'flex', 
                       justifyContent: 'center', 
                       alignItems: 'center'}} >
-            <button style={{fontSize: '100px', 
-                            margin: '0 60px 0 60px', 
-                            border: 'none', 
-                            fontWeight: 'bolder', 
-                            backgroundColor: 'rgb(255, 233, 156)', 
-                            color: 'rgb(58, 188, 214)' }} 
-                    onClick={() => {setAnsCorrect('O'); dispatch(gameChange(true))}}> O
-            </button>
-            <button style={{fontSize: '100px',
-                            margin: '0 60px 0 60px', 
-                            border: 'none',  
-                            fontWeight: 'bolder', 
-                            backgroundColor: 'rgb(255, 233, 156)',
-                            color: 'rgb(255, 187, 191)' }} 
-                    onClick={() => {setAnsCorrect('X'); dispatch(gameChange(true))}}>X
-            </button>
+            <div  className='shadow' 
+                  style={{display: 'flex', 
+                        flexDirection: 'column', 
+                        width:'60%',
+                        height:'70%',
+                        justifyContent: 'center', 
+                        alignItems: 'center',
+                        borderRadius: '20px',
+                        backgroundColor:'rgb(255, 242, 176)',
+                        border: '5px solid rgb(240, 165, 8)',
+                        marginLeft: '4rem',
+                        marginTop:'4rem'
+                      }}>
+              <button style={{fontSize: '100px', 
+                              margin: '0 60px 0 60px', 
+                              border: 'none', 
+                              fontWeight: 'bolder', 
+                              backgroundColor: 'rgb(255, 242, 176)', 
+                              color: 'rgb(58, 131, 214)' }} 
+                      onClick={() => {setAnsCorrect('O'); dispatch(gameChange(true))}}> O
+              </button>
+            </div>
+
+            <div className='shadow' 
+                  style={{display: 'flex', 
+                        flexDirection: 'column', 
+                        width:'60%',
+                        height:'70%',
+                        justifyContent: 'center', 
+                        alignItems: 'center',
+                        borderRadius: '20px',
+                        backgroundColor:'rgb(255, 242, 176)',
+                        border: '5px solid rgb(240, 165, 8)',
+                        marginLeft: '6rem',
+                        marginRight: '5rem',
+                        marginTop:'4rem'
+                      }}>
+              <button style={{fontSize: '100px',
+                              margin: '0 60px 0 60px', 
+                              border: 'none',  
+                              fontWeight: 'bolder', 
+                              backgroundColor: 'rgb(255, 233, 156)',
+                              color: 'rgb(255, 156, 162)',
+                              borderRadius: '20px',
+                              backgroundColor:'rgb(255, 242, 176)',
+                              
+                            }} 
+                      onClick={() => {setAnsCorrect('X'); dispatch(gameChange(true))}}>X
+              </button>
+            </div>
           </div>
         </div>
       )

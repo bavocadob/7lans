@@ -42,7 +42,7 @@ const Gugudan = () => {
           width: '10%',
           cursor: 'pointer',
           margin: '5%',
-          fontSize: '40px',
+          fontSize: '37px',
           fontWeight: 'bold',
           transition: 'color 0.3s', // Added transition for a smooth effect
           color: dan === danValue ? 'red' : 'black', // Highlight the selected dan
@@ -163,6 +163,7 @@ const Gugudan = () => {
         <div style={{ display: 'flex', 
                       flexDirection: 'column', 
                       width: '100%', 
+                      height:'96%',
                       alignItems: 'center' }}>
         
         <div
@@ -172,19 +173,21 @@ const Gugudan = () => {
             flexDirection: 'column',
             border: '5px solid black',
             borderRadius: '20px',
+            height:'70%',
             width: '90%',
             flex: 1,
-            margin: '2rem',
+            marginTop:'2%',
+            // margin: '1rem',
             backgroundColor: 'rgb(255, 250, 233)',
           }}
         >
-          <h1 style={{ marginTop: '4%', 
+          <h1 style={{ marginTop: '3%', 
                       fontWeight: 'bolder', 
                       color: 'rgb(41, 40, 38)', 
                       textShadow: '2px 2px 2px rgb(255, 215, 3)', 
                       display: 'felx',
                       textAlign: 'center',
-                      marginTop:'3rem',
+                      marginTop:'2rem',
                       marginBottom: '0'
                       }}>
           몇 단을 출제하실 건가요??
@@ -199,7 +202,7 @@ const Gugudan = () => {
               backgroundColor: 'rgb(251, 243, 212)',
               margin: '8%',
               marginTop:'35px',
-              marginBottom:'40px',
+              marginBottom:'20px',
               height: '70%',
               borderRadius: '16px',
               border: '5px solid black',
@@ -215,7 +218,10 @@ const Gugudan = () => {
                         fontSize: '25px', 
                         border: 'none', 
                         borderRadius: '16px', 
-                        backgroundColor: 'rgb(255, 215, 3)'}} 
+                        backgroundColor: 'rgb(255, 215, 3)',
+                        marginTop:'0',
+                        marginBottom:'15px'
+                      }} 
                   onClick={() => startGame(dan)}> 선택 완료 </button>
         </div>
       </div>
