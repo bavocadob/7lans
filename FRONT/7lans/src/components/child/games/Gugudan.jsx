@@ -76,11 +76,11 @@ const Gugudan = () => {
         <div style={{display: 'flex', 
                     flexDirection: 'column', 
                     alignItems: 'center', 
-                    height: '700px', 
+                    height: '400px', 
                     width: '50vw',
                     fontSize:'0'
                     }}>
-          <h1 style={{marginTop: '10%',
+          <h1 style={{
                       marginBottom: '4%', 
                       fontWeight: 'bolder', 
                       fontSize: '100px',
@@ -95,13 +95,13 @@ const Gugudan = () => {
                         alignItems: 'center', 
                         width: '100%', 
                         height: '50%',
-                        marginBottom:'0'
+                        marginBottom:'0%'
                         }}>
             <div style={{display:'flex', 
                         alignItems: 'center', 
                         justifyContent: 'center',
                         height: '30%', 
-                        width: '100%', 
+                        width: '80%', 
                         border: '5px solid black',
                         borderBottom: '0', 
                         borderRadius: '20px 20px 0 0', 
@@ -112,7 +112,7 @@ const Gugudan = () => {
                         alignItems: 'center', 
                         justifyContent: 'center', 
                         height: '100%', 
-                        width: '100%', 
+                        width: '80%', 
                         border: '5px solid black',
                         borderRadius: '0 0 20px 20px',
                         marginBottom:'0'
