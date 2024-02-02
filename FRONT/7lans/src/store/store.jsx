@@ -11,6 +11,8 @@ import wordsSlice from "./wordsSlice";
 import changeCompoSlice from "./changeCompoSlice";
 import isPlayGameNow from "./isPlayGameNow";
 import userSlice from "./userSlice";
+import childSlice from "./childSlice";
+import childrenSlice from "./childrenSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -21,6 +23,8 @@ const reducers = combineReducers({
   changecompo: changeCompoSlice,
   isPlayGameNow: isPlayGameNow,
   user: userSlice,
+  child: childSlice,
+  children: childrenSlice,
 })
 
 const persistConfig = {

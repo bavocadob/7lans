@@ -4,6 +4,7 @@ import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 // import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
 import NormalNav from '../../navs/NormalNav';
@@ -180,24 +181,27 @@ const TimeModal = ({
     )
 }
 
-const VolunteerCalendar = ({child}) => {
+const VolunteerCalendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
     const [meetings, setMeetings] = useState([]);
     const [relationId, setRelation] = useState(1);
+
+
     const navigate = useNavigate();
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
+    const childInfo = useSelector((state) => state.child.value)
 
     //해당 아동의 미팅 정보 불러오기
     useEffect(() => {
-        console.log("change")
+        //console.log("change")
 
-        setRelation(child.relationId);
+        setRelation(childInfo.relationId);
 
         axios.post('http://localhost:8080/meetingSchedue',{
-        relationId: child.relationId,
+        relationId: childInfo.relationId,
         year: currentDate.getFullYear(),
         month: currentDate.getMonth()+1
     })
@@ -206,7 +210,7 @@ const VolunteerCalendar = ({child}) => {
     })
     .catch((err) => {
     });
-    }, [child])
+    }, [childInfo])
 
 
     const prevMonth = () => {
@@ -234,7 +238,7 @@ const VolunteerCalendar = ({child}) => {
       else {
         // 오늘날짜 이후로는 화상채팅약속시간 잡을 수 있는 모달 창이 떠야 함
         setModalOpen(true)
-        console.log('isModalOpen', isModalOpen);
+        //console.log('isModalOpen', isModalOpen);
       }
     };
 
@@ -272,7 +276,7 @@ const VolunteerCalendar = ({child}) => {
                     currentMonth={currentMonth}
                     prevMonth={prevMonth}
                     nextMonth={nextMonth}
-                    child={child}
+                    child={childInfo}
                 />
                 <RenderDays />
                 <RenderCells

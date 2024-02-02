@@ -6,11 +6,12 @@ import {
   FaClock,
   FaBirthdayCake,
 } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { changecompo } from "../../store/changeCompoSlice";
 import axios from 'axios'
+import { updateChildInfo } from "../../store/childSlice";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -138,24 +139,15 @@ const DetailParagraph = styled.div`
   margin-bottom: 10px;
 `;
 
-const CommonSidePanel = ({volunteerId, setData}) => {
+const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
-  const [children, setChildren] = useState([]);
+  //const [children, setChildren] = useState([]);
   const [id, setId] = useState([]);
   const dispatch = useDispatch();
-  
-  
 
-  //아동 데이터 가져오기(봉사자 id를 가지고 있어야함)
-  useEffect(() => {axios.get(`http://localhost:8080/vol/list/${1}`)
-    .then((res) => {
-        setChildren(res.data);
-        setData(res.data[0]);
-    })
-    .catch((err) => {
-    });
+  const childInfo = useSelector((state) => state.child.value)
+  const children = useSelector((state) => state.children.value)
 
-}, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -166,9 +158,8 @@ const CommonSidePanel = ({volunteerId, setData}) => {
 
   const renderSidePanel = () => {
     const postData = (child) => {
-      setData(child);
-      //console.log(child);
-      //console.log("button");
+      dispatch(updateChildInfo(child))
+      //console.log(childInfo);
     };
     if (sidePanelStatus) {
       return (
