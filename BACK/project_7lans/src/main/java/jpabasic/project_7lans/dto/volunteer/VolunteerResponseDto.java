@@ -96,24 +96,20 @@ public class VolunteerResponseDto {
         private String volunteerEmail;
         @NotNull(message = "[VolunteerResponseDto.list] volunteerName 는 null 이 될 수 없습니다.")
         private String volunteerName;
-        @NotNull(message = "[VolunteerResponseDto.list] volunteerBirth 는 null 이 될 수 없습니다.")
-        private LocalDate volunteerBirth;
-        @NotNull(message = "[VolunteerResponseDto.list] volunteerProfileImagePath 는 Null 일 수 없습니다.")
-        private String volunteerProfileImagePath;
+        @NotNull(message = "[VolunteerResponseDto.list] volunteerTime 는 Null 일 수 없습니다.")
+        private Integer volunteerTime;
 
         @Builder
         listByManager(
                 Long volunteerId,
                 String volunteerEmail,
                 String volunteerName,
-                LocalDate volunteerBirth,
-                String volunteerProfileImagePath
+                Integer volunteerTime
         ){
             this.volunteerId = volunteerId;
             this.volunteerEmail = volunteerEmail;
             this.volunteerName = volunteerName;
-            this.volunteerBirth = volunteerBirth;
-            this.volunteerProfileImagePath = volunteerProfileImagePath;
+            this.volunteerTime = volunteerTime;
         }
     }
 

@@ -103,28 +103,24 @@ public class ChildResponseDto {
         private String childName;
         @NotNull(message = "[ChildResponseDto.list] childBirth 은 Null 일 수 없습니다.")
         private LocalDate childBirth;
-        @NotNull(message = "[ChildResponseDto.list] childProfileImagePath 는 Null 일 수 없습니다.")
-        private String childProfileImagePath;
+        @NotNull(message = "[ChildResponseDto.list] childPhoneNumber 은 Null 일 수 없습니다.")
+        private String childPhoneNumber;
         @NotNull(message = "[ChildResponseDto.list] childChildCenterId 는 Null 일 수 없습니다.")
         private String childCenterName;
-        @NotNull(message = "[ChildResponseDto.list] childSpecialContent 는 Null 일 수 없습니다.")
-        private String childSpecialContent;
 
         @Builder
         noRelationList(
                 Long childId,
                 String childName,
                 LocalDate childBirth,
-                String childProfileImagePath,
-                String childCenterName,
-                String childSpecialContent
+                String childPhoneNumber,
+                String childCenterName
         ){
             this.childId = childId;
             this.childName = childName;
             this.childBirth = childBirth;
-            this.childProfileImagePath = childProfileImagePath;
+            this.childPhoneNumber = childPhoneNumber;
             this.childCenterName = childCenterName;
-            this.childSpecialContent = childSpecialContent;
         }
     }
 
@@ -148,9 +144,8 @@ public class ChildResponseDto {
                 .childId(child.getId())
                 .childName(child.getName())
                 .childBirth(child.getBirth())
-                .childProfileImagePath(child.getProfileImgPath())
                 .childCenterName(child.getChildCenter().getName())
-                .childSpecialContent(child.getSpecialContent())
+                .childPhoneNumber(child.getPhoneNumber())
                 .build();
     }
 

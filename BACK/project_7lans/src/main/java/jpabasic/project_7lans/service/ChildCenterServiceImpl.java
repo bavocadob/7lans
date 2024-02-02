@@ -39,8 +39,7 @@ public class ChildCenterServiceImpl implements ChildCenterService{
         return volunteers;
     }
 
-
-    // 센터의 아이들 리스트
+    // 관리자 센터에 소속된 아이들 리스트
     @Override
     public List<ChildResponseDto.noRelationList> childList(Long centerId) {
         ChildCenter childCenter = childCenterRepository.findById(centerId)
@@ -54,16 +53,16 @@ public class ChildCenterServiceImpl implements ChildCenterService{
         }
 
         return childrenResponse;
-
     }
+
 
     @Override
     public List<ChildCenterResponseDto.list> list() {
-        List<ChildCenter> childcenters = childCenterRepository.findAll();
+        List<ChildCenter> childCenters = childCenterRepository.findAll();
 
         List<ChildCenterResponseDto.list> centerList = new ArrayList<>();
 
-        for(ChildCenter childCenter: childcenters){
+        for(ChildCenter childCenter: childCenters){
             centerList.add(ChildCenterResponseDto.list.builder()
                     .childCenterId(childCenter.getId())
                     .childCenterName(childCenter.getName())

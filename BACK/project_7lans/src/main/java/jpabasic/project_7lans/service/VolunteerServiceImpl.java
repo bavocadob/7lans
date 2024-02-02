@@ -97,8 +97,7 @@ public class VolunteerServiceImpl implements VolunteerService{
                     .volunteerId(volunteer.getId())
                     .volunteerEmail(volunteer.getEmail())
                     .volunteerName(volunteer.getName())
-                    .volunteerProfileImagePath(volunteer.getProfileImgPath())
-                    .volunteerBirth(volunteer.getBirth())
+                    .volunteerTime(volunteer.getVolunteerTime())
                     .build();
 
             volunteerDtoList.add(dto);
