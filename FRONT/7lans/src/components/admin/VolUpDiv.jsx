@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import axios from "axios";
 
 const UpperDiv = styled.div`
   flex: 1.2;
@@ -47,18 +48,93 @@ const SearchContainer = styled.div`
 `;
 
 const ChildSearchInput = styled.input`
-  width: 70%;
+  width: 50%;
+  height: 20%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 `;
 
+const ChildList = styled.div`
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ChildCard = styled.div`
+  width: 60%;
+  height: 70%;
+  margin-bottom: 5px;
+  border: 2px solid black;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-right: -20px;
+`;
+
+const SearchChildContainer = styled.div`
+  height: 100%;
+  width: 60%;
+  border-radius: 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 function VolUpdiv() {
   const selectVolCard = useSelector((state) => state.adminSelectVol);
+  const userInfo = useSelector((state) => state.user);
+  const centerId = userInfo.value.centerId;
+  const [childList, setChildList] = useState([]);
+  const [search, setSearch] = useState("");
+  console.log(centerId);
+
   let name, email, birth;
   name = selectVolCard[0];
   email = selectVolCard[1];
   birth = selectVolCard[2];
+
+  useEffect(() => {
+    axios
+      .get(`http://i10e103.p.ssafy.io:8090/manager/child/${centerId}`)
+      .then((response) => {
+        const arr = [];
+        for (const element of response.data) {
+          console.log(element);
+          let childName, centerName, childId, childBirth;
+          for (const ele in element) {
+            if (ele === "childName") {
+              childName = element[ele];
+            }
+            if (ele === "childCenterName") {
+              centerName = element[ele];
+            }
+            if (ele === "childBirth") {
+              childBirth = element[ele];
+            }
+          }
+          arr.push([childName, centerName, childBirth]);
+        }
+        setChildList(arr);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  const filteredChilds = childList.filter((Child) =>
+    Child.some(
+      (property) =>
+        typeof property === "string" &&
+        property.toLowerCase().includes(search.toLowerCase())
+    )
+  );
 
   return (
     <>
@@ -70,11 +146,26 @@ function VolUpdiv() {
         <InformationSection>
           <p>email: {email}</p>
           <p>Name: {name}</p>
-          <p>Age: {birth}</p>
+          <p>Birth: {birth}</p>
         </InformationSection>
-        <SearchContainer>
-          <ChildSearchInput type="text" placeholder="학생 검색" />
-        </SearchContainer>
+        <SearchChildContainer>
+          <SearchContainer>
+            <ChildSearchInput
+              type="text"
+              placeholder="아동이름 검색"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </SearchContainer>
+          <ChildList>
+            {filteredChilds.map((child, index) => (
+              <ChildCard key={index}>
+                <h6>{child[0]}</h6>
+                <h6>{child[2]}</h6>
+              </ChildCard>
+            ))}
+          </ChildList>
+        </SearchChildContainer>
       </UpperDiv>
     </>
   );
