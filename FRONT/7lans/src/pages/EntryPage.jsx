@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { motion, AnimatePresence } from "framer-motion";
 
 const Container = styled.div`
   background: linear-gradient(
@@ -19,6 +20,8 @@ const Container = styled.div`
 
 const LogoImage = styled.img`
   margin-bottom: 1rem;
+  width: 380px;
+  margin-bottom:20px;
 `;
 
 const InfoSpan = styled.span`
@@ -29,7 +32,7 @@ const InfoSpan = styled.span`
   border-radius: 1rem;
   text-align: center;
   margin-bottom:60px;
-  margin-top:80px
+  margin-top:20px
 `;
 
 const LoginButton = styled(Link)`
@@ -47,19 +50,65 @@ const LoginButton = styled(Link)`
   }
 `;
 
+const variants = {
+    hidden: {
+      opacity: 0.2,
+      y: 15
+    },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 1,
+        repeat: Infinity,
+        repeatType: "reverse"
+      }
+    })
+  };
 
+const items = ["️❤️", "💛", "💜"];
+
+const HeartContainer = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row; /* 가로로 정렬되도록 변경 */
+  align-items: center;
+`;
+
+const Heart = () => {
+  return (
+    <HeartContainer>
+      {items.map((item, i) => (
+        <motion.li
+          key={item}
+          initial="hidden"
+          animate="visible"
+          variants={variants}
+          custom={i}
+        >
+          {item}
+        </motion.li>
+      ))}
+    </HeartContainer>
+  );
+};
 
 const EntryPage = () => {
   return (
+    
     <Container>
       <LogoImage src="./7lans_logo.png" alt="" />
+        <Heart />
       <InfoSpan className='shadow'>
         <h3 style={{margin: '0'}}>
           봉사자와 피봉사자의 연결을 도와주는 보조 웹 사이트
         </h3>
       </InfoSpan>
       <LoginButton className='shadow'
-                  style={{fontSize:'17px',
+                  style={{fontSize:'20px',
                           color: 'white'}} to="/login">
         로그인
       </LoginButton>
