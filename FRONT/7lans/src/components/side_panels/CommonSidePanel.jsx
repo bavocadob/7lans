@@ -150,9 +150,11 @@ const CommonSidePanel = ({volunteerId, setData}) => {
   useEffect(() => {axios.get(`http://localhost:8080/vol/list/${1}`)
     .then((res) => {
         setChildren(res.data);
+        setData(res.data[0]);
     })
     .catch((err) => {
     });
+
 }, []);
 
   const onSubmit = (e) => {
