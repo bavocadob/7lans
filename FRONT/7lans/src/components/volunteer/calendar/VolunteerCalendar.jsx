@@ -12,7 +12,7 @@ import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
 
-const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
+const RenderHeader = ({ currentMonth, prevMonth, nextMonth, child }) => {
     return (
         <div className="header row">
             <div className="col col-start">
@@ -21,6 +21,9 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
                         {format(currentMonth, 'M')}월
                     </span>
                     {format(currentMonth, 'yyyy')}
+                </span>
+                <span>
+                    {child.childName}과의 일정
                 </span>
             </div>
             <div className="col col-end">
@@ -177,7 +180,7 @@ const TimeModal = ({
     )
 }
 
-const VolunteerCalendar = () => {
+const VolunteerCalendar = ({child}) => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
@@ -186,9 +189,12 @@ const VolunteerCalendar = () => {
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
 
-    //이번 달 미팅 정보들
-    useEffect(() => {axios.post('http://localhost:8080/meetingSchedue',{
-        relationId: 1,
+    //해당 아동의 미팅 정보 불러오기
+    useEffect(() => {
+        console.log("change")
+
+        axios.post('http://localhost:8080/meetingSchedue',{
+        relationId: child.relationId,
         year: currentDate.getFullYear(),
         month: currentDate.getMonth()+1
     })
@@ -197,7 +203,8 @@ const VolunteerCalendar = () => {
     })
     .catch((err) => {
     });
-}, []);
+    }, [child])
+
 
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
@@ -255,7 +262,6 @@ const VolunteerCalendar = () => {
     
     // export default VolunteerCalendar;
     
-  
     return (
        
             <div className="calendar">
@@ -263,6 +269,7 @@ const VolunteerCalendar = () => {
                     currentMonth={currentMonth}
                     prevMonth={prevMonth}
                     nextMonth={nextMonth}
+                    child={child}
                 />
                 <RenderDays />
                 <RenderCells

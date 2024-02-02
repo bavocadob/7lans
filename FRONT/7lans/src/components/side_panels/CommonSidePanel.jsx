@@ -138,7 +138,7 @@ const DetailParagraph = styled.div`
   margin-bottom: 10px;
 `;
 
-const CommonSidePanel = () => {
+const CommonSidePanel = ({volunteerId, setData}) => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
   const [children, setChildren] = useState([]);
   const [id, setId] = useState([]);
@@ -163,6 +163,11 @@ const CommonSidePanel = () => {
   //console.log(children);
 
   const renderSidePanel = () => {
+    const postData = (child) => {
+      setData(child);
+      //console.log(child);
+      //console.log("button");
+    };
     if (sidePanelStatus) {
       return (
         <StyledCommonSidePanel>
@@ -173,7 +178,7 @@ const CommonSidePanel = () => {
             <ProfileImage src="./anonymous.jpg" alt="" />
           </InnerContainer>
           <InfoContainer>
-            <NameHeader>  봉사자님</NameHeader>
+            <NameHeader> 박주헌 봉사자님</NameHeader>
             <DetailContainer>
               {children.map((el) => (
                 <DetailParagraph
@@ -190,9 +195,7 @@ const CommonSidePanel = () => {
                   <Comment
                     comment={el.childSpecialContent}
                   ></Comment>
-                  
-                
-                  <input type="submit" value="move" />
+                  <button onClick={() => postData(el)}>선택하기</button>
                 </form>
               </DetailParagraph>
               ))}

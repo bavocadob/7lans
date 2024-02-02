@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
@@ -9,6 +9,8 @@ import VolunteerCalendar from '../../components/volunteer/calendar/VolunteerCale
 
 
 const VideoChattingStartPage = () => {
+  const [data, setData] = useState(0);
+  
   return (
     <>
     <div style={{
@@ -20,10 +22,17 @@ const VideoChattingStartPage = () => {
       <NormalNav />
       <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
         <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
-          <CommonSidePanel />
-          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>
-            <VolunteerCalendar />
+          <CommonSidePanel 
+            volunteerId={1}
+            setData={setData}/>
+            <div>
+            </div>
+          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>        
+            <VolunteerCalendar 
+              child={data}
+            />
           </div>
+
           <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
             <SelectedPostit message={'/volunteer_video_chatting_start'}/>
             <PostIt message={'/volunteer_active_doc'}/>
