@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../store/userSlice';
 
+
 const Container = styled.div`
   height: 100vh;
   width: 100vw;
@@ -30,6 +31,7 @@ const ContentWrapper = styled.div`
   width: 100vw;
   display: flex;
 `;
+
 
 const LeftContent = styled.div`
   width: 50vw;

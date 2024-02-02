@@ -5,13 +5,9 @@ import { addProblem } from '../../../store/quizSlice'
 import { gameChange } from '../../../store/isPlayGameNow'
 
 
-
-const problem = styled.div`
-  
-`
-
 const Quiz = () => {
 
+  const userInfo = useSelector((state) => state.user.value)
   const [ans, setAns] = useState('')
   const [ansCorrect, setAnsCorrect] = useState('')
   const [nowProblem, setNowProblem] = useState('')
@@ -164,12 +160,25 @@ const Quiz = () => {
     else if (ansCorrect !== '') {
       if (ansCorrect === ans) {
         return (
-          <div>정답</div>
+          <div style={{ display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        fontSize: '150px'
+              }}> 정답(웃는공룡 사진)
+              {console.log(userInfo)}
+          </div>
         )
       }
       else {
         return (
-          <div>오답</div>
+          <div style={{ display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        fontSize: '150px'
+              }}>오답(우는공룡 사진)
+              </div>
         )
       }
     }
@@ -259,7 +268,6 @@ const Quiz = () => {
                               margin: '0 60px 0 60px', 
                               border: 'none',  
                               fontWeight: 'bolder', 
-                              backgroundColor: 'rgb(255, 233, 156)',
                               color: 'rgb(255, 156, 162)',
                               borderRadius: '20px',
                               backgroundColor:'rgb(255, 242, 176)',
