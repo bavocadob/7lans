@@ -161,7 +161,7 @@ function VolunteerManage() {
       <VolunteerManageContainer>
         <LeftContainer>
           <VolunteerListContainer>
-            <h2>봉사자리스트</h2>
+            <h2>봉사자리스트!</h2>
             <SearchContainer>
               <SearchInput
                 type="text"
