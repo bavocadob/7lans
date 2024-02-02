@@ -189,6 +189,7 @@ public class MemberServiceImpl implements MemberService{
                     .profileImgPath(member.getProfileImgPath())
                     .birth(member.getBirth())
                     .enterDate(member.getEnterDate().toLocalDate())
+                    .volunteerTime(((Volunteer)member).getVolunteerTime())
                     .build();
 
             return new ResponseEntity(volunteerResDto, HttpStatus.OK);
