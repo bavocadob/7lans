@@ -19,6 +19,8 @@ public class MemberResponseDto {
         private Long centerId;
         @NotNull(message = "[MemberResponseDto.loginResChildDto] dinosaurBookId 는 null 이 될 수 없습니다.")
         private Long dinosaurBookId;
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] childName 는 null 이 될 수 없습니다.")
+        private String childName;
         @NotNull(message = "[MemberResponseDto.loginResChildDto] centerName 는 null 이 될 수 없습니다.")
         private String centerName;
         @NotNull(message = "[MemberResponseDto.loginResChildDto] email 는 null 이 될 수 없습니다.")
@@ -38,6 +40,7 @@ public class MemberResponseDto {
                 Long memberId,
                 Long centerId,
                 Long dinosaurBookId,
+                String childName,
                 String centerName,
                 String email,
                 String phoneNumber,
@@ -49,6 +52,7 @@ public class MemberResponseDto {
             this.memberId = memberId;
             this.centerId = centerId;
             this.dinosaurBookId = dinosaurBookId;
+            this.childName = childName;
             this.centerName = centerName;
             this.email = email;
             this.phoneNumber = phoneNumber;
@@ -67,6 +71,8 @@ public class MemberResponseDto {
         private Long memberId;
         @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] dinosaurBookId 는 null 이 될 수 없습니다.")
         private Long dinosaurBookId;
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] volunteerName 는 null 이 될 수 없습니다.")
+        private String volunteerName;
         @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] email 는 null 이 될 수 없습니다.")
         private String email;
         @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] phoneNumber 는 null 이 될 수 없습니다.")
@@ -85,6 +91,7 @@ public class MemberResponseDto {
                 MemberType memberType,
                 Long memberId,
                 Long dinosaurBookId,
+                String volunteerName,
                 String email,
                 String phoneNumber,
                 String profileImgPath,
@@ -95,6 +102,7 @@ public class MemberResponseDto {
             this.memberType = memberType;
             this.memberId = memberId;
             this.dinosaurBookId = dinosaurBookId;
+            this.volunteerName = volunteerName;
             this.email = email;
             this.phoneNumber = phoneNumber;
             this.profileImgPath = profileImgPath;
@@ -113,6 +121,8 @@ public class MemberResponseDto {
         private Long memberId;
         @NotNull(message = "[MemberResponseDto.loginResManagerDto] centerId 는 null 이 될 수 없습니다.")
         private Long centerId;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] managerName 는 null 이 될 수 없습니다.")
+        private String managerName;
         @NotNull(message = "[MemberResponseDto.loginResManagerDto] centerName 는 null 이 될 수 없습니다.")
         private String centerName;
         @NotNull(message = "[MemberResponseDto.loginResManagerDto] email 는 null 이 될 수 없습니다.")
@@ -131,6 +141,7 @@ public class MemberResponseDto {
                 MemberType memberType,
                 Long memberId,
                 Long centerId,
+                String managerName,
                 String centerName,
                 String email,
                 String phoneNumber,
@@ -141,6 +152,7 @@ public class MemberResponseDto {
             this.memberType = memberType;
             this.memberId = memberId;
             this.centerId = centerId;
+            this.managerName = managerName;
             this.centerName = centerName;
             this.email = email;
             this.phoneNumber = phoneNumber;
