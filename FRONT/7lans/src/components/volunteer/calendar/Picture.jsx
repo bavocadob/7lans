@@ -76,7 +76,7 @@ const Picture = () => {
 
 
   //이미지 데이터 가져오기
-  axios.get(`http://localhost:8080/meetingSchedue/image/${state.meetingId}`)
+  axios.get(`https://i10e103.p.ssafy.io/api/v1/meetingSchedue/image/${state.meetingId}`)
   .then(function (response) {
       console.log(response)
   }).catch(function (error){
