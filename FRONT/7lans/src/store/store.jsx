@@ -11,6 +11,7 @@ import wordsSlice from "./wordsSlice";
 import changeCompoSlice from "./changeCompoSlice";
 import isPlayGameNow from "./isPlayGameNow";
 import userSlice from "./userSlice";
+import adminSelectVolSlice from "./adminSelectVolSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -21,21 +22,22 @@ const reducers = combineReducers({
   changecompo: changeCompoSlice,
   isPlayGameNow: isPlayGameNow,
   user: userSlice,
-})
+  adminSelectVol: adminSelectVolSlice,
+});
 
 const persistConfig = {
   key: "root",
   storage,
 };
 
-
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export const persistor = persistStore(store);

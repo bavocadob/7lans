@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import NormalNav from "../navs/NormalNav";
+import VolUpdiv from "./VolUpdiv";
+import VolLowDiv from "./VolLowDiv";
+import { adminSelectVol } from "../../store/adminSelectVolSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const StyledVolunteerManage = styled.div`
   display: flex;
@@ -44,35 +48,6 @@ const VolunteerListContainer = styled.div`
   margin-right: -10px;
 `;
 
-const UpperDiv = styled.div`
-  flex: 1.2;
-  background-color: #fffdf6;
-  border-radius: 20px;
-  border-radius: 20px;
-  border: solid 3px black;
-  margin-bottom: 15px;
-  margin-left: -10px;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const LowerDiv = styled.div`
-  flex: 2.2;
-  background-color: #fffdf6;
-  border-radius: 20px;
-  border-radius: 20px;
-  border: solid 3px black;
-  margin-left: -10px;
-  margin-bottom: 5px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* 넘치는 부분 숨기기 */
-`;
-
 // VolunteerListContainer의 컨텐츠들
 const SearchContainer = styled.div`
   width: 100%;
@@ -89,13 +64,6 @@ const SearchInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-left: 10px;
-`;
-
-const CildSearchInput = styled.input`
-  width: 70%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 `;
 
 const VolunteerCardList = styled.div`
@@ -116,133 +84,75 @@ const VolunteerCardList = styled.div`
 const VolunteerCard = styled.div`
   width: 80%;
   height: 160px;
-  background-color: #ffe792;
+  background-color: ${(props) =>
+    props.isSelected
+      ? "#ffd700"
+      : "#ffe792"}; // isSelected에서 에러발생 (작동엔 이상 없음)
   margin-bottom: 15px;
   margin-left: 40px;
   padding: 15px;
   border: 2px solid black;
   border-radius: 10px;
-`;
-
-const LowerProfileCard = styled.div`
-  width: 20%;
-  height: 50%;
-  margin: 10px;
-  padding: 10px;
-  border: 2px solid black;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgb(45, 45, 45);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-  margin-top: 30px;
-`;
-
-const LowerProfileImage = styled.img`
-  border-radius: 50%;
-  width: 60px;
-  height: 70px;
-  margin-bottom: 10px;
-`;
-
-// 추가적으로 페이지 내비게이션 스타일링
-const PaginationContainer = styled.div`
-  width: 90%;
-  display: flex;
-  justify-content: center;
-`;
-
-const PaginationButton = styled.button`
-  margin: 0 5px;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #ffd700;
   }
 `;
 
-// 아래로 upperdiv contents
-const ProfileCard = styled.div`
-  width: 40%;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const ProfileImage = styled.img`
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-`;
-
-const InformationSection = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 function VolunteerManage() {
+  const dispatch = useDispatch();
+  const selectVolCard = useSelector((state) => state.adminSelectVol);
+
+  // 카드 선택하기
+  const [selectedCard, setSelectedCard] = useState(null);
   // 검색어 상태
   const [search, setSearch] = useState("");
   // 봉사자 리스트
-  const volunteerList = [
-    "봉사자 정보 1",
-    "봉사자 정보 2",
-    "봉사자 정보 3",
-    "봉사자 정보 4",
-  ];
+  const [volunteerList, setVolunteerList] = useState([]);
 
-  // `https://i10e103.p.ssafy.io/api/v1/vol/search/${옥세훈}`;
-  axios
-    .post(`https://i10e103.p.ssafy.io/api/v1/vol/search/${"옥세훈"}`)
-    .then((response) => {
-      console.log(response.data, "bye");
-    })
-    .catch((error) => {
-      console.error(error);
-    })
-    .then(() => {
-      // 항상 실행
-    });
+  useEffect(() => {
+    axios
+      .get(`http://i10e103.p.ssafy.io:8090/manager/volunteerList`)
+      .then((response) => {
+        const arr = [];
+        for (const ele of response.data) {
+          let name, email, birth, image;
+          for (const el in ele) {
+            if (el === "volunteerName") {
+              name = ele[el];
+            }
+            if (el === "volunteerEmail") {
+              email = ele[el];
+            }
+            if (el === "volunteerBirth") {
+              birth = ele[el];
+            }
+            if (el === "volunteerProfileImagePath") {
+              image = ele[el];
+            }
+          }
+          arr.push([name, email, birth, image]);
+          // console.log(arr);
+        }
+        setVolunteerList(arr);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
-  axios
-    .get(`https://i10e103.p.ssafy.io/api/v1/manager/volunteerList`)
-    .then((response) => {
-      console.log(response.data, "hi");
-    })
-    .catch((error) => {
-      console.error(error);
-    })
-    .then(() => {
-      // 항상 실행
-    });
-
-  const volunteerName = {
-    volunteerName: "옥세훈",
+  const handleVolunteerClick = (volunteer) => {
+    dispatch(adminSelectVol(volunteer));
   };
-  axios
-    .get(`https://i10e103.p.ssafy.io/api/v1/vol/search/${volunteerName}`)
-    .then((response) => {
-      console.log(response.data, "hi");
-    })
-    .catch((error) => {
-      // 오류발생시 실행
-    })
-    .then(() => {
-      // 항상 실행
-    });
 
-  // 검색어와 일치하는 봉사자 필터링
   const filteredVolunteers = volunteerList.filter((volunteer) =>
-    volunteer.toLowerCase().includes(search.toLowerCase())
+    volunteer.some(
+      (property) =>
+        typeof property === "string" &&
+        property.toLowerCase().includes(search.toLowerCase())
+    )
   );
 
   return (
@@ -255,7 +165,7 @@ function VolunteerManage() {
             <SearchContainer>
               <SearchInput
                 type="text"
-                placeholder="봉사자 검색"
+                placeholder="봉사자 이름 검색"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -263,47 +173,22 @@ function VolunteerManage() {
             <VolunteerCardList>
               {/* 검색 결과에 따라 동적으로 VolunteerCard를 생성 */}
               {filteredVolunteers.map((volunteer, index) => (
-                <VolunteerCard key={index}>{volunteer}</VolunteerCard>
+                <VolunteerCard
+                  key={index}
+                  isSelected={selectedCard === volunteer}
+                  onClick={() => handleVolunteerClick(volunteer)}
+                >
+                  <h3>{volunteer[0]} 봉사자</h3>
+                  <br />
+                  <h5>{volunteer[1]}</h5>
+                </VolunteerCard>
               ))}
             </VolunteerCardList>
           </VolunteerListContainer>
         </LeftContainer>
         <RightContainer>
-          <UpperDiv>
-            <ProfileCard>
-              <ProfileImage
-                src="./admin_pic/봉사자프로필예시.png"
-                alt="Profile"
-              />
-              <p>Name: John Doe</p>
-              <p>Age: 25</p>
-            </ProfileCard>
-            <InformationSection>
-              <p>Phone: 123-456-7890</p>
-              <p>Management Center: Center A</p>
-              <p>Birthday: January 1, 1990</p>
-            </InformationSection>
-            <SearchContainer>
-              <CildSearchInput type="text" placeholder="학생 검색" />
-            </SearchContainer>
-          </UpperDiv>
-          <LowerDiv>
-            {Array.from({ length: 4 }).map((_, index) => (
-              <LowerProfileCard key={index}>
-                <LowerProfileImage
-                  src="./admin_pic/프로필예시.png"
-                  alt="Profile"
-                />
-                <p>Name: John Doe</p>
-                <p>Age: 25</p>
-              </LowerProfileCard>
-            ))}
-            <PaginationContainer>
-              <PaginationButton>1</PaginationButton>
-              <PaginationButton>2</PaginationButton>
-              {/* Add more pagination buttons as needed */}
-            </PaginationContainer>
-          </LowerDiv>
+          <VolUpdiv />
+          <VolLowDiv />
         </RightContainer>
       </VolunteerManageContainer>
     </StyledVolunteerManage>
