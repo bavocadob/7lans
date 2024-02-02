@@ -9,6 +9,7 @@ import jpabasic.project_7lans.dto.member.MemberResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.Member;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface MemberService {
 
     //===============================================================================
     //로그인
-    public Member login(MemberRequestDto.login memberRegisterDto);
+    public ResponseEntity<?> login(MemberRequestDto.login memberRegisterDto);
 
     // ===============================================================================
     // 조회

@@ -10,44 +10,139 @@ public class MemberResponseDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class loginResponseDto {
-        @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
-        private Long memberId;
-        @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
+    public static class loginResChildDto {
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] memberType 는 null 이 될 수 없습니다.")
         private MemberType memberType;
-        @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] memberId 는 null 이 될 수 없습니다.")
+        private Long memberId;
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] centerId 는 null 이 될 수 없습니다.")
+        private Long centerId;
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] dinosaurBookId 는 null 이 될 수 없습니다.")
+        private Long dinosaurBookId;
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] centerName 는 null 이 될 수 없습니다.")
+        private String centerName;
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] email 는 null 이 될 수 없습니다.")
         private String email;
-        @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
-        private String password;
-        @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] phoneNumber 는 null 이 될 수 없습니다.")
         private String phoneNumber;
-        @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] profileImgPath 는 null 이 될 수 없습니다.")
         private String profileImgPath;
-        @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] birth 는 null 이 될 수 없습니다.")
         private LocalDate birth;
-        @NotNull(message = "[MemberResponseDto.loginResponseDto] timeDto 는 null 이 될 수 없습니다.")
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] enterDate 는 null 이 될 수 없습니다.")
         private LocalDate enterDate;
 
-
         @Builder
-        loginResponseDto(
-                Long memberId,
+        loginResChildDto(
                 MemberType memberType,
+                Long memberId,
+                Long centerId,
+                Long dinosaurBookId,
+                String centerName,
                 String email,
-                String password,
                 String phoneNumber,
                 String profileImgPath,
                 LocalDate birth,
                 LocalDate enterDate
         ){
-           this.memberId = memberId;
-           this.memberType = memberType;
-           this.email = email;
-           this.password = password;
-           this.phoneNumber = phoneNumber;
-           this.profileImgPath = profileImgPath;
-           this.birth = birth;
-           this.enterDate = enterDate;
+            this.memberType = memberType;
+            this.memberId = memberId;
+            this.centerId = centerId;
+            this.dinosaurBookId = dinosaurBookId;
+            this.centerName = centerName;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.profileImgPath = profileImgPath;
+            this.birth = birth;
+            this.enterDate = enterDate;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class loginResVolunteerDto {
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] memberType 는 null 이 될 수 없습니다.")
+        private MemberType memberType;
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] memberId 는 null 이 될 수 없습니다.")
+        private Long memberId;
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] dinosaurBookId 는 null 이 될 수 없습니다.")
+        private Long dinosaurBookId;
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] email 는 null 이 될 수 없습니다.")
+        private String email;
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] phoneNumber 는 null 이 될 수 없습니다.")
+        private String phoneNumber;
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] profileImgPath 는 null 이 될 수 없습니다.")
+        private String profileImgPath;
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] birth 는 null 이 될 수 없습니다.")
+        private LocalDate birth;
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] enterDate 는 null 이 될 수 없습니다.")
+        private LocalDate enterDate;
+
+        @Builder
+        loginResVolunteerDto(
+                MemberType memberType,
+                Long memberId,
+                Long dinosaurBookId,
+                String email,
+                String phoneNumber,
+                String profileImgPath,
+                LocalDate birth,
+                LocalDate enterDate
+        ){
+            this.memberType = memberType;
+            this.memberId = memberId;
+            this.dinosaurBookId = dinosaurBookId;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.profileImgPath = profileImgPath;
+            this.birth = birth;
+            this.enterDate = enterDate;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class loginResManagerDto {
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] memberType 는 null 이 될 수 없습니다.")
+        private MemberType memberType;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] memberId 는 null 이 될 수 없습니다.")
+        private Long memberId;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] centerId 는 null 이 될 수 없습니다.")
+        private Long centerId;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] centerName 는 null 이 될 수 없습니다.")
+        private String centerName;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] email 는 null 이 될 수 없습니다.")
+        private String email;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] phoneNumber 는 null 이 될 수 없습니다.")
+        private String phoneNumber;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] profileImgPath 는 null 이 될 수 없습니다.")
+        private String profileImgPath;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] birth 는 null 이 될 수 없습니다.")
+        private LocalDate birth;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] enterDate 는 null 이 될 수 없습니다.")
+        private LocalDate enterDate;
+
+        @Builder
+        loginResManagerDto(
+                MemberType memberType,
+                Long memberId,
+                Long centerId,
+                String centerName,
+                String email,
+                String phoneNumber,
+                String profileImgPath,
+                LocalDate birth,
+                LocalDate enterDate
+        ){
+            this.memberType = memberType;
+            this.memberId = memberId;
+            this.centerId = centerId;
+            this.centerName = centerName;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.profileImgPath = profileImgPath;
+            this.birth = birth;
+            this.enterDate = enterDate;
         }
     }
 }

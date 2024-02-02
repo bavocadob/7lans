@@ -5,12 +5,15 @@ import jpabasic.project_7lans.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.dto.manager.ManagerRequestDto;
 import jpabasic.project_7lans.dto.manager.ManagerResponseDto;
 import jpabasic.project_7lans.dto.member.MemberRequestDto;
+import jpabasic.project_7lans.dto.member.MemberResponseDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.*;
 import jpabasic.project_7lans.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,7 +95,7 @@ public class MemberServiceImpl implements MemberService{
 
         // 가입 할 때 공룡도감의 기본 공룡 1번 생성
         Dinosaur dinosaur = dinosaurRepository.findById(1L)
-                .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.childRegister] no such dinosaur"));
+                .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.volunteerRegister] no such dinosaur"));
 
         // 기본 공룡 1번으로 공룡 도감 컬렉션 하나 생성.
         DinosaurCollection dinosaurCollection = DinosaurCollection.builder()
@@ -155,11 +158,56 @@ public class MemberServiceImpl implements MemberService{
     //================================================================================
     //로그인
     @Override
-    public Member login(MemberRequestDto.login memberRegisterDto) {
+    public ResponseEntity<?> login(MemberRequestDto.login logReqDto) {
 
-        Member findMember = memberRepository.findByEmail(memberRegisterDto.getMemberEmail())
+        Member member = memberRepository.findByEmail(logReqDto.getMemberEmail())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.login] 존재하지 않는 멤버 Email입니다."));
-        return findMember;
+
+        if(member.getMemberType().equals(MemberType.CHILD)){
+            MemberResponseDto.loginResChildDto childResDto = MemberResponseDto.loginResChildDto.builder()
+                    .memberType(member.getMemberType())
+                    .memberId(member.getId())
+                    .centerId(((Child) member).getChildCenter().getId())
+                    .dinosaurBookId(member.getDinosaurBook().getId())
+                    .centerName(((Child) member).getChildCenter().getName())
+                    .email(member.getEmail())
+                    .phoneNumber(member.getPhoneNumber())
+                    .profileImgPath(member.getProfileImgPath())
+                    .birth(member.getBirth())
+                    .enterDate(member.getEnterDate().toLocalDate())
+                    .build();
+
+            return new ResponseEntity(childResDto, HttpStatus.OK);
+
+        }else if(member.getMemberType().equals(MemberType.VOLUNTEER)){
+            MemberResponseDto.loginResVolunteerDto volunteerResDto = MemberResponseDto.loginResVolunteerDto.builder()
+                    .memberType(member.getMemberType())
+                    .memberId(member.getId())
+                    .dinosaurBookId(member.getDinosaurBook().getId())
+                    .email(member.getEmail())
+                    .phoneNumber(member.getPhoneNumber())
+                    .profileImgPath(member.getProfileImgPath())
+                    .birth(member.getBirth())
+                    .enterDate(member.getEnterDate().toLocalDate())
+                    .build();
+
+            return new ResponseEntity(volunteerResDto, HttpStatus.OK);
+
+        }else{
+            MemberResponseDto.loginResManagerDto managerResDto =MemberResponseDto.loginResManagerDto.builder()
+                    .memberType(member.getMemberType())
+                    .memberId(member.getId())
+                    .centerId(((Manager) member).getChildCenter().getId())
+                    .centerName(((Manager) member).getChildCenter().getName())
+                    .email(member.getEmail())
+                    .phoneNumber(member.getPhoneNumber())
+                    .profileImgPath(member.getProfileImgPath())
+                    .birth(member.getBirth())
+                    .enterDate(member.getEnterDate().toLocalDate())
+                    .build();
+
+            return new ResponseEntity(managerResDto, HttpStatus.OK);
+        }
     }
 
     @Transactional
