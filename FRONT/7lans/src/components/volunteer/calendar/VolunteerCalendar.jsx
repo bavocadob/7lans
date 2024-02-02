@@ -200,7 +200,7 @@ const VolunteerCalendar = () => {
 
         setRelation(childInfo.relationId);
 
-        axios.post('http://localhost:8080/meetingSchedue',{
+        axios.post('https://i10e103.p.ssafy.io/api/v1/meetingSchedue',{
         relationId: childInfo.relationId,
         year: currentDate.getFullYear(),
         month: currentDate.getMonth()+1
