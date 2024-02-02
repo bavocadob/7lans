@@ -35,8 +35,8 @@ public class DinosaurController {
         }
     }
 
-    @Operation(summary = "유저가 가지고 있는 대표 공룡")
-    @PutMapping("/collection")
+    @Operation(summary = "유저의 대표 공룡 변경")
+    @PutMapping("/dinosaurs/change")
     public ResponseEntity<Void> changeMyDinosaur(@RequestBody DinosaurRequestDto.change requestDto) {
         dinosaurService.changeMyDinosaur(requestDto);
         return ResponseEntity.noContent().build();
