@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaEnvelope,
   FaPhone,
@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { changecompo } from "../../store/changeCompoSlice";
+import axios from 'axios'
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -90,13 +91,48 @@ const DetailContainer = styled.div`
   color: rgb(0, 0, 0);
   padding: 1rem;
   background-color: rgb(255, 255, 255);
-
+  
+  overflow: auto;
   @media (max-width: 768px) {
     margin-top: 0;
   }
 `;
 
+const Age = ({birth}) => {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  //console.log(birth[0])
+  //console.log(currentDate.getFullYear())
+
+  return(
+    <div>
+      나이 : {currentDate.getFullYear() - birth[0]+1} 살
+    </div>
+  )
+
+}
+
+const Comment = ({comment}) => {
+  //console.log(comment);
+
+  if(comment){
+    return (
+      <div>
+        특이사항 : {comment}
+      </div>
+    )
+  }
+  else{
+    return (
+      <div>
+        특이사항 : 특이사항이 없습니다. 
+      </div>
+    )
+  }
+
+}
+
 const DetailParagraph = styled.div`
+  border: 3px solid #523329;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -104,14 +140,27 @@ const DetailParagraph = styled.div`
 
 const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
-
-  const [id, setId] = useState(" ");
+  const [children, setChildren] = useState([]);
+  const [id, setId] = useState([]);
   const dispatch = useDispatch();
+  
+  
+
+  //아동 데이터 가져오기(봉사자 id를 가지고 있어야함)
+  useEffect(() => {axios.get(`http://localhost:8080/vol/list/${1}`)
+    .then((res) => {
+        setChildren(res.data);
+    })
+    .catch((err) => {
+    });
+}, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(changecompo());
   };
+
+  console.log(children);
 
   const renderSidePanel = () => {
     if (sidePanelStatus) {
@@ -124,14 +173,30 @@ const CommonSidePanel = () => {
             <ProfileImage src="./anonymous.jpg" alt="" />
           </InnerContainer>
           <InfoContainer>
-            <NameHeader>박주헌 봉사자님</NameHeader>
+            <NameHeader>  봉사자님</NameHeader>
             <DetailContainer>
-              <DetailParagraph>
+              {children.map((el) => (
+                <DetailParagraph
+                  key={el.childId}
+                >
                 <form onSubmit={onSubmit}>
-                  옥세훈 프로필 카드
+                  <h3>{el.childName}</h3>
+                  <Age 
+                    birth={el.childBirth}
+                  ></Age>
+                  <div>
+                    소속기관: {el.childCenterName}
+                  </div>
+                  <Comment
+                    comment={el.childSpecialContent}
+                  ></Comment>
+                  
+                
                   <input type="submit" value="move" />
                 </form>
               </DetailParagraph>
+              ))}
+              
             </DetailContainer>
           </InfoContainer>
         </StyledCommonSidePanel>
