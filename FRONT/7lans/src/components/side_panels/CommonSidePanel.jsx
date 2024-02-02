@@ -173,7 +173,7 @@ const CommonSidePanel = () => {
           <InfoContainer>
             <NameHeader> 박주헌 봉사자님</NameHeader>
             <DetailContainer>
-              {children.map((el) => (
+              {children.length > 0 && (children.map((el) => (
                 <DetailParagraph
                   key={el.childId}
                 >
@@ -191,7 +191,7 @@ const CommonSidePanel = () => {
                   <button onClick={() => postData(el)}>선택하기</button>
                 </form>
               </DetailParagraph>
-              ))}
+              )))}
               
             </DetailContainer>
           </InfoContainer>
