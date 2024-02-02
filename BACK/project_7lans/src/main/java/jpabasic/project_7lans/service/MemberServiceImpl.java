@@ -46,11 +46,18 @@ public class MemberServiceImpl implements MemberService{
         Dinosaur dinosaur = dinosaurRepository.findById(1L)
                 .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.childRegister] no such dinosaur"));
 
+        // 기본 공룡 1번으로 공룡 도감 컬렉션 하나 생성.
+        DinosaurCollection dinosaurCollection = DinosaurCollection.builder()
+                .dinosaur(dinosaur)
+                .build();
 
-        // 멤버에게 추가해 줄 공룡도감 생성
+        // 멤버에게 추가해 줄 공룡도감 생성 및 기본 공룡 1번으로 설정
         DinosaurBook dinosaurBook = DinosaurBook.builder()
                 .myDinosaur(dinosaur)
                 .build();
+
+        // 나의 공룡도감 리스트에 공룡 추가
+        dinosaurBook.addDinosaurCollection(dinosaurCollection);
 
         // 아동 생성
         Child child = Child.builder()
@@ -83,15 +90,22 @@ public class MemberServiceImpl implements MemberService{
         if(memberRepository.findByEmail(memberDto.getMemberEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
 
-        // 가입 할 때 공룡도감의 기본 공룡 1번
+        // 가입 할 때 공룡도감의 기본 공룡 1번 생성
         Dinosaur dinosaur = dinosaurRepository.findById(1L)
                 .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.childRegister] no such dinosaur"));
 
+        // 기본 공룡 1번으로 공룡 도감 컬렉션 하나 생성.
+        DinosaurCollection dinosaurCollection = DinosaurCollection.builder()
+                .dinosaur(dinosaur)
+                .build();
 
-        // 멤버에게 추가해 줄 공룡도감 생성
+        // 멤버에게 추가해 줄 공룡도감 생성 및 기본 공룡 1번으로 설정
         DinosaurBook dinosaurBook = DinosaurBook.builder()
                 .myDinosaur(dinosaur)
                 .build();
+
+        // 나의 공룡도감 리스트에 공룡 추가
+        dinosaurBook.addDinosaurCollection(dinosaurCollection);
 
         // 예외가 발생 안하면 가입 처리
         // 봉사자 생성
