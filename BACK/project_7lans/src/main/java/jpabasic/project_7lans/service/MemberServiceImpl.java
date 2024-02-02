@@ -24,6 +24,7 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
+    private final DinosaurRepository dinosaurRepository;
     private final ChildCenterRepository childCenterRepository;
 
     //=========================================
@@ -32,40 +33,43 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     public void childRegister(MemberRequestDto.sign memberDto) {
         log.info("childRegister Start...");
-        ChildRequestDto.register childRegisterDto = ChildRequestDto.register.builder()
-                .childEmail(memberDto.getMemberEmail())
-                .childName(memberDto.getMemberName())
-                .childPassword(memberDto.getMemberPassword())
-                .childPhoneNumber(memberDto.getMemberPhoneNumber())
-                .childBirth(memberDto.getMemberbirth())
-                .childChildCenterId(memberDto.getCenterId())
-                .build();
-
 
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
-        if(memberRepository.findByEmail(childRegisterDto.getChildEmail()).isPresent())
+        if(memberRepository.findByEmail(memberDto.getMemberEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
 
-        // System.out.println(childRegisterDto.getChildChildCenterId());
         // 예외가 발생 안하면 가입 처리
-        ChildCenter childCenter = childCenterRepository.findById(childRegisterDto.getChildChildCenterId())
+        ChildCenter childCenter = childCenterRepository.findById(memberDto.getCenterId())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.childRegister] 해당 센터 ID와 일치하는 센터가 존재하지 않습니다."));
 
+        // 가입 할 때 공룡도감의 기본 공룡 1번
+        Dinosaur dinosaur = dinosaurRepository.findById(1L)
+                .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.childRegister] no such dinosaur"));
+
+
+        // 멤버에게 추가해 줄 공룡도감 생성
         DinosaurBook dinosaurBook = DinosaurBook.builder()
+                .myDinosaur(dinosaur)
                 .build();
 
+        // 아동 생성
         Child child = Child.builder()
-                .email(childRegisterDto.getChildEmail())
-                .name(childRegisterDto.getChildName())
-                .password(childRegisterDto.getChildPassword())
-                .phoneNumber(childRegisterDto.getChildPhoneNumber())
-                .birth(childRegisterDto.getChildBirth())
+                .email(memberDto.getMemberEmail())
+                .name(memberDto.getMemberName())
+                .password(memberDto.getMemberPassword())
+                .phoneNumber(memberDto.getMemberPhoneNumber())
+                .birth(memberDto.getMemberBirth())
                 .dinosaurBook(dinosaurBook)
                 .memberType(MemberType.CHILD)
                 .build();
 
+        // 공룡도감의 주인을 아동으로 설정.
+        dinosaurBook.setMember(child);
+
+        // 아동센터의 아동 리스트에 방금 만든 아동 추가.
         childCenter.addChildList(child);
-        System.out.println(childCenter.getChildList().get(0).getName());
+
+        // 아동을 DB에 저장
         memberRepository.save(child);
 
         log.info("childRegister success return: childId:{} childName:{} childType:{}"+child.getId()+child.getName()+child.getMemberType());
@@ -75,29 +79,34 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     public void volunteerRegister(MemberRequestDto.sign memberDto) {
 
-        VolunteerRequestDto.register volunteerRegisterDto = VolunteerRequestDto.register.builder()
-                .volunteerEmail(memberDto.getMemberEmail())
-                .volunteerName(memberDto.getMemberName())
-                .volunteerPassword(memberDto.getMemberPassword())
-                .volunteerPhoneNumber(memberDto.getMemberPhoneNumber())
-                .volunteerBirth(memberDto.getMemberbirth())
-                .build();
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
-        if(memberRepository.findByEmail(volunteerRegisterDto.getVolunteerEmail()).isPresent())
+        if(memberRepository.findByEmail(memberDto.getMemberEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
 
+        // 가입 할 때 공룡도감의 기본 공룡 1번
+        Dinosaur dinosaur = dinosaurRepository.findById(1L)
+                .orElseThrow(()->new IllegalArgumentException("[MemberServiceImpl.childRegister] no such dinosaur"));
+
+
+        // 멤버에게 추가해 줄 공룡도감 생성
         DinosaurBook dinosaurBook = DinosaurBook.builder()
+                .myDinosaur(dinosaur)
                 .build();
+
         // 예외가 발생 안하면 가입 처리
+        // 봉사자 생성
         Volunteer volunteer = Volunteer.builder()
-                .email(volunteerRegisterDto.getVolunteerEmail())
-                .name(volunteerRegisterDto.getVolunteerName())
-                .password(volunteerRegisterDto.getVolunteerPassword())
-                .phoneNumber(volunteerRegisterDto.getVolunteerPhoneNumber())
-                .birth(volunteerRegisterDto.getVolunteerBirth())
+                .email(memberDto.getMemberEmail())
+                .name(memberDto.getMemberName())
+                .password(memberDto.getMemberPassword())
+                .phoneNumber(memberDto.getMemberPhoneNumber())
+                .birth(memberDto.getMemberBirth())
                 .memberType(MemberType.VOLUNTEER)
                 .dinosaurBook(dinosaurBook)
                 .build();
+
+        // 공룡도감의 주인을 봉사자로 설정.
+        dinosaurBook.setMember(volunteer);
 
         memberRepository.save(volunteer);
     }
@@ -106,30 +115,22 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void managerRegister(MemberRequestDto.sign memberDto) {
 
-        ManagerRequestDto.register managerRegisterDto = ManagerRequestDto.register.builder()
-                .managerEmail(memberDto.getMemberEmail())
-                .managerName(memberDto.getMemberName())
-                .managerPassword(memberDto.getMemberPassword())
-                .managerPhoneNumber(memberDto.getMemberPhoneNumber())
-                .managerBirth(memberDto.getMemberbirth())
-                .managerChildCenterId(memberDto.getCenterId())
-                .build();
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
-        if(memberRepository.findByEmail(managerRegisterDto.getManagerEmail()).isPresent())
+        if(memberRepository.findByEmail(memberDto.getMemberEmail()).isPresent())
             throw new IllegalArgumentException("이미 가입된 계정입니다.");
 
 
-        System.out.println(managerRegisterDto.getManagerChildCenterId());
+        System.out.println(memberDto.getCenterId());
         // 예외가 발생 안하면 가입 처리
-        ChildCenter childCenter = childCenterRepository.findById(managerRegisterDto.getManagerChildCenterId())
+        ChildCenter childCenter = childCenterRepository.findById(memberDto.getCenterId())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.managerRegister] 해당 센터 ID와 일치하는 센터가 존재하지 않습니다."));
 
         Manager manager = Manager.builder()
-                .email(managerRegisterDto.getManagerEmail())
-                .name(managerRegisterDto.getManagerName())
-                .password(managerRegisterDto.getManagerPassword())
-                .phoneNumber(managerRegisterDto.getManagerPhoneNumber())
-                .birth(managerRegisterDto.getManagerBirth())
+                .email(memberDto.getMemberEmail())
+                .name(memberDto.getMemberName())
+                .password(memberDto.getMemberPassword())
+                .phoneNumber(memberDto.getMemberPhoneNumber())
+                .birth(memberDto.getMemberBirth())
                 .childCenter(childCenter)
                 .memberType(MemberType.MANAGER)
                 .build();

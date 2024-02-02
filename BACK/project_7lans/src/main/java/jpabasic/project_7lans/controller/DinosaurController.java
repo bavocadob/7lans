@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.dinosaur.DinosaurRequestDto;
 import jpabasic.project_7lans.dto.dinosaur.DinosaurResponseDto;
 import jpabasic.project_7lans.dto.egg.EggResponseDto;
@@ -37,9 +38,29 @@ public class DinosaurController {
 
     @Operation(summary = "유저의 대표 공룡 변경")
     @PutMapping("/dinosaurs/change")
-    public ResponseEntity<Void> changeMyDinosaur(@RequestBody DinosaurRequestDto.change requestDto) {
-        dinosaurService.changeMyDinosaur(requestDto);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity changeMyDinosaur(@RequestBody DinosaurRequestDto.change requestDto) {
+        try{
+            dinosaurService.changeMyDinosaur(requestDto);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Operation(summary = "유저(아동, 봉사자)의 대표 공룡 조회")
+    @GetMapping("/dinosaurs/myDinosaur/{memberId}")
+    public ResponseEntity<DinosaurResponseDto.detail> myDinosaur(@PathVariable @Valid Long memberId) {
+        try {
+            DinosaurRequestDto.detail detailReqDto = DinosaurRequestDto.detail.builder()
+                    .memberId(memberId)
+                    .build();
+            DinosaurResponseDto.detail detailResDto = dinosaurService.getMyDinosaurDetail(detailReqDto);
+            return new ResponseEntity<>(detailResDto, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Operation(summary = "친구 관계에 있는 알 정보")

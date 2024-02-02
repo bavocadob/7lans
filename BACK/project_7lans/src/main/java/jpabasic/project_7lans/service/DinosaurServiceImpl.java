@@ -48,12 +48,15 @@ public class DinosaurServiceImpl implements DinosaurService {
         return response;
     }
 
+    // 유저(아동, 봉사자) 자신의 대표 공룡 정보 조회.
     @Override
-    public DinosaurResponseDto.detail getDinosaurDetail(Long dinosaurId) {
-        Dinosaur dinosaur = dinosaurRepository.findById(dinosaurId)
-                .orElseThrow();
+    public DinosaurResponseDto.detail getMyDinosaurDetail(DinosaurRequestDto.detail detailReqDto) {
+        Member member = memberRepository.findById(detailReqDto.getMemberId())
+                .orElseThrow(()->new IllegalArgumentException(""));
 
-        return DinosaurResponseDto.detail.toDto(dinosaur);
+        Dinosaur dinosuar = member.getDinosaurBook().getMyDinosaur();
+
+        return DinosaurResponseDto.detail.toDto(dinosuar);
     }
 
     @Transactional
@@ -89,6 +92,7 @@ public class DinosaurServiceImpl implements DinosaurService {
     }
 
     @Override
+    @Transactional
     public void changeMyDinosaur(DinosaurRequestDto.change requestDto) {
         DinosaurBook dinosaurBook = memberRepository.findById(requestDto.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 Member가 없습니다. id=" + requestDto.getMemberId()))

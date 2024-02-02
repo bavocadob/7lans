@@ -28,9 +28,9 @@ public class DinosaurBook {
 
     @Builder
     public DinosaurBook(
-            Member member
+            Dinosaur myDinosaur
     ) {
-        this.member = member;
+        this.myDinosaur = myDinosaur;
     }
 
     public void addDinosaurCollection(DinosaurCollection collection) {

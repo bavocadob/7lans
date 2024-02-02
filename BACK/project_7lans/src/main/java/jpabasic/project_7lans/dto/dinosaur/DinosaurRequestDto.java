@@ -23,6 +23,19 @@ public class DinosaurRequestDto {
 
     @Getter
     @NoArgsConstructor
+    public static class detail {
+        private Long memberId;
+
+        @Builder
+        detail(
+                Long memberId
+        ) {
+            this.memberId = memberId;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
     public static class change {
         private Long memberId;
         private Long dinosaurId;

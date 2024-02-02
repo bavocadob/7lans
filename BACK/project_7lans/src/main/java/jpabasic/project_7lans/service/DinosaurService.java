@@ -13,7 +13,7 @@ public interface DinosaurService {
     // TODO 인자 DTO로 받기
     public DinosaurResponseDto.list getAllDinosaursForMember(Long memberId);
 
-    public DinosaurResponseDto.detail getDinosaurDetail(Long dinosaurId);
+    public DinosaurResponseDto.detail getMyDinosaurDetail(DinosaurRequestDto.detail detailReqDto);
 
     public DinosaurResponseDto.hatch acquireDinosaur(DinosaurRequestDto.acquire requestDto);
     public void changeMyDinosaur(DinosaurRequestDto.change requestDto);

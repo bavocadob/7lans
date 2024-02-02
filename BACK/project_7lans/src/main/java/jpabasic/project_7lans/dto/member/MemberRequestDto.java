@@ -28,7 +28,7 @@ public class MemberRequestDto {
         @NotNull(message = "[MemberRequestDto.sign] memberPhoneNumber 는 null 이 될 수 없습니다.")
         private String memberPhoneNumber;
         @NotNull(message = "[MemberRequestDto.sign] memberbirth 는 null 이 될 수 없습니다.")
-        private LocalDate memberbirth;
+        private LocalDate memberBirth;
         private Long centerId;
 
         @Builder
@@ -38,7 +38,7 @@ public class MemberRequestDto {
                 String memberType,
                 String memberName,
                 String memberPhoneNumber,
-                LocalDate memberbirth,
+                LocalDate memberBirth,
                 Long centerId
         ){
             this.memberEmail = memberEmail;
@@ -46,7 +46,7 @@ public class MemberRequestDto {
             this.memberType = memberType;
             this.memberName = memberName;
             this.memberPhoneNumber = memberPhoneNumber;
-            this.memberbirth = memberbirth;
+            this.memberBirth = memberBirth;
             this.centerId = centerId;
         }
     }
