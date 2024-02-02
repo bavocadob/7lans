@@ -66,17 +66,17 @@ function Images({image}){
   )
 }
 const Picture = () => {
+
+  //부모에게서 전달받은 값
   const location = useLocation();
-  const meetingId = {...location.state};
+  const state = {...location.state};
 
-
-  const year = meetingId.year;
-  const month = meetingId.month;
-  const day = meetingId.day;
+  console.log("Picture")
+  console.log(state.meetingId);
 
 
   //이미지 데이터 가져오기
-  axios.get(`http://localhost:8080/meetingSchedue/image/${1}`)
+  axios.get(`http://localhost:8080/meetingSchedue/image/${state.meetingId}`)
   .then(function (response) {
       console.log(response)
   }).catch(function (error){

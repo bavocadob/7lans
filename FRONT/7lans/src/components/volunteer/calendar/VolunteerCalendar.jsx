@@ -51,8 +51,6 @@ const GetMeeting = (meetings, cloneDay, currentMonth) => {
     let meeting = '';
 
     meetings.forEach(m => {
-        // console.log(cloneDay.getDate());
-        // console.log(m.day);
         if(cloneDay.getDate() == m.day){
             meeting = m;
         }
@@ -68,7 +66,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-
+    
     const rows = [];
     let days = [];
     let day = startDate;
@@ -80,8 +78,9 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
           formattedDate = format(cloneDay, 'd');
           //해당 날짜에 미팅이 있으면 담기
           const meeting = GetMeeting(meetings, cloneDay);
-          console.log(meeting);
-
+          //console.log("in RenderCells")
+          //console.log(currentMonth);
+            
           days.push(
               <div
                   className={`col cell ${
@@ -94,7 +93,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
                           : 'valid'
                   }`}
                   key={cloneDay}
-                  onClick={() => onDateClick(cloneDay)}
+                  onClick={() => onDateClick(cloneDay, meeting)}
               >
                   <span
                       className={
@@ -105,9 +104,14 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
                   >
                       {formattedDate}
                   </span>
-                  {meeting.day}
+                  <Meeting 
+                    meeting = {meeting}
+                    currentMonth = {currentMonth}
+                    cloneDay = {cloneDay}
+                  />
               </div>,
           );
+
 
           day = addDays(day, 1);
         }
@@ -120,6 +124,19 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
     }
     return <div className="body">{rows}</div>;
 };
+
+const Meeting = ({meeting, currentMonth, cloneDay}) => {
+    //console.log(meeting);
+    //console.log(currentMonth.getMonth());
+    //console.log(cloneDay);
+    if(currentMonth.getMonth() == cloneDay.getMonth()){
+        return (
+            <div>
+                {meeting.day}
+            </div>
+        );
+    }
+}
 
 const TimeModal = ({
     backdrop_path,
@@ -188,18 +205,19 @@ const VolunteerCalendar = () => {
     const nextMonth = () => {
         setCurrentMonth(addMonths(currentMonth, 1));
     };
-    const onDateClick = (day) => {
-      console.log(dayOfMonth)
-      console.log(day,'day')
+    const onDateClick = (day, meeting) => {
+      //console.log(dayOfMonth)
+      //console.log(day,'day')
       // 오늘 날짜 이전은 사진고를 수 있는 페이지로 이동하게 됨
       if (day.getDate() <= dayOfMonth) { // day가 유효한지 확인
         setSelectedDate(day);
         navigate('/volunteer_ChoosePicturePage',{
             state: {
-                year : `${day.getFullYear()}`,
-                month: `${day.getMonth()+1}`,
-                day: `${day.getDate()}`,
-                meetingId: `${1}`
+                //날짜가 아닌 meetingId로 사진 불러오기
+                // year : `${day.getFullYear()}`,
+                // month: `${day.getMonth()+1}`,
+                // day: `${day.getDate()}`,
+                meetingId: `${meeting.meetingId}`
             }
         }); 
       }
