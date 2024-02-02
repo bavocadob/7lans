@@ -71,8 +71,8 @@ const Picture = () => {
   const location = useLocation();
   const state = {...location.state};
 
-  console.log("Picture")
-  console.log(state.meetingId);
+  //console.log("Picture")
+  //console.log(state.meetingId);
 
 
   //이미지 데이터 가져오기
