@@ -11,6 +11,7 @@ import wordsSlice from "./wordsSlice";
 import changeCompoSlice from "./changeCompoSlice";
 import isPlayGameNow from "./isPlayGameNow";
 import userSlice from "./userSlice";
+import dinoSlice from "./dinoSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -21,6 +22,7 @@ const reducers = combineReducers({
   changecompo: changeCompoSlice,
   isPlayGameNow: isPlayGameNow,
   user: userSlice,
+  dino: dinoSlice,
 })
 
 const persistConfig = {
