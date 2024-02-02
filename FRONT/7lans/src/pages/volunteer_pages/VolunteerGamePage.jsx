@@ -1,11 +1,11 @@
 import React from 'react'
 import GameNav from '../../components/navs/GameNav'
-import Chat from '../../components/child/games/Chatting'
+import Chat from '../../components/volunteer/games/Chatting'
 import { useSelector } from 'react-redux'
-import Gugudan from '../../components/child/games/Gugudan'
-import Quiz from '../../components/child/games/Quiz'
-import Words from '../../components/child/games/Words'
-import CardFind from '../../components/child/games/CardFind'
+import Gugudan from '../../components/volunteer/games/Gugudan'
+import Quiz from '../../components/volunteer/games/Quiz'
+import Words from '../../components/volunteer/games/Words'
+import CardFind from '../../components/volunteer/games/CardFind'
 import { GrGamepad } from "react-icons/gr";
 import { motion } from "framer-motion"
 

@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios'
 // import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
 import NormalNav from '../../navs/NormalNav';
 import PostIt from '../../volunteer/post_it/PostIt';
 import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
+import { current } from '@reduxjs/toolkit';
 
-const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
+const RenderHeader = ({ currentMonth, prevMonth, nextMonth, child }) => {
     return (
         <div className="header row">
             <div className="col col-start">
@@ -19,6 +22,9 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
                         {format(currentMonth, 'M')}월
                     </span>
                     {format(currentMonth, 'yyyy')}
+                </span>
+                <span>
+                    {child.childName}과의 일정
                 </span>
             </div>
             <div className="col col-end">
@@ -44,13 +50,27 @@ const RenderDays = () => {
     return <div className="days row">{days}</div>;
 };
 
+const GetMeeting = (meetings, cloneDay, currentMonth) => {
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
+    let meeting = '';
+
+    meetings.forEach(m => {
+        if(cloneDay.getDate() == m.day){
+            meeting = m;
+        }
+    })
+
+    return meeting;
+    
+}
+
+
+const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-
+    
     const rows = [];
     let days = [];
     let day = startDate;
@@ -60,6 +80,11 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
         for (let i = 0; i < 7; i++) {
           const cloneDay = addDays(day, 1);
           formattedDate = format(cloneDay, 'd');
+          //해당 날짜에 미팅이 있으면 담기
+          const meeting = GetMeeting(meetings, cloneDay);
+          //console.log("in RenderCells")
+          //console.log(currentMonth);
+            
           days.push(
               <div
                   className={`col cell ${
@@ -72,7 +97,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
                           : 'valid'
                   }`}
                   key={cloneDay}
-                  onClick={() => onDateClick(cloneDay)}
+                  onClick={() => onDateClick(cloneDay, meeting)}
               >
                   <span
                       className={
@@ -83,8 +108,15 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
                   >
                       {formattedDate}
                   </span>
+                  <Meeting 
+                    meeting = {meeting}
+                    currentMonth = {currentMonth}
+                    cloneDay = {cloneDay}
+                  />
               </div>,
           );
+
+
           day = addDays(day, 1);
         }
         rows.push(
@@ -96,6 +128,19 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
     }
     return <div className="body">{rows}</div>;
 };
+
+const Meeting = ({meeting, currentMonth, cloneDay}) => {
+    //console.log(meeting);
+    //console.log(currentMonth.getMonth());
+    //console.log(cloneDay);
+    if(currentMonth.getMonth() == cloneDay.getMonth()){
+        return (
+            <div>
+                {meeting.day}
+            </div>
+        );
+    }
+}
 
 const TimeModal = ({
     backdrop_path,
@@ -140,10 +185,33 @@ const VolunteerCalendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
+    const [meetings, setMeetings] = useState([]);
+    const [relationId, setRelation] = useState(1);
+
+
     const navigate = useNavigate();
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
-   
+    const childInfo = useSelector((state) => state.child.value)
+
+    //해당 아동의 미팅 정보 불러오기
+    useEffect(() => {
+        //console.log("change")
+
+        setRelation(childInfo.relationId);
+
+        axios.post('http://localhost:8080/meetingSchedue',{
+        relationId: childInfo.relationId,
+        year: currentDate.getFullYear(),
+        month: currentDate.getMonth()+1
+    })
+    .then((res) => {
+        setMeetings(res.data);
+    })
+    .catch((err) => {
+    });
+    }, [childInfo])
+
 
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
@@ -151,18 +219,26 @@ const VolunteerCalendar = () => {
     const nextMonth = () => {
         setCurrentMonth(addMonths(currentMonth, 1));
     };
-    const onDateClick = (day) => {
-      console.log(dayOfMonth)
-      console.log(day,'day')
+    const onDateClick = (day, meeting) => {
+      //console.log(dayOfMonth)
+      //console.log(day,'day')
       // 오늘 날짜 이전은 사진고를 수 있는 페이지로 이동하게 됨
       if (day.getDate() <= dayOfMonth) { // day가 유효한지 확인
         setSelectedDate(day);
-        navigate('/volunteer_ChoosePicturePage'); 
+        navigate('/volunteer_ChoosePicturePage',{
+            state: {
+                //날짜가 아닌 meetingId로 사진 불러오기
+                // year : `${day.getFullYear()}`,
+                // month: `${day.getMonth()+1}`,
+                // day: `${day.getDate()}`,
+                meetingId: `${meeting.meetingId}`
+            }
+        }); 
       }
       else {
         // 오늘날짜 이후로는 화상채팅약속시간 잡을 수 있는 모달 창이 떠야 함
         setModalOpen(true)
-        console.log('isModalOpen', isModalOpen);
+        //console.log('isModalOpen', isModalOpen);
       }
     };
 
@@ -193,7 +269,6 @@ const VolunteerCalendar = () => {
     
     // export default VolunteerCalendar;
     
-  
     return (
        
             <div className="calendar">
@@ -201,12 +276,14 @@ const VolunteerCalendar = () => {
                     currentMonth={currentMonth}
                     prevMonth={prevMonth}
                     nextMonth={nextMonth}
+                    child={childInfo}
                 />
                 <RenderDays />
                 <RenderCells
                     currentMonth={currentMonth}
                     selectedDate={selectedDate}
                     onDateClick={onDateClick}
+                    meetings = {meetings}
                 />
             </div>
       

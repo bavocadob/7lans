@@ -19,13 +19,13 @@ const Gugudan = () => {
     if (multipleNum === Number(10)) {
       const timeoutIds = setTimeout(() => {
         resetGame()
-      }, 2000)
+      }, 500)
       return () => clearTimeout(timeoutIds)
     }
     if (correct !== '') {
       const timeoutId = setTimeout(() => {
         setCorrect('')
-      }, 2000)
+      }, 500)
       return () => clearTimeout(timeoutId)
     }
     if (inputRef.current) {
@@ -76,11 +76,11 @@ const Gugudan = () => {
         <div style={{display: 'flex', 
                     flexDirection: 'column', 
                     alignItems: 'center', 
-                    height: '700px', 
+                    height: '400px', 
                     width: '50vw',
                     fontSize:'0'
                     }}>
-          <h1 style={{marginTop: '10%',
+          <h1 style={{
                       marginBottom: '4%', 
                       fontWeight: 'bolder', 
                       fontSize: '100px',
@@ -95,13 +95,13 @@ const Gugudan = () => {
                         alignItems: 'center', 
                         width: '100%', 
                         height: '50%',
-                        marginBottom:'0'
+                        marginBottom:'0%'
                         }}>
             <div style={{display:'flex', 
                         alignItems: 'center', 
                         justifyContent: 'center',
                         height: '30%', 
-                        width: '100%', 
+                        width: '80%', 
                         border: '5px solid black',
                         borderBottom: '0', 
                         borderRadius: '20px 20px 0 0', 
@@ -112,7 +112,7 @@ const Gugudan = () => {
                         alignItems: 'center', 
                         justifyContent: 'center', 
                         height: '100%', 
-                        width: '100%', 
+                        width: '80%', 
                         border: '5px solid black',
                         borderRadius: '0 0 20px 20px',
                         marginBottom:'0'
@@ -127,7 +127,8 @@ const Gugudan = () => {
                             fontSize: '100px'}} 
                     type="text" 
                     onKeyUp={handleEnter} 
-                    onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
+                    onChange={(e) => setNowAns(e.target.value)} 
+                    value={nowAns} />
             </div>
           </div>
         </div>
@@ -181,11 +182,9 @@ const Gugudan = () => {
             backgroundColor: 'rgb(255, 250, 233)',
           }}
         >
-          <h1 style={{ marginTop: '3%', 
-                      fontWeight: 'bolder', 
+          <h1 style={{fontWeight: 'bolder', 
                       color: 'rgb(41, 40, 38)', 
                       textShadow: '2px 2px 2px rgb(255, 215, 3)', 
-                      display: 'felx',
                       textAlign: 'center',
                       marginTop:'2rem',
                       marginBottom: '0'
@@ -193,34 +192,33 @@ const Gugudan = () => {
           몇 단을 출제하실 건가요??
         </h1>
           <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              // justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-              backgroundColor: 'rgb(251, 243, 212)',
-              margin: '8%',
-              marginTop:'35px',
-              marginBottom:'20px',
-              height: '70%',
-              borderRadius: '16px',
-              border: '5px solid black',
-            }}
+            style={{display: 'flex',
+                    flexWrap: 'wrap',
+                    // justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    backgroundColor: 'rgb(251, 243, 212)',
+                    margin: '8%',
+                    marginTop:'35px',
+                    marginBottom:'20px',
+                    height: '70%',
+                    borderRadius: '16px',
+                    border: '5px solid black',
+                  }}
           >
             {danArray.map((danValue) => renderSpan(danValue, danValue))}
           </div>
           <button className='shadow' 
                   style={{width: '150px', 
-                        height:'60px',
-                        alignSelf: 'center', 
-                        fontWeight: 'bolder', 
-                        fontSize: '25px', 
-                        border: 'none', 
-                        borderRadius: '16px', 
-                        backgroundColor: 'rgb(255, 215, 3)',
-                        marginTop:'0',
-                        marginBottom:'15px'
+                          height:'60px',
+                          alignSelf: 'center', 
+                          fontWeight: 'bolder', 
+                          fontSize: '25px', 
+                          border: 'none', 
+                          borderRadius: '16px', 
+                          backgroundColor: 'rgb(255, 215, 3)',
+                          marginTop:'0',
+                          marginBottom:'15px'
                       }} 
                   onClick={() => startGame(dan)}> 선택 완료 </button>
         </div>

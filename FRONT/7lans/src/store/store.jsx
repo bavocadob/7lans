@@ -12,6 +12,9 @@ import changeCompoSlice from "./changeCompoSlice";
 import isPlayGameNow from "./isPlayGameNow";
 import userSlice from "./userSlice";
 import adminSelectVolSlice from "./adminSelectVolSlice";
+import childSlice from "./childSlice";
+import childrenSlice from "./childrenSlice";
+import dinoSlice from "./dinoSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -23,6 +26,9 @@ const reducers = combineReducers({
   isPlayGameNow: isPlayGameNow,
   user: userSlice,
   adminSelectVol: adminSelectVolSlice,
+  child: childSlice,
+  children: childrenSlice,
+  dino: dinoSlice,
 });
 
 const persistConfig = {

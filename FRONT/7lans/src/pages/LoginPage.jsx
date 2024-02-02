@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../store/userSlice';
+import { changeDino } from '../store/dinoSlice';
+
 
 const Container = styled.div`
   height: 100vh;
@@ -30,6 +32,7 @@ const ContentWrapper = styled.div`
   width: 100vw;
   display: flex;
 `;
+
 
 const LeftContent = styled.div`
   width: 50vw;
@@ -84,6 +87,7 @@ const LoginPage = () => {
 
   const navigate = useNavigate()
   const userInfo = useSelector((state) => state.user.value)
+  const userDino = useSelector((state) => state.dino.value)
   const dispatch = useDispatch()
 
   const login = async (memberEmail, memberPassword) => {
@@ -92,6 +96,16 @@ const LoginPage = () => {
         memberEmail,
         memberPassword
       });
+      const representDino = async (id) => {
+        try {
+          const res = await axios.get(`https://i10e103.p.ssafy.io/api/v1/dinosaurs/myDinosaur/${id}`)
+          dispatch(changeDino(res.data.id))
+          console.log(res.data.id)
+        } catch (err) {
+          console.error(err)
+        }
+      }
+      representDino(res.data.memberId)
       // console.log(res);
       if (res && res.data.memberType === 'CHILD') {
         navigate('/child_main');
