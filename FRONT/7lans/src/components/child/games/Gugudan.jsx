@@ -19,13 +19,13 @@ const Gugudan = () => {
     if (multipleNum === Number(10)) {
       const timeoutIds = setTimeout(() => {
         resetGame()
-      }, 2000)
+      }, 500)
       return () => clearTimeout(timeoutIds)
     }
     if (correct !== '') {
       const timeoutId = setTimeout(() => {
         setCorrect('')
-      }, 2000)
+      }, 500)
       return () => clearTimeout(timeoutId)
     }
     if (inputRef.current) {
@@ -127,7 +127,8 @@ const Gugudan = () => {
                             fontSize: '100px'}} 
                     type="text" 
                     onKeyUp={handleEnter} 
-                    onChange={(e) => setNowAns(e.target.value)} value={nowAns} />
+                    onChange={(e) => setNowAns(e.target.value)} 
+                    value={nowAns} />
             </div>
           </div>
         </div>
@@ -193,34 +194,33 @@ const Gugudan = () => {
           몇 단을 출제하실 건가요??
         </h1>
           <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              // justifyContent: 'center',
-              alignItems: 'center',
-              textAlign: 'center',
-              backgroundColor: 'rgb(251, 243, 212)',
-              margin: '8%',
-              marginTop:'35px',
-              marginBottom:'20px',
-              height: '70%',
-              borderRadius: '16px',
-              border: '5px solid black',
-            }}
+            style={{display: 'flex',
+                    flexWrap: 'wrap',
+                    // justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    backgroundColor: 'rgb(251, 243, 212)',
+                    margin: '8%',
+                    marginTop:'35px',
+                    marginBottom:'20px',
+                    height: '70%',
+                    borderRadius: '16px',
+                    border: '5px solid black',
+                  }}
           >
             {danArray.map((danValue) => renderSpan(danValue, danValue))}
           </div>
           <button className='shadow' 
                   style={{width: '150px', 
-                        height:'60px',
-                        alignSelf: 'center', 
-                        fontWeight: 'bolder', 
-                        fontSize: '25px', 
-                        border: 'none', 
-                        borderRadius: '16px', 
-                        backgroundColor: 'rgb(255, 215, 3)',
-                        marginTop:'0',
-                        marginBottom:'15px'
+                          height:'60px',
+                          alignSelf: 'center', 
+                          fontWeight: 'bolder', 
+                          fontSize: '25px', 
+                          border: 'none', 
+                          borderRadius: '16px', 
+                          backgroundColor: 'rgb(255, 215, 3)',
+                          marginTop:'0',
+                          marginBottom:'15px'
                       }} 
                   onClick={() => startGame(dan)}> 선택 완료 </button>
         </div>

@@ -63,12 +63,12 @@ const CardFind = () => {
   const renderCard = () => {
     if (correct) {
         return (
-            <div style={{fontSize:'30px', 
-                display: 'flex',
-                flexDirection: 'column', 
-                justifyContent: 'center', 
-                alignItems: 'center', 
-              }}>
+            <div style={{ display: 'flex',
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          fontSize: '150px'
+                        }}>
                 성공
             </div>
         )
