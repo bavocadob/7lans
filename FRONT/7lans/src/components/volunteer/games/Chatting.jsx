@@ -94,7 +94,6 @@ const Chat = () => {
                                         // height: 45,
                                         marginLeft: '2.5%',
                                         marginTop: '1%', 
-                                        border: 'none', 
                                         borderRadius: '20px', 
                                         padding: '15px',
                                         border: '0.2px solid'
