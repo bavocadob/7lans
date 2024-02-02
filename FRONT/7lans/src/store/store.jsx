@@ -13,6 +13,7 @@ import isPlayGameNow from "./isPlayGameNow";
 import userSlice from "./userSlice";
 import childSlice from "./childSlice";
 import childrenSlice from "./childrenSlice";
+import dinoSlice from "./dinoSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -25,6 +26,7 @@ const reducers = combineReducers({
   user: userSlice,
   child: childSlice,
   children: childrenSlice,
+  dino: dinoSlice,
 })
 
 const persistConfig = {

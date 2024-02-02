@@ -87,7 +87,7 @@ const Register = () => {
 
   const navigate = useNavigate()
 
-  // phoneNumber 변경 함수 (자동으로 '-' 삽입)
+  // phoneNumber 변경 함수 (자동으로 '-' 삽입)=
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 남기기
     const formattedValue = value.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
@@ -95,10 +95,10 @@ const Register = () => {
   };
   
 
-  const signUp = async (memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId) => {
+  const signUp = async (memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberBirth, centerId) => {
     try {
       const res = await axios.post('https://i10e103.p.ssafy.io/api/v1/member/register', {
-        memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberbirth, centerId
+        memberEmail, memberPassword, memberType, memberName, memberPhoneNumber, memberBirth, centerId
       });
   
       console.log(res);
