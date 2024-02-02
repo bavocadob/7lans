@@ -160,7 +160,7 @@ const CommonSidePanel = () => {
     dispatch(changecompo());
   };
 
-  console.log(children);
+  //console.log(children);
 
   const renderSidePanel = () => {
     if (sidePanelStatus) {
