@@ -182,11 +182,9 @@ const Gugudan = () => {
             backgroundColor: 'rgb(255, 250, 233)',
           }}
         >
-          <h1 style={{ marginTop: '3%', 
-                      fontWeight: 'bolder', 
+          <h1 style={{fontWeight: 'bolder', 
                       color: 'rgb(41, 40, 38)', 
                       textShadow: '2px 2px 2px rgb(255, 215, 3)', 
-                      display: 'felx',
                       textAlign: 'center',
                       marginTop:'2rem',
                       marginBottom: '0'
