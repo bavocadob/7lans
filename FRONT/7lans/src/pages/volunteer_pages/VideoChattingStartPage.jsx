@@ -17,16 +17,6 @@ const VideoChattingStartPage = () => {
 
   const dispatch = useDispatch()
 
-    //아동 데이터 가져오기(봉사자 id를 가지고 있어야함)
-    useEffect(() => {axios.get(`https://i10e103.p.ssafy.io/api/v1/vol/list/${14}`)
-    .then((res) => {
-        dispatch(updateChildInfo(res.data[0]))
-        dispatch(updateChildrenInfo(res.data))
-        setData(res.data[0]);
-    })
-    .catch((err) => {
-    });
-}, []);
 
   
   return (

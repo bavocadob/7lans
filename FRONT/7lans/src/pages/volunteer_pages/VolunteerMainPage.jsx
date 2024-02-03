@@ -62,7 +62,7 @@ const VolunteerMainPage = () => {
   const dispatch = useDispatch()
 
       //아동 데이터 가져오기(봉사자 id를 가지고 있어야함)
-      useEffect(() => {axios.get(`https://i10e103.p.ssafy.io/api/v1/vol/list/${14}`)
+      useEffect(() => {axios.get(`https://i10e103.p.ssafy.io/api/v1/vol/list/${userInfo.memberId}`)
       .then((res) => {
           dispatch(updateChildInfo(res.data[0]))
           dispatch(updateChildrenInfo(res.data))
