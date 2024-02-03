@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { addProblem } from '../../../store/quizSlice'
 import { gameChange } from '../../../store/isPlayGameNow'
+import Correct from '../../dinosaur/Correct'
+import Wrong from '../../dinosaur/Wrong'
 
 
 const Quiz = () => {
@@ -165,7 +167,7 @@ const Quiz = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         fontSize: '150px'
-              }}> 정답(웃는공룡 사진)
+              }}> <Correct/>
               {console.log(userInfo)}
           </div>
         )
@@ -177,7 +179,7 @@ const Quiz = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         fontSize: '150px'
-              }}>오답(우는공룡 사진)
+              }}> <Wrong/>
               </div>
         )
       }
