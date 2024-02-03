@@ -140,7 +140,7 @@ const Meeting = ({meeting, currentMonth, cloneDay}) => {
     if(currentMonth.getMonth() == cloneDay.getMonth()){
         return (
             <div>
-                {meeting.day}
+                {meeting.meetingId}
             </div>
         );
     }
@@ -183,7 +183,7 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
             if(selectedDate.getMonth() < 10){
                 day += "0";
             }
-            day += String(selectedDate.getMonth()) + "-"
+            day += String(selectedDate.getMonth()+1) + "-"
             //일
             if(selectedDate.getDay() < 10){
                 day += "0";
