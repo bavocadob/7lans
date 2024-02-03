@@ -66,18 +66,23 @@ const VolunteerMainPage = () => {
       .then((res) => {
           dispatch(updateChildInfo(res.data[0]))
           dispatch(updateChildrenInfo(res.data))
-          setData(res.data[0]);
       })
       .catch((err) => {
       });
   }, []);
+
+  const resetData = () => {
+    dispatch(updateChildInfo(''))
+    dispatch(updateChildrenInfo([]))
+    dispatch(updateUserInfo(''))
+  }
 
   return (
     <Container>
       <header>
         <LogoImage src='./7lans_logo.png' />
         <Link to={'/dinosaur_dict'}>공룡도감</Link>
-        <Link to={'/'} onClick={() => dispatch(updateUserInfo(''))}>로그아웃</Link>
+        <Link to={'/'} onClick={() => resetData()}>로그아웃</Link>
       </header>
       <span>
         <Link to={'/volunteer_start'}>나의 아이들</Link>
