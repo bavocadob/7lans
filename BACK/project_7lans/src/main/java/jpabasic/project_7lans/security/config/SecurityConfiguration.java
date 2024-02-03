@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +25,11 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // UTF-8 인코딩
+        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        characterEncodingFilter.setEncoding("UTF-8");
+        characterEncodingFilter.setForceEncoding(true);
+
         http
                 // csrf 설정
                 // Single Page Application 의 경우 기능을 사용하지 않아도 됨.
@@ -46,6 +53,9 @@ public class SecurityConfiguration {
         http.authenticationProvider(authenticationProvider);
 
         http.addFilter(corsConfig.corsFilter()); // cors 필터 적용
+
+        // Security는 Dispatcher Servlet보다 먼저 동작하기 때문에 CSRF 필터 보다 Encoding 필터가 먼저 동작하도록 설정.
+        http.addFilterBefore(characterEncodingFilter, CsrfFilter.class);
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
