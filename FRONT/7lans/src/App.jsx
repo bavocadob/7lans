@@ -1,5 +1,6 @@
 // prettier-ignore
 import React from "react";
+import ReactModal from "react-modal";
 import "../scss/main.scss";
 import { Outlet, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
@@ -37,6 +38,8 @@ import AdminMainPage from "./pages/admin_pages/AdminMainPage";
 import VolunteerManage from "./components/admin/VolunteerManage";
 import ChildManage from "./components/admin/ChildManage";
 import ActiveManage from "./components/admin/ActiveManage";
+
+ReactModal.setAppElement('#root');
 
 
 const NormalLayout = () => {
