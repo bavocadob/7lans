@@ -27,7 +27,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private final MemberService MemberService;
+    private final MemberService memberService;
     private final ChildCenterService childCenterService;
 
 
@@ -40,13 +40,13 @@ public class MemberController {
         // 회원가입
         try{
             if(memberDto.getMemberType().equals("V")){
-                MemberService.volunteerRegister(memberDto);
+                memberService.volunteerRegister(memberDto);
             }
             else if(memberDto.getMemberType().equals("C")){
-                MemberService.childRegister(memberDto);
+                memberService.childRegister(memberDto);
             }
             else{
-                MemberService.managerRegister(memberDto);
+                memberService.managerRegister(memberDto);
             }
 
             log.info("[MemberController.register] finish register member");
@@ -65,7 +65,7 @@ public class MemberController {
     public ResponseEntity<?> login(@RequestBody @Valid MemberRequestDto.login memberDto){
         try{
             // MemberService.login에서 멤버 유형에 따라 new ResponseEntity를 만들어 반환받는다.
-            return MemberService.login(memberDto);
+            return memberService.login(memberDto);
         }catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);

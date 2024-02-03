@@ -10,15 +10,17 @@ import jpabasic.project_7lans.dto.volunteer.VolunteerRequestDto;
 import jpabasic.project_7lans.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.entity.*;
 import jpabasic.project_7lans.repository.*;
+import jpabasic.project_7lans.security.config.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Service
@@ -26,6 +28,9 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService{
 
+    private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
     private final MemberRepository memberRepository;
     private final DinosaurRepository dinosaurRepository;
     private final ChildCenterRepository childCenterRepository;
@@ -66,7 +71,7 @@ public class MemberServiceImpl implements MemberService{
         Child child = Child.builder()
                 .email(memberDto.getMemberEmail())
                 .name(memberDto.getMemberName())
-                .password(memberDto.getMemberPassword())
+                .password(passwordEncoder.encode(memberDto.getMemberPassword()))
                 .phoneNumber(memberDto.getMemberPhoneNumber())
                 .birth(memberDto.getMemberBirth())
                 .dinosaurBook(dinosaurBook)
@@ -88,6 +93,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public void volunteerRegister(MemberRequestDto.sign memberDto) {
+        log.info("volunteerRegister Start...");
 
         // 가입되어 있으면 예외처리(나중에 예외 변경해줄 것)
         if(memberRepository.findByEmail(memberDto.getMemberEmail()).isPresent())
@@ -115,7 +121,7 @@ public class MemberServiceImpl implements MemberService{
         Volunteer volunteer = Volunteer.builder()
                 .email(memberDto.getMemberEmail())
                 .name(memberDto.getMemberName())
-                .password(memberDto.getMemberPassword())
+                .password(passwordEncoder.encode(memberDto.getMemberPassword()))
                 .phoneNumber(memberDto.getMemberPhoneNumber())
                 .birth(memberDto.getMemberBirth())
                 .memberType(MemberType.VOLUNTEER)
@@ -126,6 +132,8 @@ public class MemberServiceImpl implements MemberService{
         dinosaurBook.setMember(volunteer);
 
         memberRepository.save(volunteer);
+
+        log.info("volunteerRegister success return: volunteerId:{} volunteerName:{} volunteerType:{}"+volunteer.getId()+volunteer.getName()+volunteer.getMemberType());
     }
 
     @Transactional
@@ -145,7 +153,7 @@ public class MemberServiceImpl implements MemberService{
         Manager manager = Manager.builder()
                 .email(memberDto.getMemberEmail())
                 .name(memberDto.getMemberName())
-                .password(memberDto.getMemberPassword())
+                .password(passwordEncoder.encode(memberDto.getMemberPassword()))
                 .phoneNumber(memberDto.getMemberPhoneNumber())
                 .birth(memberDto.getMemberBirth())
                 .childCenter(childCenter)
@@ -153,15 +161,24 @@ public class MemberServiceImpl implements MemberService{
                 .build();
 
         memberRepository.save(manager);
+
     }
 
     //================================================================================
     //로그인
     @Override
-    public ResponseEntity<?> login(MemberRequestDto.login logReqDto) {
+    public ResponseEntity<?> login(MemberRequestDto.login loginReqDto) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginReqDto.getMemberEmail(),
+                        loginReqDto.getMemberPassword()
+                )
+        );
 
-        Member member = memberRepository.findByEmail(logReqDto.getMemberEmail())
+        var member = memberRepository.findByEmail(loginReqDto.getMemberEmail())
                 .orElseThrow(() -> new IllegalArgumentException("[MemberServiceImpl.login] 존재하지 않는 멤버 Email입니다."));
+        String jwtToken = jwtService.generateToken(member);
+
 
         if(member.getMemberType().equals(MemberType.CHILD)){
             MemberResponseDto.loginResChildDto childResDto = MemberResponseDto.loginResChildDto.builder()
@@ -176,6 +193,7 @@ public class MemberServiceImpl implements MemberService{
                     .profileImgPath(member.getProfileImgPath())
                     .birth(member.getBirth())
                     .enterDate(member.getEnterDate().toLocalDate())
+                    .token(jwtToken)
                     .build();
 
             return new ResponseEntity(childResDto, HttpStatus.OK);
@@ -192,6 +210,7 @@ public class MemberServiceImpl implements MemberService{
                     .birth(member.getBirth())
                     .enterDate(member.getEnterDate().toLocalDate())
                     .volunteerTime(((Volunteer)member).getVolunteerTime())
+                    .token(jwtToken)
                     .build();
 
             return new ResponseEntity(volunteerResDto, HttpStatus.OK);
@@ -208,6 +227,7 @@ public class MemberServiceImpl implements MemberService{
                     .profileImgPath(member.getProfileImgPath())
                     .birth(member.getBirth())
                     .enterDate(member.getEnterDate().toLocalDate())
+                    .token(jwtToken)
                     .build();
 
             return new ResponseEntity(managerResDto, HttpStatus.OK);
@@ -226,5 +246,22 @@ public class MemberServiceImpl implements MemberService{
             memberRepository.delete(member);
     }
 
+
+//    @Override
+//    public MemberResponseDto.loginResDto authenticate(MemberRequestDto.login loginReqDto){
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        loginReqDto.getMemberEmail(),
+//                        loginReqDto.getMemberPassword()
+//                )
+//        );
+//        var member = memberRepository.findByEmail(loginReqDto.getMemberEmail())
+//                .orElseThrow();
+//        String jwtToken = jwtService.generateToken(member);
+//
+//        return MemberResponseDto.loginResDto.builder()
+//                .token(jwtToken)
+//                .build();
+//    }
 
 }

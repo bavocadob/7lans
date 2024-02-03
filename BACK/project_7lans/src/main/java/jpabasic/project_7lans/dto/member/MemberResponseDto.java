@@ -33,6 +33,8 @@ public class MemberResponseDto {
         private LocalDate birth;
         @NotNull(message = "[MemberResponseDto.loginResChildDto] enterDate 는 null 이 될 수 없습니다.")
         private LocalDate enterDate;
+        @NotNull(message = "[MemberResponseDto.loginResChildDto] token 는 null 이 될 수 없습니다.")
+        private String token;
 
         @Builder
         loginResChildDto(
@@ -46,7 +48,8 @@ public class MemberResponseDto {
                 String phoneNumber,
                 String profileImgPath,
                 LocalDate birth,
-                LocalDate enterDate
+                LocalDate enterDate,
+                String token
         ){
             this.memberType = memberType;
             this.memberId = memberId;
@@ -59,6 +62,7 @@ public class MemberResponseDto {
             this.profileImgPath = profileImgPath;
             this.birth = birth;
             this.enterDate = enterDate;
+            this.token = token;
         }
     }
 
@@ -85,6 +89,8 @@ public class MemberResponseDto {
         private LocalDate enterDate;
         @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] volunteerTime 는 null 이 될 수 없습니다.")
         private Integer volunteerTime;
+        @NotNull(message = "[MemberResponseDto.loginResVolunteerDto] token 는 null 이 될 수 없습니다.")
+        private String token;
 
         @Builder
         loginResVolunteerDto(
@@ -97,7 +103,8 @@ public class MemberResponseDto {
                 String profileImgPath,
                 LocalDate birth,
                 LocalDate enterDate,
-                Integer volunteerTime
+                Integer volunteerTime,
+                String token
         ){
             this.memberType = memberType;
             this.memberId = memberId;
@@ -109,6 +116,7 @@ public class MemberResponseDto {
             this.birth = birth;
             this.enterDate = enterDate;
             this.volunteerTime = volunteerTime;
+            this.token = token;
         }
     }
 
@@ -135,6 +143,8 @@ public class MemberResponseDto {
         private LocalDate birth;
         @NotNull(message = "[MemberResponseDto.loginResManagerDto] enterDate 는 null 이 될 수 없습니다.")
         private LocalDate enterDate;
+        @NotNull(message = "[MemberResponseDto.loginResManagerDto] token 는 null 이 될 수 없습니다.")
+        private String token;
 
         @Builder
         loginResManagerDto(
@@ -147,7 +157,8 @@ public class MemberResponseDto {
                 String phoneNumber,
                 String profileImgPath,
                 LocalDate birth,
-                LocalDate enterDate
+                LocalDate enterDate,
+                String token
         ){
             this.memberType = memberType;
             this.memberId = memberId;
@@ -159,6 +170,20 @@ public class MemberResponseDto {
             this.profileImgPath = profileImgPath;
             this.birth = birth;
             this.enterDate = enterDate;
+            this.token = token;
         }
     }
+
+//    @Getter
+//    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+//    public static class loginResDto {
+//        @NotNull(message = "[MemberResponseDto.loginResDto] token 는 null 이 될 수 없습니다.")
+//        private String token;
+//        @Builder
+//        loginResDto(
+//                String token
+//        ){
+//            this.token = token;
+//        }
+//    }
 }
