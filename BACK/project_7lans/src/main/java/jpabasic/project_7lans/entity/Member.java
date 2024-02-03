@@ -3,6 +3,7 @@ package jpabasic.project_7lans.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 //@DiscriminatorColumn(name = "member_type" , discriminatorType = DiscriminatorType.STRING)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class Member {
+public abstract class Member implements UserDetails {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
