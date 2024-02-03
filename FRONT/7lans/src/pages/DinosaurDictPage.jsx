@@ -6,6 +6,7 @@ import NormalNav from '../components/navs/NormalNav';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { changeDino } from '../store/dinoSlice';
+import { Button, Modal, Form } from 'react-bootstrap'
 
 
 const DinosaurDictPage = () => {
@@ -14,6 +15,7 @@ const DinosaurDictPage = () => {
   const userInfo = useSelector((state) => state.user.value);
   const [chooseDino, setChooseDino] = useState(userDino)
   const [hasDino , setHasDino] = useState('')
+  const [show, setShow] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -44,12 +46,11 @@ const DinosaurDictPage = () => {
       const  renderDino = hasDino.filter(dino => dino.id === i)
       return (
         <div>
-          {console.log(renderDino)}
           <p>No.{renderDino[0].id} {renderDino[0].name}</p>
           <p>몸무게: {renderDino[0].weight/100}kg    키: {renderDino[0].height/1000}m</p>
           <hr />
           <p>{renderDino[0].description}</p>
-          <button onClick={() => changeMyDino(userInfo.memberId, chooseDino)}>함께하기</button>
+          <button onClick={() => setShow(!show)}>함께하기</button>
         </div>
       )
     }
@@ -63,6 +64,7 @@ const DinosaurDictPage = () => {
       })
       console.log(res)
       representDino(memberId)
+      setShow(!show)
     } catch (err) {
       console.error(err)
     }
@@ -86,7 +88,6 @@ const DinosaurDictPage = () => {
       <div style={{display: 'flex', flex: 1, margin: '2rem', border: '5px solid black', borderRadius: '20px'}}>
         <div style={{display: 'flex', flexDirection: 'column', width: '65%', height: '100%', backgroundColor: 'rgb(232, 225, 255)', borderRadius: '15px 0 0 15px'}}>
           <div style={{height: '20%'}}>
-            <button onClick={() => console.log(userDinosaurList)}>+</button>
             <h3>공룡도감</h3>
             발견한 공룡 수 : {hasDino.length}
           </div>
@@ -126,6 +127,33 @@ const DinosaurDictPage = () => {
         </div>
       </div>
     </div>
+    <Modal show={show} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>나와 함께 할래?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>{}</Form.Label>
+              <Form.Control
+                type='image'
+                src={`./dinosourImage/dinosaur${chooseDino}_basic.png`}
+              />
+            </Form.Group>
+          </Form>
+          </Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={() => changeMyDino(userInfo.memberId, chooseDino)}>
+            함께하기
+          </Button>
+          <Button variant='secondary' onClick={() => setShow(false)}>
+            취소
+          </Button>
+          {/* <Button variant='primary' onClick={handleSubmit}>
+            생성
+          </Button> */}
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
