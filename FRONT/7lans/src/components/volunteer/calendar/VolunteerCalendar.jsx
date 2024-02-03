@@ -155,7 +155,7 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
     const childInfo = useSelector((state) => state.child.value);
 
    //미팅 생성하기
-   const saveMeeting = (selectedTimes,setMeetingCreate, meetingCreate, selectedDate) =>{
+   const saveMeeting = (selectedTimes,setMeetingCreate, meetingCreate) =>{
         //시간 순으로 배열
         selectedTimes = selectedTimes.sort((a, b) => a - b);
     
@@ -180,15 +180,15 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
             //년
             let day = String(selectedDate.getFullYear()) + "-"
             //월                
-            if(selectedDate.getMonth() < 10){
+            if(selectedDate.getMonth() < 9){
                 day += "0";
             }
             day += String(selectedDate.getMonth()+1) + "-"
             //일
-            if(selectedDate.getDay() < 10){
+            if(selectedDate.getDate() < 10){
                 day += "0";
             }
-            day += String(selectedDate.getDay()) + "T";
+            day += String(selectedDate.getDate()) + "T";
 
             const firstTime = selectedTimes[0];
             let startTime = "";
@@ -269,10 +269,10 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
                     <div>
 
                         <div>
-                            현재 일시: {currentDate.getFullYear()}년 {currentDate.getMonth()}월 {currentDate.getDay()}일
+                            현재 일시: {currentDate.getFullYear()}년 {currentDate.getMonth()+1}월 {currentDate.getDate()}일
                         </div>
                         <div>
-                            선택 일시: {selectedDate.getFullYear()}년 {selectedDate.getMonth()}월 {selectedDate.getDay()}일
+                            선택 일시: {selectedDate.getFullYear()}년 {selectedDate.getMonth()+1}월 {selectedDate.getDate()}일
                         </div>
                     </div>
                     <TimeSelect 
@@ -436,9 +436,10 @@ const VolunteerCalendar = () => {
     const onDateClick = (day, meeting) => {
       //console.log(dayOfMonth)
       //console.log(day,'day')
+
+      setSelectedDate(day);
       // 오늘 날짜 이전은 사진고를 수 있는 페이지로 이동하게 됨
       if (day.getDate() <= dayOfMonth) { // day가 유효한지 확인
-        setSelectedDate(day);
         navigate('/volunteer_ChoosePicturePage',{
             state: {
                 //날짜가 아닌 meetingId로 사진 불러오기
@@ -452,7 +453,6 @@ const VolunteerCalendar = () => {
       else {
         // 오늘날짜 이후로는 화상채팅약속시간 잡을 수 있는 모달 창이 떠야 함
         setModalOpen(true)
-        console.log('isModalOpen', isModalOpen);
       }
     };
 
