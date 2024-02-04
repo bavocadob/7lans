@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../../store/userSlice';
+import { updateChildInfo } from '../../store/childSlice';
+import { updateChildrenInfo } from '../../store/childrenSlice';
 import { motion } from "framer-motion";
-
+import axios
+ from 'axios';
 const Container = styled.div`
   height: 100vh;
   width: 100vw;
@@ -58,12 +61,28 @@ const VolunteerMainPage = () => {
   const userInfo = useSelector((state) => state.user.value)
   const dispatch = useDispatch()
 
+      //아동 데이터 가져오기(봉사자 id를 가지고 있어야함)
+      useEffect(() => {axios.get(`https://i10e103.p.ssafy.io/api/v1/vol/list/${userInfo.memberId}`)
+      .then((res) => {
+          dispatch(updateChildInfo(res.data[0]))
+          dispatch(updateChildrenInfo(res.data))
+      })
+      .catch((err) => {
+      });
+  }, []);
+
+  const resetData = () => {
+    dispatch(updateChildInfo(''))
+    dispatch(updateChildrenInfo([]))
+    dispatch(updateUserInfo(''))
+  }
+
   return (
     <Container>
       <header>
         <LogoImage src='./7lans_logo.png' />
         <Link to={'/dinosaur_dict'}>공룡도감</Link>
-        <Link to={'/'} onClick={() => dispatch(updateUserInfo(''))}>로그아웃</Link>
+        <Link to={'/'} onClick={() => resetData()}>로그아웃</Link>
       </header>
       <span>
         <Link to={'/volunteer_start'}>나의 아이들</Link>

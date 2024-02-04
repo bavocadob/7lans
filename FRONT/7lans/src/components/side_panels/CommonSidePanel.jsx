@@ -6,11 +6,12 @@ import {
   FaClock,
   FaBirthdayCake,
 } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { changecompo } from "../../store/changeCompoSlice";
 import axios from 'axios'
+import { updateChildInfo } from "../../store/childSlice";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -140,20 +141,15 @@ const DetailParagraph = styled.div`
 
 const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
-  const [children, setChildren] = useState([]);
+  //const [children, setChildren] = useState([]);
   const [id, setId] = useState([]);
   const dispatch = useDispatch();
-  
-  
 
-  //아동 데이터 가져오기(봉사자 id를 가지고 있어야함)
-  useEffect(() => {axios.get(`http://localhost:8080/vol/list/${1}`)
-    .then((res) => {
-        setChildren(res.data);
-    })
-    .catch((err) => {
-    });
-}, []);
+  const childInfo = useSelector((state) => state.child.value)
+  const children = useSelector((state) => state.children.value)
+  const userInfo = useSelector((state) => state.user.value)
+  console.log(userInfo)
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -163,6 +159,10 @@ const CommonSidePanel = () => {
   //console.log(children);
 
   const renderSidePanel = () => {
+    const postData = (child) => {
+      dispatch(updateChildInfo(child))
+      //console.log(childInfo);
+    };
     if (sidePanelStatus) {
       return (
         <StyledCommonSidePanel>
@@ -173,9 +173,9 @@ const CommonSidePanel = () => {
             <ProfileImage src="./anonymous.jpg" alt="" />
           </InnerContainer>
           <InfoContainer>
-            <NameHeader>  봉사자님</NameHeader>
+            <NameHeader> {userInfo.volunteerName} 봉사자님</NameHeader>
             <DetailContainer>
-              {children.map((el) => (
+              {children.length > 0 && (children.map((el) => (
                 <DetailParagraph
                   key={el.childId}
                 >
@@ -190,12 +190,10 @@ const CommonSidePanel = () => {
                   <Comment
                     comment={el.childSpecialContent}
                   ></Comment>
-                  
-                
-                  <input type="submit" value="move" />
+                  <button onClick={() => postData(el)}>선택하기</button>
                 </form>
               </DetailParagraph>
-              ))}
+              )))}
               
             </DetailContainer>
           </InfoContainer>

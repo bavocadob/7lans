@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../store/userSlice';
 import { FcKey } from "react-icons/fc";
 import { FcContacts } from "react-icons/fc";
+import { changeDino } from '../store/dinoSlice';
+
 
 const Container = styled.div`
   height: 93vh;
@@ -129,6 +131,7 @@ const LoginPage = () => {
 
   const navigate = useNavigate()
   const userInfo = useSelector((state) => state.user.value)
+  const userDino = useSelector((state) => state.dino.value)
   const dispatch = useDispatch()
 
   const login = async (memberEmail, memberPassword) => {
@@ -137,6 +140,16 @@ const LoginPage = () => {
         memberEmail,
         memberPassword
       });
+      const representDino = async (id) => {
+        try {
+          const res = await axios.get(`https://i10e103.p.ssafy.io/api/v1/dinosaurs/myDinosaur/${id}`)
+          dispatch(changeDino(res.data.id))
+          console.log(res.data.id)
+        } catch (err) {
+          console.error(err)
+        }
+      }
+      representDino(res.data.memberId)
       // console.log(res);
       if (res && res.data.memberType === 'CHILD') {
         navigate('/child_main');
@@ -167,7 +180,7 @@ const LoginPage = () => {
       <H1>로그인</H1>
       <ContentWrapper>
         <LeftContent>
-          <LogoImage src="./7lans_logo.png" alt="" />
+          <LogoImage src="../7lans_logo.png" alt="" />
           <InfoSpan>
             <h5 style={{margin: '0'}} >
               봉사자와 피봉사자의 연결을 도와주는 보조 웹 사이트
