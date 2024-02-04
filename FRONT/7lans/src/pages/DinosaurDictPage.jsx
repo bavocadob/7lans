@@ -42,27 +42,40 @@ const DinosaurDictPage = () => {
     userDinosaursList();
   }, [userInfo.memberId]);
 
-
   const Text = styled.p`
     font-size: 16px;
     margin: 0;
-    margin-bottom:0.3rem
-  `
+    margin-bottom: 0.3rem;
+  `;
   const renderChooseDino = (i) => {
     if (hasDino.length > 0) {
       const renderDino = hasDino.filter((dino) => dino.id === i);
       return (
         <div>
-          <p style={{fontSize:'20px', fontStyle:'bold', margin:'0', }}>
+          <p
+            style={{
+              fontSize: "20px",
+              fontStyle: "bold",
+              fontWeight: "bold",
+              margin: "0",
+            }}
+          >
             No.{renderDino[0].id} {renderDino[0].name}
           </p>
-          <hr style={{margin:'0', marginBottom: '0.6rem'}}/>
+          <hr style={{ margin: "0", marginBottom: "0.6rem" }} />
           <Text>
             몸무게: {renderDino[0].weight / 100}kg 키:{" "}
             {renderDino[0].height / 1000}m
           </Text>
-          <p style={{background:'rgb(150, 102, 236)', borderRadius: '3px', padding: '3px'}}>{renderDino[0].description}</p>
-          <button onClick={() => setShow(!show)}>함께하기</button>
+          <p
+            style={{
+              background: "rgba(196, 163, 255, 1)",
+              borderRadius: "3px",
+              padding: "3px",
+            }}
+          >
+            {renderDino[0].description}
+          </p>
         </div>
       );
     }
@@ -170,15 +183,28 @@ const DinosaurDictPage = () => {
     border-left: 3.4px solid black;
     border-radius: 0 18px 18px 0;
     background-color: rgb(208, 192, 237);
-`;
+  `;
 
   const Detail = styled.div`
-    width: 80%;
+    width: 85%;
     border-radius: 15px;
     padding: 1rem;
+    padding-bottom: 0;
+    margin-bottom: 1rem;
     background: rgb(255, 255, 255, 50%);
-    `
+  `;
 
+  const Button = styled.button`
+    background: rgb(232, 225, 255);
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    height: 50px;
+    width: 130px;
+    // margin-left: 8%;
+    color: rgb(45, 45, 45);
+  `;
   const renderBody = () => {
     const dinoArr = Array.from({ length: 18 }, (_, index) => index + 1);
 
@@ -186,7 +212,7 @@ const DinosaurDictPage = () => {
       <Dino>
         <StyledContainer>
           <LeftTop>
-            <h2>공룡도감</h2>
+            <h2>[ 공룡도감 ]</h2>
             <h4>발견한 공룡 수 : {hasDino.length}</h4>
           </LeftTop>
           <LeftMiddle>
@@ -213,20 +239,40 @@ const DinosaurDictPage = () => {
         </StyledContainer>
         <RightSide>
           <img
-            style={{ width: '200px'}}
+            style={{ width: '200px', height:'260px'}}
             src={`./dinosourImage/dinosaur${chooseDino}_basic.png`}
             alt=""
           />
-          <Detail>
-            {renderChooseDino(chooseDino)}
-          </Detail>
+          <Detail>{renderChooseDino(chooseDino)}</Detail>
+          <Button onClick={() => setShow(!show)}>함께하기</Button>
         </RightSide>
       </Dino>
     );
   };
 
+  const CenteredModal = styled(Modal)`
+    background: rgb(255, 255, 255, 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+`;
 
-//  최종 화면 구성
+  const CenteredForm = styled(Form)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+
+  const CenteredImage = styled(Form.Control)`
+    height: 300px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+
+  //  최종 화면 구성
   return (
     <>
       <div
@@ -235,7 +281,7 @@ const DinosaurDictPage = () => {
           flexDirection: "column",
           height: "100vh",
           width: "100vw",
-          margin: "0"
+          margin: "0",
         }}
       >
         <NormalNav />
@@ -259,22 +305,24 @@ const DinosaurDictPage = () => {
           </div>
         </div>
       </div>
-      <Modal show={show} onHide={() => setShow(false)}>
+      <CenteredModal
+        show={show}
+        onHide={() => setShow(false)}
+      >
+      
+        <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
         <Modal.Header closeButton>
           <Modal.Title>나와 함께 할래?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>{}</Form.Label>
-              <Form.Control
-                type="image"
-                src={`./dinosourImage/dinosaur${chooseDino}_basic.png`}
-              />
-            </Form.Group>
-          </Form>
+          <CenteredForm>
+            <CenteredImage
+              type="image"
+              src={`./dinosourImage/dinosaur${chooseDino}_basic.png`}
+            />
+          </CenteredForm>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer style={{justifyContent: 'space-between'}}>
           <Button
             variant="secondary"
             onClick={() => changeMyDino(userInfo.memberId, chooseDino)}
@@ -288,7 +336,8 @@ const DinosaurDictPage = () => {
             생성
           </Button> */}
         </Modal.Footer>
-      </Modal>
+        </Modal.Dialog>
+      </CenteredModal>
     </>
   );
 };
