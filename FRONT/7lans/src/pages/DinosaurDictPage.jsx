@@ -85,8 +85,17 @@ const DinosaurDictPage = () => {
     const dinoArr = Array.from({ length: 18 }, (_, index) => index + 1)
 
     return (
-      <div style={{display: 'flex', flex: 1, margin: '2rem', border: '5px solid black', borderRadius: '20px'}}>
-        <div style={{display: 'flex', flexDirection: 'column', width: '65%', height: '100%', backgroundColor: 'rgb(232, 225, 255)', borderRadius: '15px 0 0 15px'}}>
+      <div style={{display: 'flex', 
+                    flex: 1, 
+                    // margin: '2rem', 
+                    border: '5px solid black', 
+                    borderRadius: '20px'}}>
+        <div style={{display: 'flex', 
+                    flexDirection: 'column', 
+                    width: '65%', 
+                    height: '100%', 
+                    backgroundColor: 'rgb(232, 225, 255)', 
+                    borderRadius: '15px 0 0 15px'}}>
           <div style={{height: '20%'}}>
             <h3>공룡도감</h3>
             발견한 공룡 수 : {hasDino.length}
