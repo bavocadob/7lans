@@ -53,7 +53,7 @@ public class SecurityConfiguration {
 
         http.authenticationProvider(authenticationProvider);
 
-        // http.addFilter(corsConfig.corsFilter()); // cors 필터 적용
+        http.addFilter(corsConfig.corsFilter()); // cors 필터 적용
 
         // Security는 Dispatcher Servlet보다 먼저 동작하기 때문에 CSRF 필터 보다 Encoding 필터가 먼저 동작하도록 설정.
         http.addFilterBefore(characterEncodingFilter, CsrfFilter.class);
