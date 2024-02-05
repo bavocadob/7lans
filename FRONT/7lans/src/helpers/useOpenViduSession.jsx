@@ -63,7 +63,9 @@ const UseOpenViduSession = () => {
             });
             tempSession = response.data;
         } else {
+            console.log(tempSession);
             console.log(`${sessionId} session already exists.`);
+            tempSession = tempSession.data;
         }
         return tempSession;
     };
