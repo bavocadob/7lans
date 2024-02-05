@@ -34,7 +34,6 @@ public class WhisperServiceImpl implements WhisperService{
         Relation relation = relationRepository.findById(whisperCreateDto.getRelationId())
                 .orElseThrow(()-> new IllegalArgumentException("[WhisperServiceImpl.createWhisper] no such Relation"));
 
-
         Whisper whisper = Whisper.builder()
                 .writer(member)
                 .content(whisperCreateDto.getContent())
