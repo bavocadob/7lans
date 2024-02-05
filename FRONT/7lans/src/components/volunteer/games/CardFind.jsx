@@ -16,8 +16,8 @@ const CardFind = () => {
   }, [])
 
   useEffect(() => {
-      if (nowCard.length == 2) {
-          if ((nowCard[0] > nowCard[1] && nowCard[0] == nowCard[1] + 8) || (nowCard[1] > nowCard[0] && nowCard[1]  == nowCard[0] + 8)) {
+      if (nowCard.length === 2) {
+          if ((nowCard[0] > nowCard[1] && nowCard[0] === nowCard[1] + 8) || (nowCard[1] > nowCard[0] && nowCard[1]  === nowCard[0] + 8)) {
               const temp = [...nowCard]
               setFlippedCard([...flippedCard, ...temp])
               setFlipping(true)
@@ -38,7 +38,7 @@ const CardFind = () => {
               return () => clearTimeout(timeoutfunc)
           }
       }
-      if (flippedCard.length == 16) {
+      if (flippedCard.length === 16) {
           setCorrect(true)
           const timeoutfuncs = setTimeout(() => {
             shuffle(cardNum)
