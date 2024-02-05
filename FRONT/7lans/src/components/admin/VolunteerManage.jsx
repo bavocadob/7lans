@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import NormalNav from "../navs/NormalNav";
-import VolUpdiv from "./VolUpdiv";
+import VolUpDiv from "./VolUpDiv";
 import VolLowDiv from "./VolLowDiv";
 import { adminSelectVol } from "../../store/adminSelectVolSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -187,7 +187,7 @@ function VolunteerManage() {
           </VolunteerListContainer>
         </LeftContainer>
         <RightContainer>
-          <VolUpdiv />
+          <VolUpDiv />
           <VolLowDiv />
         </RightContainer>
       </VolunteerManageContainer>
