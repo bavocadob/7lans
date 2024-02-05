@@ -147,6 +147,8 @@ const CommonSidePanel = () => {
 
   const childInfo = useSelector((state) => state.child.value)
   const children = useSelector((state) => state.children.value)
+  const userInfo = useSelector((state) => state.user.value)
+  console.log(userInfo)
 
 
   const onSubmit = (e) => {
@@ -171,7 +173,7 @@ const CommonSidePanel = () => {
             <ProfileImage src="./anonymous.jpg" alt="" />
           </InnerContainer>
           <InfoContainer>
-            <NameHeader> 박주헌 봉사자님</NameHeader>
+            <NameHeader> {userInfo.volunteerName} 봉사자님</NameHeader>
             <DetailContainer>
               {children.length > 0 && (children.map((el) => (
                 <DetailParagraph

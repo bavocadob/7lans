@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDan } from '../../../store/gugudanSlice';
 import { gameChange } from '../../../store/isPlayGameNow';
+import Correct from '../../dinosaur/Correct';
+import Wrong from '../../dinosaur/Wrong';
 
 const Gugudan = () => {
   const [dan, setDan] = useState('none');
@@ -67,6 +69,19 @@ const Gugudan = () => {
         setCorrect('오답')
       }
       }
+  }
+
+  const renderDinoImg = () => {
+    if (correct === '정답') {
+      return (
+        <Correct/>
+      )
+    }
+    else if (correct === '오답') {
+      return (
+        <Wrong/>
+      )
+    }
   }
 
   // 구구단 문제 출제되는 것
@@ -137,7 +152,8 @@ const Gugudan = () => {
     else {
       return(
         <div>
-          {correct}
+          {/* {correct} */}
+          {renderDinoImg()}
         </div>
       )
     }
