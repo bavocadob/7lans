@@ -102,7 +102,7 @@ function VolUpDiv() {
 
   useEffect(() => {
     axios
-      .get(`http://i10e103.p.ssafy.io:8090/manager/child/${centerId}`)
+      .get(`https://i10e103.p.ssafy.io/api/v1/manager/child/${centerId}`)
       .then((response) => {
         const arr = [];
         for (const element of response.data) {
