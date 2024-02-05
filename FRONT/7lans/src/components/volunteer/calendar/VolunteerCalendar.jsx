@@ -468,7 +468,7 @@ const VolunteerCalendar = () => {
             console.log("세션입장")
         }
         //사진 기록들 보기
-        else if(selectedDate < dayOfMonth && meeting){
+        else if(selectDate < dayOfMonth && meeting){
             navigate('/volunteer_ChoosePicturePage',{
                 state: {
                     //날짜가 아닌 meetingId로 사진 불러오기
