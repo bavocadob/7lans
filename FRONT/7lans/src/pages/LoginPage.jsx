@@ -5,16 +5,22 @@ import styled from 'styled-components';
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../store/userSlice';
+import { FcKey } from "react-icons/fc";
+import { FcContacts } from "react-icons/fc";
 import { changeDino } from '../store/dinoSlice';
 
 
 const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 93vh;
+  width: 95vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 10px solid rgb(255, 215, 7);
+  justify-content: center;
+  border: 8px solid rgb(255, 215, 7);
+  margin-top: 1.5%;
+  margin-left: 2.3%;
+  background-color:rgb(255, 255, 241);
 `;
 
 const Header = styled.header`
@@ -24,7 +30,7 @@ const Header = styled.header`
 
 const H1 = styled.h1`
   font-weight: bold;
-  color: rgb(134, 134, 134);
+  color: rgb(53, 53, 53);
 `
 
 const ContentWrapper = styled.div`
@@ -40,8 +46,14 @@ const LeftContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  margin: 2%;
 `;
+
+const Line = styled.div`
+  border: 1px dashed rgb(226, 198, 60);
+  height: 90%;
+  margin-top: 20px
+`
 
 const RightContent = styled.div`
   width: 50vw;
@@ -49,7 +61,7 @@ const RightContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  margin: 2%;
 
   form {
     display: flex;
@@ -58,12 +70,16 @@ const RightContent = styled.div`
     justify-content: center;
   }
 
-  input, button {
+  button {
     background-color: rgb(255, 241, 165);
     border: none;
-    border-radius: 1rem;
+    border-radius: 14.52px;
     margin: 0.5rem;
     padding: 0.5rem;
+    height: 50px;
+    width: 100px;
+    margin-left: 35%;
+    margin-top: 7%;
   }
 
   p {
@@ -71,14 +87,42 @@ const RightContent = styled.div`
   }
 `;
 
+const IdFind =  styled.p`
+  margin-left: 10px
+
+`
+const EmailInput = styled.input`
+    background-color: rgb(255, 241, 165);
+    border: none;
+    border-radius: 14.52px;
+    margin-left: 10px;
+    padding: 1rem;
+    height: 50px;
+    width: 300px
+`
+const PasswordInput = styled.input`
+background-color: rgb(255, 241, 165);
+    border: none;
+    border-radius: 14.52px;
+    margin-left: 10px;
+    padding: 1rem;
+    height: 50px;
+    width: 300px
+`
+
 const LogoImage = styled.img`
-  height: 20vh;
+  height: 22vh;
+  margin-bottom: 8%;
 `;
 
 const InfoSpan = styled.span`
   background-color: rgb(255, 241, 165);
   padding: 0.5rem;
-  border-radius: 1rem;
+  border-radius: 14.52px;
+  width: 540px;
+  text-align: center;
+  margin-bottom: 10%;
+  
 `;
 
 const LoginPage = () => {
@@ -136,19 +180,27 @@ const LoginPage = () => {
       <H1>로그인</H1>
       <ContentWrapper>
         <LeftContent>
-          <LogoImage src="./7lans_logo.png" alt="" />
+          <LogoImage src="../7lans_logo.png" alt="" />
           <InfoSpan>
-            <h5>
+            <h5 style={{margin: '0'}} >
               봉사자와 피봉사자의 연결을 도와주는 보조 웹 사이트
             </h5>
           </InfoSpan>
         </LeftContent>
+        <Line />
         <RightContent>
           <div>
-            <input type="text" onChange={(e) => setEmail(e.target.value)} value={email? email:''} placeholder='email' />
-            <input type="password" onChange={(e) => setPassword(e.target.value)} value={password? password:''} placeholder='password' />
-            <p>아이디 찾기 | 비밀번호 찾기 | </p>
-            <Link to={'/register'}>회원가입</Link>
+          <p> <FcContacts /> <EmailInput type="text" 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    value={email? email:''} 
+                    placeholder='이메일을 입력하세요(test@email.com)' /></p>
+          <p> <FcKey /> <PasswordInput type="password" 
+                        onChange={(e) => setPassword(e.target.value)} 
+                        value={password? password:''} 
+                        placeholder='비밀번호를 입력하세요' /></p>
+            <div style={{marginLeft: '20%'}}> 아이디 찾기  |  비밀번호 찾기  |  {"  "}
+            <Link to={'/register'}>회원가입 </Link>
+            </div>
             <button onClick={() => login(email, password)}>로그인</button>
           </div>
         </RightContent>

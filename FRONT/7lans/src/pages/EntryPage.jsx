@@ -42,6 +42,9 @@ const LoginButton = styled(Link)`
   border-radius: 102.67px;
   transition: background-color 0.3s ease-in-out;
   gap:10.37px;
+
+
+  
   text-align: center;
   cursor: pointer;
 
