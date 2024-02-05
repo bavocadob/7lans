@@ -146,6 +146,9 @@ const Meeting = ({meeting, currentMonth, cloneDay}) => {
     }
 }
 
+const resetSelect = (setSelectedTimes) => {
+    setSelectedTimes([]);
+}
 
 
 const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
@@ -264,6 +267,11 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
                             onClick={() => setModalOpen(false)}
                             >
                             닫기
+                        </button>
+                        <button
+                            onClick={() => resetSelect(setSelectedTimes)}
+                            >
+                            다시 선택
                         </button>
                     </div>
                     <div>
