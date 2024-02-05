@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const cardNum = Array.from({ length: 16 }, (_, index) => index + 1);
 const CardFind = () => {
