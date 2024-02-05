@@ -6,6 +6,7 @@ import NormalNav from "../../components/navs/NormalNav";
 import PostIt from "../../components/volunteer/post_it/PostIt";
 import SelectedPostit from "../../components/volunteer/post_it/SelectedPostit";
 import ActiveDocs from "../../components/volunteer/active_docs/AcitveDocs";
+import ActivityCalendar from "../../components/volunteer/calendar/ActivityCalendar";
 
 const ActiveDoc = () => {
   return (
@@ -45,7 +46,8 @@ const ActiveDoc = () => {
               }}
             >
               {/* 활동일지 */}
-              <ActiveDocs />
+              {/* <ActiveDocs /> */}
+              <ActivityCalendar/>
             </div>
             <div
               style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}
