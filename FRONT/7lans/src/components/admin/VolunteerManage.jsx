@@ -114,7 +114,7 @@ function VolunteerManage() {
 
   useEffect(() => {
     axios
-      .get(`http://i10e103.p.ssafy.io:8090/manager/volunteerList`)
+      .get(`https://i10e103.p.ssafy.io/api/v1/manager/volunteerList`)
       .then((response) => {
         const arr = [];
         for (const ele of response.data) {

@@ -18,7 +18,7 @@ const VideoChattingStartPage = () => {
   const childInfo = useSelector((state) => state.child.value)
 
   const dispatch = useDispatch()
-
+  console.log(childInfo)
 
   
   return (
