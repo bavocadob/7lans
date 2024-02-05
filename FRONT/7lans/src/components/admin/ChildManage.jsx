@@ -188,7 +188,7 @@ const SpecialNotesBox = styled.div`
   align-items: center;
 `;
 
-function ChildManage() {
+const ChildManage = () => {
   return (
     <StyledVolunteerManage>
       <NormalNav />
@@ -250,6 +250,6 @@ function ChildManage() {
       </VolunteerManageContainer>
     </StyledVolunteerManage>
   );
-}
+};
 
 export default ChildManage;

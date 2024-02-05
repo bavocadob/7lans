@@ -59,7 +59,7 @@ const PaginationButton = styled.button`
   }
 `;
 
-function VolLowDiv() {
+const VolLowDiv = () => {
   return (
     <>
       <LowerDiv>
@@ -78,6 +78,6 @@ function VolLowDiv() {
       </LowerDiv>
     </>
   );
-}
+};
 
 export default VolLowDiv;

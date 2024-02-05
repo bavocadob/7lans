@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['airbnb'],
+  extends: ['airbnb', 'prettier'],
   overrides: [
     {
       env: {
@@ -29,7 +29,7 @@ module.exports = {
     'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
     'react/function-component-definition': [
       'error',
-      { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
+      { namedComponents: 'function-declaration', unnamedComponents: 'arrow-function' },
     ],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',

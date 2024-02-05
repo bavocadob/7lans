@@ -1,7 +1,7 @@
 import React from "react";
 
-function ActiveManage() {
+const ActiveManage = () => {
   return <div>ActiveManage</div>;
-}
+};
 
 export default ActiveManage;

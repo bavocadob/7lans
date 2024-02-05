@@ -101,7 +101,7 @@ const VolunteerCard = styled.div`
   }
 `;
 
-function VolunteerManage() {
+const VolunteerManage = () => {
   const dispatch = useDispatch();
   const selectVolCard = useSelector((state) => state.adminSelectVol);
 
@@ -147,6 +147,7 @@ function VolunteerManage() {
     dispatch(adminSelectVol(volunteer));
   };
 
+  // 검색함수
   const filteredVolunteers = volunteerList.filter((volunteer) =>
     volunteer.some(
       (property) =>
@@ -193,6 +194,6 @@ function VolunteerManage() {
       </VolunteerManageContainer>
     </StyledVolunteerManage>
   );
-}
+};
 
 export default VolunteerManage;
