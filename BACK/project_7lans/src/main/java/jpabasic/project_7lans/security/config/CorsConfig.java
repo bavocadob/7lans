@@ -16,6 +16,7 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(false);
+        config.setAllowedOrigins(List.of("*"));
         config.addAllowedOrigin("https://localhost:30007");
         config.addAllowedOrigin("https://localhost:30007");
         config.addAllowedOrigin("https://i10e103.p.ssafy.io");
