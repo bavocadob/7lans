@@ -47,14 +47,14 @@ public class SecurityConfiguration {
                             // hasRole는 SpringSecurity 가 자동으로 가장 앞에 Role_를 붙인다. 따라서 hasAuthority를 쓰는 것이 낫다.
                             // authorizeRequests.requestMatchers("/vol/**").hasRole(MemberType.VOLUNTEER.name());
                             // authorizeRequests.requestMatchers("/vol/**").hasAuthority(MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/**").permitAll();
+                            // authorizeRequests.requestMatchers("/**").permitAll();
                             authorizeRequests.anyRequest().permitAll();
                         }
                 );
 
         http.authenticationProvider(authenticationProvider);
 
-        http.addFilter(corsConfig.corsFilter()); // cors 필터 적용
+        // http.addFilter(corsConfig.corsFilter()); // cors 필터 적용
 
         // Security는 Dispatcher Servlet보다 먼저 동작하기 때문에 CSRF 필터 보다 Encoding 필터가 먼저 동작하도록 설정.
         http.addFilterBefore(characterEncodingFilter, CsrfFilter.class);

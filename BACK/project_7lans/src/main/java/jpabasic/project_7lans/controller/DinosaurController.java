@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.dto.dinosaur.DinosaurRequestDto;
 import jpabasic.project_7lans.dto.dinosaur.DinosaurResponseDto;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name="공룡 도감 API", description = "공룡 도감 관련 API입니다.")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping
