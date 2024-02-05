@@ -43,7 +43,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, child }) => {
 
 const RenderDays = () => {
     const days = [];
-    const date = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+    const date = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
 
     for (let i = 0; i < 7; i++) {
         days.push(
@@ -421,6 +421,7 @@ const VolunteerCalendar = () => {
         })
         .then((res) => {
             setMeetings(res.data);
+            console.log(res)
         })
         .catch((err) => {
         });
@@ -434,14 +435,32 @@ const VolunteerCalendar = () => {
         setCurrentMonth(addMonths(currentMonth, 1));
     };
     const onDateClick = (day, meeting) => {
-      //console.log(dayOfMonth)
-      //console.log(day,'day')
+        //console.log(dayOfMonth)
+        //console.log(day,'day')
 
-      setSelectedDate(day);
-      // 오늘 날짜 이전은 사진을 고를 수 있는 페이지로 이동하게 됨
-      if (day.getDate() <= dayOfMonth) { // day가 유효한지 확인
-        //미팅이 있을 때만 click가능
-        if(meeting){
+        setSelectedDate(day);
+
+        //지난날 + meeting존재 -> picture
+        //지난날 + meeting없음 -> 무응답
+        //오늘 + meeting존재 -> 화상 채팅 이동
+        //오늘 + meeting없음 -> 채팅 생성
+        //이후 + meeting존재-> 하루 1개만 생성 가능
+        //이후 + meeting없음 -> 생성
+
+        const selectDate = day.getDate()
+
+        
+    
+        //미팅 생성
+        if(!meeting && (selectDate == dayOfMonth || selectDate > dayOfMonth)){
+            setModalOpen(true)
+        }
+        //화상 채팅 입장
+        else if(selectDate == dayOfMonth){
+            console.log("세션입장")
+        }
+        //사진 기록들 보기
+        else if(selectedDate < dayOfMonth && meeting){
             navigate('/volunteer_ChoosePicturePage',{
                 state: {
                     //날짜가 아닌 meetingId로 사진 불러오기
@@ -449,11 +468,27 @@ const VolunteerCalendar = () => {
                 }
             }); 
         }
-      }
-      else {
-        // 오늘날짜 이후로는 화상채팅약속시간 잡을 수 있는 모달 창이 떠야 함
-        setModalOpen(true)
-      }
+        //하루에 한개의 미팅만 생성가능
+        else if(selectDate > dayOfMonth){
+            console.log("1개만 생성할 수 있습니다")
+        }
+
+        // // 오늘 날짜 이전은 사진을 고를 수 있는 페이지로 이동하게 됨
+        // else if (day.getDate() < dayOfMonth) { // day가 유효한지 확인
+        //     //미팅이 있을 때만 click가능
+        //     if(meeting){
+        //         navigate('/volunteer_ChoosePicturePage',{
+        //             state: {
+        //                 //날짜가 아닌 meetingId로 사진 불러오기
+        //                 meetingId: `${meeting.meetingId}`
+        //             }
+        //         }); 
+        //     }
+        // }
+        // else {
+        // // 오늘날짜 이후로는 화상채팅약속시간 잡을 수 있는 모달 창이 떠야 함
+        //     setModalOpen(true)
+        // }
     };
 
       const closeModal = () => {
