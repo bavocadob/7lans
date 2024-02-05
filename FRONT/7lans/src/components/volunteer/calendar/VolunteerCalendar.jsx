@@ -473,22 +473,6 @@ const VolunteerCalendar = () => {
             console.log("1개만 생성할 수 있습니다")
         }
 
-        // // 오늘 날짜 이전은 사진을 고를 수 있는 페이지로 이동하게 됨
-        // else if (day.getDate() < dayOfMonth) { // day가 유효한지 확인
-        //     //미팅이 있을 때만 click가능
-        //     if(meeting){
-        //         navigate('/volunteer_ChoosePicturePage',{
-        //             state: {
-        //                 //날짜가 아닌 meetingId로 사진 불러오기
-        //                 meetingId: `${meeting.meetingId}`
-        //             }
-        //         }); 
-        //     }
-        // }
-        // else {
-        // // 오늘날짜 이후로는 화상채팅약속시간 잡을 수 있는 모달 창이 떠야 함
-        //     setModalOpen(true)
-        // }
     };
 
       const closeModal = () => {
