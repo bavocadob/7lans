@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from '../store/userSlice';
 import { FcKey } from "react-icons/fc";
-import { FcContacts } from "react-icons/fc";
+import { FcAddressBook } from "react-icons/fc";
 import { changeDino } from '../store/dinoSlice';
 
 
@@ -37,6 +37,7 @@ const ContentWrapper = styled.div`
   flex: 1;
   width: 100vw;
   display: flex;
+  
 `;
 
 
@@ -61,8 +62,8 @@ const RightContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2%;
-
+  margin-right: 3%;
+  
   form {
     display: flex;
     flex-direction: column;
@@ -71,26 +72,30 @@ const RightContent = styled.div`
   }
 
   button {
-    background-color: rgb(255, 241, 165);
+    background: linear-gradient(
+                300deg,
+                rgba(255, 184, 36, 1),
+                rgba(255, 237, 140, 1));
+    font-size: 19px;
+    font-weight: bold;
     border: none;
-    border-radius: 14.52px;
+    border-radius: 50px;
     margin: 0.5rem;
     padding: 0.5rem;
     height: 50px;
-    width: 100px;
+    width: 130px;
     margin-left: 35%;
     margin-top: 7%;
+    color: white;
+    text-decoration-line: none;
   }
 
   p {
     margin: 0.5rem;
+    text-decoration-line: none;
   }
 `;
 
-const IdFind =  styled.p`
-  margin-left: 10px
-
-`
 const EmailInput = styled.input`
     background-color: rgb(255, 241, 165);
     border: none;
@@ -101,7 +106,7 @@ const EmailInput = styled.input`
     width: 300px
 `
 const PasswordInput = styled.input`
-background-color: rgb(255, 241, 165);
+    background-color: rgb(255, 241, 165);
     border: none;
     border-radius: 14.52px;
     margin-left: 10px;
@@ -190,16 +195,24 @@ const LoginPage = () => {
         <Line />
         <RightContent>
           <div>
-          <p> <FcContacts /> <EmailInput type="text" 
-                    onChange={(e) => setEmail(e.target.value)} 
-                    value={email? email:''} 
-                    placeholder='이메일을 입력하세요(test@email.com)' /></p>
-          <p> <FcKey /> <PasswordInput type="password" 
-                        onChange={(e) => setPassword(e.target.value)} 
-                        value={password? password:''} 
-                        placeholder='비밀번호를 입력하세요' /></p>
-            <div style={{marginLeft: '20%'}}> 아이디 찾기  |  비밀번호 찾기  |  {"  "}
-            <Link to={'/register'}>회원가입 </Link>
+          <p> <FcAddressBook />
+              <EmailInput type="text" 
+                          onChange={(e) => setEmail(e.target.value)} 
+                          value={email? email:''} 
+                          placeholder='이메일을 입력하세요(test@email.com)' /></p>
+          <p> <FcKey /> 
+              <PasswordInput type="password" 
+                            onChange={(e) => setPassword(e.target.value)} 
+                            value={password? password:''} 
+                            placeholder='비밀번호를 입력하세요' /></p>
+            <div style={{marginLeft: '25%',
+                         fontSize: '14px',
+                         marginTop: '20px',
+                        }}> 아이디 찾기  |  비밀번호 찾기  |  {"  "}
+            <Link to={'/register'}
+                      style={{ textDecoration: 'none',
+                                color: 'rgb(45,45,45)'
+                    }}>회원가입 </Link>
             </div>
             <button onClick={() => login(email, password)}>로그인</button>
           </div>

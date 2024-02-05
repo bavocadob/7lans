@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion} from "framer-motion";
 
 const Container = styled.div`
   background: linear-gradient(
@@ -42,7 +42,7 @@ const LoginButton = styled(Link)`
   border-radius: 102.67px;
   transition: background-color 0.3s ease-in-out;
   gap:10.37px;
-
+  text-decoration-line: none;
 
   
   text-align: center;
@@ -55,15 +55,15 @@ const LoginButton = styled(Link)`
 
 const variants = {
     hidden: {
-      opacity: 0.2,
-      y: 15
+      opacity: 0.6,
+      y: 7
     },
     visible: (i) => ({
       opacity: 1,
       y: 0,
       transition: {
         delay: i * 0.2,
-        duration: 1,
+        duration: 0.4,
         repeat: Infinity,
         repeatType: "reverse"
       }
