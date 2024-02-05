@@ -47,6 +47,7 @@ public class SecurityConfiguration {
                             // hasRole는 SpringSecurity 가 자동으로 가장 앞에 Role_를 붙인다. 따라서 hasAuthority를 쓰는 것이 낫다.
                             // authorizeRequests.requestMatchers("/vol/**").hasRole(MemberType.VOLUNTEER.name());
                             // authorizeRequests.requestMatchers("/vol/**").hasAuthority(MemberType.VOLUNTEER.name());
+                            authorizeRequests.requestMatchers("/**").permitAll();
                             authorizeRequests.anyRequest().permitAll();
                         }
                 );
