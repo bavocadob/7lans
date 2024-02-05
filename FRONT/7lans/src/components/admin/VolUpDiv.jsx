@@ -87,7 +87,7 @@ const SearchChildContainer = styled.div`
   align-items: center;
 `;
 
-function VolUpdiv() {
+function VolUpDiv() {
   const selectVolCard = useSelector((state) => state.adminSelectVol);
   const userInfo = useSelector((state) => state.user);
   const centerId = userInfo.value.centerId;
@@ -171,4 +171,4 @@ function VolUpdiv() {
   );
 }
 
-export default VolUpdiv;
+export default VolUpDiv;

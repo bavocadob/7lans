@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import NormalNav from "../navs/NormalNav";
-import VolUpdiv from "./VolUpdiv";
+import VolUpDiv from "./VolUpDiv";
 import VolLowDiv from "./VolLowDiv";
 import { adminSelectVol } from "../../store/adminSelectVolSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -101,7 +101,7 @@ const VolunteerCard = styled.div`
   }
 `;
 
-function VolunteerManage() {
+const VolunteerManage = () => {
   const dispatch = useDispatch();
   const selectVolCard = useSelector((state) => state.adminSelectVol);
 
@@ -114,7 +114,7 @@ function VolunteerManage() {
 
   useEffect(() => {
     axios
-      .get(`http://i10e103.p.ssafy.io:8090/manager/volunteerList`)
+      .get(`https://i10e103.p.ssafy.io/api/v1/manager/volunteerList`)
       .then((response) => {
         const arr = [];
         for (const ele of response.data) {
@@ -147,6 +147,7 @@ function VolunteerManage() {
     dispatch(adminSelectVol(volunteer));
   };
 
+  // 검색함수
   const filteredVolunteers = volunteerList.filter((volunteer) =>
     volunteer.some(
       (property) =>
@@ -187,12 +188,12 @@ function VolunteerManage() {
           </VolunteerListContainer>
         </LeftContainer>
         <RightContainer>
-          <VolUpdiv />
+          <VolUpDiv />
           <VolLowDiv />
         </RightContainer>
       </VolunteerManageContainer>
     </StyledVolunteerManage>
   );
-}
+};
 
 export default VolunteerManage;

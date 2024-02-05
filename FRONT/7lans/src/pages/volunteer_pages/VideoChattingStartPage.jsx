@@ -11,9 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateChildInfo } from '../../store/childSlice';
 import { updateUserInfo } from '../../store/userSlice';
 import {updateChildrenInfo} from '../../store/childrenSlice';
+import Wrong from '../../components/dinosaur/Wrong';
 
 const VideoChattingStartPage = () => {
   const [data, setData] = useState(0);
+  const childInfo = useSelector((state) => state.child.value)
 
   const dispatch = useDispatch()
 
@@ -35,10 +37,17 @@ const VideoChattingStartPage = () => {
             />
             <div>
             </div>
-          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>        
-            <VolunteerCalendar 
-              child={data}
-            />
+          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>
+            {childInfo? 
+              <VolunteerCalendar 
+                child={data}
+              />
+              :
+              <div>
+                연걸된 아동이 없어요
+                <Wrong/>
+              </div>
+            }     
           </div>
 
           <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>

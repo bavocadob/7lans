@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { changecompo } from "../../store/changeCompoSlice";
-import axios from 'axios'
+import axios from "axios";
 import { updateChildInfo } from "../../store/childSlice";
 
 const StyledCommonSidePanel = styled.div`
@@ -92,45 +92,30 @@ const DetailContainer = styled.div`
   color: rgb(0, 0, 0);
   padding: 1rem;
   background-color: rgb(255, 255, 255);
-  
+
   overflow: auto;
   @media (max-width: 768px) {
     margin-top: 0;
   }
 `;
 
-const Age = ({birth}) => {
+const Age = ({ birth }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   //console.log(birth[0])
   //console.log(currentDate.getFullYear())
 
-  return(
-    <div>
-      나이 : {currentDate.getFullYear() - birth[0]+1} 살
-    </div>
-  )
+  return <div>나이 : {currentDate.getFullYear() - birth[0] + 1} 살</div>;
+};
 
-}
-
-const Comment = ({comment}) => {
+const Comment = ({ comment }) => {
   //console.log(comment);
 
-  if(comment){
-    return (
-      <div>
-        특이사항 : {comment}
-      </div>
-    )
+  if (comment) {
+    return <div>특이사항 : {comment}</div>;
+  } else {
+    return <div>특이사항 : 특이사항이 없습니다.</div>;
   }
-  else{
-    return (
-      <div>
-        특이사항 : 특이사항이 없습니다. 
-      </div>
-    )
-  }
-
-}
+};
 
 const DetailParagraph = styled.div`
   border: 3px solid #523329;
@@ -145,11 +130,12 @@ const CommonSidePanel = () => {
   const [id, setId] = useState([]);
   const dispatch = useDispatch();
 
-  const childInfo = useSelector((state) => state.child.value)
-  const children = useSelector((state) => state.children.value)
-  const userInfo = useSelector((state) => state.user.value)
-  console.log(userInfo)
-
+  const childInfo = useSelector((state) => state.child.value);
+  const children = useSelector((state) => state.children.value);
+  const userInfo = useSelector((state) => state.user.value);
+  // console.log(userInfo);
+  console.log(children);
+  // console.log(childInfo);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -160,7 +146,7 @@ const CommonSidePanel = () => {
 
   const renderSidePanel = () => {
     const postData = (child) => {
-      dispatch(updateChildInfo(child))
+      dispatch(updateChildInfo(child));
       //console.log(childInfo);
     };
     if (sidePanelStatus) {
@@ -174,27 +160,23 @@ const CommonSidePanel = () => {
           </InnerContainer>
           <InfoContainer>
             <NameHeader> {userInfo.volunteerName} 봉사자님</NameHeader>
+
             <DetailContainer>
-              {children.length > 0 && (children.map((el) => (
-                <DetailParagraph
-                  key={el.childId}
-                >
-                <form onSubmit={onSubmit}>
-                  <h3>{el.childName}</h3>
-                  <Age 
-                    birth={el.childBirth}
-                  ></Age>
-                  <div>
-                    소속기관: {el.childCenterName}
-                  </div>
-                  <Comment
-                    comment={el.childSpecialContent}
-                  ></Comment>
-                  <button onClick={() => postData(el)}>선택하기</button>
-                </form>
-              </DetailParagraph>
-              )))}
-              
+              {children.length > 0 ? (
+                children.map((el) => (
+                  <DetailParagraph key={el.childId}>
+                    <form onSubmit={onSubmit}>
+                      <h3>{el.childName}</h3>
+                      <Age birth={el.childBirth}></Age>
+                      <div>소속기관: {el.childCenterName}</div>
+                      <Comment comment={el.childSpecialContent}></Comment>
+                      <button onClick={() => postData(el)}>선택하기</button>
+                    </form>
+                  </DetailParagraph>
+                ))
+              ) : (
+                <h4>친구를 추가해주세요!</h4>
+              )}
             </DetailContainer>
           </InfoContainer>
         </StyledCommonSidePanel>

@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ChatContainer = styled.div`
   background-color: #f5f5f5;
@@ -112,7 +114,25 @@ const ChatDate = styled.p`
   margin-top: 10px;
 `;
 
-export default function WhisperLetter() {
+const WhisperLetter = () => {
+  const childInfo = useSelector((state) => state.child.value);
+  const userInfo = useSelector((state) => state.user.value);
+  const childRelationId = childInfo.relationId;
+  const writerId = userInfo.memberId;
+  console.log(childRelationId);
+  console.log(userInfo.memberId);
+  useEffect(() => {
+    let chatData;
+    axios
+      .get(`https://i10e103.p.ssafy.io/api/v1/whisper/list/${childRelationId}`)
+      .then((res) => {
+        chatData = res;
+      })
+      .catch((err) => {
+        console.log(err, "에러발생");
+      });
+  });
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [writeModalIsOpen, setWriteModalIsOpen] = useState(false);
   const [typedMessage, setTypedMessage] = useState("");
@@ -151,7 +171,6 @@ export default function WhisperLetter() {
     setSelectedChat(null);
   };
 
-  // 속닥속닥 작성하기
   const handleSendMessage = () => {
     if (typedMessage.trim() !== "") {
       if (selectedChat) {
@@ -186,6 +205,21 @@ export default function WhisperLetter() {
       closeWriteModal();
     }
   };
+
+  useEffect(() => {
+    axios
+      .post(`https://i10e103.p.ssafy.io/api/v1/whisper`, {
+        writerId: writerId,
+        relationId: childRelationId,
+        content: typedMessage,
+      })
+      .then((res) => {
+        console.log(res, "thenthen");
+      })
+      .catch((err) => {
+        console.log(err, "post에러 발생");
+      });
+  });
 
   return (
     <ChatContainer>
@@ -247,4 +281,6 @@ export default function WhisperLetter() {
       </WriteModal>
     </ChatContainer>
   );
-}
+};
+
+export default WhisperLetter;

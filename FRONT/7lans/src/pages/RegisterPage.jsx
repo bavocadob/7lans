@@ -222,7 +222,7 @@ const Register = () => {
                 <option value={1}>A 센터</option>
                 <option value={2}>B 센터</option>
                 <option value={3}>C 센터</option>
-                <option value={3}>D 센터</option>
+                <option value={4}>D 센터</option>
               </select>
             )}
             <label htmlFor="email">
