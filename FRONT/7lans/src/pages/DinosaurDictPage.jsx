@@ -23,7 +23,7 @@ const DinosaurDictPage = () => {
     const userDinosaursList = async () => {
       try {
         const res = await axios.get(
-          `${urlInfo}/dinosaurs/${userInfo.memberId}`
+          `https://i10e103.p.ssafy.io/api/v1/dinosaurs/${userInfo.memberId}`
         );
         const userDinosaurInfo = res.data.dinosaurs;
         const ownedDinosaurs = userDinosaurInfo.filter(
@@ -85,7 +85,7 @@ const DinosaurDictPage = () => {
   const changeMyDino = async (memberId, dinosaurId) => {
     try {
       const res = await axios.put(
-        `${userInfo}/dinosaurs/change`,
+        `https://i10e103.p.ssafy.io/api/v1/dinosaurs/change`,
         {
           memberId,
           dinosaurId,
@@ -211,6 +211,7 @@ const DinosaurDictPage = () => {
 
     return (
       <Dino>
+        {console.log(userDinosaurList)}
         <StyledContainer>
           <LeftTop>
             <h2>[ 공룡도감 ]</h2>

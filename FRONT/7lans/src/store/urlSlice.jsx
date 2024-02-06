@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    value: 'http://localhost:8080'
-    // value: 'https://i10e103.p.ssafy.io/api/v1'
-    
+    value: 'https://i10e103.p.ssafy.io/api/v1'
+    // value: 'http://localhost:8080' 
 }
 
 const urlSlice = createSlice({
