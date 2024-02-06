@@ -24,7 +24,7 @@ public class Egg {
     private Integer experience = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "dinosaur_id")
+    @JoinColumn(name = "dinosaur_id")
     private Dinosaur dinosaur;
 
     public void addExperience(Integer exp){
