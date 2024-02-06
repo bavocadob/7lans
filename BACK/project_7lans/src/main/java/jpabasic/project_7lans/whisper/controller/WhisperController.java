@@ -24,11 +24,11 @@ public class WhisperController {
     public ResponseEntity createWhisper(@RequestBody WhisperRequestDto.create whisperCreateDto){
         try{
             whisperServiceImpl.createWhisper(whisperCreateDto);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Operation(summary = "속닥속닥 1건 조회하기")
