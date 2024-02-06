@@ -92,7 +92,6 @@ function VolUpDiv() {
   const userInfo = useSelector((state) => state.user);
   const urlInfo = useSelector((state) => state.url.value);
   const centerId = userInfo.value.centerId;
-  const urlInfo = useSelector((state) => state.url.value)
   const [childList, setChildList] = useState([]);
   const [search, setSearch] = useState("");
   console.log(centerId);
