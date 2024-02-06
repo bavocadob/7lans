@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ChatContainer = styled.div`
   background-color: #f5f5f5;
@@ -12,7 +14,7 @@ const ChatContainer = styled.div`
   position: relative;
 `;
 
-const ChatCard1 = styled.div`
+const ChatCardChild = styled.div`
   background-color: #8bf678;
   height: 40%;
   padding: 20px;
@@ -34,6 +36,7 @@ const ChatCard2 = styled.div`
   margin-right: 50px;
 `;
 
+// 채팅 모달
 const CustomModal = styled(Modal)`
   width: 70%;
   max-width: 400px;
@@ -50,7 +53,7 @@ const ModalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  height: 500px;
+  height: 300px;
 `;
 
 const ModalContent = styled.div`
@@ -112,10 +115,30 @@ const ChatDate = styled.p`
   margin-top: 10px;
 `;
 
-export default function WhisperLetter() {
+const WhisperLetter = () => {
+  const childInfo = useSelector((state) => state.child.value);
+  const userInfo = useSelector((state) => state.user.value);
+  const childRelationId = childInfo.relationId;
+  const writerId = userInfo.memberId;
+  const urlInfo = useSelector((state) => state.url.value)
+  console.log(childRelationId);
+  console.log(writerId);
+
+  // 해당 아동과의 속닥속닥 가져오기
+  useEffect(() => {
+    axios
+      .get(`${userInfo}/whisper/list/${childRelationId}`)
+      .then((res) => {
+        console.log(res, "chatdata");
+      })
+      .catch((err) => {
+        console.log(err, "에러발생");
+      });
+  });
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [writeModalIsOpen, setWriteModalIsOpen] = useState(false);
-  const [typedMessage, setTypedMessage] = useState("");
+  const [typingMessage, setTypingMessage] = useState("");
   const [selectedChat, setSelectedChat] = useState(null);
   const [chatMessages, setChatMessages] = useState([
     {
@@ -130,10 +153,10 @@ export default function WhisperLetter() {
   const openModal = (message) => {
     setSelectedChat(message);
     setModalIsOpen(true);
-    setTypedMessage(message.content);
+    setTypingMessage(message.content);
   };
 
-  // 속닥속닥 글쓰기 모달
+  // 속닥속닥 글쓰기 모달 열기
   const openWriteModal = () => {
     setWriteModalIsOpen(true);
   };
@@ -141,44 +164,22 @@ export default function WhisperLetter() {
   // 속닥속닥 글쓰기 모달 닫기
   const closeWriteModal = () => {
     setWriteModalIsOpen(false);
-    setTypedMessage("");
+    setTypingMessage("");
   };
 
   // 작성된 채팅 모달 누르면 닫기
   const closeModal = () => {
     setModalIsOpen(false);
-    setTypedMessage("");
+    setTypingMessage("");
     setSelectedChat(null);
   };
 
-  // 속닥속닥 작성하기
-  const handleSendMessage = () => {
-    if (typedMessage.trim() !== "") {
-      if (selectedChat) {
-        const updatedMessages = chatMessages.map((message) =>
-          message.id === selectedChat.id
-            ? { ...message, content: typedMessage }
-            : message
-        );
-        setChatMessages(updatedMessages);
-      } else {
-        const newMessage = {
-          id: chatMessages.length + 1,
-          content: typedMessage,
-          isMyMessage: true,
-          timestamp: new Date(),
-        };
-        setChatMessages([...chatMessages, newMessage]);
-      }
-      closeModal();
-    }
-  };
-
+  // 속닥속닥 쓰기
   const handleWriteMessage = () => {
-    if (typedMessage.trim() !== "") {
+    if (typingMessage.trim() !== "") {
       const newMessage = {
         id: chatMessages.length + 1,
-        content: typedMessage,
+        content: typingMessage,
         isMyMessage: true,
         timestamp: new Date(),
       };
@@ -187,6 +188,22 @@ export default function WhisperLetter() {
     }
   };
 
+  // 글쓰기
+  useEffect(() => {
+    axios
+      .post(`${urlInfo}/whisper`, {
+        writerId: writerId,
+        relationId: childRelationId,
+        content: typingMessage,
+      })
+      .then((res) => {
+        console.log(res, "thenthen");
+      })
+      .catch((err) => {
+        console.log(err, "post에러");
+      });
+  }, []);
+
   return (
     <ChatContainer>
       {/*  백에서 값 가져오기 */}
@@ -194,11 +211,12 @@ export default function WhisperLetter() {
         선생님 저번 수업 정말 재미있었어! 얼른 또 뵙고 싶어요!!
       </ChatCard2>
 
+      {/* 내가쓴 채팅 */}
       {chatMessages.map((message, index) => (
         // 채팅
-        <ChatCard1 key={index} onClick={() => openModal(message)}>
+        <ChatCardChild key={index} onClick={() => openModal(message)}>
           {message.content}
-        </ChatCard1>
+        </ChatCardChild>
       ))}
       <WriteButton onClick={openWriteModal}>속닥속닥 쓰기</WriteButton>
       <CustomModal
@@ -211,15 +229,9 @@ export default function WhisperLetter() {
           <ChatDate>{new Date().toLocaleString()}</ChatDate>
           {selectedChat && (
             <ModalContent>
-              <p>ID: {selectedChat.id}</p>
-              <textarea
-                rows={10}
-                cols={40}
-                value={typedMessage}
-                onChange={(e) => setTypedMessage(e.target.value)}
-              />
+              {typingMessage}
               <ModalButtonContainer>
-                <ModalButton onClick={handleSendMessage}>확인</ModalButton>
+                <ModalButton onClick={closeModal}>확인</ModalButton>
               </ModalButtonContainer>
             </ModalContent>
           )}
@@ -235,8 +247,8 @@ export default function WhisperLetter() {
           <textarea
             rows={5}
             cols={55}
-            value={typedMessage}
-            onChange={(e) => setTypedMessage(e.target.value)}
+            value={typingMessage}
+            onChange={(e) => setTypingMessage(e.target.value)}
           />
 
           <ModalButtonContainer>
@@ -247,4 +259,6 @@ export default function WhisperLetter() {
       </WriteModal>
     </ChatContainer>
   );
-}
+};
+
+export default WhisperLetter;

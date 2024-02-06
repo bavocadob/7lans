@@ -16,6 +16,7 @@ const DinosaurDictPage = () => {
   const [hasDino, setHasDino] = useState("");
   const [show, setShow] = useState(false);
 
+  const urlInfo = useSelector((state) => state.url.value)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -101,7 +102,7 @@ const DinosaurDictPage = () => {
   const representDino = async (id) => {
     try {
       const res = await axios.get(
-        `https://i10e103.p.ssafy.io/api/v1/dinosaurs/myDinosaur/${id}`
+        `${userInfo}/dinosaurs/myDinosaur/${id}`
       );
       dispatch(changeDino(res.data.id));
       console.log(res.data.id);
@@ -210,6 +211,7 @@ const DinosaurDictPage = () => {
 
     return (
       <Dino>
+        {console.log(userDinosaurList)}
         <StyledContainer>
           <LeftTop>
             <h2>[ 공룡도감 ]</h2>

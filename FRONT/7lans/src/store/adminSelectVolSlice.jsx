@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const volunteerSlice = createSlice({
   name: "volunteer",
-  initialState: null,
+  initialState: " ",
   reducers: {
     adminSelectVol: (state, action) => {
       return action.payload;
