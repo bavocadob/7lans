@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 import ReactModal from 'react-modal';
 import styled from 'styled-components';
+import ActiveDocs from '../active_docs/AcitveDocs';
 
 // import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
 import NormalNav from '../../navs/NormalNav';
@@ -30,7 +31,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, child }) => {
                     {format(currentMonth, 'yyyy')}
                 </span>
                 <span>
-                    {child.childName}과의 일정
+                    {child.childName}과의 활동일지
                 </span>
             </div>
             <div className="col col-end">
@@ -42,23 +43,51 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, child }) => {
 };
 
 const RenderDays = () => {
-    const days = [];
+    //const days = [];
     const date = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
 
-    for (let i = 0; i < 7; i++) {
-        days.push(
-            <div className="col" key={i}>
-                {date[i]}
-            </div>,
-        );
-    }
+    const days = date.map((day, index) => (
+        <div className="col" key={index}>
+        {day}
+        </div>
+    ));
+        
 
     return <div className="days row">{days}</div>;
 };
 
+const GetActivityLog = (activityLogs, cloneDay, currentMonth) => {
+
+    let activityLog = '';
+     activityLogs.forEach(a => {
+    //     if(cloneDay.getDate() == a.dateInfo.getDate()){
+    //         activityLog = a;
+    //     }
+
+    console.log("get activity")
+    console.log(typeof a.dateInfo)
+    console.log(typeof cloneDay.getDate())
+     })
+
+    return activityLog;
+    
+}
+
+const Activity = ({activityLog, currentMonth, cloneDay}) => {
+    console.log(activityLog)
+    console.log(currentMonth)
+    if(currentMonth.getMonth() == cloneDay.getMonth()){
+        return (
+            <div>
+                {activityLog.activityLogId}
+            </div>
+        )
+    }
+}
 
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick}) => {
+
+const RenderCells = ({ currentMonth, selectedDate, onDateClick, activityLogs}) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
@@ -73,6 +102,9 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick}) => {
         for (let i = 0; i < 7; i++) {
           const cloneDay = addDays(day, 1);
           formattedDate = format(cloneDay, 'd');
+
+          //해당 날짜에 activity log 잇으면 담기 
+          const activityLog = GetActivityLog(activityLogs, cloneDay);
             
           days.push(
               <div
@@ -97,6 +129,12 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick}) => {
                   >
                       {formattedDate}
                   </span>
+                  <Activity
+                    activityLog = {activityLog}
+                    currentMonth = {currentMonth}
+                    cloneDay = {cloneDay}
+                  />
+                  
               </div>,
           );
 
@@ -119,6 +157,7 @@ const ActivityCalendar = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
     const [relationId, setRelation] = useState(1);
+    const [activityLogs, setActivityLogs] = useState([]);
 
 
     const navigate = useNavigate();
@@ -126,6 +165,21 @@ const ActivityCalendar = () => {
     const dayOfMonth = currentDate.getDate();
     const childInfo = useSelector((state) => state.child.value)
 
+    //해당 아동의 활동일지 정보 불러오기
+    useEffect(() => {
+        setRelation(childInfo.relationId);
+    
+        axios.post('https://i10e103.p.ssafy.io/api/v1/activityLog/volunteer/list',{
+            relationId: childInfo.relationId,
+            dateInfo: "2024-02-01"
+        })
+        .then((res) => {
+            setActivityLogs(res.data);
+            console.log(res)
+        })
+        .catch((err) => {
+        });
+    }, [childInfo])
 
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
@@ -154,6 +208,7 @@ const ActivityCalendar = () => {
                     currentMonth={currentMonth}
                     selectedDate={selectedDate}
                     onDateClick={onDateClick}
+                    activityLogs = {activityLogs}
                 />
             </div>
       
