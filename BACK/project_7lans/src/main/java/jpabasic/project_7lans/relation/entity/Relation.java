@@ -40,6 +40,7 @@ public class Relation {
     private ChildCenter childCenter;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "egg_id")
     private Egg egg;
 
     @OneToMany(mappedBy = "relation", cascade = CascadeType.ALL)

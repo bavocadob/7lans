@@ -1,6 +1,6 @@
 package jpabasic.project_7lans.controller;
 
-import jpabasic.project_7lans.entity.*;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
