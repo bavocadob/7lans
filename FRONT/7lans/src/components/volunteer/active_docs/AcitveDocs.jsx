@@ -94,11 +94,17 @@ const CuteButtonWithMargin = styled(CuteButton)`
 `;
 
 export default function ActiveDocs() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [isModalOpenSpeek, setIsModalOpenSpeek] = useState(false);
+  const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
+
   const [activityLog, setActivityLog] = useState('')
+  const [content, setContent] = useState("")
+
   const childInfo = useSelector((state) => state.child.value)
   const urlInfo = useSelector((state) => state.url.value)
+  const userInfo = useSelector((state) => state.user.value)
+
   //activity log 전달받은 값
   const location = useLocation();
   const state = {...location.state};
@@ -111,13 +117,20 @@ export default function ActiveDocs() {
       activityLogId: state.activityLogId
     })
     .then((res) => {
-      console.log(res.data)
+      //console.log(res.data)
       setActivityLog(res.data)
+      if(res.data.content == null || res.data.content == ""){
+        setContent("활동을 입력해 주세요")
+      }
+      else{
+      setContent(res.data.content)
+      }
     })
     .catch((err) => {
     });
   }, [])
 
+  //모달 관련 함수
   const handleSpeek = () => {
     setIsModalOpenSpeek(true);
   };
@@ -127,12 +140,48 @@ export default function ActiveDocs() {
   };
 
   const handleSubmission = () => {
-    setIsModalOpen(true);
+    setIsSubmitModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsSubmitModalOpen(false);
   };
+
+  const closeChangeModal = () =>{
+    setIsChangeModalOpen(false);
+  }
+
+  //수정하기
+  const changeContent = () =>{
+    //console.log(content)
+    axios.put(`${urlInfo}/activityLog/volunteer/modify`, {
+      volunteerId: userInfo.memberId,
+      relationId: childInfo.relationId,
+      activityLogId: state.activityLogId,
+      content: content
+    })
+
+    //수정 후 modal 띄우기
+    setIsChangeModalOpen(true)
+
+  }
+
+  //제출하기
+  const submit = () => {
+    axios.put(`${urlInfo}/activityLog/volunteer/writeDone`, {
+      volunteerId: userInfo.memberId,
+      relationId: childInfo.relationId,
+      activityLogId: state.activityLogId,
+      content: content
+    })
+
+    navigate(-1)
+  }
+
+  //입력한 content값 바로 받기
+  function onChange(e){
+    setContent(e.target.value)
+  }
 
   const navigate = useNavigate();
 
@@ -159,12 +208,12 @@ export default function ActiveDocs() {
           봉사자 성명: <input type="text" value={activityLog.volunteerName}/>
         </div>
       </InputRow>
-      <TextArea placeholder="활동내용 및 의견을 작성해주세요" />
+      <TextArea value={content} onChange={onChange} />
       <ButtonContainer>
         <CuteButtonWithMargin onClick={handleSpeek}>
           말하기
         </CuteButtonWithMargin>
-        <CuteButtonWithMargin>수정하기</CuteButtonWithMargin>
+        <CuteButtonWithMargin onClick={changeContent}>수정하기</CuteButtonWithMargin>
         <CuteButton onClick={handleSubmission}>제출하기</CuteButton>
       </ButtonContainer>
 
@@ -177,11 +226,18 @@ export default function ActiveDocs() {
         </ModalContent>
       </ModalOverlaySpeek>
 
-      <ModalOverlay open={isModalOpen} onClick={closeModal}>
+      <ModalOverlay open={isSubmitModalOpen} onClick={closeModal}>
         <ModalContent>
           <p>더 이상 수정이 불가합니다. 제출하시겠습니까?</p>
           <CuteButton onClick={closeModal}>취소하기</CuteButton>
-          <CuteButton>제출하기</CuteButton>
+          <CuteButton onClick={submit}>제출하기</CuteButton>
+        </ModalContent>
+      </ModalOverlay>
+
+      <ModalOverlay open={isChangeModalOpen} onClick={closeChangeModal}>
+        <ModalContent>
+          <p>수정이 완료됐습니다. </p>
+          <CuteButton onClick={closeChangeModal}>닫기</CuteButton>
         </ModalContent>
       </ModalOverlay>
     </Container>
