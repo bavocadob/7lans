@@ -11979,7 +11979,7 @@ textarea.form-control-lg {
 body {
   font-family: "Poor Story", system-ui;
   --bs-body-font-size: 1.2rem
-  $primary: #401f7c;
+   $primary: #401f7c;
   background-color: rgb(255, 233, 156);
 }
 

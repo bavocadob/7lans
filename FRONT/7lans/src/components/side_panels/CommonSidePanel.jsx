@@ -17,7 +17,7 @@ const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  width: 350px;
+  width: 550px;
   border-radius: 20px 0 0 20px;
   height: 100%;
   /* border: 2px solid rgb(255, 183, 58);
@@ -56,7 +56,7 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 18%;
+  left: 30%;
   top: 2%;
   height: 8rem;
   width: 8rem;
@@ -124,13 +124,34 @@ const Comment = ({ comment }) => {
   }
 };
 
-const DetailParagraph = styled.div`
-  border: 3px solid #523329;
+const ChildCard = styled.div`
+  border: 3px solid rgb(240, 165, 8);
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  border-radius:  10px;
+  padding: 1rem;
 `;
 
+const Button = styled.button`
+  background: linear-gradient(
+              300deg,
+              rgba(255, 184, 36, 1),
+              rgba(255, 237, 140, 1));
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  /* margin: 0.5rem; */
+  margin-left: 3px;
+  padding: 0.5rem;
+  height: 40px;
+  width: 100px;
+  margin-left: 90%;
+  margin-top: 7%;
+  color: white;
+  text-decoration-line: none;
+`
 const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
   //const [children, setChildren] = useState([]);
@@ -171,15 +192,15 @@ const CommonSidePanel = () => {
             <DetailContainer>
               {children.length > 0 ? (
                 children.map((el) => (
-                  <DetailParagraph key={el.childId}>
+                  <ChildCard key={el.childId}>
                     <form onSubmit={onSubmit}>
                       <h3>{el.childName}</h3>
                       <Age birth={el.childBirth}></Age>
                       <div>소속기관: {el.childCenterName}</div>
                       <Comment comment={el.childSpecialContent}></Comment>
-                      <button onClick={() => postData(el)}>선택하기</button>
+                      <Button onClick={() => postData(el)}>선택하기</Button>
                     </form>
-                  </DetailParagraph>
+                  </ChildCard>
                 ))
               ) : (
                 <h4> 친구를 추가해주세요!</h4>

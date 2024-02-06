@@ -61,9 +61,9 @@ const StartPage = () => {
           <RightSide>
             {childInfo?
               <TextandimageBox>
-                <h2>
+                <h1>
                 함께할 아이를 선택해주세요
-                </h2>
+                </h1>
                 <Correct/>
               </TextandimageBox>
               :
