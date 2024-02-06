@@ -129,13 +129,26 @@ const CommonSidePanel = () => {
   //const [children, setChildren] = useState([]);
   const [id, setId] = useState([]);
   const dispatch = useDispatch();
-
+  const urlInfo = useSelector((state) => state.url.value);
   const childInfo = useSelector((state) => state.child.value);
   const children = useSelector((state) => state.children.value);
   const userInfo = useSelector((state) => state.user.value);
-  // console.log(userInfo);
+  const urlInfo = useSelector((state) => state.url.value)
+  console.log(userInfo.memberId);
+  const userId = userInfo.memberId;
   console.log(children);
   // console.log(childInfo);
+
+  useEffect(() => {
+    axios
+      .get(`${urlInfo}/vol/list/${userId}`)
+      .then((res) => {
+        console.log(res, "여기서 아이들 리스트 정제하기");
+      })
+      .catch((err) => {
+        console.log(err, "에러발생");
+      });
+  });
 
   const onSubmit = (e) => {
     e.preventDefault();

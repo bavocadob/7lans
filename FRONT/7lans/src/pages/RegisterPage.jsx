@@ -8,6 +8,7 @@ import { FcAddressBook } from "react-icons/fc";
 import { FcContacts } from "react-icons/fc";
 import { RiCake2Fill } from "react-icons/ri";
 import { FcSmartphoneTablet } from "react-icons/fc";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   height: 93vh;
@@ -137,6 +138,7 @@ const Form = styled.form`
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [userType, setUserType] = useState("");
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -144,6 +146,7 @@ const Register = () => {
   const [centerId, setCenterId] = useState("");
 
   const navigate = useNavigate();
+  const urlInfo = useSelector((state) => state.url.value)
 
   // phoneNumber 변경 함수 (자동으로 '-' 삽입)=
   const handlePhoneNumberChange = (e) => {
@@ -161,26 +164,34 @@ const Register = () => {
     memberBirth,
     centerId
   ) => {
-    try {
-      const res = await axios.post(
-        "https://i10e103.p.ssafy.io/api/v1/member/register",
-        {
-          memberEmail,
-          memberPassword,
-          memberType,
-          memberName,
-          memberPhoneNumber,
-          memberBirth,
-          centerId,
-        }
-      );
-
-      console.log(res);
-      navigate("/login");
-    } catch (err) {
-      console.error(err);
+    if (!memberEmail.includes('@')) {
+      window.alert('유효하지 않은 이메일입니다.')
     }
-  };
+    else if (password !== passwordCheck) {
+      window.alert('비밀번호가 일치하지 않습니다.')
+    }
+    else {
+      try {
+        const res = await axios.post(
+          `${urlInfo}/member/register`,
+          {
+            memberEmail,
+            memberPassword,
+            memberType,
+            memberName,
+            memberPhoneNumber,
+            memberBirth,
+            centerId,
+          }
+        );
+  
+        console.log(res);
+        navigate("/login");
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
 
   // const handlePassword1 = (e) => {
   //   setPassword1(() => e.target.value);
@@ -244,6 +255,18 @@ const Register = () => {
                 placeholder={password ? "" : "비밀번호를 입력하세요"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password">
+                <FcKey />
+              </label>
+              <input
+                type="password"
+                placeholder={password ? "" : "비밀번호를 다시 입력하세요"}
+                value={passwordCheck}
+                onChange={(e) => setPasswordCheck(e.target.value)}
               />
             </div>
 

@@ -90,7 +90,9 @@ const SearchChildContainer = styled.div`
 function VolUpDiv() {
   const selectVolCard = useSelector((state) => state.adminSelectVol);
   const userInfo = useSelector((state) => state.user);
+  const urlInfo = useSelector((state) => state.url.value);
   const centerId = userInfo.value.centerId;
+  const urlInfo = useSelector((state) => state.url.value)
   const [childList, setChildList] = useState([]);
   const [search, setSearch] = useState("");
   console.log(centerId);
@@ -102,7 +104,7 @@ function VolUpDiv() {
 
   useEffect(() => {
     axios
-      .get(`http://i10e103.p.ssafy.io:8090/manager/child/${centerId}`)
+      .get(`${urlInfo}/manager/child/${centerId}`)
       .then((response) => {
         const arr = [];
         for (const element of response.data) {

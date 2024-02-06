@@ -33,6 +33,8 @@ import ChildVideoChattingPage from "./pages/child_pages/ChildVideoChattingPage";
 import ChildGamePage from "./pages/child_pages/ChildGamePage";
 import Register from "./pages/RegisterPage";
 
+import ActivityCalendar from "./components/volunteer/calendar/ActivityCalendar";
+
 // 관리자
 import AdminMainPage from "./pages/admin_pages/AdminMainPage";
 import VolunteerManage from "./components/admin/VolunteerManage";
@@ -72,6 +74,7 @@ function App() {
         <Route path="/whisper_letter" element={<WhisperLetter />} />
         <Route path="/volunteer_video_chatting_start" element={<VideoChattingStartPage />}/>
         <Route path="/volunteer_active_doc" element={<ActiveDoc />} />
+        <Route path="/activity_calendar" element={<ActivityCalendar />} />
         <Route path="/volunteer_whispher" element={<WhisperPage />} />
         <Route path="/volunteer_raise_egg" element={<RaiseEggPage />} />
         <Route path="/volunteer_video_chatting" element={<VideoChattingPage />}/>

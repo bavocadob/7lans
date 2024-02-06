@@ -137,6 +137,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const userInfo = useSelector((state) => state.user.value)
   const userDino = useSelector((state) => state.dino.value)
+  const urlInfo = useSelector((state) => state.url.value)
   const dispatch = useDispatch()
 
   const handleEnter = (e) => {
@@ -148,13 +149,13 @@ const LoginPage = () => {
 
   const login = async (memberEmail, memberPassword) => {
     try {
-      const res = await axios.post('https://i10e103.p.ssafy.io/api/v1/member/login', {
+      const res = await axios.post(`${urlInfo}/member/login`, {
         memberEmail,
         memberPassword
       });
       const representDino = async (id) => {
         try {
-          const res = await axios.get(`https://i10e103.p.ssafy.io/api/v1/dinosaurs/myDinosaur/${id}`)
+          const res = await axios.get(`${urlInfo}/dinosaurs/myDinosaur/${id}`)
           dispatch(changeDino(res.data.id))
           console.log(res.data.id)
         } catch (err) {

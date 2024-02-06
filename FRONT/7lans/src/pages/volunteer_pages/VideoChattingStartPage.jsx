@@ -18,7 +18,7 @@ const VideoChattingStartPage = () => {
   const childInfo = useSelector((state) => state.child.value)
 
   const dispatch = useDispatch()
-
+  console.log(childInfo)
 
   
   return (
@@ -48,6 +48,7 @@ const VideoChattingStartPage = () => {
                 <Wrong/>
               </div>
             }     
+
           </div>
 
           <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>

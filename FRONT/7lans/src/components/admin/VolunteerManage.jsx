@@ -102,6 +102,7 @@ const VolunteerCard = styled.div`
 `;
 
 const VolunteerManage = () => {
+  const urlInfo = ((state) => state.url.value)
   const dispatch = useDispatch();
   const selectVolCard = useSelector((state) => state.adminSelectVol);
 
@@ -112,9 +113,10 @@ const VolunteerManage = () => {
   // 봉사자 리스트
   const [volunteerList, setVolunteerList] = useState([]);
 
+  // 어떻게 하면 더 이쁘고 깔끔하게 짤 수 있나요?
   useEffect(() => {
     axios
-      .get(`https://i10e103.p.ssafy.io/api/v1/manager/volunteerList`)
+      .get(`${urlInfo}/manager/volunteerList`)
       .then((response) => {
         const arr = [];
         for (const ele of response.data) {
