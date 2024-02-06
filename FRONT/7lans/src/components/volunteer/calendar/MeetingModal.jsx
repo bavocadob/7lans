@@ -69,6 +69,34 @@ const TimeSelect = ({selectedTimes, setSelectedTimes}) => {
     return <div className="body">{rows}</div>;
 };
 
+const calTime = (time) => {
+    console.log("time" + time)
+    let returnTime = "";
+
+    //시간
+    if(time%1 == 0.5){
+        //시
+        if(time < 10){
+            returnTime += "0"
+        }
+        returnTime += String(time-0.5) + ":";
+    
+        //분, 초
+        returnTime += "30" + ":00"
+    }
+    else{
+        if(time < 10){
+            returnTime += "0"
+        }
+        returnTime += String(time) + ":";
+        returnTime += "00" + ":00"
+    }
+
+    console.log("returnTime" + returnTime)
+
+    return returnTime;
+}
+
 const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedTimes, setSelectedTimes] = useState([]);
@@ -111,54 +139,14 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
             }
             day += String(selectedDate.getDate()) + "T";
 
-            const firstTime = selectedTimes[0];
-            let startTime = "";
-
-            //시간
-            if(firstTime%1 == 0.5){
-                //console.log(selectedTimes[0])
-                //시
-                if(firstTime < 10){
-                    startTime += "0"
-                }
-                startTime += String(firstTime-0.5) + ":";
-
-                //분, 초
-                startTime += "30" + ":00"
-            }
-            else{
-                if(firstTime < 10){
-                    startTime += "0"
-                }
-                startTime += String(firstTime) + ":";
-                startTime += "00" + ":00"
-            }
-
-            const lastTime = selectedTimes[selectedTimes.length-1] + 0.5;
-            let endTime = "";
-
-            //시간
-            if(lastTime%1 == 0.5){
-                //시
-                if(lastTime < 10){
-                    endTime += "0"
-                }
-                endTime += String(lastTime-0.5) + ":";
-
-                //분, 초
-                endTime += "30" + ":00"
-            }
-            else{
-                if(lastTime < 10){
-                    endTime += "0"
-                }
-                endTime += String(lastTime) + ":";
-                endTime += "00" + ":00"
-            }
+            //14 -> 14:00:00형식으로 변환
+            const startTime = calTime(selectedTimes[0]);
+            const endTime = calTime(selectedTimes[selectedTimes.length-1] + 0.5);
 
             const start = day + startTime
             const end = day + endTime
 
+            //해당 월의 미팅 목록 불러오기
             axios.post('https://i10e103.p.ssafy.io/api/v1/meetingSchedue/create',{
                 relationId: childInfo.relationId,
                 ScheduledStartTime: start,
