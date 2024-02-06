@@ -90,6 +90,7 @@ const SearchChildContainer = styled.div`
 function VolUpDiv() {
   const selectVolCard = useSelector((state) => state.adminSelectVol);
   const userInfo = useSelector((state) => state.user);
+  const urlInfo = useSelector((state) => state.url.value);
   const centerId = userInfo.value.centerId;
   const urlInfo = useSelector((state) => state.url.value)
   const [childList, setChildList] = useState([]);
