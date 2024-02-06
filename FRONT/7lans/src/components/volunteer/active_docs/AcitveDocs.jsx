@@ -1,5 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import {useNavigate, useLocation} from 'react-router-dom'
+import axios from "axios";
+import SelectedPostit from "../post_it/SelectedPostit";
+import PostIt from "../post_it/PostIt";
+import { useSelector } from "react-redux";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -91,6 +96,27 @@ const CuteButtonWithMargin = styled(CuteButton)`
 export default function ActiveDocs() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenSpeek, setIsModalOpenSpeek] = useState(false);
+  const [activityLog, setActivityLog] = useState('')
+  const childInfo = useSelector((state) => state.child.value)
+  const urlInfo = useSelector((state) => state.url.value)
+  //activity log 전달받은 값
+  const location = useLocation();
+  const state = {...location.state};
+
+  //console.log(childInfo)
+  //활동일지 상세 정보 가져오기
+  useEffect(() => {
+    axios.post(`${urlInfo}/activityLog/volunteer`, {
+      relationId: childInfo.relationId,
+      activityLogId: state.activityLogId
+    })
+    .then((res) => {
+      console.log(res.data)
+      setActivityLog(res.data)
+    })
+    .catch((err) => {
+    });
+  }, [])
 
   const handleSpeek = () => {
     setIsModalOpenSpeek(true);
@@ -108,25 +134,29 @@ export default function ActiveDocs() {
     setIsModalOpen(false);
   };
 
+  const navigate = useNavigate();
+
+
   return (
     <Container>
-      <CloseButton>X</CloseButton>
-      <h3>학생이름과의 활동일지</h3>
+      <CloseButton onClick={() => {navigate(-1)}}>X</CloseButton>
+      <h3>{childInfo.childName}의 활동일지</h3>
       <br></br>
       <InputRow>
+
         <div>
-          활동일자: <input type="date" />
+          활동일자: <input type="date"  value={activityLog.dateInfo}/>
         </div>
         <div>
-          활동시간: <input type="time" />
+          활동시간: <input type="time"/>
         </div>
       </InputRow>
       <InputRow>
         <div>
-          활동기관: <input type="text" />
+          활동기관: <input type="text" value={activityLog.centerName}/>
         </div>
         <div>
-          봉사자 성명: <input type="text" />
+          봉사자 성명: <input type="text" value={activityLog.volunteerName}/>
         </div>
       </InputRow>
       <TextArea placeholder="활동내용 및 의견을 작성해주세요" />

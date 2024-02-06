@@ -60,13 +60,11 @@ const GetActivityLog = (activityLogs, cloneDay, currentMonth) => {
 
     let activityLog = '';
      activityLogs.forEach(a => {
-    //     if(cloneDay.getDate() == a.dateInfo.getDate()){
-    //         activityLog = a;
-    //     }
+        const day = Number(a.dateInfo.substr(8))
 
-    console.log("get activity")
-    console.log(typeof a.dateInfo)
-    console.log(typeof cloneDay.getDate())
+        if(cloneDay.getDate() == day){
+            activityLog = a;
+        }
      })
 
     return activityLog;
@@ -74,12 +72,18 @@ const GetActivityLog = (activityLogs, cloneDay, currentMonth) => {
 }
 
 const Activity = ({activityLog, currentMonth, cloneDay}) => {
-    console.log(activityLog)
-    console.log(currentMonth)
-    if(currentMonth.getMonth() == cloneDay.getMonth()){
+    // console.log(activityLog)
+    // console.log(currentMonth)
+    if(activityLog){
+        
+        //TODO: activity log 상태에 따라 다른 이미지 출력
+        
         return (
             <div>
                 {activityLog.activityLogId}
+                <img    src={`./activity_log/activityLog_approve.png`} 
+                        alt=""  
+                        style={{ width: '100%'}}/>
             </div>
         )
     }
@@ -118,7 +122,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, activityLogs}) =
                           : 'valid'
                   }`}
                   key={cloneDay}
-                  onClick={() => onDateClick(cloneDay)}
+                  onClick={() => onDateClick(cloneDay, activityLog)}
               >
                   <span
                       className={
@@ -129,6 +133,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, activityLogs}) =
                   >
                       {formattedDate}
                   </span>
+                  {/* activity 있으면 로고 출력 */}
                   <Activity
                     activityLog = {activityLog}
                     currentMonth = {currentMonth}
@@ -155,7 +160,6 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, activityLogs}) =
 const ActivityCalendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
     const [relationId, setRelation] = useState(1);
     const [activityLogs, setActivityLogs] = useState([]);
     const urlInfo = useSelector((state) => state.url.value)
@@ -176,7 +180,7 @@ const ActivityCalendar = () => {
         })
         .then((res) => {
             setActivityLogs(res.data);
-            console.log(res)
+            //console.log(res)
         })
         .catch((err) => {
         });
@@ -188,10 +192,19 @@ const ActivityCalendar = () => {
     const nextMonth = () => {
         setCurrentMonth(addMonths(currentMonth, 1));
     };
-    const onDateClick = (day) => {
 
+    const onDateClick = (day, activityLog) => {
         setSelectedDate(day);
-
+        
+        //활동일지 존재하면 입력창으로 이동
+        if(activityLog){
+              //console.log(activityLog.activityLogId)
+              navigate('/active_docs', {
+                state: {
+                    activityLogId: `${activityLog.activityLogId}`
+                }
+              })
+        }
     };
     
     

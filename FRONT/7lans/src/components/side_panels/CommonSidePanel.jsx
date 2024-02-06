@@ -134,16 +134,16 @@ const CommonSidePanel = () => {
   const children = useSelector((state) => state.children.value);
   const userInfo = useSelector((state) => state.user.value);
   const urlInfo = useSelector((state) => state.url.value)
-  console.log(userInfo.memberId);
+  //console.log(userInfo.memberId);
   const userId = userInfo.memberId;
-  console.log(children);
+  //console.log(children);
   // console.log(childInfo);
 
   useEffect(() => {
     axios
       .get(`${urlInfo}/vol/list/${userId}`)
       .then((res) => {
-        console.log(res, "여기서 아이들 리스트 정제하기");
+        //console.log(res, "여기서 아이들 리스트 정제하기");
       });
   });
 
