@@ -34,7 +34,7 @@ public class EggResponseDto {
 
         public static EggResponseDto.detail toDto(Egg egg) {
             return detail.builder()
-                    .id(egg.getEggId())
+                    .id(egg.getId())
                     .volunteerCheck(egg.isVolunteerCheck())
                     .childCheck(egg.isChildCheck())
                     .experience(egg.getExperience())

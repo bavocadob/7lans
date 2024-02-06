@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Egg {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long eggId;
+    private Long id;
 
     private boolean volunteerCheck = false;
 
