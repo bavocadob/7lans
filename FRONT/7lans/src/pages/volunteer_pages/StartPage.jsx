@@ -32,7 +32,7 @@ const StartPage = () => {
           <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>
             {childInfo?
               <div>
-                함께할 아이를 선택해주세요
+                아이들과 함께 즐거운 시간을 보내봐요.
                 <Correct/>
               </div>
               :
