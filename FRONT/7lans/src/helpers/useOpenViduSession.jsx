@@ -8,7 +8,7 @@ const UseOpenViduSession = () => {
     const APPLICATION_SERVER_URL = 'https://i10e103.p.ssafy.io:6443/openvidu/';
     const OPENVIDU_SERVER_SECRET = '741u741';
 
-    const [mySessionId, setMySessionId] = useState('36');
+    const [mySessionId, setMySessionId] = useState('44');
     const [myUserName, setMyUserName] = useState(`Participant${Math.floor(Math.random() * 100)}`);
     const [session, setSession] = useState(undefined);
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
@@ -27,17 +27,22 @@ const UseOpenViduSession = () => {
 
 
     // 사용자 화상 화면 렌더링
-    const renderUserVideoComponent = (stream) => (
-      <div id="participant-video">
-          <UserVideoComponent streamManager={stream}/>
-      </div>
-    );
+    const renderUserVideoComponent = (stream) => {
+        let key = "";
+        if (stream) {
+            key = stream.stream.connection.connectionId;
+        }
+
+        return (
+          <div id="participant-video" key={key}>
+              <UserVideoComponent streamManager={stream}/>
+          </div>
+        );
+    };
 
     // 이미 세션이 존재하는지 확인하는 method
     const getSession = async (sessionId) => {
-        console.log('get session 메소드 시작')
         try {
-            console.log(`${APPLICATION_SERVER_URL}api/sessions/${sessionId}`)
             const response = await axios.get(`${APPLICATION_SERVER_URL}api/sessions/${sessionId}`, {
                 headers: {
                     'Authorization': `Basic ${btoa(`OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`)}`,
@@ -46,7 +51,6 @@ const UseOpenViduSession = () => {
             return response.data; // If the request succeeds, then return session object
         } catch (error) {
             if (error.response && error.response.status === 404) {
-                console.log('get session 에러 발생');
                 return null; // If the server responds with a 404 error, then the session does not exist
             }
             throw error; // For any other type of error, rethrow it
@@ -57,9 +61,7 @@ const UseOpenViduSession = () => {
 
 // 세션을 생성하는 메소드
     const createSession = async (sessionId) => {
-        console.log('크리에이트 세션 메소드 시작')
         let tempSession = await getSession(sessionId);
-        console.log(tempSession);
 
         if (tempSession == null) {
             const response = await axios.post(`${APPLICATION_SERVER_URL}api/sessions`, {customSessionId: sessionId}, {
@@ -71,31 +73,24 @@ const UseOpenViduSession = () => {
         } else {
             console.log(`${sessionId} session already exists.`);
         }
-        console.log(tempSession);
-        console.log('크리에이트 세션 메소드 종료')
         return tempSession;
     };
 
 
 // Openvidu 서버에 세션 바탕으로 토큰 요청
     const createToken = async (tempSession) => {
-        console.log('토큰 생성 메소드 시작')
         const response = await axios.post(`${APPLICATION_SERVER_URL}api/sessions/${tempSession.id}/connection`, {}, {
             headers: {
                 'Authorization': `Basic ${btoa(`OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`)}`,
             },
         });
-        console.log(response.data);
-        console.log('토큰 생성 메소드 끝');
-        return response.data.token; // The token
+        return response.data.token; // token
     };
 
 
 // 토큰 리턴
     const getToken = async () => {
         const tempSession = await createSession(mySessionId);
-        console.log('겟토큰 메소드 시작')
-        console.log(tempSession);
         return createToken(tempSession);
     };
 
@@ -133,8 +128,6 @@ const UseOpenViduSession = () => {
         });
 
         const token = await getToken();
-        console.log(`받아낸 토큰 ${token}`)
-        console.log(mySession);
         mySession.connect(token, {clientData: myUserName})
           .then(async () => {
               const publisherInstance = await OV.current.initPublisherAsync('#my-video', {
@@ -149,8 +142,6 @@ const UseOpenViduSession = () => {
               });
 
               mySession.publish(publisherInstance);
-              console.log('퍼블리셔 인스턴스')
-              console.log(publisherInstance);
 
               const devices = await OV.current.getDevices();
               const videoDevices = devices.filter(device => device.kind === 'videoinput');

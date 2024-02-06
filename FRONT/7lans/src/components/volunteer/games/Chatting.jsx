@@ -81,9 +81,7 @@ const Chat = ({
         const signalEventHandler = event => {
             const { data } = event;
             const chatData = JSON.parse(data);
-            console.log(`chat event 받음 ${data}`);
             dispatch(addChat(chatData));
-            console.log(chatList);
         };
 
         // 이벤트 리스너를 추가합니다.

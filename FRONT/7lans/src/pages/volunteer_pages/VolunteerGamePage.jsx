@@ -21,7 +21,7 @@ const VolunteerGamePage = ({session, renderUserVideoComponent, mainStreamManager
         }
         if (gameSelector === 2) {
             return (
-                <CardFind/>
+                <CardFind session={session}/>
             )
         }
         if (gameSelector === 3) {
