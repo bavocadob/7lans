@@ -50,7 +50,7 @@ public class RelationResponseDto {
                     .builder()
                     .volunteerId(relation.getVolunteer().getId())
                     .childId(relation.getChild().getId())
-                    .eggId(relation.getEgg().getEggId())
+                    .eggId(relation.getEgg().getId())
                     .build();
         }
     }

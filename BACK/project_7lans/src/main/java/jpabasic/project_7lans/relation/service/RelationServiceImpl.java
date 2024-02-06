@@ -5,6 +5,7 @@ import jpabasic.project_7lans.childCenter.repository.ChildCenterRepository;
 import jpabasic.project_7lans.dinosaur.entity.Dinosaur;
 import jpabasic.project_7lans.dinosaur.entity.Egg;
 import jpabasic.project_7lans.dinosaur.repository.DinosaurRepository;
+import jpabasic.project_7lans.dinosaur.repository.EggRepository;
 import jpabasic.project_7lans.relation.dto.RelationRequestDto;
 import jpabasic.project_7lans.relation.dto.RelationResponseDto;
 import jpabasic.project_7lans.member.entity.Child;
@@ -30,6 +31,7 @@ public class RelationServiceImpl implements RelationService {
     private final ChildCenterRepository childCenterRepository;
     private final VolunteerRepository volunteerRepository;
     private final DinosaurRepository dinosaurRepository;
+    private final EggRepository eggRepository;
 
 
     @Override
@@ -51,9 +53,13 @@ public class RelationServiceImpl implements RelationService {
         int randomIndex = new Random().nextInt((int)count);
         Dinosaur dinosaur = dinosaurRepository.findAll(PageRequest.of(randomIndex, 1)).getContent().get(0);
 
+        log.info("Selected dinosaur: {}", dinosaur.getName());
         Egg egg = Egg.builder()
                 .dinosaur(dinosaur)
                 .build();
+
+        log.info("Selected dinosaur in Egg: {}", egg.getDinosaur().getName());
+        eggRepository.save(egg);
 
         Relation relation = Relation.builder()
                 .child(child)
