@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
+import getEnv from "../../utils/getEnv";
 
 const UpperDiv = styled.div`
   flex: 1.2;
@@ -90,7 +91,7 @@ const SearchChildContainer = styled.div`
 function VolUpDiv() {
   const selectVolCard = useSelector((state) => state.adminSelectVol);
   const userInfo = useSelector((state) => state.user);
-  const urlInfo = useSelector((state) => state.url.value);
+  const urlInfo = getEnv('API_URL');
   const centerId = userInfo.value.centerId;
   const [childList, setChildList] = useState([]);
   const [search, setSearch] = useState("");

@@ -8,6 +8,7 @@ import axios from "axios";
 import { changeDino } from "../store/dinoSlice";
 import { Button, Modal, Form } from "react-bootstrap";
 import ChildDinosaurSidePanel from "../components/side_panels/ChildDinosaurSidePanel";
+import getEnv from "../utils/getEnv";
 
 const ChildDinosaurDictPage = () => {
   const userDino = useSelector((state) => state.dino.value);
@@ -16,8 +17,7 @@ const ChildDinosaurDictPage = () => {
   const [chooseDino, setChooseDino] = useState(userDino);
   const [hasDino, setHasDino] = useState("");
   const [show, setShow] = useState(false);
-
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
   const dispatch = useDispatch();
 
   useEffect(() => {

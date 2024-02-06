@@ -16,6 +16,7 @@ import PostIt from '../../volunteer/post_it/PostIt';
 import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
+import getEnv from "../../../utils/getEnv";
 
 ReactModal.setAppElement('#root');
 
@@ -199,7 +200,7 @@ const VolunteerCalendar = () => {
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
     const childInfo = useSelector((state) => state.child.value)
-    const urlInfo = useSelector((state) => state.url.value)
+    const urlInfo = getEnv('API_URL');
 
     //해당 아동의 미팅 정보 불러오기
     useEffect(() => {

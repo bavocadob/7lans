@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Modal from "react-modal";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import getEnv from "../../../utils/getEnv";
 
 const ChatContainer = styled.div`
   background-color: #f5f5f5;
@@ -120,7 +121,7 @@ const WhisperLetter = () => {
   const userInfo = useSelector((state) => state.user.value);
   const childRelationId = childInfo.relationId;
   const writerId = userInfo.memberId;
-  const urlInfo = useSelector((state) => state.url.value);
+  const urlInfo = getEnv('API_URL');
   console.log(childRelationId);
   // 해당 아동과의 속닥속닥 가져오기
   useEffect(() => {

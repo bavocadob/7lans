@@ -6,6 +6,7 @@ import VolUpDiv from "./VolUpDiv";
 import VolLowDiv from "./VolLowDiv";
 import { adminSelectVol } from "../../store/adminSelectVolSlice";
 import { useDispatch, useSelector } from "react-redux";
+import getEnv from "../../utils/getEnv";
 
 const StyledVolunteerManage = styled.div`
   display: flex;
@@ -102,7 +103,7 @@ const VolunteerCard = styled.div`
 `;
 
 const VolunteerManage = () => {
-  const urlInfo = useSelector((state) => state.url.value);
+  const urlInfo = getEnv('API_URL');
   const dispatch = useDispatch();
   const selectVolCard = useSelector((state) => state.adminSelectVol);
 
