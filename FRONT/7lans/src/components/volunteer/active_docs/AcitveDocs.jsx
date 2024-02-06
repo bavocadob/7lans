@@ -163,6 +163,7 @@ export default function ActiveDocs() {
 
     //수정 후 modal 띄우기
     setIsChangeModalOpen(true)
+    //console.log(activityLog.writeDoneStatus)
 
   }
 
@@ -194,28 +195,34 @@ export default function ActiveDocs() {
       <InputRow>
 
         <div>
-          활동일자: <input type="date"  value={activityLog.dateInfo}/>
+          활동일자: <input type="date" value={activityLog.dateInfo} readOnly/>
         </div>
         <div>
-          활동시간: <input type="time"/>
+          활동시간: <input type="time" readOnly/>
         </div>
       </InputRow>
       <InputRow>
         <div>
-          활동기관: <input type="text" value={activityLog.centerName}/>
+          활동기관: <input type="text" value={activityLog.centerName} readOnly/>
         </div>
         <div>
-          봉사자 성명: <input type="text" value={activityLog.volunteerName}/>
+          봉사자 성명: <input type="text" value={activityLog.volunteerName} readOnly/>
         </div>
       </InputRow>
-      <TextArea value={content} onChange={onChange} />
+      
+      <TextArea 
+        value={content} 
+        onChange={onChange}
+        readOnly={activityLog.writeDoneStatus} />
+      {!activityLog.writeDoneStatus &&  (
       <ButtonContainer>
         <CuteButtonWithMargin onClick={handleSpeek}>
           말하기
-        </CuteButtonWithMargin>
-        <CuteButtonWithMargin onClick={changeContent}>수정하기</CuteButtonWithMargin>
+        </CuteButtonWithMargin>     
+          <CuteButtonWithMargin onClick={changeContent}>수정하기</CuteButtonWithMargin>
         <CuteButton onClick={handleSubmission}>제출하기</CuteButton>
       </ButtonContainer>
+      )}
 
       {/* 버튼에 대한 모달창들 */}
       <ModalOverlaySpeek open={isModalOpenSpeek} onClick={closeModalSpeek}>
