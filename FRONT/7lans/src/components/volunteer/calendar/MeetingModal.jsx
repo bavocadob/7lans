@@ -102,6 +102,7 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
     const [selectedTimes, setSelectedTimes] = useState([]);
     const [meetingCreate, setMeetingCreate] = useState(false);
     const childInfo = useSelector((state) => state.child.value);
+    const urlInfo = useSelector((state) => state.url.value)
 
    //미팅 생성하기
    const saveMeeting = (selectedTimes,setMeetingCreate, meetingCreate) =>{
@@ -147,7 +148,7 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
             const end = day + endTime
 
             //해당 월의 미팅 목록 불러오기
-            axios.post('https://i10e103.p.ssafy.io/api/v1/meetingSchedue/create',{
+            axios.post(`${urlInfo}/meetingSchedue/create`,{
                 relationId: childInfo.relationId,
                 ScheduledStartTime: start,
                 ScheduledEndTime: end

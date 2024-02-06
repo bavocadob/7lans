@@ -158,6 +158,7 @@ const ActivityCalendar = () => {
     const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
     const [relationId, setRelation] = useState(1);
     const [activityLogs, setActivityLogs] = useState([]);
+    const urlInfo = useSelector((state) => state.url.value)
 
 
     const navigate = useNavigate();
@@ -169,7 +170,7 @@ const ActivityCalendar = () => {
     useEffect(() => {
         setRelation(childInfo.relationId);
     
-        axios.post('https://i10e103.p.ssafy.io/api/v1/activityLog/volunteer/list',{
+        axios.post(`${urlInfo}/activityLog/volunteer/list`,{
             relationId: childInfo.relationId,
             dateInfo: "2024-02-01"
         })

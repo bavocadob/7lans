@@ -102,6 +102,7 @@ const VolunteerCard = styled.div`
 `;
 
 const VolunteerManage = () => {
+  const urlInfo = ((state) => state.url.value)
   const dispatch = useDispatch();
   const selectVolCard = useSelector((state) => state.adminSelectVol);
 
@@ -114,7 +115,7 @@ const VolunteerManage = () => {
 
   useEffect(() => {
     axios
-      .get(`https://i10e103.p.ssafy.io/api/v1/manager/volunteerList`)
+      .get(`${urlInfo}/manager/volunteerList`)
       .then((response) => {
         const arr = [];
         for (const ele of response.data) {

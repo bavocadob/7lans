@@ -38,6 +38,7 @@ const RaiseEggPage = () => {
   const childrenInfo = useSelector((state) => state.children.value)
   const userDion = useSelector((state) => state.dino.value)
   const userInfo = useSelector((state) => state.user.value)
+  const urlInfo = useSelector((state) => state.url.value)
   const [eggInfo, setEggInfo] = useState(null)
   // const eggInfo = useRef(null)
 
@@ -47,7 +48,7 @@ const RaiseEggPage = () => {
   useEffect(() => {
     const egg = async () => {
       try {
-        const res = await axios.get(`https://i10e103.p.ssafy.io/api/v1/egg/${childInfo.relationId}`);
+        const res = await axios.get(`${urlInfo}/egg/${childInfo.relationId}`);
         console.log(res.data)
         // eggInfo.current = res.data
         setEggInfo(res.data)
@@ -65,7 +66,7 @@ const RaiseEggPage = () => {
         try {
           const memberId = userInfo.memberId
           const relationId = childInfo.relationId
-          const res = await axios.post('https://i10e103.p.ssafy.io/api/v1/dinosaurs/hatch', {memberId, relationId})
+          const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {memberId, relationId})
           console.log(res.data)
         }
         catch (err) {

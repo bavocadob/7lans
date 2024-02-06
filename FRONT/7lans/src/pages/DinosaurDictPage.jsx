@@ -16,13 +16,14 @@ const DinosaurDictPage = () => {
   const [hasDino, setHasDino] = useState("");
   const [show, setShow] = useState(false);
 
+  const urlInfo = useSelector((state) => state.url.value)
   const dispatch = useDispatch();
 
   useEffect(() => {
     const userDinosaursList = async () => {
       try {
         const res = await axios.get(
-          `https://i10e103.p.ssafy.io/api/v1/dinosaurs/${userInfo.memberId}`
+          `${urlInfo}/dinosaurs/${userInfo.memberId}`
         );
         const userDinosaurInfo = res.data.dinosaurs;
         const ownedDinosaurs = userDinosaurInfo.filter(
@@ -84,7 +85,7 @@ const DinosaurDictPage = () => {
   const changeMyDino = async (memberId, dinosaurId) => {
     try {
       const res = await axios.put(
-        `https://i10e103.p.ssafy.io/api/v1/dinosaurs/change`,
+        `${userInfo}/dinosaurs/change`,
         {
           memberId,
           dinosaurId,
@@ -101,7 +102,7 @@ const DinosaurDictPage = () => {
   const representDino = async (id) => {
     try {
       const res = await axios.get(
-        `https://i10e103.p.ssafy.io/api/v1/dinosaurs/myDinosaur/${id}`
+        `${userInfo}/dinosaurs/myDinosaur/${id}`
       );
       dispatch(changeDino(res.data.id));
       console.log(res.data.id);
