@@ -191,7 +191,7 @@ const WhisperLetter = () => {
   // 글쓰기
   useEffect(() => {
     axios
-      .post(`${ur}/whisper`, {
+      .post(`${urlInfo}/whisper`, {
         writerId: writerId,
         relationId: childRelationId,
         content: typingMessage,

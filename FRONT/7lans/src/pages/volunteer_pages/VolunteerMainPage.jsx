@@ -146,6 +146,7 @@ const FilledExp = styled.div`
 const VolunteerMainPage = () => {
   const urlInfo = useSelector((state) => state.url.value)
   const userInfo = useSelector((state) => state.user.value);
+  const dino = useSelector((state) => state.dino.value)
   const dispatch = useDispatch();
   const calculatedWidth = userInfo?.volunteerTime >= 100 ? userInfo.volunteerTime % 100 : userInfo?.volunteerTime || 0;
   const quotient = Math.floor(calculatedWidth / 100);
@@ -168,6 +169,8 @@ const VolunteerMainPage = () => {
 
   return (
     <Container>
+      {console.log(userInfo)}
+      {console.log(dino)}
       <header className="shadow">
         <LogoImage src="./7lans_logo.png" />
         <Link

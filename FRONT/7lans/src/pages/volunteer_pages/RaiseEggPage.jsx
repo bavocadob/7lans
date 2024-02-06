@@ -56,12 +56,12 @@ const RaiseEggPage = () => {
       catch (err) {
         console.error(err);
       }
-    };
+    }
     egg()
   }, [])
   
   const eggClick = () => {
-    if (eggInfo.experience === 100) {
+    if (eggInfo.experience === 0) {
       const eggHatch = async () => {
         try {
           const memberId = userInfo.memberId
@@ -86,6 +86,8 @@ const RaiseEggPage = () => {
         width: "100vw",
       }}
     >
+      {console.log(eggInfo)}
+      {console.log('이거')}
       <NormalNav />
       <div
         style={{
