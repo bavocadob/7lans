@@ -53,10 +53,12 @@ public class RelationServiceImpl implements RelationService {
         int randomIndex = new Random().nextInt((int)count);
         Dinosaur dinosaur = dinosaurRepository.findAll(PageRequest.of(randomIndex, 1)).getContent().get(0);
 
+        log.info("Selected dinosaur: {}", dinosaur.getName());
         Egg egg = Egg.builder()
                 .dinosaur(dinosaur)
                 .build();
 
+        log.info("Selected dinosaur in Egg: {}", egg.getDinosaur().getName());
         eggRepository.save(egg);
 
         Relation relation = Relation.builder()
