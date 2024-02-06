@@ -123,7 +123,7 @@ const InfoSpan = styled.span`
   background-color: rgb(255, 241, 165);
   padding: 0.5rem;
   border-radius: 14.52px;
-  width: 540px;
+  width: 70%;
   text-align: center;
   margin-bottom: 10%;
 `;
@@ -209,12 +209,15 @@ const Register = () => {
         <LeftContent>
           <LogoImage src="./7lans_logo.png" alt="" />
           <InfoSpan>
-            <h5>봉사자와 피봉사자의 연결을 도와주는 보조 웹 사이트</h5>
+            <h5 style={{margin: '0'}}>
+              봉사자와 피봉사자의 연결을 도와주는 보조 웹 사이트
+            </h5>
           </InfoSpan>
         </LeftContent>
         <Line />
         <RightContent>
           <Form>
+            <div>
             <select
               value={userType}
               onChange={(e) => setUserType(e.target.value)}
@@ -236,6 +239,9 @@ const Register = () => {
                 <option value={4}>D 센터</option>
               </select>
             )}
+            </div>
+            <div style={{display: 'flex', flexDirection: 'row', gap: '2rem'}}>
+            <div>
             <label htmlFor="email">
               <FcAddressBook />
               <input
@@ -243,10 +249,10 @@ const Register = () => {
                 placeholder={email ? "" : "이메일을 입력하세요"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              />
+                />
             </label>
 
-            <div>
+            
               <label htmlFor="password">
                 <FcKey />
               </label>
@@ -255,10 +261,10 @@ const Register = () => {
                 placeholder={password ? "" : "비밀번호를 입력하세요"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+                />
+           
 
-            <div>
+            
               <label htmlFor="password">
                 <FcKey />
               </label>
@@ -267,9 +273,10 @@ const Register = () => {
                 placeholder={password ? "" : "비밀번호를 다시 입력하세요"}
                 value={passwordCheck}
                 onChange={(e) => setPasswordCheck(e.target.value)}
-              />
+                />
+            
             </div>
-
+            <div>
             <label htmlFor="username">
               <FcContacts />
               <input
@@ -297,7 +304,8 @@ const Register = () => {
                 onChange={(e) => handlePhoneNumberChange(e)}
               />
             </label>
-            
+            </div>
+            </div>
             <p>아이디 찾기 | 비밀번호 찾기 | <Link to={"/login"}
                                                   style={{ textDecoration: 'none',
                                                            color: 'rgb(45,45,45)'

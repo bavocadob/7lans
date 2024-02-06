@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  FaEnvelope,
-  FaPhone,
-  FaHome,
-  FaClock,
-  FaBirthdayCake,
-} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { updateChildInfo } from "../../store/childSlice";
@@ -28,8 +20,8 @@ const StyledCommonSidePanel = styled.div`
   }
 `;
 
-const InnerContainer = styled.div`
-  height: 40%;
+const LeftSide = styled.div`
+  height: 150px;
   position: relative;
 
   @media (max-width: 768px) {
@@ -53,12 +45,13 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 30%;
+  left: 10%;
   top: 2%;
   height: 8rem;
   width: 8rem;
   border-radius: 100px;
-  border: 5px solid rgb(240, 165, 8);
+  border: 4px solid rgb(45,45,45);
+  padding: 5px;
 
   @media (max-width: 768px) {
     position: relative;
@@ -84,13 +77,14 @@ const NameHeader = styled.h4`
   color: rgb(45, 45, 45);
   text-decoration: none;
   position: absolute;
-  top: 45%;
+  top: 65%;
+  left: 50%;
 `;
 
 const DetailContainer = styled.div`
-  margin-top: 15px;
+  margin-top: 10px;
   width: 100%;
-  height: 82%;
+  height: 100%;
   color: rgb(0, 0, 0);
   padding: 1rem;
   background-color: rgb(255, 255, 255, 0.9);
@@ -191,24 +185,25 @@ const CommonSidePanel = () => {
     if (sidePanelStatus) {
       return (
         <StyledCommonSidePanel>
-          <InnerContainer>
+          <LeftSide>
             <CloseButton onClick={() => setSidePanelStatus(false)}>
               {"<<"}
             </CloseButton>
             <ProfileImage src="./anonymous.jpg" alt="" />
-          </InnerContainer>
+            <NameHeader> {userInfo.volunteerName} _봉사자님</NameHeader>
+          </LeftSide>
           <InfoContainer>
-            <NameHeader> {userInfo.volunteerName} 봉사자님</NameHeader>
-
             <DetailContainer>
               {children.length > 0 ? (
                 children.map((el) => (
                   <ChildCard key={el.childId}>
+                    <div>
                     <h3>{el.childName}</h3>
                     <Age birth={el.childBirth}></Age>
                     <div>소속기관: {el.childCenterName}</div>
                     <Comment comment={el.childSpecialContent}></Comment>
                     <Button onClick={() => postData(el)}>선택하기</Button>
+                    </div>
                   </ChildCard>
                 ))
               ) : (

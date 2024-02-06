@@ -11,6 +11,7 @@ import Wrong from '../../components/dinosaur/Wrong';
 
 const RightSide = styled.div`
   width: 90%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,7 +49,7 @@ const StartPage = () => {
       width: '100vw',
     }}>
       <NormalNav />
-      <div style={{flex: 1, 
+      <div style={{ height: '600px',
                     padding: '30px', 
                     backgroundColor: 'rgb(255, 226, 123)'}}>
         <div style={{height: '100%', 

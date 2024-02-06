@@ -53,8 +53,8 @@ const LeftContent = styled.div`
 const Line = styled.div`
   border: 1px dashed rgb(226, 198, 60);
   height: 90%;
-  margin-top: 20px
-`
+  margin-top: 20px;
+`;
 
 const RightContent = styled.div`
   width: 50vw;
@@ -69,7 +69,7 @@ const RightContent = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
+  };
 
   button {
     background: linear-gradient(
@@ -88,12 +88,12 @@ const RightContent = styled.div`
     margin-top: 7%;
     color: white;
     text-decoration-line: none;
-  }
+  };
 
   p {
     margin: 0.5rem;
     text-decoration-line: none;
-  }
+  };
 `;
 
 const EmailInput = styled.input`
@@ -103,7 +103,7 @@ const EmailInput = styled.input`
     margin-left: 10px;
     padding: 1rem;
     height: 50px;
-    width: 300px
+    width: 300px;
 `
 const PasswordInput = styled.input`
     background-color: rgb(255, 241, 165);
@@ -112,7 +112,7 @@ const PasswordInput = styled.input`
     margin-left: 10px;
     padding: 1rem;
     height: 50px;
-    width: 300px
+    width: 300px;
 `
 
 const LogoImage = styled.img`
@@ -124,7 +124,7 @@ const InfoSpan = styled.span`
   background-color: rgb(255, 241, 165);
   padding: 0.5rem;
   border-radius: 14.52px;
-  width: 540px;
+  width: 70%;
   text-align: center;
   margin-bottom: 10%;
   
