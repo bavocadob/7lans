@@ -159,7 +159,7 @@ const CommonSidePanel = () => {
   const childInfo = useSelector((state) => state.child.value);
   const children = useSelector((state) => state.children.value);
   const userInfo = useSelector((state) => state.user.value);
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = useSelector((state) => state.url.value);
   //console.log(userInfo.memberId);
   const userId = userInfo.memberId;
   //console.log(children);
@@ -204,11 +204,13 @@ const CommonSidePanel = () => {
               {children.length > 0 ? (
                 children.map((el) => (
                   <ChildCard key={el.childId}>
-                    <h3>{el.childName}</h3>
-                    <Age birth={el.childBirth}></Age>
-                    <div>소속기관: {el.childCenterName}</div>
-                    <Comment comment={el.childSpecialContent}></Comment>
-                    <Button onClick={() => postData(el)}>선택하기</Button>
+                    <div>
+                      <h3>{el.childName}</h3>
+                      <Age birth={el.childBirth}></Age>
+                      <div>소속기관: {el.childCenterName}</div>
+                      <Comment comment={el.childSpecialContent}></Comment>
+                      <Button onClick={() => postData(el)}>선택하기</Button>
+                    </div>
                   </ChildCard>
                 ))
               ) : (

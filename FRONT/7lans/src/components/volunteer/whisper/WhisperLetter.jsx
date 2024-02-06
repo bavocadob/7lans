@@ -121,7 +121,7 @@ const WhisperLetter = () => {
   const childRelationId = childInfo.relationId;
   const writerId = userInfo.memberId;
   const urlInfo = useSelector((state) => state.url.value);
-
+  console.log(childRelationId);
   // 해당 아동과의 속닥속닥 가져오기
   useEffect(() => {
     axios
