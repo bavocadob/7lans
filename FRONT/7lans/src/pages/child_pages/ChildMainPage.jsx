@@ -6,6 +6,7 @@ import { updateUserInfo } from "../../store/userSlice";
 import axios from "axios";
 import { updateVolInfo } from "../../store/volSlice";
 import { updateVolsInfo } from "../../store/volsSlice";
+import getEnv from "../../utils/getEnv";
 
 const Container = styled.div`
 /* font-family: 'Nanum Gothic', sans-serif; */
@@ -144,7 +145,7 @@ const FilledExp = styled.div`
 `;
 
 const VolunteerMainPage = () => {
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
   const userInfo = useSelector((state) => state.user.value);
   const dino = useSelector((state) => state.dino.value)
   const dispatch = useDispatch();

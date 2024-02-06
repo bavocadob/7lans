@@ -9,6 +9,7 @@ import WhisperLetter from "../../components/volunteer/whisper/WhisperLetter";
 import styled from "styled-components";
 import axios from "axios";
 import { tr } from "date-fns/locale";
+import getEnv from "../../utils/getEnv";
 
 const MainPanel = styled.div`
   flex: 1;
@@ -38,7 +39,7 @@ const RaiseEggPage = () => {
   const childrenInfo = useSelector((state) => state.children.value)
   const userDion = useSelector((state) => state.dino.value)
   const userInfo = useSelector((state) => state.user.value)
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
   const [eggInfo, setEggInfo] = useState(null)
   // const eggInfo = useRef(null)
 

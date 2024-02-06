@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 import { updateChildInfo } from "../../store/childSlice";
+import getEnv from "../../utils/getEnv";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -153,7 +154,7 @@ const CommonSidePanel = () => {
   const childInfo = useSelector((state) => state.child.value);
   const children = useSelector((state) => state.children.value);
   const userInfo = useSelector((state) => state.user.value);
-  const urlInfo = useSelector((state) => state.url.value);
+  const urlInfo = getEnv('API_URL');
   //console.log(userInfo.memberId);
   const userId = userInfo.memberId;
   //console.log(children);

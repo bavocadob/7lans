@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 import ReactModal from 'react-modal';
+import getEnv from "../../../utils/getEnv";
 
 ReactModal.setAppElement('#root');
 
@@ -102,7 +103,7 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
     const [selectedTimes, setSelectedTimes] = useState([]);
     const [meetingCreate, setMeetingCreate] = useState(false);
     const childInfo = useSelector((state) => state.child.value);
-    const urlInfo = useSelector((state) => state.url.value)
+    const urlInfo = getEnv('API_URL');
 
    //미팅 생성하기
    const saveMeeting = (selectedTimes,setMeetingCreate, meetingCreate) =>{

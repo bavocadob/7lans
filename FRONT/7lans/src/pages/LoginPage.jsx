@@ -8,6 +8,7 @@ import { updateUserInfo } from '../store/userSlice';
 import { FcKey } from "react-icons/fc";
 import { FcAddressBook } from "react-icons/fc";
 import { changeDino } from '../store/dinoSlice';
+import getEnv from "../utils/getEnv";
 
 
 const Container = styled.div`
@@ -137,7 +138,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const userInfo = useSelector((state) => state.user.value)
   const userDino = useSelector((state) => state.dino.value)
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
   const dispatch = useDispatch()
 
   const handleEnter = (e) => {

@@ -5,6 +5,7 @@ import axios from "axios";
 import SelectedPostit from "../post_it/SelectedPostit";
 import PostIt from "../post_it/PostIt";
 import { useSelector } from "react-redux";
+import getEnv from "../../../utils/getEnv";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -98,7 +99,7 @@ export default function ActiveDocs() {
   const [isModalOpenSpeek, setIsModalOpenSpeek] = useState(false);
   const [activityLog, setActivityLog] = useState('')
   const childInfo = useSelector((state) => state.child.value)
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
   //activity log 전달받은 값
   const location = useLocation();
   const state = {...location.state};

@@ -16,6 +16,7 @@ import PostIt from '../../volunteer/post_it/PostIt';
 import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
+import getEnv from "../../../utils/getEnv";
 
 ReactModal.setAppElement('#root');
 
@@ -162,7 +163,7 @@ const ActivityCalendar = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [relationId, setRelation] = useState(1);
     const [activityLogs, setActivityLogs] = useState([]);
-    const urlInfo = useSelector((state) => state.url.value)
+    const urlInfo = getEnv('API_URL');
 
 
     const navigate = useNavigate();
