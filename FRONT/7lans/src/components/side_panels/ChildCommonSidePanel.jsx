@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { changecompo } from "../../store/changeCompoSlice";
 import axios from "axios";
 import { updateChildInfo } from "../../store/childSlice";
 
@@ -133,24 +132,22 @@ const ChildCommonSidePanel = () => {
   const childInfo = useSelector((state) => state.child.value);
   const children = useSelector((state) => state.children.value);
   const userInfo = useSelector((state) => state.user.value);
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = useSelector((state) => state.url.value);
   console.log(userInfo.memberId);
   const userId = userInfo.memberId;
   console.log(children);
   // console.log(childInfo);
 
   useEffect(() => {
-    axios
-      .get(`${urlInfo}/child/list/${userId}`)
-      .then((res) => {
-        console.log(res, "여기서 아이들 리스트 정제하기");
-      });
+    axios.get(`${urlInfo}/child/list/${userId}`).then((res) => {
+      console.log(res, "여기서 아이들 리스트 정제하기");
+    });
   });
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    dispatch(changecompo());
-  };
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch();
+  // };
 
   //console.log(children);
 
