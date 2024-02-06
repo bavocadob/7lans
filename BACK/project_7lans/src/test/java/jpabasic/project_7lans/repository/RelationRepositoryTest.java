@@ -1,5 +1,8 @@
 package jpabasic.project_7lans.repository;
 
+import jpabasic.project_7lans.childCenter.repository.ChildCenterRepository;
+import jpabasic.project_7lans.member.repository.MemberRepository;
+import jpabasic.project_7lans.relation.repository.RelationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
