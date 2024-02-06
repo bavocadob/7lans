@@ -120,19 +120,17 @@ const WhisperLetter = () => {
   const userInfo = useSelector((state) => state.user.value);
   const childRelationId = childInfo.relationId;
   const writerId = userInfo.memberId;
-  const urlInfo = useSelector((state) => state.url.value)
-  console.log(childRelationId);
-  console.log(writerId);
+  const urlInfo = useSelector((state) => state.url.value);
 
   // 해당 아동과의 속닥속닥 가져오기
   useEffect(() => {
     axios
-      .get(`${userInfo}/whisper/list/${childRelationId}`)
+      .get(`${urlInfo}/whisper/list/${childRelationId}`)
       .then((res) => {
-        console.log(res, "chatdata");
+        console.log(res, "chatdata, 어디보자");
       })
       .catch((err) => {
-        console.log(err, "에러발생");
+        console.log(err, "위스퍼레터에서 에러발생");
       });
   });
 
@@ -188,21 +186,21 @@ const WhisperLetter = () => {
     }
   };
 
-  // 글쓰기
-  useEffect(() => {
-    axios
-      .post(`${urlInfo}/whisper`, {
-        writerId: writerId,
-        relationId: childRelationId,
-        content: typingMessage,
-      })
-      .then((res) => {
-        console.log(res, "thenthen");
-      })
-      .catch((err) => {
-        console.log(err, "post에러");
-      });
-  }, []);
+  // // 글쓰기
+  // useEffect(() => {
+  //   axios
+  //     .post(`${urlInfo}/whisper`, {
+  //       writerId: writerId,
+  //       relationId: childRelationId,
+  //       content: typingMessage,
+  //     })
+  //     .then((res) => {
+  //       console.log(res, "글쓰기 보내기");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "WhisperLetter post 에러");
+  //     });
+  // }, []);
 
   return (
     <ChatContainer>

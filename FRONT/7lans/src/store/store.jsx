@@ -8,7 +8,6 @@ import chooseGameSlice from "./chooseGameSlice";
 import gugudanSlice from "./gugudanSlice";
 import quizSlice from "./quizSlice";
 import wordsSlice from "./wordsSlice";
-import changeCompoSlice from "./changeCompoSlice";
 import isPlayGameNow from "./isPlayGameNow";
 import userSlice from "./userSlice";
 import adminSelectVolSlice from "./adminSelectVolSlice";
@@ -25,7 +24,6 @@ const reducers = combineReducers({
   gugudan: gugudanSlice,
   quiz: quizSlice,
   words: wordsSlice,
-  changecompo: changeCompoSlice,
   isPlayGameNow: isPlayGameNow,
   user: userSlice,
   adminSelectVol: adminSelectVolSlice,

@@ -102,7 +102,7 @@ const VolunteerCard = styled.div`
 `;
 
 const VolunteerManage = () => {
-  const urlInfo = ((state) => state.url.value)
+  const urlInfo = useSelector((state) => state.url.value);
   const dispatch = useDispatch();
   const selectVolCard = useSelector((state) => state.adminSelectVol);
 
