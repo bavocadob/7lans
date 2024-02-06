@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserInfo } from "../../store/userSlice";
 import { updateChildInfo } from "../../store/childSlice";
 import { updateChildrenInfo } from "../../store/childrenSlice";
-import axios from "axios";
+import axios from "axios"
 
 const Container = styled.div`
 /* font-family: 'Nanum Gothic', sans-serif; */
@@ -35,10 +35,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
-
-    &:hover {
-      text-decoration: underline; /* 호버 시 밑줄 추가 */
-    }
   }
 `;
 
@@ -60,6 +56,11 @@ const MyChildren = styled.div`
     display: flex;
     align-items: center;
   }
+
+  :hover{
+    transform: scale(1.01);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 // const TextBox = styled.h2`
@@ -80,6 +81,7 @@ const Letter = styled.div`
   width: 1250px;
   top: 53px;
   left: 200px;
+  
 `;
 
 const Overlap = styled.div`
@@ -138,7 +140,7 @@ const MainBanner = styled.div`
   width: 1070px;
   height: 80px;
   position: absolute;
-  left: 400px;
+  left: 390px;
   top: 77%;
   display: flex;
   flex-direction: row;
@@ -148,6 +150,22 @@ const MainBanner = styled.div`
 const BannerText = styled.p`
   color: white;
   font-size: 50px;
+  p {
+  animation-duration: 2s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    margin-right: 100%;
+    /* width: 300%; */
+  }
+
+  to {
+    margin-left: 0%;
+    /* width: 100%; */
+  }
+}
 `
 
 const UnderSection = styled.div`
@@ -221,6 +239,9 @@ const VolunteerMainPage = () => {
           style={{ fontSize: "23px", textDecorationLine: "none" }}
         >
           <img src="../../../main_page/main_page_children.png" alt="나의 아이들 이미지" />
+          {/* <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+  Tooltip on bottom
+</button> */}
         </Link>
       </MyChildren>
         <MainBanner>
@@ -235,6 +256,7 @@ const VolunteerMainPage = () => {
         <Overlap>
           <Line>
             <img style={{ width: "80%" }} src="../../../main_page/line.png" alt="선" />
+            
           </Line>
 
           <Link to={"/volunteer_whispher"}>

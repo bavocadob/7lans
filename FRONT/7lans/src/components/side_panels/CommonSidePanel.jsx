@@ -20,6 +20,8 @@ const StyledCommonSidePanel = styled.div`
   width: 350px;
   border-radius: 20px 0 0 20px;
   height: 100%;
+  /* border: 2px solid rgb(255, 183, 58);
+  border-right: none; */
 
   @media (max-width: 768px) {
     max-width: 100%;
@@ -30,6 +32,7 @@ const StyledCommonSidePanel = styled.div`
 const InnerContainer = styled.div`
   height: 40%;
   position: relative;
+  
 
   @media (max-width: 768px) {
     height: 100%;
@@ -38,12 +41,13 @@ const InnerContainer = styled.div`
 
 const CloseButton = styled.button`
   position: absolute;
-  left: 85%;
+  left: 89%;
   border-radius: 25px;
   border: none;
   background-color: rgb(255, 248, 223);
   font-weight: bold;
   color: rgb(240, 165, 8);
+  
 
   @media (max-width: 768px) {
     left: 85%;
@@ -52,12 +56,12 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 25%;
+  left: 18%;
   top: 2%;
-  height: 9rem;
-  width: 9rem;
+  height: 8rem;
+  width: 8rem;
   border-radius: 100px;
-  border: 5px solid rgb(0, 0, 0);
+  border: 5px solid rgb(240, 165, 8);
 
   @media (max-width: 768px) {
     position: relative;
@@ -69,7 +73,7 @@ const ProfileImage = styled.img`
 
 const InfoContainer = styled.div`
   display: flex;
-  height: 60%;
+  height: 70%;
   flex-direction: column;
   align-items: center;
 
@@ -80,18 +84,21 @@ const InfoContainer = styled.div`
 
 const NameHeader = styled.h4`
   font-weight: bolder;
-  color: rgb(0, 0, 0);
-  color: #007bff;
+  color: rgb(45,45,45);
   text-decoration: none;
+  position: absolute;
+  top: 45%;
 `;
 
 const DetailContainer = styled.div`
   margin-top: 15px;
   width: 100%;
-  height: 100%;
+  height: 82%;
   color: rgb(0, 0, 0);
   padding: 1rem;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255, 0.9);
+  border-radius: 10px;
+  /* border: 2px solid rgb(255, 183, 58); */
 
   overflow: auto;
   @media (max-width: 768px) {
@@ -175,7 +182,7 @@ const CommonSidePanel = () => {
                   </DetailParagraph>
                 ))
               ) : (
-                <h4>친구를 추가해주세요!</h4>
+                <h4> 친구를 추가해주세요!</h4>
               )}
             </DetailContainer>
           </InfoContainer>
@@ -185,7 +192,7 @@ const CommonSidePanel = () => {
       return (
         <div
           style={{
-            backgroundColor: "rgb(255, 255, 255)",
+            backgroundColor: "rgb(255, 248, 223)",
             borderRadius: "20px 0 0 20px",
           }}
         >
