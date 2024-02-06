@@ -16,9 +16,11 @@ const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  width: 350px;
+  width: 550px;
   border-radius: 20px 0 0 20px;
   height: 100%;
+  /* border: 2px solid rgb(255, 183, 58);
+  border-right: none; */
 
   @media (max-width: 768px) {
     max-width: 100%;
@@ -37,7 +39,7 @@ const InnerContainer = styled.div`
 
 const CloseButton = styled.button`
   position: absolute;
-  left: 85%;
+  left: 89%;
   border-radius: 25px;
   border: none;
   background-color: rgb(255, 248, 223);
@@ -51,12 +53,12 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 25%;
+  left: 30%;
   top: 2%;
-  height: 9rem;
-  width: 9rem;
+  height: 8rem;
+  width: 8rem;
   border-radius: 100px;
-  border: 5px solid rgb(0, 0, 0);
+  border: 5px solid rgb(240, 165, 8);
 
   @media (max-width: 768px) {
     position: relative;
@@ -68,7 +70,7 @@ const ProfileImage = styled.img`
 
 const InfoContainer = styled.div`
   display: flex;
-  height: 60%;
+  height: 70%;
   flex-direction: column;
   align-items: center;
 
@@ -79,18 +81,21 @@ const InfoContainer = styled.div`
 
 const NameHeader = styled.h4`
   font-weight: bolder;
-  color: rgb(0, 0, 0);
-  color: #007bff;
+  color: rgb(45, 45, 45);
   text-decoration: none;
+  position: absolute;
+  top: 45%;
 `;
 
 const DetailContainer = styled.div`
   margin-top: 15px;
   width: 100%;
-  height: 100%;
+  height: 82%;
   color: rgb(0, 0, 0);
   padding: 1rem;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255, 0.9);
+  border-radius: 10px;
+  /* border: 2px solid rgb(255, 183, 58); */
 
   overflow: auto;
   @media (max-width: 768px) {
@@ -116,14 +121,36 @@ const Comment = ({ comment }) => {
   }
 };
 
-const DetailParagraph = styled.div`
-  border: 3px solid #523329;
+const ChildCard = styled.div`
+  border: 3px solid rgb(240, 165, 8);
   display: flex;
   align-items: center;
 
   margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 1rem;
 `;
 
+const Button = styled.button`
+  background: linear-gradient(
+    300deg,
+    rgba(255, 184, 36, 1),
+    rgba(255, 237, 140, 1)
+  );
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  /* margin: 0.5rem; */
+  margin-left: 3px;
+  padding: 0.5rem;
+  height: 40px;
+  width: 100px;
+  margin-left: 90%;
+  margin-top: 7%;
+  color: white;
+  text-decoration-line: none;
+`;
 const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
   //const [children, setChildren] = useState([]);
@@ -175,16 +202,16 @@ const CommonSidePanel = () => {
             <DetailContainer>
               {children.length > 0 ? (
                 children.map((el) => (
-                  <DetailParagraph key={el.childId}>
+                  <ChildCard key={el.childId}>
                     <h3>{el.childName}</h3>
                     <Age birth={el.childBirth}></Age>
                     <div>소속기관: {el.childCenterName}</div>
                     <Comment comment={el.childSpecialContent}></Comment>
-                    <button onClick={() => postData(el)}>선택하기</button>
-                  </DetailParagraph>
+                    <Button onClick={() => postData(el)}>선택하기</Button>
+                  </ChildCard>
                 ))
               ) : (
-                <h4>친구를 추가해주세요!</h4>
+                <h4> 친구를 추가해주세요!</h4>
               )}
             </DetailContainer>
           </InfoContainer>
@@ -194,7 +221,7 @@ const CommonSidePanel = () => {
       return (
         <div
           style={{
-            backgroundColor: "rgb(255, 255, 255)",
+            backgroundColor: "rgb(255, 248, 223)",
             borderRadius: "20px 0 0 20px",
           }}
         >

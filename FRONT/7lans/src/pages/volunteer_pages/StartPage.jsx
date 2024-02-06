@@ -9,6 +9,28 @@ import { useSelector } from 'react-redux';
 import Wrong from '../../components/dinosaur/Wrong';
 
 
+const RightSide = styled.div`
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-radius: 0 20px 20px 0;
+  background-color: rgb(255, 255, 255, 0.5);
+  /* border: 2px solid rgb(255, 183, 58);
+  border-left: none; */
+
+`
+
+const TextandimageBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+
+`
+
 const StartPage = () => {
 
   const childInfo = useSelector((state) => state.child.value)
@@ -26,22 +48,33 @@ const StartPage = () => {
       width: '100vw',
     }}>
       <NormalNav />
-      <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
-        <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
+      <div style={{flex: 1, 
+                    padding: '30px', 
+                    backgroundColor: 'rgb(255, 226, 123)'}}>
+        <div style={{height: '100%', 
+                      width: '100%', 
+                      display: 'flex', 
+                      flexDirection: 'row',
+                      borderRadius: '20px', 
+                      backgroundColor: 'rgb(255, 226, 123)'}}>
           <CommonSidePanel />
-          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>
+          <RightSide>
             {childInfo?
-              <div>
-                아이들과 함께 즐거운 시간을 보내봐요.
+              <TextandimageBox>
+                <h1>
+                함께할 아이를 선택해주세요
+                </h1>
                 <Correct/>
-              </div>
+              </TextandimageBox>
               :
-              <div>
-                함께 할 아이가 없어요
+              <TextandimageBox>
+                <h1 style={{paddingTop: '4rem'}}>
+                  함께 할 아이가 없어요
+                </h1>
                 <Wrong />
-              </div>
+              </TextandimageBox>
             }
-          </div>
+          </RightSide>
           {childInfo?
             <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
               <PostIt message={'/volunteer_video_chatting_start'}/>
