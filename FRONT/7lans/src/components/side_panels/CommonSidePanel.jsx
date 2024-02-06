@@ -159,9 +159,10 @@ const CommonSidePanel = () => {
   const childInfo = useSelector((state) => state.child.value);
   const children = useSelector((state) => state.children.value);
   const userInfo = useSelector((state) => state.user.value);
-  console.log(userInfo.memberId);
+  const urlInfo = useSelector((state) => state.url.value)
+  //console.log(userInfo.memberId);
   const userId = userInfo.memberId;
-  console.log(children);
+  //console.log(children);
   // console.log(childInfo);
 
   useEffect(() => {

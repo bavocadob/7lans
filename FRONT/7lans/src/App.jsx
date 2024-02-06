@@ -34,7 +34,7 @@ import ChildGamePage from "./pages/child_pages/ChildGamePage";
 import Register from "./pages/RegisterPage";
 
 import ActivityCalendar from "./components/volunteer/calendar/ActivityCalendar";
-
+import ActiveDocs from "./components/volunteer/active_docs/AcitveDocs";
 // 관리자
 import AdminMainPage from "./pages/admin_pages/AdminMainPage";
 import VolunteerManage from "./components/admin/VolunteerManage";
@@ -82,6 +82,7 @@ function App() {
         <Route path="/volunteer_calendar" element={<VolunteerCalendar />} />
         <Route path="/volunteer_ChoosePicturePage" element={<ChoosePicturePage />} />
         <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
+        <Route path="/active_docs" element={<ActiveDocs />} />
 
         {/* 피봉사자 */}
         <Route path="/child_main" element={<ChildMainPage />} />
