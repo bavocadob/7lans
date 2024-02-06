@@ -9,6 +9,13 @@ import axios from "axios";
 
 const Container = styled.div`
 /* font-family: 'Nanum Gothic', sans-serif; */
+  height: 100vh;
+  width: 100vw;
+  background-image: url('/main_page_background.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
 
   header {
     display: flex;
@@ -44,29 +51,34 @@ const LogoImage = styled.img`
 
 const MyChildren = styled.div`
   position: absolute;
-  left: 4rem;
+  left: 3rem;
   top: 20%;
+  /* background-color: rgb(255, 240, 186); */
+  border-radius: 100px;
+  /* box-shadow: 5px 5px 5px #ffde95;  */
   .img {
     display: flex;
     align-items: center;
   }
-  .h2 {
-    position: absolute;
-    left: 3.4rem;
-    top: 69%;
-    width: 220px;
-    font-size: 23px;
-    border-radius: 40px;
-    background: rgba(255, 184, 36, 1);
-    text-align: center;
-    box-shadow: 5px 5px 5px #dfb150;
-  }
 `;
+
+// const TextBox = styled.h2`
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     width: 220px;
+//     border-radius: 15px;
+//     background: #b798e0;
+//     /* box-shadow: 5px 5px 5px #dfb150;  */
+//     height: 50px;
+//     margin-left: 1.4rem;
+//     color: white;
+// `
 
 const Letter = styled.div`
   position: relative;
   width: 1250px;
-  top: 130px;
+  top: 53px;
   left: 200px;
 `;
 
@@ -74,8 +86,9 @@ const Overlap = styled.div`
   height: 195px;
   left: 218px;
   position: absolute;
-  top: 40px;
+  top: 56px;
   width: 867px;
+  transform: rotate(3deg);
 `;
 
 const Line = styled.div`
@@ -120,11 +133,28 @@ const PostBox = styled.div`
   width: 220px;
 `;
 
+const MainBanner = styled.div`
+  /* border: 1px solid black; */
+  width: 1070px;
+  height: 80px;
+  position: absolute;
+  left: 400px;
+  top: 77%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+`
+
+const BannerText = styled.p`
+  color: white;
+  font-size: 50px;
+`
+
 const UnderSection = styled.div`
   position: absolute;
-  top: 78%;
-  left: 5%;
-  width: 90vw;
+  top: 83%;
+  left: 2.5%;
+  width: 95vw;
   height: 115px;
   padding: 1.4rem;
 `;
@@ -132,8 +162,9 @@ const UnderSection = styled.div`
 const ExpBar = styled.div`
   width: 100%;
   height: 60px;
+  border: 3px solid rgb(45,45,45);
   background-color: rgb(255, 240, 186);
-  border-radius: 10px;
+  border-radius: 20px;
   margin-top: 10px;
 `;
 
@@ -189,22 +220,28 @@ const VolunteerMainPage = () => {
           to={"/volunteer_start"}
           style={{ fontSize: "23px", textDecorationLine: "none" }}
         >
-          <img src="../../../main_page_children.png" alt="나의 아이들 이미지" />
-          <h2>나의 아이들</h2>
+          <img src="../../../main_page/main_page_children.png" alt="나의 아이들 이미지" />
         </Link>
       </MyChildren>
-
+        <MainBanner>
+          {/* <img style={{ width: "80%", height: '70%' }} src="../../../main_page/main_banner.png" alt="선" /> */}
+        <BannerText>
+          {quotient === 0? 
+            <p> 아이들과 함께한 시간 : {calculatedWidth} 시간 </p> 
+          : <p> 아이들과 함께한 시간 : {quotient*100} 하고도 + {calculatedWidth} 시간 </p> }
+          </BannerText>
+        </MainBanner>
       <Letter>
         <Overlap>
           <Line>
-            <img style={{ width: "80%" }} src="../../../line.png" alt="선" />
+            <img style={{ width: "80%" }} src="../../../main_page/line.png" alt="선" />
           </Line>
 
           <Link to={"/volunteer_whispher"}>
             <LeftLetter>
               <img
                 style={{ width: "70px" }}
-                src="../../../left_letter.png"
+                src="../../../main_page/left_letter.png"
                 alt="편지"
               />
             </LeftLetter>
@@ -213,7 +250,7 @@ const VolunteerMainPage = () => {
             <MiddleLetter>
               <img
                 style={{ width: "70px" }}
-                src="../../../middle_letter.png"
+                src="../../../main_page/middle_letter.png"
                 alt="편지"
               />
             </MiddleLetter>
@@ -222,7 +259,7 @@ const VolunteerMainPage = () => {
             <RightLetter>
               <img
                 style={{ width: "70px" }}
-                src="../../../right_letter.png"
+                src="../../../main_page/right_letter.png"
                 alt="편지"
               />
             </RightLetter>
@@ -231,7 +268,7 @@ const VolunteerMainPage = () => {
         <AirPlane>
           <img
             style={{ width: "70px" }}
-            src="../../../airplane.png"
+            src="../../../main_page/airplane.png"
             alt="비행기"
           />
         </AirPlane>
@@ -239,17 +276,17 @@ const VolunteerMainPage = () => {
           <PostBox>
             <img
               style={{ width: "180px" }}
-              src="../../../post.png"
+              src="../../../main_page/post.png"
               alt="우편함"
             />
           </PostBox>
         </Link>
       </Letter>
       <UnderSection>
-        {quotient === 0? 
+        {/* {quotient === 0? 
           <h3> 아이들과 함께한 시간 : {calculatedWidth} 시간 </h3> 
           : <h3> 아이들과 함께한 시간 : {quotient*100} 하고도 + {calculatedWidth} 시간 </h3> }
-        
+         */}
         <div>
           <ExpBar>
             <FilledExp style={{ width: `${calculatedWidth}%` }} />
