@@ -48,6 +48,7 @@ const VideoChattingStartPage = () => {
                 <Wrong/>
               </div>
             }     
+
           </div>
 
           <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
