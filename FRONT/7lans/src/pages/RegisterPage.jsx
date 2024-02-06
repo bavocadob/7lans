@@ -8,6 +8,7 @@ import { FcAddressBook } from "react-icons/fc";
 import { FcContacts } from "react-icons/fc";
 import { RiCake2Fill } from "react-icons/ri";
 import { FcSmartphoneTablet } from "react-icons/fc";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   height: 93vh;
@@ -145,6 +146,7 @@ const Register = () => {
   const [centerId, setCenterId] = useState("");
 
   const navigate = useNavigate();
+  const urlInfo = useSelector((state) => state.url.value)
 
   // phoneNumber 변경 함수 (자동으로 '-' 삽입)=
   const handlePhoneNumberChange = (e) => {
@@ -171,7 +173,7 @@ const Register = () => {
     else {
       try {
         const res = await axios.post(
-          "https://i10e103.p.ssafy.io/api/v1/member/register",
+          `${urlInfo}/member/register`,
           {
             memberEmail,
             memberPassword,

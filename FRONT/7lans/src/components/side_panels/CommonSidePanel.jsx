@@ -133,6 +133,7 @@ const CommonSidePanel = () => {
   const childInfo = useSelector((state) => state.child.value);
   const children = useSelector((state) => state.children.value);
   const userInfo = useSelector((state) => state.user.value);
+  const urlInfo = useSelector((state) => state.url.value)
   console.log(userInfo.memberId);
   const userId = userInfo.memberId;
   console.log(children);
@@ -140,7 +141,7 @@ const CommonSidePanel = () => {
 
   useEffect(() => {
     axios
-      .get(`https://i10e103.p.ssafy.io/api/v1/vol/list/${userId}`)
+      .get(`${urlInfo}/vol/list/${userId}`)
       .then((res) => {
         console.log(res, "여기서 아이들 리스트 정제하기");
       });

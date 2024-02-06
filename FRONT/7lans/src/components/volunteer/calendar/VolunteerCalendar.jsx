@@ -199,6 +199,7 @@ const VolunteerCalendar = () => {
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
     const childInfo = useSelector((state) => state.child.value)
+    const urlInfo = useSelector((state) => state.url.value)
 
     //해당 아동의 미팅 정보 불러오기
     useEffect(() => {
@@ -206,7 +207,7 @@ const VolunteerCalendar = () => {
 
         setRelation(childInfo.relationId);
 
-        axios.post('https://i10e103.p.ssafy.io/api/v1/meetingSchedue',{
+        axios.post(`${urlInfo}/meetingSchedue`,{
         relationId: childInfo.relationId,
         year: currentDate.getFullYear(),
         month: currentDate.getMonth()+1

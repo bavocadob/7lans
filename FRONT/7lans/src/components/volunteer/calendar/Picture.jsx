@@ -70,13 +70,14 @@ const Picture = () => {
   //부모에게서 전달받은 값
   const location = useLocation();
   const state = {...location.state};
+  const urlInfo = useSelector((state) => state.url.value)
 
   //console.log("Picture")
   //console.log(state.meetingId);
 
 
   //이미지 데이터 가져오기
-  axios.get(`https://i10e103.p.ssafy.io/api/v1/meetingSchedue/image/${state.meetingId}`)
+  axios.get(`${urlInfo}/meetingSchedue/image/${state.meetingId}`)
   .then(function (response) {
       console.log(response)
   }).catch(function (error){

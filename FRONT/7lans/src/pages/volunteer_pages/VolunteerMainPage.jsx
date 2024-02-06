@@ -143,8 +143,8 @@ const FilledExp = styled.div`
   background-color: rgba(255, 184, 36, 1); /* 채우진 부분의 색상 */
 `;
 
-
 const VolunteerMainPage = () => {
+  const urlInfo = useSelector((state) => state.url.value)
   const userInfo = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const calculatedWidth = userInfo?.volunteerTime >= 100 ? userInfo.volunteerTime % 100 : userInfo?.volunteerTime || 0;
@@ -152,7 +152,7 @@ const VolunteerMainPage = () => {
   //아동 데이터 가져오기(봉사자 id를 가지고 있어야함)
   useEffect(() => {
     axios
-      .get(`https://i10e103.p.ssafy.io/api/v1/vol/list/${userInfo.memberId}`)
+      .get(`${urlInfo}/vol/list/${userInfo.memberId}`)
       .then((res) => {
         dispatch(updateChildInfo(res.data[0]));
         dispatch(updateChildrenInfo(res.data));
