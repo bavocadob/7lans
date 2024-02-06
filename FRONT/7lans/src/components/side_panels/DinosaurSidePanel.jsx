@@ -110,8 +110,8 @@ const DinosaurSidePanel = () => {
               <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} />{userInfo.email}</DetailParagraph>
               <DetailParagraph><FaPhone style={{ marginRight: '10px' }} />{userInfo.phoneNumber}</DetailParagraph>
               {/* <DetailParagraph><FaHome style={{ marginRight: '10px' }} />SSAFY 보듬 센터</DetailParagraph> 봉사자는 다른 정보 제공 */} 
-              <DetailParagraph><FaClock style={{ marginRight: '10px' }} />{userInfo.enterDate[0]}-{userInfo.enterDate[1]>9? userInfo.enterDate[1]:'0' + userInfo.enterDate[1]}-{userInfo.enterDate[2]>9? userInfo.enterDate[2]:'0' + userInfo.enterDate[2]}</DetailParagraph>
-              <DetailParagraph><FaBirthdayCake style={{ marginRight: '10px' }} />{userInfo.birth[0]}-{userInfo.birth[1]>9? userInfo.birth[1]:'0' + userInfo.birth[1]}-{userInfo.birth[2]>9? userInfo.birth[2]:'0' + userInfo.birth[2]}</DetailParagraph>
+              <DetailParagraph><FaClock style={{ marginRight: '10px' }} />{userInfo.enterDate}</DetailParagraph>
+              <DetailParagraph><FaBirthdayCake style={{ marginRight: '10px' }} />{userInfo.birth}</DetailParagraph>
             </DetailContainer>
           </InfoContainer>
         </StyledDinosaurSidePanel>

@@ -16,6 +16,8 @@ import childSlice from "./childSlice";
 import childrenSlice from "./childrenSlice";
 import dinoSlice from "./dinoSlice";
 import urlSlice from "./urlSlice";
+import volSlice from "./volSlice";
+import volsSlice from "./volsSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -31,6 +33,8 @@ const reducers = combineReducers({
   children: childrenSlice,
   dino: dinoSlice,
   url: urlSlice,
+  vol: volSlice,
+  vols: volsSlice,
 });
 
 const persistConfig = {

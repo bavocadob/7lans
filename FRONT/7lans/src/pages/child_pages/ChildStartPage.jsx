@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
 import ChildPostit from '../../components/volunteer/post_it/ChildPostit';
 import ChildNormalNav from '../../components/navs/ChildNormalNav';
+import ChildCommonSidePanel from '../../components/side_panels/ChildCommonSidePanel';
 
 
 
@@ -19,7 +20,7 @@ const ChildStartPage = () => {
       <ChildNormalNav />
       <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
         <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
-          <CommonSidePanel />
+          <ChildCommonSidePanel />
           <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)' }}>
             body
           </div>
