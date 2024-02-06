@@ -102,7 +102,7 @@ const DinosaurDictPage = () => {
   const representDino = async (id) => {
     try {
       const res = await axios.get(
-        `${userInfo}/dinosaurs/myDinosaur/${id}`
+        `https://i10e103.p.ssafy.io/api/v1/dinosaurs/myDinosaur/${id}`
       );
       dispatch(changeDino(res.data.id));
       console.log(res.data.id);
