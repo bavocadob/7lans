@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { changecompo } from "../../store/changeCompoSlice";
 import axios from "axios";
 import { updateChildInfo } from "../../store/childSlice";
 
@@ -121,6 +120,7 @@ const DetailParagraph = styled.div`
   border: 3px solid #523329;
   display: flex;
   align-items: center;
+
   margin-bottom: 10px;
 `;
 
@@ -129,12 +129,10 @@ const CommonSidePanel = () => {
   //const [children, setChildren] = useState([]);
   const [id, setId] = useState([]);
   const dispatch = useDispatch();
-  const urlInfo = useSelector((state) => state.url.value);
   const childInfo = useSelector((state) => state.child.value);
   const children = useSelector((state) => state.children.value);
   const userInfo = useSelector((state) => state.user.value);
-  const urlInfo = useSelector((state) => state.url.value)
-  console.log(userInfo.memberId);
+  const urlInfo = useSelector((state) => state.url.value);
   const userId = userInfo.memberId;
   console.log(children);
   // console.log(childInfo);
@@ -146,21 +144,21 @@ const CommonSidePanel = () => {
         console.log(res, "여기서 아이들 리스트 정제하기");
       })
       .catch((err) => {
-        console.log(err, "에러발생");
+        console.log(err, "커먼사이드 패널에서 에러발생");
       });
   });
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    dispatch(changecompo());
-  };
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch();
+  // };
 
   //console.log(children);
 
   const renderSidePanel = () => {
     const postData = (child) => {
       dispatch(updateChildInfo(child));
-      //console.log(childInfo);
+      console.log(child.relationId);
     };
     if (sidePanelStatus) {
       return (
@@ -178,13 +176,11 @@ const CommonSidePanel = () => {
               {children.length > 0 ? (
                 children.map((el) => (
                   <DetailParagraph key={el.childId}>
-                    <form onSubmit={onSubmit}>
-                      <h3>{el.childName}</h3>
-                      <Age birth={el.childBirth}></Age>
-                      <div>소속기관: {el.childCenterName}</div>
-                      <Comment comment={el.childSpecialContent}></Comment>
-                      <button onClick={() => postData(el)}>선택하기</button>
-                    </form>
+                    <h3>{el.childName}</h3>
+                    <Age birth={el.childBirth}></Age>
+                    <div>소속기관: {el.childCenterName}</div>
+                    <Comment comment={el.childSpecialContent}></Comment>
+                    <button onClick={() => postData(el)}>선택하기</button>
                   </DetailParagraph>
                 ))
               ) : (

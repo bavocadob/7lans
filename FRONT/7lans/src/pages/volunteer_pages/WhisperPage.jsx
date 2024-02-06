@@ -18,9 +18,7 @@ const MainPanel = styled.div`
 `;
 
 const WhisperPage = () => {
-  const changeCompo = useSelector((state) => state.changecompo.value);
-  console.log(changeCompo);
-
+  // 첫화면은 first 페이지, 버튼을 누르면 해당 아동의 페이지로 전환
   return (
     <div
       style={{
@@ -58,7 +56,8 @@ const WhisperPage = () => {
             }}
           >
             {/* 사이드패널에서 프로필카드를 누른다면 WhisperFirst페이지가 해당 ID를 가진 WisperLetter 페이지로 이동. */}
-            {changeCompo ? <WhisperLetter /> : <WhisperFirst />}
+            <WhisperLetter />
+            <WhisperFirst />
           </MainPanel>
 
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>
