@@ -11,6 +11,8 @@ import axios from "axios";
 import { tr } from "date-fns/locale";
 import getEnv from "../../utils/getEnv";
 import ChildCommonSidePanel from "../../components/side_panels/ChildCommonSidePanel";
+import ChildPostit from "../../components/volunteer/post_it/ChildPostit";
+import SelectedChildPostit from "../../components/volunteer/post_it/SelectedChildPostit";
 
 const MainPanel = styled.div`
   flex: 1;
@@ -147,10 +149,9 @@ const ChildRaiseEggPage = () => {
           </MainPanel>
 
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>
-            <PostIt message={"/volunteer_video_chatting_start"} />
-            <PostIt message={"/volunteer_active_doc"} />
-            <PostIt message={"/volunteer_whispher"} />
-            <SelectedPostit message={"/volunteer_raise_egg"} />
+            <ChildPostit message={'/child_video_chatting_start'}/>
+            <ChildPostit message={'/child_whispher'}/>
+            <SelectedChildPostit message={'/child_raise_egg'}/>
           </div>
         </div>
         <div

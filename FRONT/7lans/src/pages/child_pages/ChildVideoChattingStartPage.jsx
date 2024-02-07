@@ -15,13 +15,14 @@ import Wrong from '../../components/dinosaur/Wrong';
 import SelectedChildPostit from '../../components/volunteer/post_it/SelectedChildPostit';
 import ChildPostit from '../../components/volunteer/post_it/ChildPostit';
 import ChildCommonSidePanel from '../../components/side_panels/ChildCommonSidePanel';
+import ChildCalendar from '../../components/volunteer/calendar/ChildCalendar';
 
 const ChildVideoChattingStartPage = () => {
   const [data, setData] = useState(0);
-  const childInfo = useSelector((state) => state.child.value)
+  const volInfo = useSelector((state) => state.vol.value)
 
   const dispatch = useDispatch()
-  console.log(childInfo)
+  console.log(volInfo)
 
   
   return (
@@ -41,8 +42,8 @@ const ChildVideoChattingStartPage = () => {
             <div>
             </div>
           <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)'}}>
-            {childInfo? 
-              <VolunteerCalendar 
+            {volInfo? 
+              <ChildCalendar 
                 child={data}
               />
               :
