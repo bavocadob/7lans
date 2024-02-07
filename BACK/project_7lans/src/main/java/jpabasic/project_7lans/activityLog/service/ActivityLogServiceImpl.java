@@ -57,6 +57,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                         .activityLogId(meetingSchedule.getActivityLog().getId())
                         .dateInfo(meetingSchedule.getScheduledStartTime().toLocalDate())
                         .approveStatus(meetingSchedule.getActivityLog().getApproveStatus())
+                        .writeDoneStatus(meetingSchedule.getActivityLog().getWriteStatus())
                         .build();
 
                 detailList.add(dto);

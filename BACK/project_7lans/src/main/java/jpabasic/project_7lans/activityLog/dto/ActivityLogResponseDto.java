@@ -27,16 +27,20 @@ public class ActivityLogResponseDto {
         private LocalDate dateInfo;
         @NotNull(message = "[ActivityLogResponseDto.detailListByVolunteer] approveStatus 은 Null 일 수 없습니다.")
         private boolean approveStatus;
+        @NotNull(message = "[ActivityLogResponseDto.detailListByVolunteer] writeDoneStatus 은 Null 일 수 없습니다.")
+        private boolean writeDoneStatus;
 
         @Builder
         detailListByVolunteer(
                 Long activityLogId,
                 LocalDate dateInfo,
-                boolean approveStatus
+                boolean approveStatus,
+                boolean writeDoneStatus
         ){
             this.activityLogId = activityLogId;
             this.dateInfo = dateInfo;
             this.approveStatus = approveStatus;
+            this.writeDoneStatus = writeDoneStatus;
         }
     }
 
