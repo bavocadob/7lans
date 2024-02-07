@@ -23,6 +23,10 @@ const PostIt = (props) => {
     '/volunteer_active_doc':' 활동일지',
     '/volunteer_whispher': '속닥속닥',
     '/volunteer_raise_egg': '알키우기',
+
+    '/child_video_chatting_start': '화상채팅',
+    '/child_whispher': '속닥속닥',
+    '/child_raise_egg': '알키우기'
   }
   const valounteerAddress = props.message
 

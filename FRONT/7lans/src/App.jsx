@@ -23,6 +23,7 @@ import ChildVideoChattingStartPage from "./pages/child_pages/ChildVideoChattingS
 import ChildWhisperPage from "./pages/child_pages/ChildWhisperPage";
 import ChildRaiseEggPage from "./pages/child_pages/ChildRaiseEggPage";
 import ChildDinosaurDictPage from "./pages/ChildDinosaurDictPage";
+import ChildChoosePicturePage from "./pages/child_pages/ChildChoosePicturePage"
 
 import NormalNav from "./components/navs/NormalNav";
 
@@ -93,6 +94,7 @@ function App() {
         <Route path="/child_raise_egg" element={<ChildRaiseEggPage />} />
         <Route path="/child_video_chatting"element={<ChildVideoChattingPage />}/>
         <Route path="/child_game" element={<ChildGamePage />} />
+        <Route path="/child_choose_picturePage" element={<ChildChoosePicturePage />} />
 
         {/* 관리자 */}
         <Route path="/admin_main_page" element={<AdminMainPage />} />
