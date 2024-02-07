@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Modal from "react-modal";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import getEnv from "../../../utils/getEnv";
 
 const ChatContainer = styled.div`
   background-color: #f5f5f5;
@@ -15,17 +16,6 @@ const ChatContainer = styled.div`
 `;
 
 const ChatCardChild = styled.div`
-  background-color: #8bf678;
-  height: 40%;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 15px;
-  cursor: pointer;
-  position: relative;
-  margin-left: 50px;
-`;
-
-const ChatCard2 = styled.div`
   background-color: #9785fd;
   height: 40%;
   padding: 20px;
@@ -36,7 +26,17 @@ const ChatCard2 = styled.div`
   margin-right: 50px;
 `;
 
-// 채팅 모달
+const ChatCardVol = styled.div`
+  background-color: #8bf678;
+  height: 40%;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  position: relative;
+  margin-left: 50px;
+`;
+
 const CustomModal = styled(Modal)`
   width: 70%;
   max-width: 400px;
@@ -47,7 +47,6 @@ const CustomModal = styled(Modal)`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `;
 
-// 채팅 상세 정보
 const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -93,7 +92,6 @@ const WriteModal = styled(Modal)`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `;
 
-// 속닥속닥 글쓰기 모달
 const WriteModalContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -116,106 +114,96 @@ const ChatDate = styled.p`
 `;
 
 const WhisperLetter = () => {
-  const childInfo = useSelector((state) => state.child.value);
+  const volInfo = useSelector((state) => state.vol.value);
   const userInfo = useSelector((state) => state.user.value);
+  const childInfo = useSelector((state) => state.child.value);
   const childRelationId = childInfo.relationId;
+  console.log(childRelationId);
   const writerId = userInfo.memberId;
-  const urlInfo = useSelector((state) => state.url.value);
+  const urlInfo = getEnv("API_URL");
 
-  // 해당 아동과의 속닥속닥 가져오기
-  useEffect(() => {
-    axios
-      .get(`${urlInfo}/whisper/list/${childRelationId}`)
-      .then((res) => {
-        console.log(res, "chatdata, 어디보자");
-      })
-      .catch((err) => {
-        console.log(err, "위스퍼레터에서 에러발생");
-      });
-  });
+  const userName = userInfo.volunteerName;
+  const childName = childInfo.childName;
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [writeModalIsOpen, setWriteModalIsOpen] = useState(false);
   const [typingMessage, setTypingMessage] = useState("");
   const [selectedChat, setSelectedChat] = useState(null);
-  const [chatMessages, setChatMessages] = useState([
-    {
-      id: 1,
-      content: "나도 정말 재밌었어 다음시간에는 뭐하면 좋을지 고민해봐!",
-      isMyMessage: false,
-      timestamp: new Date(),
-    },
-  ]);
+  const [chatMessages, setChatMessages] = useState([]);
 
-  // 작성된 채팅을 누르면 해당 모달 open~
+  useEffect(() => {
+    axios
+      .get(`${urlInfo}/whisper/list/${childRelationId}`)
+      .then((res) => {
+        setChatMessages(res.data);
+      })
+      .catch((err) => {
+        console.log(err, "속닥속닥 리스트 불러오기 에러");
+      });
+  }, [childRelationId]);
+
   const openModal = (message) => {
     setSelectedChat(message);
     setModalIsOpen(true);
     setTypingMessage(message.content);
   };
 
-  // 속닥속닥 글쓰기 모달 열기
   const openWriteModal = () => {
     setWriteModalIsOpen(true);
   };
 
-  // 속닥속닥 글쓰기 모달 닫기
   const closeWriteModal = () => {
     setWriteModalIsOpen(false);
     setTypingMessage("");
   };
 
-  // 작성된 채팅 모달 누르면 닫기
   const closeModal = () => {
     setModalIsOpen(false);
     setTypingMessage("");
     setSelectedChat(null);
   };
 
-  // 속닥속닥 쓰기
   const handleWriteMessage = () => {
     if (typingMessage.trim() !== "") {
-      const newMessage = {
-        id: chatMessages.length + 1,
-        content: typingMessage,
-        isMyMessage: true,
-        timestamp: new Date(),
-      };
-      setChatMessages([...chatMessages, newMessage]);
-      closeWriteModal();
+      axios
+        .post(`${urlInfo}/whisper`, {
+          writerId: writerId,
+          relationId: childRelationId,
+          content: typingMessage,
+        })
+        .then((res) => {
+          // 속닥속닥 작성 후 갱신하기 위해 다시 불렀는데 더 좋은방법있나요?
+          axios
+            .get(`${urlInfo}/whisper/list/${childRelationId}`)
+            .then((res) => {
+              setChatMessages(res.data);
+            })
+            .catch((err) => {
+              console.log(err, "속닥속닥리스트 불러오기 에러");
+            });
+          closeWriteModal();
+        })
+        .catch((err) => {
+          console.log(err, "WhisperLetter post 에러");
+        });
     }
   };
 
-  // // 글쓰기
-  // useEffect(() => {
-  //   axios
-  //     .post(`${urlInfo}/whisper`, {
-  //       writerId: writerId,
-  //       relationId: childRelationId,
-  //       content: typingMessage,
-  //     })
-  //     .then((res) => {
-  //       console.log(res, "글쓰기 보내기");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err, "WhisperLetter post 에러");
-  //     });
-  // }, []);
-
   return (
     <ChatContainer>
-      {/*  백에서 값 가져오기 */}
-      <ChatCard2>
-        선생님 저번 수업 정말 재미있었어! 얼른 또 뵙고 싶어요!!
-      </ChatCard2>
+      {chatMessages.map((message, index) =>
+        message.writer === userName ? (
+          <ChatCardVol key={index} onClick={() => openModal(message)}>
+            {message.content}
+            {/* 생성시간 넣기..? */}
+          </ChatCardVol>
+        ) : (
+          <ChatCardChild key={index} onClick={() => openModal(message)}>
+            {message.content}
+          </ChatCardChild>
+        )
+      )}
 
-      {/* 내가쓴 채팅 */}
-      {chatMessages.map((message, index) => (
-        // 채팅
-        <ChatCardChild key={index} onClick={() => openModal(message)}>
-          {message.content}
-        </ChatCardChild>
-      ))}
       <WriteButton onClick={openWriteModal}>속닥속닥 쓰기</WriteButton>
       <CustomModal
         isOpen={modalIsOpen}

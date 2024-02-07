@@ -9,6 +9,7 @@ import { FcContacts } from "react-icons/fc";
 import { RiCake2Fill } from "react-icons/ri";
 import { FcSmartphoneTablet } from "react-icons/fc";
 import { useSelector } from "react-redux";
+import getEnv from "../utils/getEnv";
 
 const Container = styled.div`
   height: 93vh;
@@ -146,7 +147,7 @@ const Register = () => {
   const [centerId, setCenterId] = useState("");
 
   const navigate = useNavigate();
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
 
   // phoneNumber 변경 함수 (자동으로 '-' 삽입)=
   const handlePhoneNumberChange = (e) => {

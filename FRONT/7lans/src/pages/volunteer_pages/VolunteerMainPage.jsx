@@ -6,6 +6,7 @@ import { updateUserInfo } from "../../store/userSlice";
 import { updateChildInfo } from "../../store/childSlice";
 import { updateChildrenInfo } from "../../store/childrenSlice";
 import axios from "axios"
+import getEnv from "../../utils/getEnv";
 
 const Container = styled.div`
 /* font-family: 'Nanum Gothic', sans-serif; */
@@ -147,7 +148,7 @@ const MainBanner = styled.div`
   justify-content: end;
 `
 
-const BannerText = styled.p`
+const BannerText = styled.div`
   color: white;
   font-size: 50px;
   p {
@@ -193,7 +194,7 @@ const FilledExp = styled.div`
 `;
 
 const VolunteerMainPage = () => {
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
   const userInfo = useSelector((state) => state.user.value);
   const dino = useSelector((state) => state.dino.value)
   const dispatch = useDispatch();

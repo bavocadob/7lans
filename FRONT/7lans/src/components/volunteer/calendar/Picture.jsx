@@ -3,6 +3,8 @@ import React from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom'
 import styled from 'styled-components';
+import getEnv from "../../../utils/getEnv";
+import { useSelector } from "react-redux";
 
 const getRandomRotation = () => Math.floor(Math.random() * 30) -20;
 const Image = styled.img`
@@ -70,7 +72,7 @@ const Picture = () => {
   //부모에게서 전달받은 값
   const location = useLocation();
   const state = {...location.state};
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
 
   //console.log("Picture")
   //console.log(state.meetingId);

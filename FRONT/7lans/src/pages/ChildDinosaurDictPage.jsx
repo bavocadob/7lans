@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import DinosaurSidePanel from "../components/side_panels/DinosaurSidePanel";
 import { Link } from "react-router-dom";
 import NormalNav from "../components/navs/NormalNav";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { changeDino } from "../store/dinoSlice";
 import { Button, Modal, Form } from "react-bootstrap";
+import getEnv from "../utils/getEnv";
 import ChildDinosaurSidePanel from "../components/side_panels/ChildDinosaurSidePanel";
 
 const ChildDinosaurDictPage = () => {
@@ -17,7 +17,7 @@ const ChildDinosaurDictPage = () => {
   const [hasDino, setHasDino] = useState("");
   const [show, setShow] = useState(false);
 
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -112,7 +112,6 @@ const ChildDinosaurDictPage = () => {
     }
   };
 
-  // 우측 동물도감 관련 styled
   const Dino = styled.div`
     display: flex;
     flex: 1;
@@ -213,7 +212,6 @@ const ChildDinosaurDictPage = () => {
 
     return (
       <Dino>
-        {console.log(userDinosaurList)}
         <StyledContainer>
           <LeftTop>
             <h2>[ 공룡도감 ]</h2>
@@ -279,25 +277,37 @@ const ChildDinosaurDictPage = () => {
   //  최종 화면 구성
   return (
     <>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100vh",
+          width: "100vw",
+          margin: "0",
+        }}
+      >
         <NormalNav />
-        <div style={{ marginTop: "5.7%" }}></div>
         <div
           style={{
-            height: "650px",
-            padding: "30px",
-            paddingBottom: "20px",
+            flex: 1,
+            marginTop: '100px',
+            padding: "20px",
             backgroundColor: "rgb(255, 226, 123)",
           }}
         >
-        <div style={{height: '100%', 
-                      width: '100%', 
-                      flexDirection: 'row',
-                      borderRadius: '20px', 
-                      backgroundColor: 'rgb(255, 226, 123)'}}>
+          <div
+            style={{
+              display: "flex",
+              height: "100%",
+              borderRadius: "20px",
+              backgroundColor: "rgb(255, 255, 255)",
+            }}
+          >
             <ChildDinosaurSidePanel />
             {renderBody()}
+          </div>
         </div>
-          
+      </div>
       <CenteredModal
         show={show}
         onHide={() => setShow(false)}
@@ -331,10 +341,6 @@ const ChildDinosaurDictPage = () => {
         </Modal.Footer>
         </Modal.Dialog>
       </CenteredModal>
-      
-
-      </div>
-      
     </>
   );
 };

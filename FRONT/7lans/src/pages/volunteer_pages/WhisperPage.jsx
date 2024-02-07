@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CommonSidePanel from "../../components/side_panels/CommonSidePanel";
 import NormalNav from "../../components/navs/NormalNav";
 import PostIt from "../../components/volunteer/post_it/PostIt";
@@ -7,6 +7,7 @@ import SelectedPostit from "../../components/volunteer/post_it/SelectedPostit";
 import WhisperFirst from "../../components/volunteer/whisper/WhisperFirst";
 import WhisperLetter from "../../components/volunteer/whisper/WhisperLetter";
 import styled from "styled-components";
+import { viewLetter } from "../../store/viewLetterSlice";
 
 const MainPanel = styled.div`
   flex: 1;
@@ -18,7 +19,12 @@ const MainPanel = styled.div`
 `;
 
 const WhisperPage = () => {
-  // 첫화면은 first 페이지, 버튼을 누르면 해당 아동의 페이지로 전환
+  const change = useSelector((state) => state.viewletter.value);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(viewLetter(false));
+  }, []);
+
   return (
     <div
       style={{
@@ -55,9 +61,7 @@ const WhisperPage = () => {
               backgroundColor: "rgb(255, 255, 255)",
             }}
           >
-            {/* 사이드패널에서 프로필카드를 누른다면 WhisperFirst페이지가 해당 ID를 가진 WisperLetter 페이지로 이동. */}
-            <WhisperLetter />
-            <WhisperFirst />
+            {change ? <WhisperLetter /> : <WhisperFirst />}
           </MainPanel>
 
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>

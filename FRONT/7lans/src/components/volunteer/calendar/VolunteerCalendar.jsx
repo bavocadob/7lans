@@ -12,6 +12,12 @@ import styled from "styled-components";
 
 // import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
 ReactModal.setAppElement("#root");
+import NormalNav from '../../navs/NormalNav';
+import PostIt from '../../volunteer/post_it/PostIt';
+import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
+import Modal from 'react-modal';
+import { current } from '@reduxjs/toolkit';
+import getEnv from "../../../utils/getEnv";
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
   return (
@@ -215,6 +221,11 @@ const VolunteerCalendar = () => {
   //해당 아동의 미팅 정보 불러오기
   useEffect(() => {
     //console.log("change")
+    const navigate = useNavigate();
+    const currentDate = new Date();
+    const dayOfMonth = currentDate.getDate();
+    const childInfo = useSelector((state) => state.child.value)
+    const urlInfo = getEnv('API_URL');
 
     setRelation(childInfo.relationId);
 

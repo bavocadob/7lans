@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { changeDino } from "../store/dinoSlice";
 import { Button, Modal, Form } from "react-bootstrap";
+import getEnv from "../utils/getEnv";
 
 const DinosaurDictPage = () => {
   const userDino = useSelector((state) => state.dino.value);
@@ -16,7 +17,7 @@ const DinosaurDictPage = () => {
   const [hasDino, setHasDino] = useState("");
   const [show, setShow] = useState(false);
 
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -211,7 +212,6 @@ const DinosaurDictPage = () => {
 
     return (
       <Dino>
-        {console.log(userDinosaurList)}
         <StyledContainer>
           <LeftTop>
             <h2>[ 공룡도감 ]</h2>
@@ -290,6 +290,7 @@ const DinosaurDictPage = () => {
         <div
           style={{
             flex: 1,
+            marginTop: '100px',
             padding: "20px",
             backgroundColor: "rgb(255, 226, 123)",
           }}

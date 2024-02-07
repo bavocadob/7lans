@@ -5,6 +5,10 @@ import axios from "axios";
 import SelectedPostit from "../post_it/SelectedPostit";
 import PostIt from "../post_it/PostIt";
 import { useSelector } from "react-redux";
+import getEnv from "../../../utils/getEnv";
+import "regenerator-runtime"
+import ActiveEdit from "./ActiveEdit";
+import NormalNav from "../../navs/NormalNav";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -94,11 +98,13 @@ const CuteButtonWithMargin = styled(CuteButton)`
 `;
 
 export default function ActiveDocs() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpenSpeek, setIsModalOpenSpeek] = useState(false);
   const [activityLog, setActivityLog] = useState('')
+  const [content, setContent] = useState("")
+
   const childInfo = useSelector((state) => state.child.value)
-  const urlInfo = useSelector((state) => state.url.value)
+  const urlInfo = getEnv('API_URL');
+  const userInfo = useSelector((state) => state.user.value)
+
   //activity log 전달받은 값
   const location = useLocation();
   const state = {...location.state};
@@ -111,79 +117,52 @@ export default function ActiveDocs() {
       activityLogId: state.activityLogId
     })
     .then((res) => {
-      console.log(res.data)
+      //console.log(res.data)
       setActivityLog(res.data)
+      if(res.data.content == null || res.data.content == ""){
+        setContent("활동을 입력해 주세요")
+      }
+      else{
+      setContent(res.data.content)
+      }
     })
     .catch((err) => {
     });
   }, [])
-
-  const handleSpeek = () => {
-    setIsModalOpenSpeek(true);
-  };
-
-  const closeModalSpeek = () => {
-    setIsModalOpenSpeek(false);
-  };
-
-  const handleSubmission = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const navigate = useNavigate();
-
-
+  
   return (
-    <Container>
-      <CloseButton onClick={() => {navigate(-1)}}>X</CloseButton>
-      <h3>{childInfo.childName}의 활동일지</h3>
-      <br></br>
-      <InputRow>
+    <>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      width: '100vw',
+    }}>
+      <NormalNav />
+      <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
+        <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
+          {/* <CommonSidePanel /> */}
 
-        <div>
-          활동일자: <input type="date"  value={activityLog.dateInfo}/>
+          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 226, 200)'}}>
+            <ActiveEdit
+              activityLog={activityLog}
+              content={content}
+              setContent={setContent}
+            />
+          </div>
+          
+          <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
+            <PostIt message={'/volunteer_video_chatting_start'}/>
+            <SelectedPostit message={'/volunteer_active_doc'}/>
+            <PostIt message={'/volunteer_whispher'}/>
+            <PostIt message={'/volunteer_raise_egg'}/>
+          </div>
         </div>
-        <div>
-          활동시간: <input type="time"/>
-        </div>
-      </InputRow>
-      <InputRow>
-        <div>
-          활동기관: <input type="text" value={activityLog.centerName}/>
-        </div>
-        <div>
-          봉사자 성명: <input type="text" value={activityLog.volunteerName}/>
-        </div>
-      </InputRow>
-      <TextArea placeholder="활동내용 및 의견을 작성해주세요" />
-      <ButtonContainer>
-        <CuteButtonWithMargin onClick={handleSpeek}>
-          말하기
-        </CuteButtonWithMargin>
-        <CuteButtonWithMargin>수정하기</CuteButtonWithMargin>
-        <CuteButton onClick={handleSubmission}>제출하기</CuteButton>
-      </ButtonContainer>
+          <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', right: '2%', top: '10rem'}}>
+          </div>
+      </div>
+    </div>
+    </>
 
-      {/* 버튼에 대한 모달창들 */}
-      <ModalOverlaySpeek open={isModalOpenSpeek} onClick={closeModalSpeek}>
-        <ModalContent>
-          <p>활동 내용 및 의견을 말씀하시면 자동으로 작성됩니다.</p>
-          <CuteButton onClick={closeModalSpeek}>취소하기</CuteButton>
-          <CuteButton>녹음하기</CuteButton>
-        </ModalContent>
-      </ModalOverlaySpeek>
-
-      <ModalOverlay open={isModalOpen} onClick={closeModal}>
-        <ModalContent>
-          <p>더 이상 수정이 불가합니다. 제출하시겠습니까?</p>
-          <CuteButton onClick={closeModal}>취소하기</CuteButton>
-          <CuteButton>제출하기</CuteButton>
-        </ModalContent>
-      </ModalOverlay>
-    </Container>
   );
 }

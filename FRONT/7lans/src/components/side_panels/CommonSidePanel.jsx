@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 import { updateChildInfo } from "../../store/childSlice";
+import getEnv from "../../utils/getEnv";
+import viewletter, { viewLetter } from "../../store/viewLetterSlice";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -50,7 +52,7 @@ const ProfileImage = styled.img`
   height: 8rem;
   width: 8rem;
   border-radius: 100px;
-  border: 4px solid rgb(45,45,45);
+  border: 4px solid rgb(45, 45, 45);
   padding: 5px;
 
   @media (max-width: 768px) {
@@ -153,34 +155,14 @@ const CommonSidePanel = () => {
   const childInfo = useSelector((state) => state.child.value);
   const children = useSelector((state) => state.children.value);
   const userInfo = useSelector((state) => state.user.value);
-  const urlInfo = useSelector((state) => state.url.value)
-  //console.log(userInfo.memberId);
+  const userProfile = useSelector((state) => state.userProfile.value)
+  const urlInfo = getEnv("API_URL");
   const userId = userInfo.memberId;
-  //console.log(children);
-  // console.log(childInfo);
-
-  useEffect(() => {
-    axios
-      .get(`${urlInfo}/vol/list/${userId}`)
-      .then((res) => {
-        console.log(res, "여기서 아이들 리스트 정제하기");
-      })
-      .catch((err) => {
-        console.log(err, "커먼사이드 패널에서 에러발생");
-      });
-  });
-
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch();
-  // };
-
-  //console.log(children);
 
   const renderSidePanel = () => {
     const postData = (child) => {
       dispatch(updateChildInfo(child));
-      console.log(child.relationId);
+      dispatch(viewLetter(true));
     };
     if (sidePanelStatus) {
       return (
@@ -189,7 +171,7 @@ const CommonSidePanel = () => {
             <CloseButton onClick={() => setSidePanelStatus(false)}>
               {"<<"}
             </CloseButton>
-            <ProfileImage src="./anonymous.jpg" alt="" />
+            <ProfileImage src={`${userProfile}`} alt="" />
             <NameHeader> {userInfo.volunteerName} _봉사자님</NameHeader>
           </LeftSide>
           <InfoContainer>

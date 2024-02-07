@@ -16,6 +16,7 @@ import PostIt from '../../volunteer/post_it/PostIt';
 import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
+import getEnv from "../../../utils/getEnv";
 
 ReactModal.setAppElement('#root');
 
@@ -81,7 +82,9 @@ const GetActivityLog = (activityLogs, cloneDay, currentMonth) => {
      activityLogs.forEach(a => {
         const day = Number(a.dateInfo.substr(8))
 
-        if(cloneDay.getDate() == day){
+        const curDay = currentMonth.getDate()
+
+        if(cloneDay.getDate() == day && curDay >= day){
             activityLog = a;
         }
      })
@@ -96,15 +99,16 @@ const Activity = ({activityLog, currentMonth, cloneDay}) => {
     if(activityLog){
         
         //TODO: activity log 상태에 따라 다른 이미지 출력
-        
+        if(currentMonth.getMonth() == cloneDay.getMonth()){
         return (
-            <div>
-                {activityLog.activityLogId}
-                <img    src={`./activity_log/activityLog_approve.png`} 
-                        alt=""  
-                        style={{ width: '100%'}}/>
-            </div>
-        )
+                <div>
+                    {activityLog.activityLogId}
+                    <img    src={`./activity_log/activityLog_approve.png`} 
+                            alt=""  
+                            style={{ width: '100%'}}/>
+                </div>
+            )
+        }
     }
 }
 
@@ -127,7 +131,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, activityLogs}) =
           formattedDate = format(cloneDay, 'd');
 
           //해당 날짜에 activity log 잇으면 담기 
-          const activityLog = GetActivityLog(activityLogs, cloneDay);
+          const activityLog = GetActivityLog(activityLogs, cloneDay, currentMonth);
             
           days.push(
               <div
@@ -181,7 +185,7 @@ const ActivityCalendar = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [relationId, setRelation] = useState(1);
     const [activityLogs, setActivityLogs] = useState([]);
-    const urlInfo = useSelector((state) => state.url.value)
+    const urlInfo = getEnv('API_URL');
 
 
     const navigate = useNavigate();
@@ -217,12 +221,13 @@ const ActivityCalendar = () => {
         
         //활동일지 존재하면 입력창으로 이동
         if(activityLog){
-              //console.log(activityLog.activityLogId)
-              navigate('/active_docs', {
+
+            //이전에 했던 화상만 입력이 가능 
+            navigate('/active_docs', {
                 state: {
                     activityLogId: `${activityLog.activityLogId}`
                 }
-              })
+            })
         }
     };
     

@@ -6,6 +6,7 @@ import VolUpDiv from "./VolUpDiv";
 import VolLowDiv from "./VolLowDiv";
 import { adminSelectVol } from "../../store/adminSelectVolSlice";
 import { useDispatch, useSelector } from "react-redux";
+import getEnv from "../../utils/getEnv";
 
 const StyledVolunteerManage = styled.div`
   display: flex;
@@ -102,7 +103,7 @@ const VolunteerCard = styled.div`
 `;
 
 const VolunteerManage = () => {
-  const urlInfo = useSelector((state) => state.url.value);
+  const urlInfo = getEnv("API_URL");
   const dispatch = useDispatch();
   const selectVolCard = useSelector((state) => state.adminSelectVol);
 
@@ -120,7 +121,8 @@ const VolunteerManage = () => {
       .then((response) => {
         const arr = [];
         for (const ele of response.data) {
-          let name, email, birth, image;
+          // console.log(ele, "봉사자 volunteerManage");
+          let name, email, time, id;
           for (const el in ele) {
             if (el === "volunteerName") {
               name = ele[el];
@@ -128,24 +130,25 @@ const VolunteerManage = () => {
             if (el === "volunteerEmail") {
               email = ele[el];
             }
-            if (el === "volunteerBirth") {
-              birth = ele[el];
+            if (el === "volunteerTime") {
+              time = ele[el];
             }
-            if (el === "volunteerProfileImagePath") {
-              image = ele[el];
+            if (el === "volunteerId") {
+              id = ele[el];
             }
           }
-          arr.push([name, email, birth, image]);
+          arr.push([name, email, time, id]);
           // console.log(arr);
         }
         setVolunteerList(arr);
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error, "err -> volunteerManage");
       });
   }, []);
 
-  const handleVolunteerClick = (volunteer) => {
+  const handleVolunteerClick = (volunteer, index) => {
+    setSelectedCard(index);
     dispatch(adminSelectVol(volunteer));
   };
 
@@ -178,8 +181,8 @@ const VolunteerManage = () => {
               {filteredVolunteers.map((volunteer, index) => (
                 <VolunteerCard
                   key={index}
-                  isSelected={selectedCard === volunteer}
-                  onClick={() => handleVolunteerClick(volunteer)}
+                  isSelected={index === selectedCard}
+                  onClick={() => handleVolunteerClick(volunteer, index)}
                 >
                   <h3>{volunteer[0]} 봉사자</h3>
                   <br />

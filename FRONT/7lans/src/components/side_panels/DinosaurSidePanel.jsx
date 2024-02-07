@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaEnvelope, FaPhone, FaHome, FaClock, FaBirthdayCake } from 'react-icons/fa';
 import styled from 'styled-components';
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import { getDownloadURL, getStorage, uploadBytesResumable, ref as strRef } from 'firebase/storage';
+import { update, ref as dbRef } from 'firebase/database';
+import { updateUserProfile } from '../../store/userProfileSlice';
+import {db} from '../../firebase';
 
 const StyledDinosaurSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -96,16 +100,86 @@ const DinosaurSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
   const userInfo = useSelector((state) => state.user.value)
 
+  const userProfile = useSelector((state) => state.userProfile.value)
+  const ref = useRef(null)
+  const dispatch = useDispatch()
+  const handleOpenImage = () => {
+    ref.current.click()
+  }
+
+  const handleUploadImage = (event) => {
+    
+    const file = event.target.files[0]
+    const storage = getStorage();
+
+    // Create the file metadata
+    /** @type {any} */
+    const metadata = {
+      contentType: file.type
+    };
+
+    // Upload file and metadata to the object 'images/mountains.jpg'
+    const storageRef = strRef(storage, 'user_image/' + userInfo.memberId);
+    const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case 'paused':
+            console.log('Upload is paused');
+            break;
+          case 'running':
+            console.log('Upload is running');
+            break;
+        }
+      }, 
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            break;
+
+          // ...
+
+          case 'storage/unknown':
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      }, 
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('File available at', downloadURL);
+
+          dispatch(updateUserProfile(downloadURL))
+
+          update(dbRef(db, `users/${userInfo.memberId}`), {image: downloadURL})
+        });
+      }
+    );
+  }
+
   const renderSidePanel = () => {
     if (sidePanelStatus) {
       return (
         <StyledDinosaurSidePanel>
           <InnerContainer>
             <CloseButton onClick={() => setSidePanelStatus(false)}>{"<<"}</CloseButton>
-            <ProfileImage src="./anonymous.jpg" alt="" />
+            <ProfileImage src={`${userProfile}`} alt="" />
+            <button onClick={handleOpenImage}>+</button>
+            <input type="file" accept='image/jpeg, image/png' ref={ref} onChange={handleUploadImage} style={{display: 'none'}}/>
           </InnerContainer>
           <InfoContainer>
-            <NameHeader>박주헌 봉사자님</NameHeader>
+            <NameHeader>{userInfo.volunteerName} 봉사자님</NameHeader>
             <DetailContainer>
               <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} />{userInfo.email}</DetailParagraph>
               <DetailParagraph><FaPhone style={{ marginRight: '10px' }} />{userInfo.phoneNumber}</DetailParagraph>
