@@ -6,8 +6,7 @@ import { changeGame } from "../../store/chooseGameSlice";
 import { motion } from "framer-motion"
 
 const NavBar = styled.nav`
-  position: relative;
-  top: 0;
+  position: fixed;
   width: 100%;
   height: 100px;
   background-color: rgb(255, 215, 3);

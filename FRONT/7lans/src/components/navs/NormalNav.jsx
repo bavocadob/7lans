@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
 const NavBar = styled.nav`
-  position: relative;
-  top: 0;
+  position: fixed;
   width: 100%;
   height: 100px;
   background-color: rgb(255, 215, 3);
   padding-right: 15%;
+  top: 0;
 `;
 
 const LogoImage = styled.img`

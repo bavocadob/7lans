@@ -261,7 +261,6 @@ const VolunteerMainPage = () => {
             <img style={{ width: "80%" }} src="../../../main_page/line.png" alt="선" />
             
           </Line>
-
           <Link to={"/volunteer_whispher"}>
             <LeftLetter>
               <img
