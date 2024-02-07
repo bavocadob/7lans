@@ -66,17 +66,17 @@ const ChildList = styled.div`
   align-items: center;
 `;
 
-const ChildCard = styled.div`
-  width: 60%;
-  height: 70%;
-  margin-bottom: 5px;
-  border: 2px solid black;
-  border-radius: 10px;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  margin-right: -20px;
-`;
+// const ChildCard = styled.div`
+//   width: 60%;
+//   height: 70%;
+//   margin-bottom: 5px;
+//   border: 2px solid black;
+//   border-radius: 10px;
+//   text-align: center;
+//   justify-content: center;
+//   align-items: center;
+//   margin-right: -20px;
+// `;
 
 const SearchChildContainer = styled.div`
   height: 100%;
@@ -88,28 +88,48 @@ const SearchChildContainer = styled.div`
   align-items: center;
 `;
 
+const ChildCard = styled.div`
+  width: 60%;
+  height: 70%;
+  margin-bottom: 5px;
+  border: 2px solid black;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-right: -20px;
+  position: relative; /* 상대적인 위치 설정 */
+`;
+
+const GetFriendBtn = styled.button`
+  position: absolute; /* 부모 요소에 상대적으로 배치 */
+  top: 50px; /* 원하는 위치 조정 */
+  right: 10px; /* 원하는 위치 조정 */
+`;
+
 function VolUpDiv() {
-  const selectVolCard = useSelector((state) => state.adminSelectVol);
+  const selectVolCard = useSelector((state) => state.adminSelectVol.value);
   const userInfo = useSelector((state) => state.user);
-  const urlInfo = getEnv('API_URL');
+  const urlInfo = getEnv("API_URL");
   const centerId = userInfo.value.centerId;
   const [childList, setChildList] = useState([]);
   const [search, setSearch] = useState("");
-  console.log(centerId);
 
-  let name, email, birth;
+  let name, email, time, volId;
   name = selectVolCard[0];
   email = selectVolCard[1];
-  birth = selectVolCard[2];
+  time = selectVolCard[2];
+  volId = selectVolCard[3];
 
   useEffect(() => {
     axios
       .get(`${urlInfo}/manager/child/${centerId}`)
       .then((response) => {
         const arr = [];
+        // console.log(response.data, "센터의 아동들");
         for (const element of response.data) {
-          console.log(element);
-          let childName, centerName, childId, childBirth;
+          // console.log(element, "아동개인의 정보");
+          let childName, centerName, childRelationId, childBirth, childId;
           for (const ele in element) {
             if (ele === "childName") {
               childName = element[ele];
@@ -120,13 +140,16 @@ function VolUpDiv() {
             if (ele === "childBirth") {
               childBirth = element[ele];
             }
+            if (ele === "childId") {
+              childId = element[ele];
+            }
           }
-          arr.push([childName, centerName, childBirth]);
+          arr.push([childName, centerName, childBirth, childId]);
         }
         setChildList(arr);
       })
       .catch((err) => {
-        console.error(err);
+        console.error(err, "err -> VolUpDiv");
       });
   }, []);
 
@@ -138,6 +161,20 @@ function VolUpDiv() {
     )
   );
 
+  const onClick = (childId) => {
+    axios
+      .post(`${urlInfo}/relation/create`, {
+        childId: childId,
+        volunteerId: volId,
+      })
+      .then((res) => {
+        console.log("친구맺기 성공");
+      })
+      .catch((err) => {
+        console.log(err, "친구맺기 오류 -> VolUpDiv");
+      });
+  };
+
   return (
     <>
       <UpperDiv>
@@ -146,9 +183,9 @@ function VolUpDiv() {
           <ProfileImage src="./admin_pic/봉사자프로필예시.png" alt="Profile" />
         </ProfileCard>
         <InformationSection>
-          <p>email: {email}</p>
-          <p>Name: {name}</p>
-          <p>Birth: {birth}</p>
+          <p>Name : {name}</p>
+          <p>email : {email}</p>
+          <p>time : {time ? { time } : 0}</p>
         </InformationSection>
         <SearchChildContainer>
           <SearchContainer>
@@ -164,6 +201,9 @@ function VolUpDiv() {
               <ChildCard key={index}>
                 <h6>{child[0]}</h6>
                 <h6>{child[2]}</h6>
+                <GetFriendBtn onClick={() => onClick(child[3])}>
+                  친구추가
+                </GetFriendBtn>
               </ChildCard>
             ))}
           </ChildList>

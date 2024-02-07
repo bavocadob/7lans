@@ -61,9 +61,9 @@ const ChildWhisperPage = () => {
           </MainPanel>
 
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>
-            <ChildPostit message={'/child_video_chatting_start'}/>
-            <SelectedChildPostit message={'/child_whispher'}/>
-            <ChildPostit message={'/child_raise_egg'}/>
+            <ChildPostit message={"/child_video_chatting_start"} />
+            <SelectedChildPostit message={"/child_whispher"} />
+            <ChildPostit message={"/child_raise_egg"} />
           </div>
         </div>
         <div
