@@ -7,7 +7,7 @@ const StyledDinosaurSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  max-width: 300px;
+  width: 300px;
   border-radius: 20px 0 0 20px;
   height: 100%;
   

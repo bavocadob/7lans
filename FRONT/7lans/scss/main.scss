@@ -18,11 +18,11 @@ body {
   $font-size: 30px;
   $font-size-small: 30px;
   $icon-size: 5rem;
+  
   @mixin hover-event {
     cursor: pointer;
     transition: 0.2s ease-in-out;
   } 
-  
  
   background-color: $bg-color;  
 }  

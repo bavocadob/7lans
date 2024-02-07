@@ -8,22 +8,29 @@ import SelectedPostit from "../../components/volunteer/post_it/SelectedPostit";
 import ActiveDocs from "../../components/volunteer/active_docs/AcitveDocs";
 import ActivityCalendar from "../../components/volunteer/calendar/ActivityCalendar";
 
+const RightSide = styled.div`
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-radius: 0 20px 20px 0;
+  background-color: rgb(255, 255, 255, 0.5);
+  /* border: 2px solid rgb(255, 183, 58);
+  border-left: none; */
+`;
+
 const ActiveDoc = () => {
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100vh",
-          width: "100vw",
-        }}
-      >
-        <NormalNav />
+      <NormalNav />
+      <div style={{ marginTop: "5.7%" }}>
         <div
           style={{
-            flex: 1,
+            height: "650px",
             padding: "30px",
+            paddingBottom: "20px",
             backgroundColor: "rgb(255, 226, 123)",
           }}
         >
@@ -32,23 +39,15 @@ const ActiveDoc = () => {
               height: "100%",
               width: "100%",
               display: "flex",
+              flexDirection: "row",
               borderRadius: "20px",
               backgroundColor: "rgb(255, 226, 123)",
             }}
           >
             <CommonSidePanel />
-            <div
-              style={{
-                width: "90%",
-                flex: 1,
-                borderRadius: "0 20px 20px 0",
-                backgroundColor: "rgb(255, 255, 255)",
-              }}
-            >
-              {/* 활동일지 */}
-              {/* <ActiveDocs /> */}
-              <ActivityCalendar/>
-            </div>
+            <RightSide>
+              <ActivityCalendar />
+            </RightSide>
             <div
               style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}
             >

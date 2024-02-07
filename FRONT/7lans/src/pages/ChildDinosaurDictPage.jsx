@@ -112,6 +112,7 @@ const ChildDinosaurDictPage = () => {
     }
   };
 
+  // 우측 동물도감 관련 styled
   const Dino = styled.div`
     display: flex;
     flex: 1;
@@ -278,36 +279,25 @@ const ChildDinosaurDictPage = () => {
   //  최종 화면 구성
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100vh",
-          width: "100vw",
-          margin: "0",
-        }}
-      >
         <NormalNav />
+        <div style={{ marginTop: "5.7%" }}></div>
         <div
           style={{
-            flex: 1,
-            padding: "20px",
+            height: "650px",
+            padding: "30px",
+            paddingBottom: "20px",
             backgroundColor: "rgb(255, 226, 123)",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              height: "100%",
-              borderRadius: "20px",
-              backgroundColor: "rgb(255, 255, 255)",
-            }}
-          >
+        <div style={{height: '100%', 
+                      width: '100%', 
+                      flexDirection: 'row',
+                      borderRadius: '20px', 
+                      backgroundColor: 'rgb(255, 226, 123)'}}>
             <ChildDinosaurSidePanel />
             {renderBody()}
-          </div>
         </div>
-      </div>
+          
       <CenteredModal
         show={show}
         onHide={() => setShow(false)}
@@ -341,6 +331,10 @@ const ChildDinosaurDictPage = () => {
         </Modal.Footer>
         </Modal.Dialog>
       </CenteredModal>
+      
+
+      </div>
+      
     </>
   );
 };

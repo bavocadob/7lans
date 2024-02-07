@@ -6,13 +6,15 @@ const Container = styled.div`
   height: 10vh;
   background-image: url('/post_it.png');
   background-size: cover;
-  background-position: center;
+  background-position: right;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
+  padding-left: 4px;
+  padding-bottom: 4px;
   font-weight: bolder;
   font-size: 25px;
-  color: black;
+  color: rgb(45,45,45);
   margin: 2rem 0 2rem 0;
 `;
 

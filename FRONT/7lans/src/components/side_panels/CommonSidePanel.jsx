@@ -10,7 +10,7 @@ const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  width: 550px;
+  width: 500px;
   border-radius: 20px 0 0 20px;
   height: 100%;
   /* border: 2px solid rgb(255, 183, 58);
@@ -47,7 +47,7 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 10%;
+  left: 5%;
   top: 2%;
   height: 8rem;
   width: 8rem;
@@ -80,7 +80,7 @@ const NameHeader = styled.h4`
   text-decoration: none;
   position: absolute;
   top: 65%;
-  left: 50%;
+  left: 48%;
 `;
 
 const DetailContainer = styled.div`
@@ -121,15 +121,16 @@ const ChildCard = styled.div`
   border: 3px solid rgb(240, 165, 8);
   display: flex;
   align-items: center;
-
+  /* position: relative; */
   margin-bottom: 10px;
   border-radius: 10px;
   padding: 1rem;
+  padding-bottom: 6px;
 `;
 
 const Button = styled.button`
   background: linear-gradient(
-    300deg,
+    270deg,
     rgba(255, 184, 36, 1),
     rgba(255, 237, 140, 1)
   );
@@ -137,15 +138,13 @@ const Button = styled.button`
   font-weight: bold;
   border: none;
   border-radius: 50px;
-  /* margin: 0.5rem; */
-  margin-left: 3px;
-  padding: 0.5rem;
   height: 40px;
   width: 100px;
   margin-left: 90%;
-  margin-top: 7%;
   color: white;
   text-decoration-line: none;
+  position: relative;
+  right: 7%;
 `;
 const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
@@ -178,12 +177,12 @@ const CommonSidePanel = () => {
               {children.length > 0 ? (
                 children.map((el) => (
                   <ChildCard key={el.childId}>
-                    <div>
-                      <h3>{el.childName}</h3>
-                      <Age birth={el.childBirth}></Age>
-                      <div>소속기관: {el.childCenterName}</div>
-                      <Comment comment={el.childSpecialContent}></Comment>
-                      <Button onClick={() => postData(el)}>선택하기</Button>
+                    <div style={{position: 'relative'}}>
+                    <h3>{el.childName}</h3>
+                    <Age birth={el.childBirth}></Age>
+                    <div>소속기관: {el.childCenterName}</div>
+                    <Comment comment={el.childSpecialContent}></Comment>
+                    <Button onClick={() => postData(el)}>선택하기</Button>
                     </div>
                   </ChildCard>
                 ))
