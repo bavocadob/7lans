@@ -90,7 +90,7 @@ const SubmitButton = styled.button`
 
 /* More styled components... */
 
-function QuizProblemSetup({ans, setAns, nowProblem, setNowProblem, changeProblem}) {
+function QuizProblemSetup({ans, setAns, nowProblem, setNowProblem, submitProblem}) {
     return (
         <Container>
             <InnerContainer>
@@ -118,7 +118,7 @@ function QuizProblemSetup({ans, setAns, nowProblem, setNowProblem, changeProblem
                     </OptionContainer>
                 </ChoiceContainer>
 
-                <SubmitButton onClick={changeProblem}>
+                <SubmitButton onClick={submitProblem}>
                     입력 완료
                 </SubmitButton>
             </InnerContainer>

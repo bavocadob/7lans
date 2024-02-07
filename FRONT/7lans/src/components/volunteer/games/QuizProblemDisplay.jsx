@@ -70,7 +70,7 @@ const StyledButton = styled.button`
 `;
 
 // 컴포넌트 코드
-function QuizProblemDisplay({setAnsCorrect, dispatch, gameChange, problem}) {
+function QuizProblemDisplay({submitAnswer, setAnsCorrect, dispatch, gameChange, problem}) {
     return (
         <Container>
             <Heading>[ 문제 ]</Heading>
@@ -80,7 +80,7 @@ function QuizProblemDisplay({setAnsCorrect, dispatch, gameChange, problem}) {
             <ButtonContainer>
                 <ButtonDiv>
                     <StyledButton onClick={() => {
-                        setAnsCorrect('O');
+                        submitAnswer('O');
                         dispatch(gameChange(true))
                     }}>
                         O
@@ -88,7 +88,7 @@ function QuizProblemDisplay({setAnsCorrect, dispatch, gameChange, problem}) {
                 </ButtonDiv>
                 <ButtonDiv>
                     <StyledButton onClick={() => {
-                        setAnsCorrect('X');
+                        submitAnswer('X');
                         dispatch(gameChange(true))
                     }}>
                         X
