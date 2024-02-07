@@ -13,6 +13,7 @@ import getEnv from "../../utils/getEnv";
 import ChildCommonSidePanel from "../../components/side_panels/ChildCommonSidePanel";
 import ChildPostit from "../../components/volunteer/post_it/ChildPostit";
 import SelectedChildPostit from "../../components/volunteer/post_it/SelectedChildPostit";
+import { Button, Modal, Form, Image } from "react-bootstrap";
 
 const MainPanel = styled.div`
   flex: 1;
@@ -44,6 +45,7 @@ const ChildRaiseEggPage = () => {
   const userInfo = useSelector((state) => state.user.value)
   const urlInfo = getEnv('API_URL');
   const [eggInfo, setEggInfo] = useState(null)
+  const [show, setShow] = useState(false)
   // const eggInfo = useRef(null)
 
   console.log(volInfo)
@@ -64,21 +66,117 @@ const ChildRaiseEggPage = () => {
     egg()
   }, [])
   
-  const eggClick = () => {
-    if (eggInfo.experience === 0) {
-      const eggHatch = async () => {
-        try {
-          const memberId = userInfo.memberId
-          const relationId = volInfo.relationId
-          const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {memberId, relationId})
-          console.log(res.data)
-        }
-        catch (err) {
-          console.error(err)
-        }
-      }
-      eggHatch()
+  const renderModal = () => {
+    if (eggInfo?.childCheck === true && eggInfo?.volunteerCheck === false) {
+      //봉사자는 아직 알을 안깐 경우
+      return (
+        <Modal
+        show={show}
+        onHide={() => setShow(false)}
+        >
+          <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
+          <Modal.Header closeButton>
+            <Modal.Title>{volInfo.volunteerName} 선생님이 아직 알을 열어보지 않았어요.</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Image
+                type="image"
+                src={`./dinosourImage/dinosaur${userDion}_sad.png`}
+              />
+            </Form>
+          </Modal.Body>
+          <Modal.Footer style={{justifyContent: 'space-between'}}>
+            <Button variant="secondary" onClick={() => setShow(false)}>
+              확인
+            </Button>
+            {/* <Button variant='primary' onClick={handleSubmit}>
+              생성
+            </Button> */}
+          </Modal.Footer>
+          </Modal.Dialog>
+        </Modal>
+      )
     }
+    else if (eggInfo?.experience !== 100) {
+      //경험치가 100이 아닌 경우
+      return (
+        <Modal
+        show={show}
+        onHide={() => setShow(false)}
+        >
+          <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
+          <Modal.Header closeButton>
+            <Modal.Title>아직 경험치가 {eggInfo?.experience} % 에요.</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Image
+                type="image"
+                src={`./dinosourImage/dinosaur${userDion}_sad.png`}
+              />
+            </Form>
+          </Modal.Body>
+          <Modal.Footer style={{justifyContent: 'space-between'}}>
+            <Button variant="secondary" onClick={() => setShow(false)}>
+              확인
+            </Button>
+            {/* <Button variant='primary' onClick={handleSubmit}>
+              생성
+            </Button> */}
+          </Modal.Footer>
+          </Modal.Dialog>
+        </Modal>
+      )
+    }
+    else {
+      return (
+        <Modal
+        show={show}
+        onHide={() => setShow(false)}
+        >
+          <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
+          <Modal.Header closeButton>
+            <Modal.Title>나와 함께 하게 된걸 축하해!!!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Image
+                type="image"
+                src={`./dinosourImage/dinosaur${newEgg?.id}_basic.png`}
+              />
+            </Form>
+          </Modal.Body>
+          <Modal.Footer style={{justifyContent: 'space-between'}}>
+            <Button variant="secondary" onClick={() => setShow(false)}>
+              확인
+            </Button>
+            {/* <Button variant='primary' onClick={handleSubmit}>
+              생성
+            </Button> */}
+          </Modal.Footer>
+          </Modal.Dialog>
+        </Modal>
+      )
+    }
+  } 
+
+  const eggClick = () => {
+ 
+    const eggHatch = async () => {
+      try {
+        const memberId = userInfo.memberId
+        const relationId = volInfo.relationId
+        const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {memberId, relationId})
+        console.log(res.data)
+        setShow(true)
+      }
+      catch (err) {
+        console.error(err)
+      }
+    }
+    eggHatch()
+
   }
 
   return (
@@ -164,6 +262,7 @@ const ChildRaiseEggPage = () => {
           }}
         ></div>
       </div>
+      {renderModal()}
     </div>
   );
 };
