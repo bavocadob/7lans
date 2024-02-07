@@ -4,6 +4,7 @@ import axios from 'axios'
 import {useLocation} from 'react-router-dom'
 import styled from 'styled-components';
 import getEnv from "../../../utils/getEnv";
+import { useSelector } from "react-redux";
 
 const getRandomRotation = () => Math.floor(Math.random() * 30) -20;
 const Image = styled.img`
