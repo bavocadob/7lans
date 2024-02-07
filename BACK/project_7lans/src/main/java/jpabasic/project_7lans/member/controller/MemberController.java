@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.member.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.childCenter.dto.ChildCenterResponseDto;
 import jpabasic.project_7lans.member.dto.member.MemberRequestDto;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+@Tag(name="멤버 API", description = "멤버 관련 API입니다.")
 @Slf4j
 @RestController
 @RequestMapping(value = "/member")

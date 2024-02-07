@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.whisper.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.whisper.dto.WhisperRequestDto;
 import jpabasic.project_7lans.whisper.dto.WhisperResponseDto;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 // 속닥속닥 관련 컨트롤러
+
+@Tag(name="속닥속닥 API", description = "속닥속닥 관련 API입니다.")
 @RestController
 @RequiredArgsConstructor
 public class WhisperController {

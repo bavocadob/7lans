@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.member.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jpabasic.project_7lans.member.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.member.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.member.service.ChildService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Tag(name="아동 API", description = "아동 관련 API입니다.")
 @RestController
 @RequestMapping(value = "/child")
 @RequiredArgsConstructor

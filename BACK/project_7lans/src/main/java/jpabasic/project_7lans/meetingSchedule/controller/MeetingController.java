@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.meetingSchedule.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.meetingSchedule.dto.MeetingScheduleRequestDto;
 import jpabasic.project_7lans.meetingSchedule.dto.MeetingScheduleResponseDto;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name="화상 미팅 API", description = "화상 미팅 관련 API입니다.")
 @RestController
 @RequestMapping(value = "/meetingSchedue")
 @RequiredArgsConstructor
