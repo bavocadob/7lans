@@ -5,7 +5,7 @@ import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 
 const LowerDiv = styled.div`
-  flex: 2.2;
+  flex: 2.1;
   background-color: #fffdf6;
   border-radius: 20px;
   border-radius: 20px;
