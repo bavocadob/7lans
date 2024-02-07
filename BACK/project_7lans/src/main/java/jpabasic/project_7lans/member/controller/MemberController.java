@@ -68,34 +68,7 @@ public class MemberController {
         }
     }
 
-
     // =======================================================================================
-    //센터 리스트 출력
-    @Operation(summary = "회원가입시 센터 목록 출력")
-    @GetMapping("/center")
-    public ResponseEntity<List<ChildCenterResponseDto.list>> centerList(){
-        try{
-            List<ChildCenterResponseDto.list> centerList = childCenterService.list();
-            return new ResponseEntity<>(centerList, HttpStatus.OK);
-        }catch(Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    // 프로필 이미지 수정
 
-
-    // =======================================================================================
-    // 센터 등록
-    @Operation(summary = "센터 등록")
-    @PostMapping("/center/register")
-    public ResponseEntity centerRegister(@RequestBody @Valid MemberRequestDto.centerDto centerDto){
-        try{
-            childCenterService.centerRegister(centerDto);
-            log.info("[MemberController.centerRegister] finish register center");
-            return new ResponseEntity(HttpStatus.OK);
-        }catch(Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }
