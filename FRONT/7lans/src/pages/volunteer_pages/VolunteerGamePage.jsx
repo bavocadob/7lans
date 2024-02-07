@@ -16,7 +16,7 @@ const VolunteerGamePage = ({session, renderUserVideoComponent, mainStreamManager
     const renderGame = () => {
         if (gameSelector === 1) {
             return (
-                <Quiz/>
+                <Quiz session={session} />
             )
         }
         if (gameSelector === 2) {
