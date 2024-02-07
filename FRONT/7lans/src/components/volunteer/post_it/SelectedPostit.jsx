@@ -33,9 +33,11 @@ const SelectedPostit = (props) => {
   const valounteerAddress = props.message
   
   return (
-    <Container>
+    <Link to={valounteerAddress} style={{textDecorationLine: 'none'}}>
+      <Container>
         {navigate[valounteerAddress]}
-    </Container>
+      </Container>
+    </Link>
   )
 }
 
