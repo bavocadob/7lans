@@ -185,8 +185,8 @@ export default function ActiveDocs() {
   }
 
   const navigate = useNavigate();
-
-
+  
+  
   return (
     <Container>
       <CloseButton onClick={() => {navigate(-1)}}>X</CloseButton>
