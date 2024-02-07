@@ -1,21 +1,20 @@
-import "./App.css";
 import React, { useState, useCallback } from "react";
 import { Howl, Howler } from "howler";
 
 // made by 은희💛
 
-const ChildAudioPlay = () => {
+const ChildAudioPlay = ({dinoState, setdinoState}) => {
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
   const [onRec, setOnRec] = useState(true);
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
-  const [disabled, setDisabled] = useState(true); // 😀😀😀
+  const [disabled, setDisabled] = useState(true); 
 
   const onRecAudio = () => {
 
-    setDisabled(true) // 😀😀😀
+    setDisabled(true) 
     
     // 음원정보를 담은 노드를 생성하거나 음원을 실행또는 디코딩 시키는 일을 한다
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -90,29 +89,28 @@ const ChildAudioPlay = () => {
       type: "audio",
     });
   	
-    // 😀😀😀
     setDisabled(false);
     console.log(sound); // File 정보 출력
+    
   };
 
   const play = () => { 
-    // const audio = new Audio(URL.createObjectURL(audioUrl)); // 😀😀😀
-    // audio.loop = false;
-    // audio.volume = 1;
-    // audio.play();
+    setdinoState(true)
     const audio = new Audio(URL.createObjectURL(audioUrl))
     const sound = new Howl({
       src: [audio.src],
       format: ["mp3", "ogg"],
       volume: 1,
       rate: 1.5, // 속도를 조절하여 음성을 변조
+      onend: function() { // 재생이 끝나면 호출될 콜백 함수, 공룡 상태 변경
+        setdinoState(false);
+      }
     });
     console.log(audio.src);
 
     sound.play();
   };
 
-  // 😀😀😀
   return (
     <>
       <button onClick={onRec ? onRecAudio : offRecAudio}>녹음</button>

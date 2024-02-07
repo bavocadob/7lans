@@ -11,6 +11,7 @@ import axios from "axios";
 import { tr } from "date-fns/locale";
 import getEnv from "../../utils/getEnv";
 import { Button, Modal, Form, Image } from "react-bootstrap";
+import Audio from "../../components/Audio"
 
 const RightSide = styled.div`
   width: 90%;
@@ -68,6 +69,7 @@ const RaiseEggPage = () => {
   const [eggInfo, setEggInfo] = useState(null)
   const [show, setShow] = useState(false)
   const [newEgg, setNewEgg] = useState(null)
+  const [dinoState, setdinoState] = useState(false) //기본 상태, true == 행복한 상태 출력
   // const eggInfo = useRef(null)
 
   console.log(childInfo);
@@ -254,6 +256,7 @@ const RaiseEggPage = () => {
                 src="./egg_img.png"
                 alt=""
               />
+              {!dinoState && (
               <img
                 style={{ 
                     // transform: "scaleX(-1)", 
@@ -261,7 +264,21 @@ const RaiseEggPage = () => {
                 src={`./dinosourImage/dinosaur${userDion}_basic.png`}
                 alt=""
               />
-             <div>여기 말하는 톰!</div>
+              )}
+              {dinoState && (
+              <img
+                style={{ 
+                    // transform: "scaleX(-1)", 
+                    height: "300px" }}
+                src={`./dinosourImage/dinosaur${userDion}_happy.png`}
+                alt=""
+              />
+              )}
+             {/* <div>여기 말하는 톰!</div> */}
+             <Audio
+              dinoState={dinoState}
+              setdinoState={setdinoState}
+             />
             </RowBox3>
           </RightSide>
 
