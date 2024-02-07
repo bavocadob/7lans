@@ -80,6 +80,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         return ActivityLogResponseDto.detailByVolunteer.builder()
                 .activityLogId(activityLog.getId())
                 .dateInfo(activityLog.getRealStartTime().toLocalDate())
+                .activityStartTime(activityLog.getRealStartTime())
+                .activityEndTime(activityLog.getRealEndTime())
                 .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
                 .centerName(relation.getChildCenter().getName())
                 .volunteerName(relation.getVolunteer().getName())
@@ -131,6 +133,32 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             activityLog.changeContent(writeDoneReqDto.getContent());
         }
     }
+
+    // 화상채팅 시작시 활동 일지 시작 시간 입력(아이가 시작)
+    @Override
+    @Transactional
+    public void setStartTime(ActivityLogRequestDto.startTime startTime) {
+        MeetingSchedule meetingSchedule = meetingScheduleRepository.findById(startTime.getMeetingId())
+                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.setStartTime] no such meetingSchedule"));
+
+        ActivityLog activityLog = meetingSchedule.getActivityLog();
+
+        activityLog.setRealStartTime(startTime.getStartTime());
+
+    }
+
+    // 화상채팅 종료시 활동 일지 종료 시간 입력(아이가 종료)
+    @Override
+    @Transactional
+    public void setEndTime(ActivityLogRequestDto.endTime endTime) {
+        MeetingSchedule meetingSchedule = meetingScheduleRepository.findById(endTime.getMeetingId())
+                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.setEndTime] no such meetingSchedule"));
+
+        ActivityLog activityLog = meetingSchedule.getActivityLog();
+
+        activityLog.setRealEndTime(endTime.getEndTime());
+    }
+
 
     // ==================================================================================================
     // 관리자
@@ -236,6 +264,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         return ActivityLogResponseDto.detailByManager.builder()
                 .activityLogId(activityLog.getId())
                 .dateInfo(activityLog.getRealStartTime().toLocalDate())
+                .activityStartTime(activityLog.getRealStartTime())
+                .activityEndTime(activityLog.getRealEndTime())
                 .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
                 .centerName(relation.getChildCenter().getName())
                 .volunteerName(relation.getVolunteer().getName())
@@ -256,24 +286,5 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
         // 작성 완료 상태이면 활동 일지를 승인상태로 바꾼다.
         if(activityLog.getWriteStatus()) activityLog.approve();
-    }
-
-    public void setStartTime(ActivityLogRequestDto.startTime startTime) {
-           MeetingSchedule meetingSchedule = meetingScheduleRepository.findById(startTime.getMeetingId())
-                   .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.setStartTime] no such meetingSchedule"));
-
-           ActivityLog activityLog = meetingSchedule.getActivityLog();
-
-           activityLog.setRealStartTime(startTime.getStartTime());
-
-    }
-
-    public void setEndTime(ActivityLogRequestDto.endTime endTime) {
-        MeetingSchedule meetingSchedule = meetingScheduleRepository.findById(endTime.getMeetingId())
-                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.setEndTime] no such meetingSchedule"));
-
-        ActivityLog activityLog = meetingSchedule.getActivityLog();
-
-        activityLog.setRealEndTime(endTime.getEndTime());
     }
 }

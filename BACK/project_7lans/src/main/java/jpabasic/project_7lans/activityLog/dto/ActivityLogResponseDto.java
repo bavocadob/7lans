@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ActivityLogResponseDto {
 
@@ -49,6 +50,10 @@ public class ActivityLogResponseDto {
         private Long activityLogId;
         @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] dateInfo 은 Null 일 수 없습니다.")
         private LocalDate dateInfo;
+        @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] activityStartTime 은 Null 일 수 없습니다.")
+        private LocalDateTime activityStartTime;
+        @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] activityEndTime 은 Null 일 수 없습니다.")
+        private LocalDateTime activityEndTime;
         @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] activityTime 은 Null 일 수 없습니다.")
         private Long activityTime;
         @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] centerName 은 Null 일 수 없습니다.")
@@ -67,6 +72,8 @@ public class ActivityLogResponseDto {
         detailByVolunteer(
                 Long activityLogId,
                 LocalDate dateInfo,
+                LocalDateTime activityStartTime,
+                LocalDateTime activityEndTime,
                 Long activityTime,
                 String centerName,
                 String volunteerName,
@@ -76,6 +83,8 @@ public class ActivityLogResponseDto {
         ){
             this.activityLogId = activityLogId;
             this.dateInfo = dateInfo;
+            this.activityStartTime = activityStartTime;
+            this.activityEndTime = activityEndTime;
             this.activityTime = activityTime;
             this.centerName = centerName;
             this.volunteerName = volunteerName;
@@ -179,6 +188,12 @@ public class ActivityLogResponseDto {
         @NotNull(message = "[ActivityLogResponseDto.detailByManager] dateInfo 은 Null 일 수 없습니다.")
         private LocalDate dateInfo;
 
+        @NotNull(message = "[ActivityLogResponseDto.detailByManager] activityStartTime 은 Null 일 수 없습니다.")
+        private LocalDateTime activityStartTime;
+
+        @NotNull(message = "[ActivityLogResponseDto.detailByManager] activityEndTime 은 Null 일 수 없습니다.")
+        private LocalDateTime activityEndTime;
+
         @NotNull(message = "[ActivityLogResponseDto.detailByManager] activityTime 은 Null 일 수 없습니다.")
         private Long activityTime;
 
@@ -201,6 +216,8 @@ public class ActivityLogResponseDto {
         detailByManager(
                 Long activityLogId,
                 LocalDate dateInfo,
+                LocalDateTime activityStartTime,
+                LocalDateTime activityEndTime,
                 Long activityTime,
                 String centerName,
                 String volunteerName,
@@ -210,6 +227,8 @@ public class ActivityLogResponseDto {
         ){
             this.activityLogId = activityLogId;
             this.dateInfo = dateInfo;
+            this.activityStartTime = activityStartTime;
+            this.activityEndTime = activityEndTime;
             this.activityTime = activityTime;
             this.centerName = centerName;
             this.volunteerName = volunteerName;
