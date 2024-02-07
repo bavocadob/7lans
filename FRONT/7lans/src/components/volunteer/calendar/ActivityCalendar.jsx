@@ -21,26 +21,45 @@ import getEnv from "../../../utils/getEnv";
 ReactModal.setAppElement('#root');
 
 
-const RenderHeader = ({ currentMonth, prevMonth, nextMonth, child }) => {
+const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
     return (
-        <div className="header row">
-            <div className="col col-start">
-                <span className="text">
-                    <span className="text month">
-                        {format(currentMonth, 'M')}월
-                    </span>
-                    {format(currentMonth, 'yyyy')}
-                </span>
-                <span>
-                    {child.childName}과의 활동일지
-                </span>
-            </div>
-            <div className="col col-end">
-                <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
-                <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
-            </div>
+        <div className="header row" style={{ marginBottom: '10px'}}>
+      <div style={{display:'flex', 
+                    flexDirection:'row', 
+                    justifyContent: 'space-between', 
+                    fontSize:'30px',
+                    marginBottom: '10px'
+                    }}>
+        <div>
+          <img
+            style={{ width: "30px" , transform: "scaleX(-1)"}}
+            src="../../next_button.png"
+            alt=""
+            onClick={prevMonth}
+          />
         </div>
-    );
+        <div>
+          <div className="col col-start">
+            <span className="text">
+              <span className="text month">{format(currentMonth, "M")}월</span>
+              {format(currentMonth, "yyyy")}
+            </span>
+            {/* <span>
+                    {child.childName}과의 일정
+                </span> */}
+          </div>
+        </div>
+        <div>
+          <img
+            style={{ width: "30px" }}
+            src="../../next_button.png"
+            alt=""
+            onClick={nextMonth}
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 const RenderDays = () => {
