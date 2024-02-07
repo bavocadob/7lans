@@ -75,16 +75,23 @@ const GetActivityLog = (activityLogs, cloneDay, currentMonth) => {
 }
 
 const Activity = ({activityLog, currentMonth, cloneDay}) => {
+    const [thumbnail, setThumbnail] = useState(getEnv('PREVIOUS_SUBMIT'));
+
     // console.log(activityLog)
     // console.log(currentMonth)
     if(activityLog){
         
         //TODO: activity log 상태에 따라 다른 이미지 출력
+        //제출 전, 제출 후(승인 전), 제출 후(승인 후)
         if(currentMonth.getMonth() == cloneDay.getMonth()){
-        return (
+            if(activityLog.approveStatus){
+                setThumbnail(getEnv('APPROVE'))
+            }
+            
+            return (
                 <div>
                     {activityLog.activityLogId}
-                    <img    src={`./activity_log/activityLog_approve.png`} 
+                    <img    src={thumbnail} 
                             alt=""  
                             style={{ width: '100%'}}/>
                 </div>
