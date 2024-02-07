@@ -63,10 +63,12 @@ const ProfileImage = styled.img`
 
 const InfoContainer = styled.div`
   display: flex;
-  height: 70%;
+  height: 75%;
   flex-direction: column;
   align-items: center;
-
+  box-shadow: 2px 2px 1px rgb(240, 165, 8, 0.7);
+  background-color: rgb(255, 255, 255, 0.6);
+  border-radius: 10px;
   @media (max-width: 768px) {
     height: auto;
   }
@@ -82,15 +84,13 @@ const NameHeader = styled.h4`
 `;
 
 const DetailContainer = styled.div`
-  margin-top: 10px;
+  margin-top: 12px;
   width: 100%;
-  height: 100%;
+  height: 94%;
   color: rgb(0, 0, 0);
   padding: 1rem;
-  background-color: rgb(255, 255, 255, 0.9);
   border-radius: 10px;
   /* border: 2px solid rgb(255, 183, 58); */
-
   overflow: auto;
   @media (max-width: 768px) {
     margin-top: 0;
@@ -116,9 +116,10 @@ const Comment = ({ comment }) => {
 };
 
 const ChildCard = styled.div`
-  border: 3px solid rgb(240, 165, 8);
+  border: 2.5px solid rgb(240, 165, 8, 0.7);
   display: flex;
   align-items: center;
+  background-color: rgba(255, 237, 140, 0.3);
   /* position: relative; */
   margin-bottom: 10px;
   border-radius: 10px;

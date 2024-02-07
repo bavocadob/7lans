@@ -13,10 +13,9 @@ import styled from "styled-components";
 // import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
 ReactModal.setAppElement("#root");
 
-const RenderHeader = ({ currentMonth, prevMonth, nextMonth, child }) => {
+const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
   return (
-    <div className="header row" style={{ marginBottom: '10px'
-    }}>
+    <div className="header row" style={{ marginBottom: '10px'}}>
       <div style={{display:'flex', 
                     flexDirection:'row', 
                     justifyContent: 'space-between', 
