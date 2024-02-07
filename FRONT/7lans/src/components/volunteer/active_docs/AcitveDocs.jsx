@@ -5,6 +5,8 @@ import axios from "axios";
 import SelectedPostit from "../post_it/SelectedPostit";
 import PostIt from "../post_it/PostIt";
 import { useSelector } from "react-redux";
+import "regenerator-runtime"
+import speech, { useSpeechRecognition } from "react-speech-recognition";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -97,6 +99,7 @@ export default function ActiveDocs() {
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [isModalOpenSpeak, setIsModalOpenSpeak] = useState(false);
   const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
+  const [isRecordStart, setIsRecordStart] = useState(false)
 
   const [activityLog, setActivityLog] = useState('')
   const [content, setContent] = useState("")
@@ -179,6 +182,23 @@ export default function ActiveDocs() {
     navigate(-1)
   }
 
+  const {
+    listening,
+    transcript,
+  } = useSpeechRecognition();
+
+  //녹음 시작하기
+  const recordStart = () =>{
+    setIsRecordStart(true);
+  }
+
+  //녹음 음성 추가
+  const addRecord = (transcript) =>{
+    console.log(content + " " + transcript)
+    setContent(content + " " + transcript)
+    setIsModalOpenSpeak(false)
+  }
+
   //입력한 content값 바로 받기
   function onChange(e){
     setContent(e.target.value)
@@ -225,11 +245,33 @@ export default function ActiveDocs() {
       )}
 
       {/* 버튼에 대한 모달창들 */}
-      <ModalOverlaySpeek open={isModalOpenSpeak} onClick={closeModalSpeek}>
+      <ModalOverlaySpeek open={isModalOpenSpeak} >
         <ModalContent>
           <p>활동 내용 및 의견을 말씀하시면 자동으로 작성됩니다.</p>
           <CuteButton onClick={closeModalSpeek}>취소하기</CuteButton>
-          <CuteButton>녹음하기</CuteButton>
+          <CuteButton onClick={recordStart}>녹음하기</CuteButton>
+          <CuteButton onClick={() => { addRecord(transcript)}}>추가하기</CuteButton>
+          {isRecordStart && (
+            <>
+    
+            {listening ? (
+              <p>Go ahead I'm listening</p>
+            ) : (
+              <p>Click the button and ask me anything</p>
+            )}
+              <button onClick={()=>{
+                speech.startListening({continuous: true, language: 'ko'});
+              }}
+              >
+                ASk me anything</button>
+                <button onClick={()=>{
+                  speech.stopListening();
+              }}
+              >
+                StopListening</button>
+                {transcript && <div>{transcript}</div>}
+            </>
+          )}
         </ModalContent>
       </ModalOverlaySpeek>
 
