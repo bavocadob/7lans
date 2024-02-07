@@ -4,10 +4,11 @@ import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+import getEnv from "./utils/getEnv";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAyYHRiJQXmjDiqqCnUWbjky3vACTuN3ow",
+  apiKey: getEnv('FIREBASE_API_KEY'),
   authDomain: "st-project-3c625.firebaseapp.com",
   projectId: "st-project-3c625",
   storageBucket: "st-project-3c625.appspot.com",

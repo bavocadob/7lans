@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
+
 const NavBar = styled.nav`
   position: fixed;
   width: 100%;
@@ -10,6 +11,8 @@ const NavBar = styled.nav`
   background-color: rgb(255, 215, 3);
   padding-right: 15%;
   top: 0;
+  display: flex;
+  gap: 35%;
 `;
 
 const LogoImage = styled.img`
@@ -18,9 +21,17 @@ const LogoImage = styled.img`
   margin-top: 15px;
 `;
 
+const ChildInfo = styled.div`
+  font-size: 40px;
+  padding-top: 20px;
+`
+
+
 const NormalNav = () => {
   const userInfo = useSelector((state) => state.user.value)
+  const childInfo = useSelector((state) => state.child.value)
   const userType = useRef('')
+  
   userType.current = userInfo.memberType
   if (userType.current === 'CHILD') {
     return (
@@ -28,6 +39,9 @@ const NormalNav = () => {
         <Link to="/child_main">
           <LogoImage src="./7lans_logo.png" alt="logo" />
         </Link>
+        <ChildInfo>
+              {childInfo.childName} 학생과의 공간입니다
+        </ChildInfo>
       </NavBar>
     );
   }
@@ -37,6 +51,9 @@ const NormalNav = () => {
         <Link to="/volunteer_main">
           <LogoImage src="./7lans_logo.png" alt="logo" />
         </Link>
+        <ChildInfo>
+              {childInfo.childName} 학생과의 공간입니다
+        </ChildInfo>
       </NavBar>
     );
   }
@@ -46,6 +63,9 @@ const NormalNav = () => {
         <Link to="/admin_main_page">
           <LogoImage src="./7lans_logo.png" alt="logo" />
         </Link>
+        <ChildInfo>
+              {childInfo.childName} 학생과의 공간입니다
+        </ChildInfo>
       </NavBar>
     );
   }
