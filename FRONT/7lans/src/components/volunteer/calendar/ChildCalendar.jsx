@@ -21,7 +21,7 @@ import getEnv from "../../../utils/getEnv";
 ReactModal.setAppElement('#root');
 
 
-const RenderHeader = ({ currentMonth, prevMonth, nextMonth, child }) => {
+const RenderHeader = ({ currentMonth, prevMonth, nextMonth, volunteer }) => {
     return (
         <div className="header row">
             <div className="col col-start">
@@ -32,7 +32,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, child }) => {
                     {format(currentMonth, 'yyyy')}
                 </span>
                 <span>
-                    {child.childName}과의 일정
+                    {volunteer.childName}과의 일정
                 </span>
             </div>
             <div className="col col-end">
@@ -148,78 +148,33 @@ const Meeting = ({meeting, currentMonth, cloneDay}) => {
     }
 }
 
-const TimeModal = ({
-    backdrop_path,
-    title,
-    overview,
-    name,
-    release_date,
-    first_air_date,
-    vote_average,
-    setModalOpen,
-}) => {
-    return (
-        <div>kk</div>
-        // <div className='presentation' role="presentation">
-        //     <div className='wrapper-modal'>
-        //         <div className='modal'>
-        //             <span
-        //                 onClick={() => setModalOpen(false)}
-        //                 className="modal-close">
-        //                     X
-        //             </span>
-        //             <img 
-        //                 className='modal_time-img'
-        //                 src={''}
-        //                 alt="modal_time_img"
-        //                 />
-        //             <div className='modal_content'>
-        //                 <p className='modal_details'>
-        //                     <span className='modal_user_perc'></span>
-        //                     {" "} {release_date ? release_date : first_air_date}
-        //                 </p>
-        //                 <h2 className='modal_title'> title </h2>
-        //                 <p className='modal_overview'> content</p>
-        //                 <p className='modal_overview'> overview </p>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
-    )
-}
-
 const ChildCalendar = () => {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
     const [meetings, setMeetings] = useState([]);
-    const [relationId, setRelation] = useState(1);
 
 
     const navigate = useNavigate();
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
-    const childInfo = useSelector((state) => state.child.value)
+    const volInfo = useSelector((state) => state.vol.value)
+
     const urlInfo = getEnv('API_URL');
 
     //해당 아동의 미팅 정보 불러오기
     useEffect(() => {
-        //console.log("change")
-
-        setRelation(childInfo.relationId);
 
         axios.post(`${urlInfo}/meetingSchedue`,{
-        relationId: childInfo.relationId,
-        year: currentDate.getFullYear(),
-        month: currentDate.getMonth()+1
+            relationId: volInfo.relationId,
+            year: currentDate.getFullYear(),
+            month: currentDate.getMonth()+1
         })
         .then((res) => {
             setMeetings(res.data);
-            console.log(res)
         })
         .catch((err) => {
         });
-    }, [childInfo])
+    }, [volInfo])
 
 
     const prevMonth = () => {
@@ -237,64 +192,27 @@ const ChildCalendar = () => {
         //지난날 + meeting존재 -> picture
         //지난날 + meeting없음 -> 무응답
         //오늘 + meeting존재 -> 화상 채팅 이동
-        //오늘 + meeting없음 -> 채팅 생성
-        //이후 + meeting존재-> 하루 1개만 생성 가능
-        //이후 + meeting없음 -> 생성
+        //오늘 + meeting없음 -> 무응답
+        //이후 + meeting존재-> 무응답
+        //이후 + meeting없음 -> 무응답
 
         const selectDate = day.getDate()
-
-        
     
-        //미팅 생성
-        if(!meeting && (selectDate == dayOfMonth || selectDate > dayOfMonth)){
-            setModalOpen(true)
-        }
         //화상 채팅 입장
-        else if(selectDate == dayOfMonth){
+        if(meeting && (selectDate == dayOfMonth)){
             console.log("세션입장")
         }
         //사진 기록들 보기
         else if(selectDate < dayOfMonth && meeting){
-            navigate('/volunteer_ChoosePicturePage',{
+            navigate('/child_choose_picturePage',{
                 state: {
                     //날짜가 아닌 meetingId로 사진 불러오기
                     meetingId: `${meeting.meetingId}`
                 }
             }); 
         }
-        //하루에 한개의 미팅만 생성가능
-        else if(selectDate > dayOfMonth){
-            console.log("1개만 생성할 수 있습니다")
-        }
-
     };
-
-      const closeModal = () => {
-        // 모달을 닫을 때 호출되는 함수
-        setModalOpen(false);
-      };
     
-    //   return (
-    //     <div className="Calendar">
-    //       {/* RenderHeader, RenderDays, RenderCells 등 기존의 컴포넌트들 */}
-    //       {/* ... */}
-    
-    //       {/* 모달 창 */}
-    //       {isModalOpen && (
-    //         <div className="modal">
-    //           <div className="modal-content">
-    //             {/* 모달 내용 */}
-    //             <p>화상채팅 약속시간을 잡을 수 있는 모달입니다.</p>
-    //             {/* 모달 닫기 버튼 */}
-    //             <button onClick={closeModal}>모달 닫기</button>
-    //           </div>
-    //         </div>
-    //       )}
-    //     </div>
-    //   );
-    // };
-    
-    // export default VolunteerCalendar;
     
     return (
        
@@ -303,7 +221,7 @@ const ChildCalendar = () => {
                     currentMonth={currentMonth}
                     prevMonth={prevMonth}
                     nextMonth={nextMonth}
-                    child={childInfo}
+                    volunteer={volInfo}
                 />
                 <RenderDays />
                 <RenderCells
@@ -312,11 +230,6 @@ const ChildCalendar = () => {
                     onDateClick={onDateClick}
                     meetings = {meetings}
                 />
-                {isModalOpen && (< MeetingModal 
-                    setModalOpen={setModalOpen}
-                    isModalOpen={isModalOpen}
-                    selectedDate={selectedDate}
-                />)}
             </div>
       
     );

@@ -37,7 +37,6 @@ const ChildVideoChattingStartPage = () => {
       <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
         <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
           <ChildCommonSidePanel 
-            volunteerId={1}
             />
             <div>
             </div>
@@ -48,7 +47,7 @@ const ChildVideoChattingStartPage = () => {
               />
               :
               <div>
-                연걸된 아동이 없어요
+                연걸된 선생님이 없어요
                 <Wrong/>
               </div>
             }     
