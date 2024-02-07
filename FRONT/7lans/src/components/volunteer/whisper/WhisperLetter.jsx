@@ -117,9 +117,9 @@ const ChatDate = styled.p`
 `;
 
 const WhisperLetter = () => {
-  const childInfo = useSelector((state) => state.child.value);
+  const volInfo = useSelector((state) => state.vol.value);
   const userInfo = useSelector((state) => state.user.value);
-  const childRelationId = childInfo.relationId;
+  const childRelationId = volInfo.relationId;
   const writerId = userInfo.memberId;
   const urlInfo = getEnv('API_URL');
   console.log(childRelationId);
