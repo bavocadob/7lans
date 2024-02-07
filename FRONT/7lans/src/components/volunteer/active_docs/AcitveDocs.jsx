@@ -255,20 +255,20 @@ export default function ActiveDocs() {
             <>
     
             {listening ? (
-              <p>Go ahead I'm listening</p>
+              <p>음성을 듣고 있습니다. 종료를 원하시면 녹음을 멈추고 추가하기를 눌러주세요</p>
             ) : (
-              <p>Click the button and ask me anything</p>
+              <p>녹음 후 저장을 위해서는 수정 혹은 제출을 해주세요</p>
             )}
-              <button onClick={()=>{
+              <CuteButton onClick={()=>{
                 speech.startListening({continuous: true, language: 'ko'});
               }}
               >
-                ASk me anything</button>
-                <button onClick={()=>{
+                녹음 시작하기</CuteButton>
+                <CuteButton onClick={()=>{
                   speech.stopListening();
               }}
               >
-                StopListening</button>
+                녹음 멈추기</CuteButton>
                 {transcript && <div>{transcript}</div>}
             </>
           )}
