@@ -172,7 +172,7 @@ const WhisperLetter = () => {
           content: typingMessage,
         })
         .then((res) => {
-          // 속닥속닥 작성 후 새로운 채팅 메시지를 서버에서 받아옵니다.
+          // 속닥속닥 작성 후 갱신하기 위해 다시 불렀는데 더 좋은방법있나요?
           axios
             .get(`${urlInfo}/whisper/list/${childRelationId}`)
             .then((res) => {
