@@ -44,9 +44,6 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
               <span className="text month">{format(currentMonth, "M")}월</span>
               {format(currentMonth, "yyyy")}
             </span>
-            {/* <span>
-                    {child.childName}과의 일정
-                </span> */}
           </div>
         </div>
         <div>
@@ -67,13 +64,13 @@ const RenderDays = () => {
     const date = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
 
     const days = date.map((day, index) => (
-        <div className="col" key={index}>
+        <div className="col" key={index} style={{ marginLeft:'0.1rem', marginRight: '0.1rem'}}>
         {day}
         </div>
     ));
         
 
-    return <div className="days row">{days}</div>;
+    return <div className="days row" style={{ marginLeft:'1px'}}>{days}</div>;
 };
 
 const GetActivityLog = (activityLogs, cloneDay, currentMonth) => {

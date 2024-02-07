@@ -1,16 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
 import NormalNav from '../../components/navs/NormalNav';
 import PostIt from '../../components/volunteer/post_it/PostIt';
 import SelectedPostit from '../../components/volunteer/post_it/SelectedPostit';
 import VolunteerCalendar from '../../components/volunteer/calendar/VolunteerCalendar';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateChildInfo } from '../../store/childSlice';
-import { updateUserInfo } from '../../store/userSlice';
-import {updateChildrenInfo} from '../../store/childrenSlice';
+
 import Wrong from '../../components/dinosaur/Wrong';
 
 const RightSide = styled.div`
@@ -21,14 +17,14 @@ const RightSide = styled.div`
   justify-content: start;
   align-content: center;
   border-radius: 0 20px 20px 0;
-  background-color: rgb(249, 249, 249);
+  background-color: rgb(255,255,255);
 `
 
 const VideoChattingStartPage = () => {
   const [data, setData] = useState(0);
   const childInfo = useSelector((state) => state.child.value)
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   console.log(childInfo)
 
   
