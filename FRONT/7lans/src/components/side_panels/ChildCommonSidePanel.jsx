@@ -155,6 +155,7 @@ const ChildCommonSidePanel = () => {
   const volInfo = useSelector((state) => state.vol.value);
   const vols = useSelector((state) => state.vols.value);
   const userInfo = useSelector((state) => state.user.value);
+  const userProfile = useSelector((state) => state.userProfile.value)
   const urlInfo = getEnv('API_URL');
   //console.log(userInfo.memberId);
   const userId = userInfo.memberId;
@@ -191,7 +192,7 @@ const ChildCommonSidePanel = () => {
             <CloseButton onClick={() => setSidePanelStatus(false)}>
               {"<<"}
             </CloseButton>
-            <ProfileImage src="./anonymous.jpg" alt="" />
+            <ProfileImage src={`${userProfile}`} alt="" />
             <NameHeader> {userInfo.childName} _학생</NameHeader>
           </LeftSide>
           <InfoContainer>

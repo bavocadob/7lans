@@ -42,6 +42,8 @@ import VolunteerManage from "./components/admin/VolunteerManage";
 import ChildManage from "./components/admin/ChildManage";
 import ActiveManage from "./components/admin/ActiveManage";
 
+import app from "./firebase";
+
 ReactModal.setAppElement('#root');
 
 
