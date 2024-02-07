@@ -48,6 +48,4 @@ public class EggServiceImpl implements EggService{
         // 속닥속닥으로인한 알 경험치 증가.
         relation.getEgg().increaseExpByWritingWhisper();
     }
-
-
 }
