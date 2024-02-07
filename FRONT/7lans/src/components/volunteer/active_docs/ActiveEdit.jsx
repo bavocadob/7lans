@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import "regenerator-runtime"
 import speech, { useSpeechRecognition } from "react-speech-recognition";
+import getEnv from "../../../utils/getEnv"
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -100,7 +101,7 @@ const ActiveEdit = ({activityLog, content, setContent}) => {
     const [isRecordStart, setIsRecordStart] = useState(false)
     
     const childInfo = useSelector((state) => state.child.value)
-    const urlInfo = useSelector((state) => state.url.value)
+    const urlInfo = getEnv('API_URL');
     const userInfo = useSelector((state) => state.user.value)
 
     
