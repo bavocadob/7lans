@@ -1,5 +1,8 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import getEnv from "../../utils/getEnv";
 
 const LowerDiv = styled.div`
   flex: 2.2;
@@ -16,7 +19,15 @@ const LowerDiv = styled.div`
   overflow: hidden; /* 넘치는 부분 숨기기 */
 `;
 
+const LowerProfileImage = styled.img`
+  border-radius: 50%;
+  width: 60px;
+  height: 70px;
+  margin-bottom: 10px;
+`;
+
 const LowerProfileCard = styled.div`
+  position: relative;
   width: 20%;
   height: 50%;
   margin: 10px;
@@ -31,51 +42,127 @@ const LowerProfileCard = styled.div`
   margin-top: 30px;
 `;
 
-const LowerProfileImage = styled.img`
-  border-radius: 50%;
-  width: 60px;
-  height: 70px;
-  margin-bottom: 10px;
-`;
-
-// 추가적으로 페이지 내비게이션 스타일링
-const PaginationContainer = styled.div`
+const ProfileInfo = styled.div`
   width: 90%;
+  height: 70%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
 `;
 
-const PaginationButton = styled.button`
-  margin: 0 5px;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #fff;
+const DeleteButton = styled.button`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #ff8f8f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+`;
+
+const DeleteModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+`;
+
+const ConfirmButton = styled.button`
+  background-color: #4caf50;
+  color: white;
   border: none;
   border-radius: 5px;
+  padding: 10px 20px;
+  margin-right: 10px;
   cursor: pointer;
+`;
 
-  &:hover {
-    background-color: #0056b3;
-  }
+const CancelButton = styled.button`
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
 `;
 
 const VolLowDiv = () => {
+  const urlInfo = getEnv("API_URL");
+  const selectVolCard = useSelector((state) => state.adminSelectVol);
+  const [childList, setChildList] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [relationId, setLelationId] = useState(null);
+  const volId = selectVolCard.value[3];
+
+  useEffect(() => {
+    axios
+      .get(`${urlInfo}/vol/list/${volId}`)
+      .then((res) => {
+        setChildList(res.data);
+        // console.log(res.data, "아동리스트 -> volLowDiv");
+      })
+      .catch((err) => {
+        console.log(err, "err -> VolLowDiv");
+      });
+  }, [volId]);
+
+  const handleDeleteClick = (relationId) => {
+    setShowDeleteModal(true);
+    setLelationId(relationId);
+  };
+
+  const handleConfirmDelete = () => {
+    axios
+      .post(`${urlInfo}/relation/delete`, {
+        relationId: relationId,
+      })
+      .then((res) => {
+        console.log(res, "친구끊기");
+      })
+      .catch((err) => {
+        console.log(err, "err -> VolLowDiv 친구끊기 오류");
+      });
+    setShowDeleteModal(false);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+  };
+
   return (
     <>
       <LowerDiv>
-        {Array.from({ length: 4 }).map((_, index) => (
+        {childList.map((child, index) => (
           <LowerProfileCard key={index}>
             <LowerProfileImage src="./admin_pic/프로필예시.png" alt="Profile" />
-            <p>Name: John Doe</p>
-            <p>Age: 25</p>
+            <DeleteButton onClick={() => handleDeleteClick(child.relationId)}>
+              X
+            </DeleteButton>
+            <ProfileInfo>
+              Name: {child.childName}
+              <br />
+              Birth: {child.childBirth}
+              <br />
+              Center: {child.childCenterName}
+            </ProfileInfo>
           </LowerProfileCard>
         ))}
-        <PaginationContainer>
-          <PaginationButton>1</PaginationButton>
-          <PaginationButton>2</PaginationButton>
-          {/* Add more pagination buttons as needed */}
-        </PaginationContainer>
       </LowerDiv>
+      {showDeleteModal && (
+        <DeleteModal>
+          정말 삭제하시겠습니까?
+          <ConfirmButton onClick={handleConfirmDelete}>확인</ConfirmButton>
+          <CancelButton onClick={handleCancelDelete}>취소</CancelButton>
+        </DeleteModal>
+      )}
     </>
   );
 };
