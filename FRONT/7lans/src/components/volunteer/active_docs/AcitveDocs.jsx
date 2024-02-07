@@ -95,7 +95,7 @@ const CuteButtonWithMargin = styled(CuteButton)`
 
 export default function ActiveDocs() {
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
-  const [isModalOpenSpeek, setIsModalOpenSpeek] = useState(false);
+  const [isModalOpenSpeak, setIsModalOpenSpeak] = useState(false);
   const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
 
   const [activityLog, setActivityLog] = useState('')
@@ -132,11 +132,11 @@ export default function ActiveDocs() {
 
   //모달 관련 함수
   const handleSpeek = () => {
-    setIsModalOpenSpeek(true);
+    setIsModalOpenSpeak(true);
   };
 
   const closeModalSpeek = () => {
-    setIsModalOpenSpeek(false);
+    setIsModalOpenSpeak(false);
   };
 
   const handleSubmission = () => {
@@ -225,7 +225,7 @@ export default function ActiveDocs() {
       )}
 
       {/* 버튼에 대한 모달창들 */}
-      <ModalOverlaySpeek open={isModalOpenSpeek} onClick={closeModalSpeek}>
+      <ModalOverlaySpeek open={isModalOpenSpeak} onClick={closeModalSpeek}>
         <ModalContent>
           <p>활동 내용 및 의견을 말씀하시면 자동으로 작성됩니다.</p>
           <CuteButton onClick={closeModalSpeek}>취소하기</CuteButton>
