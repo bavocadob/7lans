@@ -17,6 +17,7 @@ import dinoSlice from "./dinoSlice";
 import urlSlice from "./urlSlice";
 import volSlice from "./volSlice";
 import volsSlice from "./volsSlice";
+import viewLetterSlice from "./viewLetterSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -33,6 +34,7 @@ const reducers = combineReducers({
   url: urlSlice,
   vol: volSlice,
   vols: volsSlice,
+  viewletter: viewLetterSlice,
 });
 
 const persistConfig = {
