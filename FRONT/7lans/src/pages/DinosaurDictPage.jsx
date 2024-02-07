@@ -212,7 +212,6 @@ const DinosaurDictPage = () => {
 
     return (
       <Dino>
-        {console.log(userDinosaurList)}
         <StyledContainer>
           <LeftTop>
             <h2>[ 공룡도감 ]</h2>
@@ -291,6 +290,7 @@ const DinosaurDictPage = () => {
         <div
           style={{
             flex: 1,
+            marginTop: '100px',
             padding: "20px",
             backgroundColor: "rgb(255, 226, 123)",
           }}
