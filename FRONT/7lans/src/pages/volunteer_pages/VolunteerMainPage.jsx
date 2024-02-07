@@ -148,7 +148,7 @@ const MainBanner = styled.div`
   justify-content: end;
 `
 
-const BannerText = styled.p`
+const BannerText = styled.div`
   color: white;
   font-size: 50px;
   p {

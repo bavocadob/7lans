@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  FaEnvelope,
-  FaPhone,
-  FaHome,
-  FaClock,
-  FaBirthdayCake,
-} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { updateChildInfo } from "../../store/childSlice";
 import getEnv from "../../utils/getEnv";
+import { updateVolInfo } from "../../store/volSlice";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -29,8 +22,8 @@ const StyledCommonSidePanel = styled.div`
   }
 `;
 
-const InnerContainer = styled.div`
-  height: 40%;
+const LeftSide = styled.div`
+  height: 150px;
   position: relative;
 
   @media (max-width: 768px) {
@@ -54,12 +47,13 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 30%;
+  left: 10%;
   top: 2%;
   height: 8rem;
   width: 8rem;
   border-radius: 100px;
-  border: 5px solid rgb(240, 165, 8);
+  border: 4px solid rgb(45, 45, 45);
+  padding: 5px;
 
   @media (max-width: 768px) {
     position: relative;
@@ -85,13 +79,14 @@ const NameHeader = styled.h4`
   color: rgb(45, 45, 45);
   text-decoration: none;
   position: absolute;
-  top: 45%;
+  top: 65%;
+  left: 50%;
 `;
 
 const DetailContainer = styled.div`
-  margin-top: 15px;
+  margin-top: 10px;
   width: 100%;
-  height: 82%;
+  height: 100%;
   color: rgb(0, 0, 0);
   padding: 1rem;
   background-color: rgb(255, 255, 255, 0.9);
@@ -157,18 +152,18 @@ const ChildCommonSidePanel = () => {
   //const [children, setChildren] = useState([]);
   const [id, setId] = useState([]);
   const dispatch = useDispatch();
-  const childInfo = useSelector((state) => state.child.value);
-  const children = useSelector((state) => state.children.value);
+  const volInfo = useSelector((state) => state.vol.value);
+  const vols = useSelector((state) => state.vols.value);
   const userInfo = useSelector((state) => state.user.value);
   const urlInfo = getEnv('API_URL');
-  console.log(userInfo.memberId);
+  //console.log(userInfo.memberId);
   const userId = userInfo.memberId;
-  console.log(children);
+  //console.log(children);
   // console.log(childInfo);
 
   useEffect(() => {
     axios
-      .get(`${urlInfo}/vol/list/${userId}`)
+      .get(`${urlInfo}/child/list/${userId}`)
       .then((res) => {
         console.log(res, "여기서 아이들 리스트 정제하기");
       })
@@ -185,31 +180,32 @@ const ChildCommonSidePanel = () => {
   //console.log(children);
 
   const renderSidePanel = () => {
-    const postData = (child) => {
-      dispatch(updateChildInfo(child));
-      console.log(child.relationId);
+    const postData = (vol) => {
+      dispatch(updateVolInfo(vol));
+      console.log(vol.relationId);
     };
     if (sidePanelStatus) {
       return (
         <StyledCommonSidePanel>
-          <InnerContainer>
+          <LeftSide>
             <CloseButton onClick={() => setSidePanelStatus(false)}>
               {"<<"}
             </CloseButton>
             <ProfileImage src="./anonymous.jpg" alt="" />
-          </InnerContainer>
+            <NameHeader> {userInfo.childName} _학생</NameHeader>
+          </LeftSide>
           <InfoContainer>
-            <NameHeader> {userInfo.volunteerName} 봉사자님</NameHeader>
-
             <DetailContainer>
-              {children.length > 0 ? (
-                children.map((el) => (
-                  <ChildCard key={el.childId}>
-                    <h3>{el.childName}</h3>
-                    <Age birth={el.childBirth}></Age>
-                    <div>소속기관: {el.childCenterName}</div>
-                    <Comment comment={el.childSpecialContent}></Comment>
-                    <Button onClick={() => postData(el)}>선택하기</Button>
+              {vols.length > 0 ? (
+                vols.map((el) => (
+                  <ChildCard key={el.volunteerId}>
+                    <div>
+                      <h3>{el.volunteerName}</h3>
+                      <Age birth={el.volunteerBirth}></Age>
+                      <div>소속기관: {el.volunteerName}</div>
+                      {/* <Comment comment={el.childSpecialContent}></Comment> */}
+                      <Button onClick={() => postData(el)}>선택하기</Button>
+                    </div>
                   </ChildCard>
                 ))
               ) : (

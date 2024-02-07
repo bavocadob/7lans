@@ -10,7 +10,13 @@ import getEnv from "../../utils/getEnv";
 
 const Container = styled.div`
 /* font-family: 'Nanum Gothic', sans-serif; */
-
+  height: 100vh;
+  width: 100vw;
+  background-image: url('/main_page_background.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
   header {
     display: flex;
     justify-content: flex-end;
@@ -156,6 +162,7 @@ const VolunteerMainPage = () => {
     axios
       .get(`${urlInfo}/child/list/${userInfo.memberId}`)
       .then((res) => {
+        console.log(res.data)
         dispatch(updateVolInfo(res.data[0]));
         dispatch(updateVolsInfo(res.data));
       })
@@ -195,7 +202,7 @@ const VolunteerMainPage = () => {
           to={"/child_start"}
           style={{ fontSize: "23px", textDecorationLine: "none" }}
         >
-          <img src="../../../main_page_children.png" alt="나의 아이들 이미지" />
+          <img src="../../../main_page/main_page_children.png" alt="나의 아이들 이미지" />
           <h2>나의 선생님</h2>
         </Link>
       </MyChildren>
@@ -203,14 +210,14 @@ const VolunteerMainPage = () => {
       <Letter>
         <Overlap>
           <Line>
-            <img style={{ width: "80%" }} src="../../../line.png" alt="선" />
+            <img style={{ width: "80%" }} src="../../../main_page/line.png" alt="선" />
           </Line>
 
           <Link to={"/child_whispher"}>
             <LeftLetter>
               <img
                 style={{ width: "70px" }}
-                src="../../../left_letter.png"
+                src="../../../main_page/left_letter.png"
                 alt="편지"
               />
             </LeftLetter>
@@ -219,7 +226,7 @@ const VolunteerMainPage = () => {
             <MiddleLetter>
               <img
                 style={{ width: "70px" }}
-                src="../../../middle_letter.png"
+                src="../../../main_page/middle_letter.png"
                 alt="편지"
               />
             </MiddleLetter>
@@ -228,7 +235,7 @@ const VolunteerMainPage = () => {
             <RightLetter>
               <img
                 style={{ width: "70px" }}
-                src="../../../right_letter.png"
+                src="../../../main_page/right_letter.png"
                 alt="편지"
               />
             </RightLetter>
@@ -237,7 +244,7 @@ const VolunteerMainPage = () => {
         <AirPlane>
           <img
             style={{ width: "70px" }}
-            src="../../../airplane.png"
+            src="../../../main_page/airplane.png"
             alt="비행기"
           />
         </AirPlane>
@@ -245,7 +252,7 @@ const VolunteerMainPage = () => {
           <PostBox>
             <img
               style={{ width: "180px" }}
-              src="../../../post.png"
+              src="../../../main_page/post.png"
               alt="우편함"
             />
           </PostBox>
@@ -255,7 +262,7 @@ const VolunteerMainPage = () => {
         {quotient === 0? 
           <h3> 아이들과 함께한 시간 : {calculatedWidth} 시간 </h3> 
           : <h3> 아이들과 함께한 시간 : {quotient*100} 하고도 + {calculatedWidth} 시간 </h3> }
-        
+        딴거해리
         <div>
           <ExpBar>
             <FilledExp style={{ width: `${calculatedWidth}%` }} />

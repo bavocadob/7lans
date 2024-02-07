@@ -1,14 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
+import NormalNav from '../../components/navs/NormalNav';
+import Correct from '../../components/dinosaur/Correct';
+import { useSelector } from 'react-redux';
+import Wrong from '../../components/dinosaur/Wrong';
 import ChildPostit from '../../components/volunteer/post_it/ChildPostit';
-import ChildNormalNav from '../../components/navs/ChildNormalNav';
 import ChildCommonSidePanel from '../../components/side_panels/ChildCommonSidePanel';
 
 
+const RightSide = styled.div`
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-radius: 0 20px 20px 0;
+  background-color: rgb(255, 255, 255, 0.5);
+  /* border: 2px solid rgb(255, 183, 58);
+  border-left: none; */
+
+`
+
+const TextandimageBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+
+`
 
 const ChildStartPage = () => {
+
+  const volInfo = useSelector((state) => state.vol.value)
+  const volsInfo = useSelector((state) => state.vols.value)
+
+  console.log(volInfo)
+  console.log(volsInfo)
+  
   return (
     <>
     <div style={{
@@ -17,18 +48,43 @@ const ChildStartPage = () => {
       height: '100vh',
       width: '100vw',
     }}>
-      <ChildNormalNav />
-      <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
-        <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
+      <NormalNav />
+      <div style={{ height: '600px',
+                    padding: '30px', 
+                    backgroundColor: 'rgb(255, 226, 123)'}}>
+        <div style={{height: '100%', 
+                      width: '100%', 
+                      display: 'flex', 
+                      flexDirection: 'row',
+                      borderRadius: '20px', 
+                      backgroundColor: 'rgb(255, 226, 123)'}}>
           <ChildCommonSidePanel />
-          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 255, 255)' }}>
-            body
-          </div>
-          <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
-            <ChildPostit message={'/child_video_chatting_start'}/>
-            <ChildPostit message={'/child_whispher'}/>
-            <ChildPostit message={'/child_raise_egg'}/>
-          </div>
+          <RightSide>
+            {volInfo?
+              <TextandimageBox>
+                <h1>
+                함께할 선생님을 선택해주세요
+                </h1>
+                <Correct/>
+              </TextandimageBox>
+              :
+              <TextandimageBox>
+                <h1 style={{paddingTop: '4rem'}}>
+                  함께 할 선생님이 없어요
+                </h1>
+                <Wrong />
+              </TextandimageBox>
+            }
+          </RightSide>
+          {volInfo?
+            <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
+              <ChildPostit message={'/child_video_chatting_start'}/>
+              <ChildPostit message={'/child_whispher'}/>
+              <ChildPostit message={'/child_raise_egg'}/>
+            </div>
+            :
+            ''
+          }
         </div>
           <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', right: '2%', top: '10rem'}}>
           </div>
