@@ -34,9 +34,6 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
               <span className="text month">{format(currentMonth, "M")}월</span>
               {format(currentMonth, "yyyy")}
             </span>
-            {/* <span>
-                    {child.childName}과의 일정
-                </span> */}
           </div>
         </div>
         <div>
@@ -144,45 +141,7 @@ const Meeting = ({ meeting, currentMonth, cloneDay }) => {
     return <div>{meeting.meetingId}</div>;
   }
 };
-const TimeModal = ({
-  backdrop_path,
-  title,
-  overview,
-  name,
-  release_date,
-  first_air_date,
-  vote_average,
-  setModalOpen,
-}) => {
-  return (
-    <div>kk</div>
-    // <div className='presentation' role="presentation">
-    //     <div className='wrapper-modal'>
-    //         <div className='modal'>
-    //             <span
-    //                 onClick={() => setModalOpen(false)}
-    //                 className="modal-close">
-    //                     X
-    //             </span>
-    //             <img
-    //                 className='modal_time-img'
-    //                 src={''}
-    //                 alt="modal_time_img"
-    //                 />
-    //             <div className='modal_content'>
-    //                 <p className='modal_details'>
-    //                     <span className='modal_user_perc'></span>
-    //                     {" "} {release_date ? release_date : first_air_date}
-    //                 </p>
-    //                 <h2 className='modal_title'> title </h2>
-    //                 <p className='modal_overview'> content</p>
-    //                 <p className='modal_overview'> overview </p>
-    //             </div>
-    //         </div>
-    //     </div>
-    // </div>
-  );
-};
+
 const VolunteerCalendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());

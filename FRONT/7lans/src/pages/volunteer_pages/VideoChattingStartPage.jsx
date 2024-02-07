@@ -17,7 +17,7 @@ const RightSide = styled.div`
   justify-content: start;
   align-content: center;
   border-radius: 0 20px 20px 0;
-  background-color: rgb(249, 249, 249);
+  background-color: rgb(255,255,255);
 `
 
 const VideoChattingStartPage = () => {

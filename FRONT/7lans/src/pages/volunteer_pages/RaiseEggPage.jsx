@@ -268,7 +268,7 @@ const RaiseEggPage = () => {
               {dinoState && (
               <img
                 style={{ 
-                    // transform: "scaleX(-1)", 
+                    // transform: "scaleX(-1)", //사진 좌우반전
                     height: "300px" }}
                 src={`./dinosourImage/dinosaur${userDion}_happy.png`}
                 alt=""
