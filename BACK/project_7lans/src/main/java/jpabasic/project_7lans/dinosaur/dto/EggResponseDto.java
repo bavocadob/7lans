@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 public class EggResponseDto {
 
+    // 알 정보 얻기
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detail {

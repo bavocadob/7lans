@@ -50,30 +50,6 @@ public class MemberRequestDto {
             this.centerId = centerId;
         }
     }
-
-    @Getter
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class centerDto {
-        @NotNull(message = "[MemberRequestDto.centerDto] name 는 null 이 될 수 없습니다.")
-        private String name;
-
-        @NotNull(message = "[MemberRequestDto.centerDto] address 는 null 이 될 수 없습니다.")
-        private String address;
-
-        @NotNull(message = "[MemberRequestDto.centerDto] phoneNumber 는 null 이 될 수 없습니다.")
-        private String phoneNumber;
-
-        @Builder
-        centerDto(
-                String name,
-                String address,
-                String phoneNumber
-        ){
-            this.name = name;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
-        }
-    }
     // ===============================================================================
     // 수정(비밀번호)
 

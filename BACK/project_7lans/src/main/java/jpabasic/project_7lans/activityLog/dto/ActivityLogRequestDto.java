@@ -200,6 +200,7 @@ public class ActivityLogRequestDto {
         }
     }
 
+    // 화상채팅 시작시 활동 일지 시작 시간 입력(아이가 시작)
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class startTime {
@@ -219,6 +220,7 @@ public class ActivityLogRequestDto {
         }
     }
 
+    // 화상채팅 종료시 활동 일지 종료 시간 입력(아이가 종료)
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class endTime {

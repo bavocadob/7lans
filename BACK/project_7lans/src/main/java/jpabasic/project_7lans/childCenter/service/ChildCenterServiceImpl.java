@@ -1,9 +1,9 @@
 package jpabasic.project_7lans.childCenter.service;
 
+import jpabasic.project_7lans.childCenter.dto.ChildCenterRequestDto;
 import jpabasic.project_7lans.childCenter.entity.ChildCenter;
 import jpabasic.project_7lans.member.dto.child.ChildResponseDto;
 import jpabasic.project_7lans.childCenter.dto.ChildCenterResponseDto;
-import jpabasic.project_7lans.member.dto.member.MemberRequestDto;
 import jpabasic.project_7lans.member.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.member.entity.Child;
 import jpabasic.project_7lans.member.entity.Volunteer;
@@ -76,7 +76,7 @@ public class ChildCenterServiceImpl implements ChildCenterService{
 
     @Override
     @Transactional
-    public void centerRegister(MemberRequestDto.centerDto centerDto) {
+    public void centerRegister(ChildCenterRequestDto.centerDto centerDto) {
         ChildCenter childCenter = ChildCenter.builder()
                 .name(centerDto.getName())
                 .address(centerDto.getAddress())
