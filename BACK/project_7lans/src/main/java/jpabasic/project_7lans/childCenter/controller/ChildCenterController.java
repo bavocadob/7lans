@@ -2,9 +2,9 @@ package jpabasic.project_7lans.childCenter.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import jpabasic.project_7lans.childCenter.dto.ChildCenterRequestDto;
 import jpabasic.project_7lans.childCenter.dto.ChildCenterResponseDto;
 import jpabasic.project_7lans.childCenter.service.ChildCenterService;
-import jpabasic.project_7lans.member.dto.member.MemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -38,7 +38,7 @@ public class ChildCenterController {
     // 센터 등록
     @Operation(summary = "센터 등록")
     @PostMapping("/register")
-    public ResponseEntity centerRegister(@RequestBody @Valid MemberRequestDto.centerDto centerDto){
+    public ResponseEntity centerRegister(@RequestBody @Valid ChildCenterRequestDto.centerDto centerDto){
         try{
             childCenterService.centerRegister(centerDto);
             log.info("[MemberController.centerRegister] finish register center");
