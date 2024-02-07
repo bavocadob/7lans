@@ -35,7 +35,9 @@ const RowBox1 = styled.div`
 const RowBox2 = styled.div`
   width: 90%;
   height: 20%;
-  font-size: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 3%;
 `;
 
 const RowBox3 = styled.div`
@@ -237,7 +239,6 @@ const RaiseEggPage = () => {
           <CommonSidePanel />
 
           <RightSide>
-            <RowBox1>{childInfo.childName} 학생과의 알</RowBox1>
             <RowBox2>
               <p>알에서 뭐가 나올까? 추억을 쌓으면 알이 열려요</p>
               <div>
