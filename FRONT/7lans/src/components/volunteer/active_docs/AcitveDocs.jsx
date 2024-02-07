@@ -7,7 +7,8 @@ import PostIt from "../post_it/PostIt";
 import { useSelector } from "react-redux";
 import getEnv from "../../../utils/getEnv";
 import "regenerator-runtime"
-import speech, { useSpeechRecognition } from "react-speech-recognition";
+import ActiveEdit from "./ActiveEdit";
+import NormalNav from "../../navs/NormalNav";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -97,11 +98,6 @@ const CuteButtonWithMargin = styled(CuteButton)`
 `;
 
 export default function ActiveDocs() {
-  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
-  const [isModalOpenSpeak, setIsModalOpenSpeak] = useState(false);
-  const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
-  const [isRecordStart, setIsRecordStart] = useState(false)
-
   const [activityLog, setActivityLog] = useState('')
   const [content, setContent] = useState("")
 
@@ -133,163 +129,40 @@ export default function ActiveDocs() {
     .catch((err) => {
     });
   }, [])
-
-  //모달 관련 함수
-  const handleSpeek = () => {
-    setIsModalOpenSpeak(true);
-  };
-
-  const closeModalSpeek = () => {
-    setIsModalOpenSpeak(false);
-  };
-
-  const handleSubmission = () => {
-    setIsSubmitModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsSubmitModalOpen(false);
-  };
-
-  const closeChangeModal = () =>{
-    setIsChangeModalOpen(false);
-  }
-
-  //수정하기
-  const changeContent = () =>{
-    //console.log(content)
-    axios.put(`${urlInfo}/activityLog/volunteer/modify`, {
-      volunteerId: userInfo.memberId,
-      relationId: childInfo.relationId,
-      activityLogId: state.activityLogId,
-      content: content
-    })
-
-    //수정 후 modal 띄우기
-    setIsChangeModalOpen(true)
-    //console.log(activityLog.writeDoneStatus)
-
-  }
-
-  //제출하기
-  const submit = () => {
-    axios.put(`${urlInfo}/activityLog/volunteer/writeDone`, {
-      volunteerId: userInfo.memberId,
-      relationId: childInfo.relationId,
-      activityLogId: state.activityLogId,
-      content: content
-    })
-
-    navigate(-1)
-  }
-
-  const {
-    listening,
-    transcript,
-  } = useSpeechRecognition();
-
-  //녹음 시작하기
-  const recordStart = () =>{
-    setIsRecordStart(true);
-  }
-
-  //녹음 음성 추가
-  const addRecord = (transcript) =>{
-    console.log(content + " " + transcript)
-    setContent(content + " " + transcript)
-    setIsModalOpenSpeak(false)
-  }
-
-  //입력한 content값 바로 받기
-  function onChange(e){
-    setContent(e.target.value)
-  }
-
-  const navigate = useNavigate();
-  
   
   return (
-    <Container>
-      <CloseButton onClick={() => {navigate(-1)}}>X</CloseButton>
-      <h3>{childInfo.childName}의 활동일지</h3>
-      <br></br>
-      <InputRow>
+    <>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      width: '100vw',
+    }}>
+      <NormalNav />
+      <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
+        <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
+          {/* <CommonSidePanel /> */}
 
-        <div>
-          활동일자: <input type="date" value={activityLog.dateInfo} readOnly/>
+          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 226, 200)'}}>
+            <ActiveEdit
+              activityLog={activityLog}
+              content={content}
+              setContent={setContent}
+            />
+          </div>
+          
+          <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
+            <PostIt message={'/volunteer_video_chatting_start'}/>
+            <SelectedPostit message={'/volunteer_active_doc'}/>
+            <PostIt message={'/volunteer_whispher'}/>
+            <PostIt message={'/volunteer_raise_egg'}/>
+          </div>
         </div>
-        <div>
-          활동시간: <input type="time" readOnly/>
-        </div>
-      </InputRow>
-      <InputRow>
-        <div>
-          활동기관: <input type="text" value={activityLog.centerName} readOnly/>
-        </div>
-        <div>
-          봉사자 성명: <input type="text" value={activityLog.volunteerName} readOnly/>
-        </div>
-      </InputRow>
-      
-      <TextArea 
-        value={content} 
-        onChange={onChange}
-        readOnly={activityLog.writeDoneStatus} />
-      {!activityLog.writeDoneStatus &&  (
-      <ButtonContainer>
-        <CuteButtonWithMargin onClick={handleSpeek}>
-          말하기
-        </CuteButtonWithMargin>     
-          <CuteButtonWithMargin onClick={changeContent}>수정하기</CuteButtonWithMargin>
-        <CuteButton onClick={handleSubmission}>제출하기</CuteButton>
-      </ButtonContainer>
-      )}
+          <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', right: '2%', top: '10rem'}}>
+          </div>
+      </div>
+    </div>
+    </>
 
-      {/* 버튼에 대한 모달창들 */}
-      <ModalOverlaySpeek open={isModalOpenSpeak} >
-        <ModalContent>
-          <p>활동 내용 및 의견을 말씀하시면 자동으로 작성됩니다.</p>
-          <CuteButton onClick={closeModalSpeek}>취소하기</CuteButton>
-          <CuteButton onClick={recordStart}>녹음하기</CuteButton>
-          <CuteButton onClick={() => { addRecord(transcript)}}>추가하기</CuteButton>
-          {isRecordStart && (
-            <>
-    
-            {listening ? (
-              <p>음성을 듣고 있습니다. 종료를 원하시면 녹음을 멈추고 추가하기를 눌러주세요</p>
-            ) : (
-              <p>녹음 후 저장을 위해서는 수정 혹은 제출을 해주세요</p>
-            )}
-              <CuteButton onClick={()=>{
-                speech.startListening({continuous: true, language: 'ko'});
-              }}
-              >
-                녹음 시작하기</CuteButton>
-                <CuteButton onClick={()=>{
-                  speech.stopListening();
-              }}
-              >
-                녹음 멈추기</CuteButton>
-                {transcript && <div>{transcript}</div>}
-            </>
-          )}
-        </ModalContent>
-      </ModalOverlaySpeek>
-
-      <ModalOverlay open={isSubmitModalOpen} onClick={closeModal}>
-        <ModalContent>
-          <p>더 이상 수정이 불가합니다. 제출하시겠습니까?</p>
-          <CuteButton onClick={closeModal}>취소하기</CuteButton>
-          <CuteButton onClick={submit}>제출하기</CuteButton>
-        </ModalContent>
-      </ModalOverlay>
-
-      <ModalOverlay open={isChangeModalOpen} onClick={closeChangeModal}>
-        <ModalContent>
-          <p>수정이 완료됐습니다. </p>
-          <CuteButton onClick={closeChangeModal}>닫기</CuteButton>
-        </ModalContent>
-      </ModalOverlay>
-    </Container>
   );
 }
