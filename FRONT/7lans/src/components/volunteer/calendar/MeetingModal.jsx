@@ -30,12 +30,12 @@ const ModalContent = styled.div`
 `;
 
 const CuteButton = styled.button`
-  background-color: #ff8c94;
+  background-color: #ffd703;
   border: none;
   border-radius: 15px;
   padding: 10px;
   font-size: 14px;
-  color: white;
+  color: black;
   cursor: pointer;
   margin-top: 5px;
   margin-left: 5px;
@@ -265,18 +265,18 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
           <div>
             <h3 style={{color: 'white'}}>시간 선택</h3>
             
-            <button 
+            <CuteButton 
               onClick={() => setModalOpen(false)}
             >
             닫기
-            </button>
+            </CuteButton>
             
             <span>
-              <button
+              <CuteButton
                 onClick={() => resetSelect(setSelectedTimes)}
               >
               다시 선택
-              </button>
+              </CuteButton>
             </span>
           </div>
           <div>
@@ -310,10 +310,10 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
         </div>
         <div style={{padding: '1%'}}>
                     
-        <button
+        <CuteButton
           onClick={() => checkMeeting(selectedTimes)}>
               저장하기
-        </button>
+        </CuteButton>
                     
         <span style={{color: 'white' , fontWeight: 'bold'}}> 연속된 시간을 선택해 주세요 </span>
                     
