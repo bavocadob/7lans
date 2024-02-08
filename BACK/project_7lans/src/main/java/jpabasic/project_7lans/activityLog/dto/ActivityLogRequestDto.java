@@ -157,19 +157,15 @@ public class ActivityLogRequestDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class detailByManager {
         @NotNull(message = "[ActivityLogRequestDto.detailByManager] RelationId 은 Null 일 수 없습니다.")
-        private Long centerId;
-        @NotNull(message = "[ActivityLogRequestDto.detailByManager] RelationId 은 Null 일 수 없습니다.")
         private Long relationId;
         @NotNull(message = "[ActivityLogRequestDto.detailByManager] activityLogId 은 Null 일 수 없습니다.")
         private Long activityLogId;
 
         @Builder
         detailByManager(
-                Long centerId,
                 Long relationId,
                 Long activityLogId
         ){
-            this.centerId = centerId;
             this.relationId = relationId;
             this.activityLogId = activityLogId;
         }

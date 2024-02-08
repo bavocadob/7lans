@@ -194,6 +194,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                     // 리스트에 담을 DTO를 만들고
                     ActivityLogResponseDto.listDisapprovedByManager dto = ActivityLogResponseDto.listDisapprovedByManager.builder()
                             .activityId(activityLog.getId())
+                            .relationId(relationList.get(i).getId())
                             .volunteerName(relationList.get(i).getVolunteer().getName())
                             .childName(relationList.get(i).getChild().getName())
                             .dateInfo(activityLog.getRealStartTime().toLocalDate())

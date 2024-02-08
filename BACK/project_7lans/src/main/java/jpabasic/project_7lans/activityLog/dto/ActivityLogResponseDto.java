@@ -154,6 +154,8 @@ public class ActivityLogResponseDto {
     public static class listDisapprovedByManager {
         @NotNull(message = "[ActivityLogResponseDto.listDisapprovedByManager] activityId 은 Null 일 수 없습니다.")
         private Long activityId;
+        @NotNull(message = "[ActivityLogResponseDto.listDisapprovedByManager] relationId 은 Null 일 수 없습니다.")
+        private Long relationId;
         @NotNull(message = "[ActivityLogResponseDto.listDisapprovedByManager] title 은 Null 일 수 없습니다.")
         private String title;
         @NotNull(message = "[ActivityLogResponseDto.listDisapprovedByManager] volunteerName 은 Null 일 수 없습니다.")
@@ -167,12 +169,14 @@ public class ActivityLogResponseDto {
         @Builder
         listDisapprovedByManager(
                 Long activityId,
+                Long relationId,
                 String title,
                 String volunteerName,
                 String childName,
                 LocalDate dateInfo
         ){
             this.activityId = activityId;
+            this.relationId = relationId;
             this.title = title;
             this.volunteerName = volunteerName;
             this.childName = childName;
