@@ -10,6 +10,7 @@ import jpabasic.project_7lans.meetingSchedule.repository.MeetingScheduleReposito
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MeetingImageServiceImpl implements MeetingImageService{
 
@@ -28,6 +30,7 @@ public class MeetingImageServiceImpl implements MeetingImageService{
     // 생성
 
     //사진 1장 저장(캡쳐하면 선택해서 무조건 저장)
+    @Transactional
     public void saveMeetingImage(@RequestBody @Valid MeetingImageRequestDto.saveMeetingImage saveReqDto){
         log.info("[MeetingImageServiceImpl.saveMeetingImage] start... ");
 
@@ -80,6 +83,7 @@ public class MeetingImageServiceImpl implements MeetingImageService{
     // 수정
 
     //썸네일 수정하기
+    @Transactional
     public void changeThumbnail(MeetingImageRequestDto.changeThumbnailImage changeReqDto){
         log.info("[MeetingImageServiceImpl.changeThumbnail] start... ");
 
