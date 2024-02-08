@@ -115,7 +115,7 @@ const DinosaurDictPage = () => {
   const Dino = styled.div`
     display: flex;
     flex: 1;
-    height: 500px;
+    height: 533px;
     margin: 2rem;
     border: 3.2px solid black;
     border-radius: 20px;
@@ -214,7 +214,7 @@ const DinosaurDictPage = () => {
       <Dino>
         <StyledContainer>
           <LeftTop>
-            <h2>[ 공룡도감 ]</h2>
+            <h2> 📔 공룡도감  </h2>
             <h4>발견한 공룡 수 : {hasDino.length}</h4>
           </LeftTop>
           <LeftMiddle>
@@ -241,7 +241,7 @@ const DinosaurDictPage = () => {
         </StyledContainer>
         <RightSide>
           <img
-            style={{ width: '200px', height:'260px'}}
+            style={{ width: '200px', height:'300px'}}
             src={`./dinosourImage/dinosaur${chooseDino}_basic.png`}
             alt=""
           />

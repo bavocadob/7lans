@@ -8,50 +8,49 @@ import { updateUserProfile } from '../../store/userProfileSlice';
 import {db} from '../../firebase';
 
 const StyledDinosaurSidePanel = styled.div`
-  background-color: rgb(255, 248, 223);
-  padding: 2rem;
-  color: white;
-  width: 500px;
-  border-radius: 20px 0 0 20px;
-  height: 100%;
-  
-  @media (max-width: 768px) {
-    max-width: 100%;
-    border-radius: 0;
-  }
+background-color: rgb(255, 248, 223);
+padding: 2rem;
+color: white;
+width: 350px;
+border-radius: 20px 0 0 20px;
+height: 100%;
+
+@media (max-width: 768px) {
+  max-width: 100%;
+  border-radius: 0;
+}
 `;
 
 const InnerContainer = styled.div`
   height: 40%;
   position: relative;
-  
-  @media (max-width: 768px) {
-    height: 100%;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
-
 const CloseButton = styled.button`
-  position: absolute;
+position: absolute;
+left: 96%;
+top: 0;
+border-radius: 25px;
+border: none;
+background-color: rgb(255, 248, 223);
+font-weight: bold;
+color: rgb(240, 165, 8);
+
+@media (max-width: 768px) {
   left: 85%;
-  border-radius: 25px;
-  border: none;
-  background-color: rgb(255, 248, 223);
-  font-weight: bold;
-  color: rgb(240, 165, 8);
-  
-  @media (max-width: 768px) {
-    left: 85%;
-  }
+}
 `;
 
 const ProfileImage = styled.img`
-  position: absolute;
-  left: 9%;
-  top: 2%;
+  paddingright: 15px;
   height: 9rem;
   width: 9rem;
   border-radius: 100px;
-  border: 5px solid rgb(0, 0, 0);
+  border: 4px solid rgb(45,45,45);
+  padding: 2px;
   
   @media (max-width: 768px) {
     position: relative;
@@ -82,17 +81,17 @@ const DetailContainer = styled.div`
   width: 100%;
   height: 100%;
   color: rgb(0, 0, 0);
-  padding: 1rem;
+  padding: 2rem;
   background-color: rgb(255, 255, 255);
   box-shadow: 2px 2px 1px rgb(240, 165, 8, 0.7);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  
-  @media (max-width: 768px) {
-    margin-top: 0;
-  }
+  justify-content: flex-start;
+  align-items: center;
+  font-size:20px;
+  position: relative;  
+}
 `;
 
 const DetailParagraph = styled.p`
@@ -102,7 +101,9 @@ const DetailParagraph = styled.p`
 `;
 
 const StyledFaEdit = styled(FaEdit)`
-  color: black;
+  position: absolute;
+  left: 67%;
+  top: 69%;
   cursor: pointer;
   height: 30px;
   width: 30px
@@ -197,8 +198,8 @@ const ChildDinosaurSidePanel = () => {
               <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} />{userInfo.email}</DetailParagraph>
               <DetailParagraph><FaPhone style={{ marginRight: '10px' }} />{userInfo.phoneNumber}</DetailParagraph>
               <DetailParagraph><FaHome style={{ marginRight: '10px' }} />{userInfo.centerName}</DetailParagraph>
-              <DetailParagraph><FaClock style={{ marginRight: '10px' }} />{userInfo.enterDate}</DetailParagraph>
               <DetailParagraph><FaBirthdayCake style={{ marginRight: '10px' }} />{userInfo.birth}</DetailParagraph>
+              <DetailParagraph><FaClock style={{ marginRight: '10px' }} />{userInfo.enterDate}</DetailParagraph>
             </DetailContainer>
           </InfoContainer>
         </StyledDinosaurSidePanel>

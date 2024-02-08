@@ -80,7 +80,7 @@ const NameHeader = styled.h4`
 const DetailContainer = styled.div`
   margin-top: 15px;
   width: 100%;
-  height: 100%;
+  height: 99%;
   color: rgb(0, 0, 0);
   padding: 2rem;
   background-color: rgb(255, 255, 255);
