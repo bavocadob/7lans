@@ -5,6 +5,7 @@ import axios from "axios";
 import { updateChildInfo } from "../../store/childSlice";
 import getEnv from "../../utils/getEnv";
 import viewletter, { viewLetter } from "../../store/viewLetterSlice";
+import { useNavigate } from "react-router-dom";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -158,6 +159,8 @@ const CommonSidePanel = () => {
   const userProfile = useSelector((state) => state.userProfile.value)
   const urlInfo = getEnv("API_URL");
   const userId = userInfo.memberId;
+  
+  const navigate = useNavigate()
 
   const renderSidePanel = () => {
     const postData = (child) => {
@@ -184,7 +187,7 @@ const CommonSidePanel = () => {
                     <Age birth={el.childBirth}></Age>
                     <div>소속기관: {el.childCenterName}</div>
                     <Comment comment={el.childSpecialContent}></Comment>
-                    <Button onClick={() => postData(el)}>선택하기</Button>
+                    <Button onClick={() => {postData(el), navigate('/volunteer_video_chatting_start')}}>선택하기</Button>
                     </div>
                   </ChildCard>
                 ))

@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { updateUserInfo } from "../../store/userSlice";
 
 
 const NavBar = styled.nav`
@@ -33,6 +34,11 @@ const NormalNav = () => {
   const volInfo = useSelector((state) => state.vol.value)
   const userType = useRef('')
   const location = useLocation()
+  const dispatch = useDispatch()
+
+  const resetData = () => {
+    dispatch(updateUserInfo(""));
+  };
   
   userType.current = userInfo.memberType
   if (userType.current === 'CHILD') {
@@ -76,6 +82,20 @@ const NormalNav = () => {
         <ChildInfo>
               {/* {childInfo.childName} 학생과의 공간입니다 */}
         </ChildInfo>
+        <Link 
+          to="/" 
+          style={{
+            alignSelf: 'center', 
+            fontSize: "23px", 
+            textDecorationLine: "none", 
+            color: 'black', 
+            fontWeight: 'bolder',
+            position: 'fixed',
+            right: '100px'
+          }}
+        >
+              로그아웃
+        </Link>
       </NavBar>
     );
   }

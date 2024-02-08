@@ -86,6 +86,7 @@ const RaiseEggPage = () => {
         setEggInfo(res.data);
       } catch (err) {
         console.error(err);
+        console.log('egg엑시오스 에러')
       }
     }
     egg()
