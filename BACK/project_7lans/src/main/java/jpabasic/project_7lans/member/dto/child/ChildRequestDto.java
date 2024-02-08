@@ -131,6 +131,24 @@ public class ChildRequestDto {
         }
     }
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class childListByVolunteerAndCenter{
+        @NotNull(message = "[ChildRequestDto.childListByVolunteerAndCenter] childCenterId 은 Null 일 수 없습니다.")
+        private Long childCenterId;
+        @NotNull(message = "[ChildRequestDto.childListByVolunteerAndCenter] volunteerId 은 Null 일 수 없습니다.")
+        private Long volunteerId;
+
+        @Builder
+        childListByVolunteerAndCenter(
+                Long childCenterId,
+                Long volunteerId
+        ){
+            this.childCenterId = childCenterId;
+            this.volunteerId = volunteerId;
+        }
+    }
+
     // ===============================================================================
     // 특이사항 수정
     @Getter

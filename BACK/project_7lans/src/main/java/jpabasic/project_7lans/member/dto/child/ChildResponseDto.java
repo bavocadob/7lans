@@ -122,6 +122,36 @@ public class ChildResponseDto {
         }
     }
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class childListByVolunteerAndCenter{
+        @NotNull(message = "[ChildResponseDto.childListByVolunteerAndCenter] childId 는 Null 일 수 없습니다.")
+        private Long childId;
+        @NotNull(message = "[ChildResponseDto.childListByVolunteerAndCenter] childName 은 Null 일 수 없습니다.")
+        private String childName;
+        @NotNull(message = "[ChildResponseDto.childListByVolunteerAndCenter] childBirth 은 Null 일 수 없습니다.")
+        private LocalDate childBirth;
+        @NotNull(message = "[ChildResponseDto.childListByVolunteerAndCenter] childPhoneNumber 은 Null 일 수 없습니다.")
+        private String childPhoneNumber;
+        @NotNull(message = "[ChildResponseDto.childListByVolunteerAndCenter] childChildCenterId 는 Null 일 수 없습니다.")
+        private String childCenterName;
+
+        @Builder
+        childListByVolunteerAndCenter(
+                Long childId,
+                String childName,
+                LocalDate childBirth,
+                String childPhoneNumber,
+                String childCenterName
+        ){
+            this.childId = childId;
+            this.childName = childName;
+            this.childBirth = childBirth;
+            this.childPhoneNumber = childPhoneNumber;
+            this.childCenterName = childCenterName;
+        }
+    }
+
     // ===============================================================================
     // 생성 매소드
 
@@ -139,6 +169,16 @@ public class ChildResponseDto {
 
     public static ChildResponseDto.noRelationList toNoRelationListDto(Child child) {
         return noRelationList.builder()
+                .childId(child.getId())
+                .childName(child.getName())
+                .childBirth(child.getBirth())
+                .childCenterName(child.getChildCenter().getName())
+                .childPhoneNumber(child.getPhoneNumber())
+                .build();
+    }
+
+    public static ChildResponseDto.childListByVolunteerAndCenter toChildListByVolunteerAndCenterDto(Child child) {
+        return childListByVolunteerAndCenter.builder()
                 .childId(child.getId())
                 .childName(child.getName())
                 .childBirth(child.getBirth())

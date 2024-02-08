@@ -12,4 +12,6 @@ public interface ChildService {
     public ChildResponseDto.detail childDetail(Long childId);
 
     public void modifyContent(ChildRequestDto.childWithContent childWtihContent);
+
+    public List<ChildResponseDto.childListByVolunteerAndCenter> childListByVolunteerAndCenter(ChildRequestDto.childListByVolunteerAndCenter childReqDto);
 }
