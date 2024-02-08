@@ -75,7 +75,18 @@ const SubmitButton = styled.button`
 `;
 
 // the component itself
-const WordsForm = ({submittedWord, setWord1, setWord2, setWord3, setWord4, reset, word1, word2, word3, word4}) => (
+const WordsForm = ({
+                     submittedWord,
+                     setSentence1,
+                     setSentence2,
+                     setSentence3,
+                     setSentence4,
+                     submitSentences,
+                     sentence1,
+                     sentence2,
+                     sentence3,
+                     sentence4
+                   }) => (
   <FormWrapper>
     <FormTitle>&quot;{submittedWord}&quot;을 포함한 문장을 만들어 보아요</FormTitle>
     <Shadow>
@@ -83,31 +94,31 @@ const WordsForm = ({submittedWord, setWord1, setWord2, setWord3, setWord4, reset
         <InputFieldsContainer>
           <StyledInput
             type="text"
-            placeholder={setWord1 ? '' : '문장을 완성해 주세요'}
-            value={word1}
-            onChange={(e) => setWord1(e.target.value)}
+            placeholder={sentence1 ? '' : '문장을 완성해 주세요'}
+            value={sentence1}
+            onChange={(e) => setSentence1(e.target.value)}
           />
           <StyledInput
             type="text"
-            placeholder={setWord2 ? '' : '문장을 완성해 주세요'}
-            value={word2}
-            onChange={(e) => setWord2(e.target.value)}
+            placeholder={sentence2 ? '' : '문장을 완성해 주세요'}
+            value={sentence2}
+            onChange={(e) => setSentence2(e.target.value)}
           />
           <StyledInput
             type="text"
-            placeholder={setWord3 ? '' : '문장을 완성해 주세요'}
-            value={word3}
-            onChange={(e) => setWord3(e.target.value)}
+            placeholder={sentence3 ? '' : '문장을 완성해 주세요'}
+            value={sentence3}
+            onChange={(e) => setSentence3(e.target.value)}
           />
           <StyledInput
             type="text"
-            placeholder={setWord4 ? '' : '문장을 완성해 주세요'}
-            value={word4}
-            onChange={(e) => setWord4(e.target.value)}
+            placeholder={sentence4 ? '' : '문장을 완성해 주세요'}
+            value={sentence4}
+            onChange={(e) => setSentence4(e.target.value)}
           />
         </InputFieldsContainer>
       </InputFieldsWrapper>
-      <SubmitButton onClick={reset}>제출</SubmitButton>
+      <SubmitButton onClick={submitSentences}>제출</SubmitButton>
     </Shadow>
   </FormWrapper>
 )
@@ -115,15 +126,15 @@ const WordsForm = ({submittedWord, setWord1, setWord2, setWord3, setWord4, reset
 // Prop validation
 WordsForm.propTypes = {
   submittedWord: PropTypes.string.isRequired,
-  setWord1: PropTypes.func.isRequired,
-  setWord2: PropTypes.func.isRequired,
-  setWord3: PropTypes.func.isRequired,
-  setWord4: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-  word1: PropTypes.string.isRequired,
-  word2: PropTypes.string.isRequired,
-  word3: PropTypes.string.isRequired,
-  word4: PropTypes.string.isRequired,
+  setSentence1: PropTypes.func.isRequired,
+  setSentence2: PropTypes.func.isRequired,
+  setSentence3: PropTypes.func.isRequired,
+  setSentence4: PropTypes.func.isRequired,
+  submitSentences: PropTypes.func.isRequired,
+  sentence1: PropTypes.string.isRequired,
+  sentence2: PropTypes.string.isRequired,
+  sentence3: PropTypes.string.isRequired,
+  sentence4: PropTypes.string.isRequired,
 };
 
 export default WordsForm;

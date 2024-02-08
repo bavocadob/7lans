@@ -15,10 +15,10 @@ const Words = ({session}) => {
 
   const dispatch = useDispatch()
 
-  const [word1, setWord1] = useState('')
-  const [word2, setWord2] = useState('')
-  const [word3, setWord3] = useState('')
-  const [word4, setWord4] = useState('')
+  const [sentence1, setSentence1] = useState('')
+  const [sentence2, setSentence2] = useState('')
+  const [sentence3, setSentence3] = useState('')
+  const [sentence4, setSentence4] = useState('')
 
 
   useEffect(() => {
@@ -33,55 +33,106 @@ const Words = ({session}) => {
   // 세션 관련 메소드들
 
   // 시그널 송신 메소드
-  // 문제 만들기 송신 메소드
-  // const submitWord = (() => {
-  //   if (currentInputWord && currentInputWord.trim().length > 0) {
-  //     const inputWord = currentInputWord.trim();
-  //     setCurrentInputWord('');
-  //
-  //     session.signal({
-  //       type: 'submitWord', data: inputWord,
-  //     })
-  //       .then(() => console.log(`단어 제시 : ${inputWord}`))
-  //       .catch(err => console.log(err))
-  //   } else {
-  //     window.alert('입력 없음')
-  //   }
-  // })
+
+  /**
+   * 현재 입력된 단어를 제출하는 함수입니다.
+   * 입력된 단어가 있으면 세션에 'submitWord' 시그널을 보냅니다.
+   * 입력된 단어가 없는 경우 경고창을 표시합니다.
+   */
+  const submitWord = (() => {
+    if (currentInputWord && currentInputWord.trim().length > 0) {
+      const inputWord = currentInputWord.trim();
+      setCurrentInputWord('');
+
+      session.signal({
+        type: 'submitWord', data: inputWord,
+      })
+        .then(() => console.log(`단어 제시 : ${inputWord}`))
+        .catch(err => console.log(err))
+    } else {
+      window.alert('입력 없음')
+    }
+  })
+
+
+  /**
+   * 현재 입력된 문장들을 제출하는 함수입니다.
+   * 네 개의 문장이 모두 비어있지 않은 경우, 그 문장들을 배열로 만든 후 세션에 'submitSentences' 타입의 시그널을 보냅니다.
+   * 하나 이상의 문장이 비어있는 경우 경고창을 표시합니다.
+   */
+  const submitSentences = (() => {
+    if (sentence1.trim().length > 0 &&
+      sentence2.trim().length > 0 &&
+      sentence3.trim().length > 0 &&
+      sentence4.trim().length > 0) {
+
+      const inputSentences = [sentence1, sentence2, sentence3, sentence4].map(sentence => sentence.trim());
+
+      session.signal({
+        type: 'submitSentences', data: JSON.stringify(inputSentences),
+      })
+        .then(() => console.log(`문장 제출 : ${inputSentences}`))
+        .catch(err => console.log(err))
+    } else {
+      window.alert('입력 없음')
+    }
+  });
 
 
   // 시그널 수신 메소드
-  // 문제 변경 설정 수신
-  // const changeProblem = (submittedData) => {
-  //   setProblem(submittedData.problem);
-  //   setAns(submittedData.answer);
-  //   // dispatch(addProblem(giveProblem));
-  //   dispatch(gameChange(false));
-  // }
+  // 단어 제시 수신 메소드
 
-  // const receiveWord = ((event) => {
-  //   const inputWord = event.data;
-  //   setSubmittedWord(inputWord);
-  // })
-  //
-  //
-  // useEffect(() => {
-  //   session.on('signal:submitWord', receiveWord);
-  //
-  //   return () => {
-  //     session.off('signal:submitWord', receiveWord);
-  //   }
-  // }, [session]);
+  /**
+   * 'submitWord' 타입의 시그널을 수신하여 제출된 단어를 상태로 설정하는 함수입니다.
+   * @param {Object} event - submitWord 시그널 이벤트
+   */
+  const receiveWord = ((event) => {
+    const inputWord = event.data;
+    setSubmittedWord(inputWord);
+  })
 
-
+  /**
+   * 단어와 문장들의 상태를 초기화하는 함수입니다.
+   */
   const reset = () => {
     setSubmittedWord('')
     setCurrentInputWord('')
-    setWord1('')
-    setWord2('')
-    setWord3('')
-    setWord4('')
+    setSentence1('')
+    setSentence2('')
+    setSentence3('')
+    setSentence4('')
   }
+
+
+  /**
+   * 'submitSentences' 타입의 시그널을 수신하여 제출된 문장들을 상태로 설정하는 함수입니다.
+   * 수신된 문장들은 바로 출력되고 리셋함수를 통해 초기화 됩니다.
+   * @param {Object} event - submitSentences 시그널 이벤트
+   */
+  const receiveSentences = (event) => {
+    const sentences = JSON.parse(event.data);
+    console.log(`수신한 문장들 : ${sentences}`);
+
+    // 추후 로직 처리 예정 우선 리셋함
+    reset()
+  };
+
+  /**
+   * 컴포넌트가 마운트 될 때 세션에서 'submitWord'와 'submitSentences' 시그널을 리스닝하게 설정하고,
+   * 컴포넌트가 언마운트 될 때 이벤트 리스너를 제거합니다.
+   */
+  useEffect(() => {
+    session.on('signal:submitWord', receiveWord);
+    session.on('signal:submitSentences', receiveSentences);
+
+    return () => {
+      session.off('signal:submitWord', receiveWord);
+      session.off('signal:submitSentences', receiveSentences);
+    }
+  }, [session]);
+
+
+
 
 
   if (submittedWord === '') {
@@ -96,15 +147,15 @@ const Words = ({session}) => {
     return (
       <WordsForm
         submittedWord={submittedWord}
-        setWord1={setWord1}
-        setWord2={setWord2}
-        setWord3={setWord3}
-        setWord4={setWord4}
-        word1={word1}
-        word2={word2}
-        word3={word3}
-        word4={word4}
-        reset={reset}
+        setSentence1={setSentence1}
+        setSentence2={setSentence2}
+        setSentence3={setSentence3}
+        setSentence4={setSentence4}
+        sentence1={sentence1}
+        sentence2={sentence2}
+        sentence3={sentence3}
+        sentence4={sentence4}
+        submitSentences={submitSentences}
       />
     )
   }
