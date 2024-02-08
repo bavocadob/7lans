@@ -132,7 +132,7 @@ const RaiseEggPage = () => {
         >
           <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
           <Modal.Header closeButton>
-            <Modal.Title>아직 경험치가 {eggInfo?.experience} % 에요.</Modal.Title>
+            <Modal.Title>아직 경험치가 {eggInfo?.experience || 0} % 에요.</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -242,7 +242,7 @@ const RaiseEggPage = () => {
             <RowBox2>
               <p>알에서 뭐가 나올까? 추억을 쌓으면 알이 열려요</p>
               <div>
-                exp: {eggInfo?.experience} %
+                exp: {eggInfo?.experience || 0} %
                 <ExpBar>
                   <FilledExp
                     style={{ width: `${eggInfo?.experience || 0}%` }}
