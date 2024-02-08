@@ -89,7 +89,7 @@ const ChildRaiseEggPage = () => {
   }, [])
   
   const renderModal = () => {
-    if (eggInfo?.childCheck === false && eggInfo?.volunteerCheck === true) {
+    if (eggInfo?.volunteerCheck === false && eggInfo?.childCheck === true) {
       //아이는 아직 알을 안깐 경우
       return (
         <Modal
@@ -98,7 +98,7 @@ const ChildRaiseEggPage = () => {
         >
           <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
           <Modal.Header closeButton>
-            <Modal.Title>{childInfo.childName} 학생이 아직 알을 열어보지 않았어요.</Modal.Title>
+            <Modal.Title>{volInfo.volunteerName} 선생님이 아직 알을 열어보지 않았어요.</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -129,7 +129,7 @@ const ChildRaiseEggPage = () => {
         >
           <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
           <Modal.Header closeButton>
-            <Modal.Title>아직 경험치가 {eggInfo?.experience} % 에요.</Modal.Title>
+            <Modal.Title>아직 경험치가 {eggInfo?.experience || 0} % 에요.</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -188,7 +188,7 @@ const ChildRaiseEggPage = () => {
     const eggHatch = async () => {
       try {
         const memberId = userInfo.memberId
-        const relationId = childInfo.relationId
+        const relationId = volInfo.relationId
         const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {memberId, relationId})
         console.log(res.data)
         setNewEgg(res.data)
@@ -239,7 +239,7 @@ const ChildRaiseEggPage = () => {
             <RowBox2>
               <p>알에서 뭐가 나올까? 추억을 쌓으면 알이 열려요</p>
               <div>
-                exp: {eggInfo?.experience} %
+                exp: {eggInfo?.experience || 0} %
                 <ExpBar>
                   <FilledExp
                     style={{ width: `${eggInfo?.experience || 0}%` }}
