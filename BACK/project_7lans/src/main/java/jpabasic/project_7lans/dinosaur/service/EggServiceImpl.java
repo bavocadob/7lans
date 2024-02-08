@@ -20,8 +20,9 @@ public class EggServiceImpl implements EggService{
 
     // 알 정보 얻기
     @Override
-    public EggResponseDto.detail getMyEgg(Long eggId) {
-        Egg egg = eggRepository.findById(eggId).orElseThrow();
+    public EggResponseDto.detail getMyEgg(Long relationId) {
+        Egg egg = relationRepository.findById(relationId)
+                .orElseThrow(()-> new IllegalArgumentException("[EggServiceImpl.getMyEgg] no such relation")).getEgg();
         return EggResponseDto.detail.toDto(egg);
     }
 
