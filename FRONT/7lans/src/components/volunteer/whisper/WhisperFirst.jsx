@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -40,6 +41,8 @@ const Text = styled.div`
 `;
 
 export default function WhisperFirst() {
+  const userInfo = useSelector((state) => state.user.value)
+  console.log(userInfo)
   return (
     <>
       <Box>
@@ -47,7 +50,11 @@ export default function WhisperFirst() {
         <Image src="/Whisper/sampleDia.png" alt="dinosaur" />
         <TextContainer>
           <img src="../../text_balloon.png" alt="말풍선" style={{width:'400px', transform: 'rotate(-20deg)'}}></img>
+          {userInfo.memberType === 'CHILD'?
+          <Text>어떤 선생님의 속닥속닥을 보실건가요? 선생님을을 선택해 주세요</Text>
+           :
           <Text>어떤 학생의 속닥속닥을 보실건가요? 학생을 선택해 주세요</Text>
+           }
         </TextContainer>
       </Box>
     </>

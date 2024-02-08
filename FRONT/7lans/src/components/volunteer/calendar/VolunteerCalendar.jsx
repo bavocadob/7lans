@@ -16,7 +16,6 @@ import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
-setAppElement("#root");
 
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {

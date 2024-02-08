@@ -4,13 +4,14 @@ import styled from "styled-components";
 import axios from "axios";
 import { updateChildInfo } from "../../store/childSlice";
 import getEnv from "../../utils/getEnv";
+import viewletter, { viewLetter } from "../../store/viewLetterSlice";
 import { updateVolInfo } from "../../store/volSlice";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  width: 550px;
+  width: 500px;
   border-radius: 20px 0 0 20px;
   height: 100%;
   /* border: 2px solid rgb(255, 183, 58);
@@ -47,7 +48,7 @@ const CloseButton = styled.button`
 
 const ProfileImage = styled.img`
   position: absolute;
-  left: 10%;
+  left: 5%;
   top: 2%;
   height: 8rem;
   width: 8rem;
@@ -65,10 +66,12 @@ const ProfileImage = styled.img`
 
 const InfoContainer = styled.div`
   display: flex;
-  height: 70%;
+  height: 75%;
   flex-direction: column;
   align-items: center;
-
+  box-shadow: 2px 2px 1px rgb(240, 165, 8, 0.7);
+  background-color: rgb(255, 255, 255, 0.6);
+  border-radius: 10px;
   @media (max-width: 768px) {
     height: auto;
   }
@@ -80,19 +83,17 @@ const NameHeader = styled.h4`
   text-decoration: none;
   position: absolute;
   top: 65%;
-  left: 50%;
+  left: 48%;
 `;
 
 const DetailContainer = styled.div`
-  margin-top: 10px;
+  margin-top: 12px;
   width: 100%;
-  height: 100%;
+  height: 94%;
   color: rgb(0, 0, 0);
   padding: 1rem;
-  background-color: rgb(255, 255, 255, 0.9);
   border-radius: 10px;
   /* border: 2px solid rgb(255, 183, 58); */
-
   overflow: auto;
   @media (max-width: 768px) {
     margin-top: 0;
@@ -118,18 +119,20 @@ const Comment = ({ comment }) => {
 };
 
 const ChildCard = styled.div`
-  border: 3px solid rgb(240, 165, 8);
+  border: 2.5px solid rgb(240, 165, 8, 0.7);
   display: flex;
   align-items: center;
-
+  background-color: rgba(255, 237, 140, 0.3);
+  /* position: relative; */
   margin-bottom: 10px;
   border-radius: 10px;
   padding: 1rem;
+  padding-bottom: 6px;
 `;
 
 const Button = styled.button`
   background: linear-gradient(
-    300deg,
+    270deg,
     rgba(255, 184, 36, 1),
     rgba(255, 237, 140, 1)
   );
@@ -137,17 +140,15 @@ const Button = styled.button`
   font-weight: bold;
   border: none;
   border-radius: 50px;
-  /* margin: 0.5rem; */
-  margin-left: 3px;
-  padding: 0.5rem;
   height: 40px;
   width: 100px;
   margin-left: 90%;
-  margin-top: 7%;
   color: white;
   text-decoration-line: none;
+  position: relative;
+  right: 7%;
 `;
-const ChildCommonSidePanel = () => {
+const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
   //const [children, setChildren] = useState([]);
   const [id, setId] = useState([]);
@@ -156,34 +157,13 @@ const ChildCommonSidePanel = () => {
   const vols = useSelector((state) => state.vols.value);
   const userInfo = useSelector((state) => state.user.value);
   const userProfile = useSelector((state) => state.userProfile.value)
-  const urlInfo = getEnv('API_URL');
-  //console.log(userInfo.memberId);
+  const urlInfo = getEnv("API_URL");
   const userId = userInfo.memberId;
-  //console.log(children);
-  // console.log(childInfo);
-
-  useEffect(() => {
-    axios
-      .get(`${urlInfo}/child/list/${userId}`)
-      .then((res) => {
-        console.log(res, "여기서 아이들 리스트 정제하기");
-      })
-      .catch((err) => {
-        console.log(err, "커먼사이드 패널에서 에러발생");
-      });
-  });
-
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch();
-  // };
-
-  //console.log(children);
 
   const renderSidePanel = () => {
     const postData = (vol) => {
       dispatch(updateVolInfo(vol));
-      console.log(vol.relationId);
+      dispatch(viewLetter(true));
     };
     if (sidePanelStatus) {
       return (
@@ -198,14 +178,14 @@ const ChildCommonSidePanel = () => {
           <InfoContainer>
             <DetailContainer>
               {vols.length > 0 ? (
-                vols.map((el) => (
-                  <ChildCard key={el.volunteerId}>
-                    <div>
-                      <h3>{el.volunteerName}</h3>
-                      <Age birth={el.volunteerBirth}></Age>
-                      <div>소속기관: {el.volunteerName}</div>
-                      {/* <Comment comment={el.childSpecialContent}></Comment> */}
-                      <Button onClick={() => postData(el)}>선택하기</Button>
+                vols.map((el, index) => (
+                  <ChildCard key={index}>
+                    <div style={{position: 'relative'}}>
+                    <h3>{el.volunteerName}</h3>
+                    <Age birth={el.volunteerBirth}></Age>
+                    {/* <div>소속기관: {el.childCenterName}</div> */}
+                    {/* <Comment comment={el.childSpecialContent}></Comment> */}
+                    <Button onClick={() => postData(el)}>선택하기</Button>
                     </div>
                   </ChildCard>
                 ))
@@ -246,4 +226,4 @@ const ChildCommonSidePanel = () => {
   return renderSidePanel();
 };
 
-export default ChildCommonSidePanel;
+export default CommonSidePanel;

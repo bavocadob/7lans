@@ -49,8 +49,10 @@ const ChildStartPage = () => {
       width: '100vw',
     }}>
       <NormalNav />
-      <div style={{ height: '600px',
-                    padding: '30px', 
+      <div style={{ marginTop: "5.7%" }}></div>
+      <div style={{ height: '650px',
+                    padding: '30px',
+                    paddingBottom: '20px',
                     backgroundColor: 'rgb(255, 226, 123)'}}>
         <div style={{height: '100%', 
                       width: '100%', 

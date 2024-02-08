@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import NormalNav from "../../components/navs/NormalNav";
 import WhisperFirst from "../../components/volunteer/whisper/WhisperFirst";
 import WhisperLetter from "../../components/volunteer/whisper/WhisperLetter";
@@ -7,77 +7,58 @@ import styled from "styled-components";
 import SelectedChildPostit from "../../components/volunteer/post_it/SelectedChildPostit";
 import ChildPostit from "../../components/volunteer/post_it/ChildPostit";
 import ChildCommonSidePanel from "../../components/side_panels/ChildCommonSidePanel";
+import { viewLetter } from "../../store/viewLetterSlice";
 
-const MainPanel = styled.div`
-  flex: 1;
-  border-radius: 0 20px 20px 0;
-  background-color: #ffedaa;
+const RightSide = styled.div`
+  width: 90%;
+  height: 100%;
   display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-`;
+  flex-direction: column;
+  justify-content: start;
+  align-content: center;
+  border-radius: 0 20px 20px 0;
+  background-color: rgb(255,255,255);
+`
 
-const ChildWhisperPage = () => {
-  // 첫화면은 first 페이지, 버튼을 누르면 해당 아동의 페이지로 전환
+const WhisperPage = () => {
+  const change = useSelector((state) => state.viewletter.value);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(viewLetter(false));
+  }, []);
+
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        width: "100vw",
-      }}
-    >
+    <>
       <NormalNav />
-      <div
-        style={{
-          flex: 1,
-          padding: "30px",
-          backgroundColor: "rgb(255, 226, 123)",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            borderRadius: "20px",
-            backgroundColor: "rgb(255, 226, 123)",
-          }}
-        >
+      <div style={{ marginTop: "5.7%" }}>
+      <div style={{ height: '650px',
+                    padding: '30px', 
+                    paddingBottom: "20px",
+                    backgroundColor: 'rgb(255, 226, 123)'}}>
+        <div style={{height: '100%', 
+                      width: '100%', 
+                      display: 'flex', 
+                      flexDirection: 'row',
+                      borderRadius: '20px', 
+                      backgroundColor: 'rgb(255, 226, 123)'}}>
           <ChildCommonSidePanel />
 
-          <MainPanel
-            style={{
-              width: "90%",
-              flex: 1,
-              borderRadius: "0 20px 20px 0",
-              backgroundColor: "rgb(255, 255, 255)",
-            }}
-          >
-            {/* 사이드패널에서 프로필카드를 누른다면 WhisperFirst페이지가 해당 ID를 가진 WisperLetter 페이지로 이동. */}
-            <WhisperLetter />
-            <WhisperFirst />
-          </MainPanel>
+          <RightSide>
+            {change ? <WhisperLetter /> : <WhisperFirst />}
+          </RightSide>
 
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>
             <ChildPostit message={"/child_video_chatting_start"} />
             <SelectedChildPostit message={"/child_whispher"} />
             <ChildPostit message={"/child_raise_egg"} />
           </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            position: "absolute",
-            right: "2%",
-            top: "10rem",
-          }}
-        ></div>
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', right: '2%', top: '10rem'}}>
+          </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
-export default ChildWhisperPage;
+export default WhisperPage;

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FaEnvelope, FaPhone, FaHome, FaClock, FaBirthdayCake } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaHome, FaClock, FaBirthdayCake, FaEdit } from 'react-icons/fa';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux'
 import { getDownloadURL, getStorage, uploadBytesResumable, ref as strRef } from 'firebase/storage';
@@ -11,7 +11,7 @@ const StyledDinosaurSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  width: 300px;
+  max-width: 300px;
   border-radius: 20px 0 0 20px;
   height: 100%;
   
@@ -84,6 +84,11 @@ const DetailContainer = styled.div`
   color: rgb(0, 0, 0);
   padding: 1rem;
   background-color: rgb(255, 255, 255);
+  box-shadow: 2px 2px 1px rgb(240, 165, 8, 0.7);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   
   @media (max-width: 768px) {
     margin-top: 0;
@@ -95,6 +100,13 @@ const DetailParagraph = styled.p`
   align-items: center;
   margin-bottom: 10px;
 `;
+
+const StyledFaEdit = styled(FaEdit)`
+  color: black;
+  cursor: pointer;
+  height: 30px;
+  width: 30px
+`
 
 const DinosaurSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
@@ -175,7 +187,7 @@ const DinosaurSidePanel = () => {
           <InnerContainer>
             <CloseButton onClick={() => setSidePanelStatus(false)}>{"<<"}</CloseButton>
             <ProfileImage src={`${userProfile}`} alt="" />
-            <button onClick={handleOpenImage}>+</button>
+            <StyledFaEdit onClick={handleOpenImage} />
             <input type="file" accept='image/jpeg, image/png' ref={ref} onChange={handleUploadImage} style={{display: 'none'}}/>
           </InnerContainer>
           <InfoContainer>
