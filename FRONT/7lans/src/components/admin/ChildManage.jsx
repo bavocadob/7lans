@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import NormalNav from "../navs/NormalNav";
+import ChildUpDiv from "./ChildUpDiv";
+import ChildLowDiv from "./ChildLowDiv";
+import { adminSelectChild } from "../../store/adminSelectChildSlice";
+import { useDispatch, useSelector } from "react-redux";
+import getEnv from "../../utils/getEnv";
 
-const StyledVolunteerManage = styled.div`
+const StyledChildManage = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  margin-top: 100px;
 `;
 
-const VolunteerManageContainer = styled.div`
+const ChildManageContainer = styled.div`
   flex: 1;
   display: flex;
 `;
@@ -30,7 +37,7 @@ const RightContainer = styled.div`
   flex-direction: column;
 `;
 
-const StudentListContainer = styled.div`
+const ChildListContainer = styled.div`
   flex: 1;
   background-color: #fffdf6;
   border-radius: 20px;
@@ -43,36 +50,7 @@ const StudentListContainer = styled.div`
   margin-right: -10px;
 `;
 
-const UpperDiv = styled.div`
-  flex: 1.2;
-  background-color: #fffdf6;
-  border-radius: 20px;
-  border-radius: 20px;
-  border: solid 3px black;
-  margin-bottom: 15px;
-  margin-left: -10px;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-const LowerDiv = styled.div`
-  flex: 2.2;
-  background-color: #fffdf6;
-  border-radius: 20px;
-  border-radius: 20px;
-  border: solid 3px black;
-  margin-left: -10px;
-  margin-bottom: 5px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* 넘치는 부분 숨기기 */
-`;
-
-// StudentListContainer의 컨텐츠들
+// ChildListContainer의 컨텐츠들
 const SearchContainer = styled.div`
   width: 100%;
   margin-top: 20px;
@@ -90,7 +68,7 @@ const SearchInput = styled.input`
   margin-left: 10px;
 `;
 
-const StudentCardList = styled.div`
+const ChildCardList = styled.div`
   flex-direction: column;
   overflow-y: auto;
   max-height: 100vh;
@@ -105,150 +83,124 @@ const StudentCardList = styled.div`
   margin-right: -20px;
 `;
 
-const StudentCard = styled.div`
+const ChildCard = styled.div`
   width: 80%;
   height: 160px;
-  background-color: #ffe792;
+  background-color: ${(props) =>
+    props.isSelected
+      ? "#ffd700"
+      : "#ffe792"}; // isSelected에서 에러발생 (작동엔 이상 없음)
   margin-bottom: 15px;
   margin-left: 40px;
   padding: 15px;
   border: 2px solid black;
   border-radius: 10px;
-`;
-
-const LowerProfileCard = styled.div`
-  width: 20%;
-  height: 50%;
-  margin: 10px;
-  padding: 10px;
-  border: 2px solid black;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgb(45, 45, 45);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-  margin-top: 30px;
-`;
-
-const LowerProfileImage = styled.img`
-  border-radius: 50%;
-  width: 60px;
-  height: 70px;
-  margin-bottom: 10px;
-`;
-
-// 추가적으로 페이지 내비게이션 스타일링
-const PaginationContainer = styled.div`
-  width: 90%;
-  display: flex;
-  justify-content: center;
-`;
-
-const PaginationButton = styled.button`
-  margin: 0 5px;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #ffd700;
   }
 `;
 
-// 아래로 upperdiv contents
-const ProfileCard = styled.div`
-  width: 40%;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const ProfileImage = styled.img`
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-`;
-
-const InformationSection = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const SpecialNotesBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 const ChildManage = () => {
+  const urlInfo = getEnv("API_URL");
+  const dispatch = useDispatch();
+  const selectChildCard = useSelector((state) => state.adminSelectChild);
+  const userInfo = useSelector((state) => state.user);
+  const centerId = userInfo.value.centerId;
+  // 카드 선택하기
+  const [selectedCard, setSelectedCard] = useState(null);
+  // 검색어 상태
+  const [search, setSearch] = useState("");
+  // 학생 리스트
+  const [ChildList, setChildList] = useState([]);
+
+  // 해당 센터의 학생리스트 가져오기
+  useEffect(() => {
+    axios
+      .get(`${urlInfo}/manager/child/${centerId}`)
+      .then((response) => {
+        const arr = [];
+        // console.log(response.data, "센터의 아동들");
+        for (const element of response.data) {
+          // console.log(element, "아동개인의 정보");
+          let childName, centerName, childRelationId, childBirth, childId;
+          for (const ele in element) {
+            if (ele === "childName") {
+              childName = element[ele];
+            }
+            if (ele === "childCenterName") {
+              centerName = element[ele];
+            }
+            if (ele === "childBirth") {
+              childBirth = element[ele];
+            }
+            if (ele === "childId") {
+              childId = element[ele];
+            }
+          }
+          arr.push([childName, centerName, childBirth, childId]);
+        }
+        setChildList(arr);
+      })
+      .catch((err) => {
+        console.error(err, "err -> ChildUpDiv");
+      });
+  }, []);
+
+  const handleChildClick = (Child, index) => {
+    setSelectedCard(index);
+    dispatch(adminSelectChild(Child));
+  };
+
+  // 검색함수
+  const filteredChilds = ChildList.filter((Child) =>
+    Child.some(
+      (property) =>
+        typeof property === "string" &&
+        property.toLowerCase().includes(search.toLowerCase())
+    )
+  );
+
   return (
-    <StyledVolunteerManage>
+    <StyledChildManage>
       <NormalNav />
-      <VolunteerManageContainer>
+      <ChildManageContainer>
         <LeftContainer>
-          <StudentListContainer>
+          <ChildListContainer>
             <h2>학생리스트</h2>
             <SearchContainer>
-              <SearchInput type="text" placeholder="학생 검색" />
+              <SearchInput
+                type="text"
+                placeholder="학생 이름 검색"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
             </SearchContainer>
-            <StudentCardList>
-              <StudentCard>학생 정보 1</StudentCard>
-              <StudentCard>학생 정보 2</StudentCard>
-              <StudentCard>학생 정보 3</StudentCard>
-              <StudentCard>학생 정보 4</StudentCard>
-            </StudentCardList>
-          </StudentListContainer>
+            <ChildCardList>
+              {/* 검색 결과에 따라 동적으로 ChildCard를 생성 */}
+              {filteredChilds.map((Child, index) => (
+                <ChildCard
+                  key={index}
+                  isSelected={index === selectedCard}
+                  onClick={() => handleChildClick(Child, index)}
+                >
+                  <h3>{Child[0]} 학생</h3>
+                  <br />
+                  <h5>{Child[1]}</h5>
+                  <h5>{Child[2]}</h5>
+                </ChildCard>
+              ))}
+            </ChildCardList>
+          </ChildListContainer>
         </LeftContainer>
         <RightContainer>
-          <UpperDiv>
-            <ProfileCard>
-              <ProfileImage
-                src="./admin_pic/봉사자프로필예시.png"
-                alt="Profile"
-              />
-              <p>Name: John Doe</p>
-              <p>Age: 25</p>
-            </ProfileCard>
-            <InformationSection>
-              <p>Phone: 123-456-7890</p>
-              <p>Management Center: Center A</p>
-              <p>Birthday: January 1, 1990</p>
-            </InformationSection>
-            <SpecialNotesBox>
-              <p>
-                Special Notes: Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit.
-              </p>
-            </SpecialNotesBox>
-          </UpperDiv>
-          <LowerDiv>
-            {Array.from({ length: 4 }).map((_, index) => (
-              <LowerProfileCard key={index}>
-                <LowerProfileImage
-                  src="./admin_pic/프로필예시.png"
-                  alt="Profile"
-                />
-                <p>Name: John Doe</p>
-                <p>Age: 25</p>
-              </LowerProfileCard>
-            ))}
-            <PaginationContainer>
-              <PaginationButton>1</PaginationButton>
-              <PaginationButton>2</PaginationButton>
-              {/* Add more pagination buttons as needed */}
-            </PaginationContainer>
-          </LowerDiv>
+          <ChildUpDiv />
+          <ChildLowDiv />
         </RightContainer>
-      </VolunteerManageContainer>
-    </StyledVolunteerManage>
+      </ChildManageContainer>
+    </StyledChildManage>
   );
 };
 

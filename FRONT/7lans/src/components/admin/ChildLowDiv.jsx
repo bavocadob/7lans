@@ -5,7 +5,7 @@ import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 
 const LowerDiv = styled.div`
-  flex: 2.1;
+  flex: 2;
   background-color: #fffdf6;
   border-radius: 20px;
   border-radius: 20px;
@@ -94,25 +94,24 @@ const CancelButton = styled.button`
   cursor: pointer;
 `;
 
-const VolLowDiv = () => {
+const ChildLowDiv = () => {
   const urlInfo = getEnv("API_URL");
-  const selectVolCard = useSelector((state) => state.adminSelectVol);
-  const [childList, setChildList] = useState([]);
+  const selectChildCard = useSelector((state) => state.adminSelectChild);
+  const [childVolList, setChildVolList] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [relationId, setLelationId] = useState(null);
-  const volId = selectVolCard.value[3];
+  const childId = selectChildCard.value[3];
 
   useEffect(() => {
     axios
-      .get(`${urlInfo}/vol/list/${volId}`)
+      .get(`${urlInfo}/child/list/${childId}`)
       .then((res) => {
-        setChildList(res.data);
-        // console.log(res.data, "아동리스트 -> volLowDiv");
+        setChildVolList(res.data);
       })
       .catch((err) => {
-        console.log(err, "err -> VolLowDiv");
+        console.log(err, "err -> ChildLowDiv");
       });
-  }, [volId]);
+  }, [childId]);
 
   const handleDeleteClick = (relationId) => {
     setShowDeleteModal(true);
@@ -128,7 +127,7 @@ const VolLowDiv = () => {
         console.log(res, "친구끊기");
       })
       .catch((err) => {
-        console.log(err, "err -> VolLowDiv 친구끊기 오류");
+        console.log(err, "err -> ChildLowDiv 친구끊기 오류");
       });
     setShowDeleteModal(false);
   };
@@ -140,18 +139,16 @@ const VolLowDiv = () => {
   return (
     <>
       <LowerDiv>
-        {childList.map((child, index) => (
+        {childVolList.map((vol, index) => (
           <LowerProfileCard key={index}>
             <LowerProfileImage src="./admin_pic/프로필예시.png" alt="Profile" />
-            <DeleteButton onClick={() => handleDeleteClick(child.relationId)}>
+            <DeleteButton onClick={() => handleDeleteClick(vol.relationId)}>
               X
             </DeleteButton>
             <ProfileInfo>
-              Name: {child.childName}
+              Name: {vol.volunteerName}
               <br />
-              Birth: {child.childBirth}
-              <br />
-              Center: {child.childCenterName}
+              Email: {vol.volunteerEmail}
             </ProfileInfo>
           </LowerProfileCard>
         ))}
@@ -167,4 +164,4 @@ const VolLowDiv = () => {
   );
 };
 
-export default VolLowDiv;
+export default ChildLowDiv;

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 const ButtonContainer = styled.div`
   display: flex;
   margin: 20px;
+  margin-top: 120px;
 `;
 
 const zoomIn = keyframes`

@@ -203,7 +203,6 @@ const VolunteerMainPage = () => {
           style={{ fontSize: "23px", textDecorationLine: "none" }}
         >
           <img src="../../../main_page/main_page_children.png" alt="나의 아이들 이미지" />
-          <h2>나의 선생님</h2>
         </Link>
       </MyChildren>
 

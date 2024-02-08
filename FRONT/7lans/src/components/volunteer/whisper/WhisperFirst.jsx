@@ -14,8 +14,8 @@ const Box = styled.div`
 `;
 
 const Image = styled.img`
-  width: 380px;
-  height: 400px;
+  width: 400px;
+  height: 500px;
   position: absolute;
   bottom: 45px;
   right: 60px;
@@ -43,12 +43,13 @@ const Text = styled.div`
 
 export default function WhisperFirst() {
   const userInfo = useSelector((state) => state.user.value)
+  const userDino = useSelector((state) => state.dino.value)
   console.log(userInfo)
   return (
     <>
       <Box>
         {/* 이미지를 바꿀 수 있게 수정하기*/}
-        <Image src="/Whisper/sampleDia.png" alt="dinosaur" />
+        <Image src={`./dinosourImage/dinosaur${userDino}_study.png`} alt="dinosaur" />
         <TextContainer>
           <img src="../../text_balloon.png" alt="말풍선" style={{width:'400px', transform: 'rotate(-20deg)'}}></img>
           {userInfo.memberType === 'CHILD'?
