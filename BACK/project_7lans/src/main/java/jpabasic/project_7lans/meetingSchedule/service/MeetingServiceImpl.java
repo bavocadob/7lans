@@ -24,21 +24,52 @@ public class MeetingServiceImpl implements MeetingService{
 
     private final MeetingScheduleRepository meetingRepository;
     private final RelationRepository relationRepository;
-    private final ActivityLogRepository activityLogRepository;
-    //미팅 생성
+
+    /*
+    위에서부터 아래로 내려가는 방향 순서대로
+    생성, 조회, 수정, 삭제의 코드가 있다.
+    가장 아래는 현재 사용되지 않으면서 주석처리된 코드들이 있다.
+     */
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 생성
+
+    // 화상 미팅 생성
+    @Override
     @Transactional
-    public void createMeeting(Relation relation, LocalDateTime startTime, LocalDateTime endTime){
-//        MeetingSchedule newMeeting = MeetingSchedule.create(startTime, endTime, a)
-//        meetingRepository.save(newMeeting);
+    public void create(MeetingScheduleRequestDto.create meeting) {
+
+        // 관계 조회
+        Relation relation = relationRepository.findById(meeting.getRelationId())
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.create] 해당 Id와 일치하는 relation이 존재하지 않습니다."));
+
+        // 활동 일지 생성
+        ActivityLog activityLog = new ActivityLog();
+
+        // 미팅 스케줄을 생성한다.
+        MeetingSchedule newMeeting = MeetingSchedule.builder()
+                .startTime(meeting.getScheduledStartTime())
+                .endTime(meeting.getScheduledEndTime())
+                .activityLog(activityLog)
+                .build();
+
+        // 해당 미팅 스케줄의 활동일지로 설정.
+        activityLog.changeMeetingSchedule(newMeeting);
+
+        // 관계에 미팅 스케줄 추가.
+        relation.addMeetingSchedule(newMeeting);
+
+        // DB에 저장
+        meetingRepository.save(newMeeting);
     }
 
-    //예정 미팅 수정
-/*    @Transactional
-    public void updateMeeting(MeetingSchedule updateMeeting, ChildVolunteerRelation relation, LocalDateTime startTime, LocalDateTime endTime){
 
-    }*/
+    // =================================================================================================================
+    // =================================================================================================================
+    // 조회
 
-    //해당 관계의 미팅 조회
+    // 해당 관계의 해당 년도, 해당 년월 화상 미팅 정보들 조회
     @Override
     public List<MeetingScheduleResponseDto.monthList> findMeetingsByRelation(MeetingScheduleRequestDto.meetings meetingsDto){
         //관계 찾기
@@ -56,43 +87,67 @@ public class MeetingServiceImpl implements MeetingService{
                     meeting.getScheduledEndTime() != null &&
                     meeting.getScheduledStartTime().getMonthValue() == meetingsDto.getMonth() &&
                     meeting.getScheduledStartTime().getYear() == meetingsDto.getYear()){
-                        monthMeeting.add(MeetingScheduleResponseDto.monthList.builder()
-                            .meetingId(meeting.getId())
-                            .thumbnailImgPath(meeting.getThumbnailImgPath())
-                            .meetingUrl(meeting.getMeetingUrl())
-                            .status(meeting.getStatus())
-                            .day(meeting.getScheduledStartTime().getDayOfMonth())
-                            .build());
+                monthMeeting.add(MeetingScheduleResponseDto.monthList.builder()
+                        .meetingId(meeting.getId())
+                        .thumbnailImgPath(meeting.getThumbnailImgPath())
+                        .meetingUrl(meeting.getMeetingUrl())
+                        .status(meeting.getStatus())
+                        .day(meeting.getScheduledStartTime().getDayOfMonth())
+                        .build());
             }
         }
         return monthMeeting;
     }
 
-    //미팅 생성
-    @Override
-    @Transactional
-    public void create(MeetingScheduleRequestDto.create meeting) {
-
-        Relation relation = relationRepository.findById(meeting.getRelationId())
-                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.create] 해당 Id와 일치하는 relation이 존재하지 않습니다."));
-        //미팅을 만들고 relation에 넣어주기
-
-        ActivityLog activityLog = new ActivityLog();
-        activityLogRepository.save(activityLog);
-
-        System.out.println(meeting.getScheduledStartTime());
-
-        MeetingSchedule newMeeting = MeetingSchedule.builder()
-                .startTime(meeting.getScheduledStartTime())
-                .endTime(meeting.getScheduledEndTime())
-                .activityLog(activityLog)
-                .build();
-
-        relation.addMeetingSchedule(newMeeting);
-
-        meetingRepository.save(newMeeting);
+    //미팅 상태 확인(SCHEDULED)
+    public boolean isScheduled(MeetingSchedule meetingSchedule){
+        return meetingSchedule.getStatus().equals(ScheduleType.SCHEDULED);
     }
 
+    //미팅 상태 확인(OPENED)
+    public boolean isOpened(MeetingSchedule meetingSchedule){
+        return meetingSchedule.getStatus().equals(ScheduleType.OPENED);
+    }
+
+    //미팅 상태 확인(CLOSED)
+    public boolean isClosed(MeetingSchedule meetingSchedule){
+        return meetingSchedule.getStatus().equals(ScheduleType.CLOSED);
+    }
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 수정
+
+    // 화상 미팅 상태 OPEN 으로 설정
+    @Override
+    @Transactional
+    public void openMeeting(MeetingScheduleRequestDto.openMeeting meetingDto) {
+        MeetingSchedule meeting = meetingRepository.findById(meetingDto.getMeetingId())
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.openMeeting] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
+
+        //미팅이 열림
+        meeting.statusChangeToOpen();
+    }
+
+    // 화상 미팅 상태 CLOSED 으로 설정
+    @Override
+    @Transactional
+    public void closeMeeting(MeetingScheduleRequestDto.closeMeeting meetingDto) {
+        MeetingSchedule meeting = meetingRepository.findById(meetingDto.getMeetingId())
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.openMeeting] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
+
+        //미팅이 닫힘
+        meeting.statusChangeToClosed();
+    }
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 삭제
+
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 일단 주석 처리된 코드들
 
 //    @Override
 //    @Transactional
@@ -154,39 +209,4 @@ public class MeetingServiceImpl implements MeetingService{
 //                meetingImageRepository.deleteById(imgDto.getImgId());
 //           }
 //    }
-
-    @Override
-    public void openMeeting(MeetingScheduleRequestDto.openMeeting meetingDto) {
-        MeetingSchedule meeting = meetingRepository.findById(meetingDto.getMeetingId())
-                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.openMeeting] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
-
-        //미팅이 열림
-        meeting.changeStatus(ScheduleType.OPENED);
-    }
-
-    @Override
-    public void closeMeeting(MeetingScheduleRequestDto.closeMeeting meetingDto) {
-        MeetingSchedule meeting = meetingRepository.findById(meetingDto.getMeetingId())
-                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.openMeeting] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
-
-        //미팅이 열림
-        meeting.changeStatus(ScheduleType.CLOSED);
-    }
-
-
-    //미팅 상태 확인(예정)
-    public boolean isScheduled(MeetingSchedule meetingSchedule){
-        return meetingSchedule.getStatus().equals(ScheduleType.SCHEDULED);
-    }
-    //미팅 상태 확인(열림)
-    public boolean isOpened(MeetingSchedule meetingSchedule){
-        return meetingSchedule.getStatus().equals(ScheduleType.OPENED);
-    }
-    //미팅 상태 확인(종료됨)
-    public boolean isClosed(MeetingSchedule meetingSchedule){
-        return meetingSchedule.getStatus().equals(ScheduleType.CLOSED);
-    }
-
-
-
 }

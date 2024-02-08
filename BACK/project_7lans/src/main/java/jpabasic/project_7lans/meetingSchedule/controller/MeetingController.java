@@ -21,7 +21,38 @@ public class MeetingController {
 
     private final MeetingService meetingService;
 
-    //해당 달 미팅 조회하기
+    /*
+    위에서부터 아래로 내려가는 방향 순서대로
+    생성, 조회, 수정, 삭제의 코드가 있다.
+    가장 아래는 현재 사용되지 않으면서 주석처리된 코드들이 있다.
+     */
+
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 생성
+
+    // 미팅 생성
+    @Operation(summary = "화상미팅 예약하기")
+    @PostMapping("/create")
+    public ResponseEntity create(@RequestBody MeetingScheduleRequestDto.create newMeeting){
+        try{
+            meetingService.create(newMeeting);
+
+            return new ResponseEntity(HttpStatus.OK);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 조회
+
+    // 해당 년도, 해당 월 미팅 조회하기
     @Operation(summary = "해당하는 달의 화상미팅 일정 조회")
     @PostMapping("")
     public ResponseEntity<?> monthList(@RequestBody @Valid MeetingScheduleRequestDto.meetings meetingsDto){
@@ -36,6 +67,48 @@ public class MeetingController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 수정
+
+    //화상 시작
+    @PutMapping("/open")
+    public ResponseEntity openMeeting(@RequestBody @Valid MeetingScheduleRequestDto.openMeeting meetingDto){
+        try{
+            meetingService.openMeeting(meetingDto);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //화상 종료
+    @PutMapping("/close")
+    public ResponseEntity closeMeeting(@RequestBody @Valid MeetingScheduleRequestDto.closeMeeting meetingDto){
+        try{
+            meetingService.closeMeeting(meetingDto);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 삭제
+
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 일단 주석 처리된 코드들
+
 
 //    //해당 날짜 사진들 보기
 //    @Operation(summary = "해낭 날짜 사진들 보기")
@@ -52,22 +125,6 @@ public class MeetingController {
 //            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 //        }
 //    }
-
-    //미팅 추가 하기
-    @Operation(summary = "화상미팅 예약하기")
-    @PostMapping("/create")
-    public ResponseEntity create(@RequestBody MeetingScheduleRequestDto.create newMeeting){
-        try{
-            meetingService.create(newMeeting);
-
-            return new ResponseEntity(HttpStatus.OK);
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
 //    //썸네일 수정하기
 //    @Operation(summary = "지난(종료된) 화상미팅의 썸네일 사진 수정하기")
@@ -112,31 +169,5 @@ public class MeetingController {
 //            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 //        }
 //    }
-
-    //화상 시작
-    @PostMapping("/open")
-    public ResponseEntity openMeeting(@RequestBody @Valid MeetingScheduleRequestDto.openMeeting meetingDto){
-        try{
-            meetingService.openMeeting(meetingDto);
-            return new ResponseEntity(HttpStatus.OK);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    //화상 종료
-    @PostMapping("/close")
-    public ResponseEntity closeMeeting(@RequestBody @Valid MeetingScheduleRequestDto.closeMeeting meetingDto){
-        try{
-            meetingService.closeMeeting(meetingDto);
-            return new ResponseEntity(HttpStatus.OK);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
 }
