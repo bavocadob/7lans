@@ -8,7 +8,7 @@ const UseOpenViduSession = () => {
     const APPLICATION_SERVER_URL = 'https://i10e103.p.ssafy.io:6443/openvidu/';
     const OPENVIDU_SERVER_SECRET = '741u741';
 
-    const [mySessionId, setMySessionId] = useState('44');
+    const [mySessionId, setMySessionId] = useState('60');
     const [myUserName, setMyUserName] = useState(`Participant${Math.floor(Math.random() * 100)}`);
     const [session, setSession] = useState(undefined);
     const [mainStreamManager, setMainStreamManager] = useState(undefined);

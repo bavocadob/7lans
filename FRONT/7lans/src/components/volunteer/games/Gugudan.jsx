@@ -1,266 +1,133 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeDan } from '../../../store/gugudanSlice';
-import { gameChange } from '../../../store/isPlayGameNow';
-import Correct from '../../dinosaur/Correct';
-import Wrong from '../../dinosaur/Wrong';
+import React, {useState, useEffect, useRef} from 'react';
+import {useDispatch} from 'react-redux';
+import {gameChange} from '../../../store/isPlayGameNow';
+import GugudanSetup from "./GugudanSetup";
+import QuizResult from "./QuizResult.jsx";
+import GugudanPrompt from "./GugudanPrompt.jsx";
 
 const Gugudan = () => {
-  const [dan, setDan] = useState('none');
-  const [multipleNum, setMultipleNum] =useState('')
-  const [nowAns, setNowAns] = useState('')
-  const [correct, setCorrect] = useState('')
+  const [currDan, setCurrDan] = useState();  // 선택된 현재 단
+  const [multipleNum, setMultipleNum] = useState()  // 현재 배수
+  const [submittedAns, setSubmittedAns] = useState()  // 제출된 답
+  const [isCorrect, setIsCorrect] = useState()    //  정답 여부
+  const [isGugudanStarted, setIsGugudanStarted] = useState(false);  // 구구단 게임 시작 여부
 
   const inputRef = useRef(null)
 
-  const gugudanState = useSelector((state) => state.gugudan.value)
-
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (multipleNum === Number(10)) {
-      const timeoutIds = setTimeout(() => {
-        resetGame()
-      }, 500)
-      return () => clearTimeout(timeoutIds)
-    }
-    if (correct !== '') {
-      const timeoutId = setTimeout(() => {
-        setCorrect('')
-      }, 500)
-      return () => clearTimeout(timeoutId)
-    }
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [multipleNum, correct])
 
-  // 몇 단???
-  const renderSpan = (danValue, key) => {
-    return (
-      <span
-        key={key}
-        style={{
-          width: '10%',
-          cursor: 'pointer',
-          margin: '5%',
-          fontSize: '37px',
-          fontWeight: 'bold',
-          transition: 'color 0.3s', // Added transition for a smooth effect
-          color: dan === danValue ? 'red' : 'black', // Highlight the selected dan
-        }}
-        onClick={() => setDan(danValue)}
-      >
-        {danValue} 단
-      </span>
-    );
-  };
-
-  const handleEnter = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      if (Number(dan)*Number(multipleNum) === Number(nowAns)) {
-        setNowAns('')
-        setMultipleNum(Number(multipleNum) + 1)
-        setCorrect('정답')
-      }
-      else {
-        setNowAns('')
-        setCorrect('오답')
-      }
-      }
-  }
-
-  const renderDinoImg = () => {
-    if (correct === '정답') {
-      return (
-        <Correct/>
-      )
-    }
-    else if (correct === '오답') {
-      return (
-        <Wrong/>
-      )
-    }
-  }
-
-  // 구구단 문제 출제되는 것
-  const renderGugudanGame = (dan) => {
-    if (dan !== 'none' && correct === '') {
-      return(
-        <div style={{display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
-                    height: '400px', 
-                    width: '50vw',
-                    fontSize:'0'
-                    }}>
-          <h1 style={{
-                      marginBottom: '4%', 
-                      fontWeight: 'bolder', 
-                      fontSize: '100px',
-                      color: 'black', 
-                      textShadow: '2px 2px 2px rgb(255, 215, 3)', 
-                      // height: '20%' 
-                      }}>
-            {dan} X {multipleNum} = ?
-          </h1>
-          <div style={{display: 'flex', 
-                        flexDirection: 'column', 
-                        alignItems: 'center', 
-                        width: '100%', 
-                        height: '50%',
-                        marginBottom:'0%'
-                        }}>
-            <div style={{display:'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center',
-                        height: '30%', 
-                        width: '80%', 
-                        border: '5px solid black',
-                        borderBottom: '0', 
-                        borderRadius: '20px 20px 0 0', 
-                        backgroundColor: 'rgb(255, 237, 170)'}}>
-              <h2>정답을 입력해 주세요</h2>
-            </div>
-            <div style={{display:'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        height: '100%', 
-                        width: '80%', 
-                        border: '5px solid black',
-                        borderRadius: '0 0 20px 20px',
-                        marginBottom:'0'
-                        }}>
-              <input ref={inputRef} 
-                    style={{backgroundColor: 'rgb(255, 215, 3)', 
-                            borderRadius: '0 0 15px 15px', 
-                            border: 'none', 
-                            width: '100%', 
-                            height: '100%', 
-                            textAlign: 'center',
-                            fontSize: '100px'}} 
-                    type="text" 
-                    onKeyUp={handleEnter} 
-                    onChange={(e) => setNowAns(e.target.value)} 
-                    value={nowAns} />
-            </div>
-          </div>
-        </div>
-      )
-    }
-    else {
-      return(
-        <div>
-          {/* {correct} */}
-          {renderDinoImg()}
-        </div>
-      )
-    }
-
-  }
-
+  /**
+   * 주어진 단에 대한 구구단 게임을 시작합니다.
+   * @function
+   * @param {number} dan - 구구단 게임을 시작할 단의 수
+   */
   const startGame = (dan) => {
-    dispatch(changeDan(dan))
+    setIsGugudanStarted(true)
+    setCurrDan(dan);
     setMultipleNum(1)
     dispatch(gameChange(false))
   }
 
+
+  /**
+   * 구구단 게임을 초기 상태로 리셋합니다.
+   * @function
+   */
   const resetGame = () => {
-    dispatch(changeDan('none'))
-    setDan('none')
+    setIsGugudanStarted(false)
+    setCurrDan(undefined)
+    setIsCorrect(undefined)
     dispatch(gameChange(true))
   }
 
-  const danArray = Array.from({ length: 10 }, (_, index) => index + 1);
+
+  /**
+   * useEffect hook을 사용하여 게임의 상태에 따른 동작을 핸들링합니다.
+   * 구구단 문제의 답을 모두 맞혔을 때 게임을 리셋하고,
+   * 틀린 답을 제출했을 경우 다시 풀 수 있도록 합니다.
+   * @function
+   */
+  useEffect(() => {
+    let gameHandleTimeout;
+    if (multipleNum === 10) {  // 구구단을 모두 풀었을 경우 게임을 리셋
+      gameHandleTimeout = setTimeout(() => {
+        resetGame()
+      }, 500);
+    } else if (isCorrect !== undefined) {  // 오답을 제출했을 경우 다시 풀도록 돌아가기
+      gameHandleTimeout = setTimeout(() => {
+        setIsCorrect(undefined)
+      }, 500);
+    }
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+    return () => clearTimeout(gameHandleTimeout);
+  }, [multipleNum, isCorrect])
+
+
+  /**
+   * "Enter" 키 입력을 처리합니다.
+   * 제출된 답을 검증하고, 정답일 경우 다음 문제로 넘어가며,
+   * 오답일 경우 오답을 핸들링합니다.
+   * @function
+   * @param {object} e - 이벤트 객체
+   */
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (currDan * multipleNum === submittedAns) {
+        setIsCorrect(true);
+        setMultipleNum(multipleNum + 1);
+      } else {
+        setIsCorrect(false);
+      }
+
+      setSubmittedAns(undefined);
+    }
+  }
+
+  // 구구단 문제 출제되는 것
+  const renderGugudanGame = () => {
+    if (currDan !== undefined && isCorrect === undefined) {
+      return (
+        <GugudanPrompt
+          currDan={currDan}
+          multipleNum={multipleNum}
+          inputRef={inputRef}
+          handleEnter={handleEnter}
+          setSubmittedAns={setSubmittedAns}
+          submittedAns={submittedAns}
+          resetGame={resetGame}
+        />
+      )
+    }
+    return (
+      <QuizResult
+        ansCorrect={isCorrect}
+        ans
+      />
+    )
+
+
+  }
 
   const renderGugudan = () => {
-    if (gugudanState === 'none') {
+    if (isGugudanStarted === false) {
       return (
-        <div style={{ display: 'flex', 
-                      flexDirection: 'column', 
-                      width: '100%', 
-                      height:'96%',
-                      alignItems: 'center' }}>
-        
-        <div
-          className='shadow'
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            border: '5px solid black',
-            borderRadius: '20px',
-            height:'70%',
-            width: '90%',
-            flex: 1,
-            marginTop:'2%',
-            // margin: '1rem',
-            backgroundColor: 'rgb(255, 250, 233)',
-          }}
-        >
-          <h1 style={{fontWeight: 'bolder', 
-                      color: 'rgb(41, 40, 38)', 
-                      textShadow: '2px 2px 2px rgb(255, 215, 3)', 
-                      textAlign: 'center',
-                      marginTop:'2rem',
-                      marginBottom: '0'
-                      }}>
-          몇 단을 출제하실 건가요??
-        </h1>
-          <div
-            style={{display: 'flex',
-                    flexWrap: 'wrap',
-                    // justifyContent: 'center',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    backgroundColor: 'rgb(251, 243, 212)',
-                    margin: '8%',
-                    marginTop:'35px',
-                    marginBottom:'20px',
-                    height: '70%',
-                    borderRadius: '16px',
-                    border: '5px solid black',
-                  }}
-          >
-            {danArray.map((danValue) => renderSpan(danValue, danValue))}
-          </div>
-          <button className='shadow' 
-                  style={{width: '150px', 
-                          height:'60px',
-                          alignSelf: 'center', 
-                          fontWeight: 'bolder', 
-                          fontSize: '25px', 
-                          border: 'none', 
-                          borderRadius: '16px', 
-                          backgroundColor: 'rgb(255, 215, 3)',
-                          marginTop:'0',
-                          marginBottom:'15px'
-                      }} 
-                  onClick={() => startGame(dan)}> 선택 완료 </button>
-        </div>
+        <GugudanSetup
+          currDan={currDan}
+          setCurrDan={setCurrDan}
+          onClickStart={() => startGame(currDan)}
+        />
+      )
+    }
+    return (
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '0'}}>
+        {renderGugudanGame(isGugudanStarted)}
       </div>
-      )
-    }
-    else {
-      return (
-        <div style={{display: 'flex', flexDirection: 'column', justifyContent:'center', fontSize:'0'}}>
-          {renderGugudanGame(gugudanState)}
-          {!correct && 
-          <button className='shadow' 
-                  style={{width: '150px', 
-                          height:'60px',
-                          alignSelf: 'center',
-                          textAlign:'center', 
-                          fontWeight: 'bolder', 
-                          fontSize: '25px', 
-                          border: 'none', 
-                          borderRadius: '16px', 
-                          backgroundColor: 'rgb(255, 215, 3)'}}
-                  onClick={resetGame}>돌아가기</button>
-          }
-        </div>
-      )
-    }
+    )
+
   }
 
   return (
