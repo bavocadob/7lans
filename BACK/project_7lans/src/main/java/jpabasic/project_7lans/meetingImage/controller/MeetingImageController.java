@@ -1,6 +1,7 @@
 package jpabasic.project_7lans.meetingImage.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jpabasic.project_7lans.meetingImage.dto.MeetingImageRequestDto;
 import jpabasic.project_7lans.meetingImage.dto.MeetingImageResponseDto;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name="화상 미팅 이미지 API", description = "화상 미팅 이미지 관련 API입니다.")
 @Slf4j
 @RestController
 @RequestMapping("/meetingImage")

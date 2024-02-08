@@ -73,6 +73,7 @@ public class MeetingController {
     // 수정
 
     //화상 시작
+    @Operation(summary = "화상 미팅 상태 OPEN으로 설정")
     @PutMapping("/open")
     public ResponseEntity openMeeting(@RequestBody @Valid MeetingScheduleRequestDto.openMeeting meetingDto){
         try{
@@ -86,6 +87,7 @@ public class MeetingController {
     }
 
     //화상 종료
+    @Operation(summary = "화상 미팅 상태 CLOSE으로 설정")
     @PutMapping("/close")
     public ResponseEntity closeMeeting(@RequestBody @Valid MeetingScheduleRequestDto.closeMeeting meetingDto){
         try{
