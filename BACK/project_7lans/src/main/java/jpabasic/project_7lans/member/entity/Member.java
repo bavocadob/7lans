@@ -71,7 +71,7 @@ public abstract class Member implements UserDetails {
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.profileImgPath = "please insert default Image Path.";
+        this.profileImgPath = "no_profile.jpg";
         this.birth = birth;
         this.dinosaurBook = dinosaurBook;
         this.enterDate = LocalDateTime.now();
