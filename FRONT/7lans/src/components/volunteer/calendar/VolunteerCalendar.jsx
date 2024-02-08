@@ -165,7 +165,6 @@ const VolunteerCalendar = () => {
 
   //해당 아동의 미팅 정보 불러오기
   useEffect(() => {
-    //console.log("change")
     setRelation(childInfo.relationId);
     axios
       .post(`${urlInfo}/meetingSchedue`, {

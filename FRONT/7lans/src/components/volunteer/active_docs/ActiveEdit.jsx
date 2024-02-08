@@ -94,7 +94,7 @@ const CuteButtonWithMargin = styled(CuteButton)`
   margin-right: 10px;
 `;
 
-const ActiveEdit = ({activityLog, content, setContent}) => {
+const ActiveEdit = ({activityLog, content, setContent, activityTime}) => {
     const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
     const [isModalOpenSpeak, setIsModalOpenSpeak] = useState(false);
     const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
@@ -176,10 +176,10 @@ const ActiveEdit = ({activityLog, content, setContent}) => {
     setContent(e.target.value)
   }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-    return (
-        <Container>
+  return (
+    <Container>
       <CloseButton onClick={() => {navigate(-1)}}>X</CloseButton>
       <h3>{childInfo.childName}의 활동일지</h3>
       <br></br>
@@ -189,7 +189,10 @@ const ActiveEdit = ({activityLog, content, setContent}) => {
           활동일자: <input type="date" value={activityLog.dateInfo} readOnly/>
         </div>
         <div>
-          활동시간: <input type="time" readOnly/>
+          활동시간: <input type="text" 
+                          value={activityTime} 
+                          style={{ width: `${activityTime.length * 8 + 9}px`}} 
+                          readOnly/>
         </div>
       </InputRow>
       <InputRow>

@@ -99,6 +99,8 @@ const CuteButtonWithMargin = styled(CuteButton)`
 
 export default function ActiveDocs() {
   const [activityLog, setActivityLog] = useState('')
+  const [activityTime, setActivityTime] = useState('')
+
   const [content, setContent] = useState("")
 
   const childInfo = useSelector((state) => state.child.value)
@@ -119,12 +121,24 @@ export default function ActiveDocs() {
     .then((res) => {
       //console.log(res.data)
       setActivityLog(res.data)
+      
+      //content설정
       if(res.data.content == null || res.data.content == ""){
         setContent("활동을 입력해 주세요")
       }
       else{
       setContent(res.data.content)
       }
+      
+      //time값 설정
+      const time = res.data.activityTime + "시간"
+                  + " : " + res.data.activityStartTime.substring(11, 13) + "시"
+                  + res.data.activityStartTime.substring(14, 16) +"분"
+                  +" ~ " + res.data.activityEndTime.substring(11, 13) + "시"
+                  + res.data.activityEndTime.substring(14, 16) + "분"
+      setActivityTime(time)
+      console.log(time)
+
     })
     .catch((err) => {
     });
@@ -148,6 +162,7 @@ export default function ActiveDocs() {
               activityLog={activityLog}
               content={content}
               setContent={setContent}
+              activityTime={activityTime}
             />
           </div>
           
