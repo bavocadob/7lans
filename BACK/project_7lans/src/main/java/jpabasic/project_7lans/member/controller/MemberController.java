@@ -70,5 +70,18 @@ public class MemberController {
 
     // =======================================================================================
     // 프로필 이미지 수정
-
+    @Operation(summary = "프로필 이미지 수정")
+    @PutMapping("/profile")
+    public ResponseEntity changeProfileImg(@RequestBody @Valid MemberRequestDto.changeProfile profileReqDto){
+        try{
+            log.info("[MemberController.changeProfileImg] start change ProfileImg...");
+            memberService.changeProfileImg(profileReqDto);
+            log.info("[MemberController.changeProfileImg] change ProfileImg SUCCESS!!!");
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(Exception e){
+            e.printStackTrace();
+            log.info("[MemberController.changeProfileImg] change ProfileImg FAIL!!!");
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

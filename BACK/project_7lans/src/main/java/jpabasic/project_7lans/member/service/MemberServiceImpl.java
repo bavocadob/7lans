@@ -234,6 +234,16 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
+    // 프로필 이미지 수정.
+    @Transactional
+    @Override
+    public void changeProfileImg(MemberRequestDto.changeProfile profileReqDto) {
+        Member member = memberRepository.findById(profileReqDto.getMemberId())
+                .orElseThrow(()-> new IllegalArgumentException("[MemberServiceImpl.changeProfileImg] 해당 Id와 일치하는 Member가 존재하지 않습니다."));
+
+        member.changeProfileImage(profileReqDto.getProfileImgPath());
+    }
+
     @Transactional
     @Override
     public void deleteMember(MemberRequestDto.delete memberDto) {

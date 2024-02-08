@@ -174,6 +174,10 @@ public class MemberResponseDto {
         }
     }
 
+    // ===============================================================================
+    // 프로필 이미지 수정
+    // Response 필요 없음.
+
 //    @Getter
 //    @NoArgsConstructor(access = AccessLevel.PROTECTED)
 //    public static class loginResDto {

@@ -113,4 +113,25 @@ public class MemberRequestDto {
           this.memberPassword = memberPassword;
         }
     }
+
+    // ===============================================================================
+    // 프로필 이미지 수정
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class changeProfile {
+        @NotNull(message = "[MemberRequestDto.delete] memberId 는 null 이 될 수 없습니다.")
+        private Long memberId;
+        @NotNull(message = "[MemberRequestDto.delete] profileImgPath 는 null 이 될 수 없습니다.")
+        private String profileImgPath;
+
+        @Builder
+        changeProfile(
+                Long memberId,
+                String profileImgPath
+        ){
+            this.memberId = memberId;
+            this.profileImgPath = profileImgPath;
+        }
+    }
+
 }
