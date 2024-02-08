@@ -5,6 +5,7 @@ import ReactModal from 'react-modal';
 import getEnv from "../../../utils/getEnv";
 import styled from "styled-components";
 import { borderRadius, shadows } from '@mui/system';
+import { inline } from '@floating-ui/core';
 
 ReactModal.setAppElement('#root');
 
@@ -41,6 +42,12 @@ const CuteButton = styled.button`
   margin-left: 5px;
 `;
 
+const ClockText = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+`
+
 const resetSelect = (setSelectedTimes) => {
   setSelectedTimes([]);
 }
@@ -62,7 +69,26 @@ const TimeSelect = ({selectedTimes, setSelectedTimes}) => {
     }};
   
     const rows = [];
+
+    //맨 처음 숫자 출력
+    const morningHourBlocks = [];
+    morningHourBlocks.push(
+      <span>오전</span>
+    )
+    for(let hour = 1; hour <= 12; hour += 1){
+
+      morningHourBlocks.push(
+        <span>{hour}시</span>
+      )
+    }
+
+    rows.push(
+      <ClockText>
+        {morningHourBlocks}
+      </ClockText>
+    )
   
+    //시간 선택 block
     for (let hour = 0; hour <= 13; hour += 12) {
       const timeBlocks = [];
   
@@ -85,11 +111,11 @@ const TimeSelect = ({selectedTimes, setSelectedTimes}) => {
             style={blockStyle}
             onClick={() => handleTimeClick(time)}
           >
-            {time % 1 === 0 && (
+            {/* {time % 1 === 0 && (
               <div style={{ position: 'absolute', top: '-30px', left: '50%', transform: 'translateX(-50%)' }}>
                 {time}시
               </div>
-            )}
+            )} */}
           </div>
         );
       }
@@ -100,7 +126,24 @@ const TimeSelect = ({selectedTimes, setSelectedTimes}) => {
         </div>
       );
     }
-  
+
+    //오후 숫자 입력
+    const afternoonHourBlocks = [];
+    afternoonHourBlocks.push(
+          <span>오후</span>
+    )
+    for(let hour = 1; hour <= 12; hour += 1){
+    
+      afternoonHourBlocks.push(
+        <span>{hour}시</span>
+      )
+    }
+    
+    rows.push(
+      <ClockText>
+        {afternoonHourBlocks}
+      </ClockText>
+    )
     return <div className="body">{rows}</div>;
 };
 
@@ -247,7 +290,7 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
             top: '50%',
             left: '50%',
             width: '90%',
-            height: '60%',
+            height: '70%',
             transform: 'translate(-50%, -50%)',
             border: '1px solid #ccc',
             background: 'rgba(122, 80, 0, 0.73)',
