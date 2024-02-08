@@ -34,6 +34,7 @@ const ChildVideoChattingStartPage = () => {
       width: '100vw',
     }}>
       <NormalNav />
+      <div style={{ marginTop: "5.7%" }}></div>
       <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
         <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
           <ChildCommonSidePanel 

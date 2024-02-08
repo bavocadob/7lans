@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -30,7 +30,9 @@ const ChildInfo = styled.div`
 const NormalNav = () => {
   const userInfo = useSelector((state) => state.user.value)
   const childInfo = useSelector((state) => state.child.value)
+  const volInfo = useSelector((state) => state.vol.value)
   const userType = useRef('')
+  const location = useLocation()
   
   userType.current = userInfo.memberType
   if (userType.current === 'CHILD') {
@@ -40,7 +42,11 @@ const NormalNav = () => {
           <LogoImage src="./7lans_logo.png" alt="logo" />
         </Link>
         <ChildInfo>
-              {childInfo.childName} 학생과의 공간입니다
+              {location.pathname !== '/child_dinosaur_dict' ? 
+                <div>
+                  {volInfo.volunteerName} 선생님과의 공간입니다
+                </div>
+                :''}
         </ChildInfo>
       </NavBar>
     );
@@ -52,7 +58,11 @@ const NormalNav = () => {
           <LogoImage src="./7lans_logo.png" alt="logo" />
         </Link>
         <ChildInfo>
-              {childInfo.childName} 학생과의 공간입니다
+              {location.pathname !== '/dinosaur_dict' ? 
+                <div>
+                  {childInfo.childName} 학생과의 공간입니다.
+                </div>
+                :''}
         </ChildInfo>
       </NavBar>
     );
@@ -64,7 +74,7 @@ const NormalNav = () => {
           <LogoImage src="./7lans_logo.png" alt="logo" />
         </Link>
         <ChildInfo>
-              {childInfo.childName} 학생과의 공간입니다
+              {/* {childInfo.childName} 학생과의 공간입니다 */}
         </ChildInfo>
       </NavBar>
     );

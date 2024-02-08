@@ -17,6 +17,7 @@ import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
 
+
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
   return (
     <div className="header row" style={{ marginBottom: '10px'}}>
