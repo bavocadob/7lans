@@ -6,7 +6,8 @@ import VideoChattingLobby from "./VideoChattingLobby.jsx";
 import VolunteerGamePage from "./VolunteerGamePage.jsx";
 
 const AppContainer = styled.div`
-    height: 100vh;
+    margin-top: 5.7%;
+    height: 90vh;
     //width: 100wh;
     display: flex;
     flex-direction: column;

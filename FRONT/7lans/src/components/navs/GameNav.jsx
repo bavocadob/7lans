@@ -12,6 +12,7 @@ const NavBar = styled.nav`
   background-color: rgb(255, 215, 3);
   display: flex;
   padding-right: 15%;
+  top: 0;
 `;
 
 const LogoImage = styled.img`
