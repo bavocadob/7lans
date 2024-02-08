@@ -9,15 +9,15 @@ public interface MeetingService {
 
     public List<MeetingScheduleResponseDto.monthList> findMeetingsByRelation(MeetingScheduleRequestDto.meetings meetingsDto);
 
-    List<MeetingScheduleResponseDto.imgList> getImgList(Long meetingId);
+    //List<MeetingScheduleResponseDto.imgList> getImgList(Long meetingId);
 
     void create(MeetingScheduleRequestDto.create meeting);
 
-    void changeThumbnail(Long imgId);
+    // void changeThumbnail(Long imgId);
 
-    Long saveImg(MeetingScheduleRequestDto.saveImg img);
+    //Long saveImg(MeetingScheduleRequestDto.saveImg img);
 
-    void choiceImg(List<MeetingScheduleRequestDto.choiceImg> imgs);
+    // void choiceImg(List<MeetingScheduleRequestDto.choiceImg> imgs);
 
     void openMeeting(MeetingScheduleRequestDto.openMeeting meetingDto);
 

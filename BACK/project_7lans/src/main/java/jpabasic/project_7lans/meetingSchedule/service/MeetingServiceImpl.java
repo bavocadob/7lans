@@ -4,10 +4,8 @@ import jpabasic.project_7lans.activityLog.entity.ActivityLog;
 import jpabasic.project_7lans.meetingSchedule.dto.MeetingScheduleRequestDto;
 import jpabasic.project_7lans.meetingSchedule.dto.MeetingScheduleResponseDto;
 import jpabasic.project_7lans.activityLog.repository.ActivityLogRepository;
-import jpabasic.project_7lans.meetingSchedule.entity.MeetingImage;
 import jpabasic.project_7lans.meetingSchedule.entity.MeetingSchedule;
 import jpabasic.project_7lans.meetingSchedule.entity.ScheduleType;
-import jpabasic.project_7lans.meetingSchedule.repository.MeetingImageRepository;
 import jpabasic.project_7lans.meetingSchedule.repository.MeetingScheduleRepository;
 import jpabasic.project_7lans.relation.entity.Relation;
 import jpabasic.project_7lans.relation.repository.RelationRepository;
@@ -15,15 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,7 +24,6 @@ public class MeetingServiceImpl implements MeetingService{
 
     private final MeetingScheduleRepository meetingRepository;
     private final RelationRepository relationRepository;
-    private final MeetingImageRepository meetingImageRepository;
     private final ActivityLogRepository activityLogRepository;
     //미팅 생성
     @Transactional
@@ -78,24 +68,6 @@ public class MeetingServiceImpl implements MeetingService{
         return monthMeeting;
     }
 
-    @Override
-    public List<MeetingScheduleResponseDto.imgList> getImgList(Long meetingId) {
-        MeetingSchedule meetingSchedule = meetingRepository.findById(meetingId)
-                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.getImgList] 해당 Id와 일치하는 meeting이 존재하지 않습니다."));
-
-        List<MeetingImage> images = meetingSchedule.getMeetingImageList();
-
-        List<MeetingScheduleResponseDto.imgList> responseImg = new ArrayList<>();
-        for(MeetingImage img : images){
-            responseImg.add(MeetingScheduleResponseDto.imgList.builder()
-                    .imgId(img.getId())
-                    .imgPath(img.getImgPath())
-                    .build());
-        }
-
-        return responseImg;
-    }
-
     //미팅 생성
     @Override
     @Transactional
@@ -121,77 +93,67 @@ public class MeetingServiceImpl implements MeetingService{
         meetingRepository.save(newMeeting);
     }
 
-    //썸네일 수정
-    @Override
-    public void changeThumbnail(Long imgId) {
-        MeetingImage img = meetingImageRepository.findById(imgId)
-                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.changeThumbnail] 해당 Id와 일치하는 meetingImg가 존재하지 않습니다."));
 
-        MeetingSchedule meetingSchedule = img.getMeetingSchedule();
+//    @Override
+//    @Transactional
+//    public Long saveImg(MeetingScheduleRequestDto.saveImg img) {
+//        String uploadPath = "https://i10e103.p.ssafy.io/images/";
+//
+//        File folder = new File(uploadPath);
+//
+//        if(!folder.exists()){
+//            try{
+//                folder.mkdir();
+//            }
+//            catch(Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//        String curDate = sdf.format(new Date());
+//        String ftype = img.getFile().getContentType();
+//
+//        String newFileName = curDate + Long.toString(System.nanoTime());
+//        if(ftype.equals("image/jpeg") || ftype.equals("image/jpg")){
+//            newFileName += ".jpg";
+//        }
+//        else {
+//            newFileName += ".png";
+//        }
+//
+//        Path copyOfLocation = Paths.get(uploadPath + File.separator + newFileName);
+//
+//        MeetingSchedule meeting = meetingRepository.findById(img.getMeetingId())
+//                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.saveImg] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
+//
+//        try{
+//            Files.copy(img.getFile().getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
+//
+//            MeetingImage image = MeetingImage.builder()
+//                    .imgPath(copyOfLocation.toString())
+//                    .serverFileName(newFileName)
+//                    .originFileName(img.getFile().getOriginalFilename())
+//                    .contentType(ftype)
+//                    .fileSize(img.getFile().getSize())
+//                    .build();
+//            meeting.addMeetingImage(image);
+//            return meetingImageRepository.save(image).getId();
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//
+//    }
 
-        meetingSchedule.changeThumbnail(img.getImgPath());
-    }
-
-    @Override
-    @Transactional
-    public Long saveImg(MeetingScheduleRequestDto.saveImg img) {
-        String uploadPath = "https://i10e103.p.ssafy.io/images/";
-
-        File folder = new File(uploadPath);
-
-        if(!folder.exists()){
-            try{
-                folder.mkdir();
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        String curDate = sdf.format(new Date());
-        String ftype = img.getFile().getContentType();
-
-        String newFileName = curDate + Long.toString(System.nanoTime());
-        if(ftype.equals("image/jpeg") || ftype.equals("image/jpg")){
-            newFileName += ".jpg";
-        }
-        else {
-            newFileName += ".png";
-        }
-
-        Path copyOfLocation = Paths.get(uploadPath + File.separator + newFileName);
-
-        MeetingSchedule meeting = meetingRepository.findById(img.getMeetingId())
-                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.saveImg] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
-
-        try{
-            Files.copy(img.getFile().getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
-
-            MeetingImage image = MeetingImage.builder()
-                    .imgPath(copyOfLocation.toString())
-                    .serverFileName(newFileName)
-                    .originFileName(img.getFile().getOriginalFilename())
-                    .contentType(ftype)
-                    .fileSize(img.getFile().getSize())
-                    .build();
-            meeting.addMeetingImage(image);
-            return meetingImageRepository.save(image).getId();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
-    @Override
-    @Transactional
-    public void choiceImg(List<MeetingScheduleRequestDto.choiceImg> imgs) {
-           for(MeetingScheduleRequestDto.choiceImg imgDto : imgs){
-                meetingImageRepository.deleteById(imgDto.getImgId());
-           }
-    }
+//    @Override
+//    @Transactional
+//    public void choiceImg(List<MeetingScheduleRequestDto.choiceImg> imgs) {
+//           for(MeetingScheduleRequestDto.choiceImg imgDto : imgs){
+//                meetingImageRepository.deleteById(imgDto.getImgId());
+//           }
+//    }
 
     @Override
     public void openMeeting(MeetingScheduleRequestDto.openMeeting meetingDto) {

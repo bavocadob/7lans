@@ -37,21 +37,21 @@ public class MeetingController {
         }
     }
 
-    //해당 날짜 사진들 보기
-    @Operation(summary = "해낭 날짜 사진들 보기")
-    @GetMapping("/image/{meetingId}")
-    public ResponseEntity<?> imageList(@PathVariable("meetingId") Long meetingId){
-        try{
-            List<MeetingScheduleResponseDto.imgList> imgList = meetingService.getImgList(meetingId);
-
-            return new ResponseEntity<List<MeetingScheduleResponseDto.imgList>>(imgList, HttpStatus.OK);
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    //해당 날짜 사진들 보기
+//    @Operation(summary = "해낭 날짜 사진들 보기")
+//    @GetMapping("/image/{meetingId}")
+//    public ResponseEntity<?> imageList(@PathVariable("meetingId") Long meetingId){
+//        try{
+//            List<MeetingScheduleResponseDto.imgList> imgList = meetingService.getImgList(meetingId);
+//
+//            return new ResponseEntity<List<MeetingScheduleResponseDto.imgList>>(imgList, HttpStatus.OK);
+//
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     //미팅 추가 하기
     @Operation(summary = "화상미팅 예약하기")
@@ -69,49 +69,49 @@ public class MeetingController {
         }
     }
 
-    //썸네일 수정하기
-    @Operation(summary = "지난(종료된) 화상미팅의 썸네일 사진 수정하기")
-    @GetMapping("/changethumbnail/{imgId}")
-    public ResponseEntity changeThumbnail(@PathVariable("imgId") Long imgId){
-        try{
-            meetingService.changeThumbnail(imgId);
+//    //썸네일 수정하기
+//    @Operation(summary = "지난(종료된) 화상미팅의 썸네일 사진 수정하기")
+//    @GetMapping("/changethumbnail/{imgId}")
+//    public ResponseEntity changeThumbnail(@PathVariable("imgId") Long imgId){
+//        try{
+//            meetingService.changeThumbnail(imgId);
+//
+//            return new ResponseEntity(HttpStatus.OK);
+//
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
-            return new ResponseEntity(HttpStatus.OK);
+//    //사진 1장 저장(캡쳐하면 1차적으로 무조건 저장)
+//    @Operation(summary = "캡쳐시 사진 1장 저장")
+//    @PostMapping("/image/saveImg")
+//    public ResponseEntity<Long> saveImg(@RequestBody @Valid MeetingScheduleRequestDto.saveImg img){
+//        try{
+//            return new ResponseEntity<>(meetingService.saveImg(img), HttpStatus.OK);
+//
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    //사진 1장 저장(캡쳐하면 1차적으로 무조건 저장)
-    @Operation(summary = "캡쳐시 사진 1장 저장")
-    @PostMapping("/image/saveImg")
-    public ResponseEntity<Long> saveImg(@RequestBody @Valid MeetingScheduleRequestDto.saveImg img){
-        try{
-            return new ResponseEntity<>(meetingService.saveImg(img), HttpStatus.OK);
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    //화상 종료 시 마음에 안드는 사진들 선택 및 삭제하기
-    @Operation(summary = "화상 종료 시 마음에 안드는 사진들 선택 및 삭제하기")
-    @PostMapping("/image/choice")
-    public ResponseEntity choiceImg(@RequestBody @Valid List<MeetingScheduleRequestDto.choiceImg> imgs){
-        try{
-            meetingService.choiceImg(imgs);
-            return new ResponseEntity(HttpStatus.OK);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    //화상 종료 시 마음에 안드는 사진들 선택 및 삭제하기
+//    @Operation(summary = "화상 종료 시 마음에 안드는 사진들 선택 및 삭제하기")
+//    @PostMapping("/image/choice")
+//    public ResponseEntity choiceImg(@RequestBody @Valid List<MeetingScheduleRequestDto.choiceImg> imgs){
+//        try{
+//            meetingService.choiceImg(imgs);
+//            return new ResponseEntity(HttpStatus.OK);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     //화상 시작
     @PostMapping("/open")

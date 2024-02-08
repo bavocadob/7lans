@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import jpabasic.project_7lans.activityLog.entity.ActivityLog;
+import jpabasic.project_7lans.meetingImage.entity.MeetingImage;
 import jpabasic.project_7lans.relation.entity.Relation;
 import lombok.*;
 
@@ -35,7 +36,7 @@ public class MeetingSchedule {
 
     private String meetingUrl = "meetingUrl";
 
-    @OneToMany(mappedBy = "imgPath", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "meetingSchedule", cascade = CascadeType.PERSIST)
     private List<MeetingImage> meetingImageList = new ArrayList<>();
 
     @OneToOne
