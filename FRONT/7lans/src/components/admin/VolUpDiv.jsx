@@ -66,18 +66,6 @@ const ChildList = styled.div`
   align-items: center;
 `;
 
-// const ChildCard = styled.div`
-//   width: 60%;
-//   height: 70%;
-//   margin-bottom: 5px;
-//   border: 2px solid black;
-//   border-radius: 10px;
-//   text-align: center;
-//   justify-content: center;
-//   align-items: center;
-//   margin-right: -20px;
-// `;
-
 const SearchChildContainer = styled.div`
   height: 100%;
   width: 60%;

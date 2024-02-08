@@ -19,6 +19,7 @@ import volSlice from "./volSlice";
 import volsSlice from "./volsSlice";
 import viewLetterSlice from "./viewLetterSlice";
 import userProfileSlice from "./userProfileSlice";
+import adminSelectChildSlice from "./adminSelectChildSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -29,6 +30,7 @@ const reducers = combineReducers({
   isPlayGameNow: isPlayGameNow,
   user: userSlice,
   adminSelectVol: adminSelectVolSlice,
+  adminSelectChild: adminSelectChildSlice,
   child: childSlice,
   children: childrenSlice,
   dino: dinoSlice,
