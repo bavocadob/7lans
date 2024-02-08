@@ -153,6 +153,7 @@ const ActiveEdit = ({activityLog, content, setContent}) => {
     navigate(-1)
   }
 
+  //녹음 받아쓰기 함수
   const {
     listening,
     transcript,
