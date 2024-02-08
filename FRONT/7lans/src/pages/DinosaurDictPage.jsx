@@ -253,11 +253,10 @@ const DinosaurDictPage = () => {
   };
 
   const CenteredModal = styled(Modal)`
-    background: rgb(255, 255, 255, 50%);
+    background: rgb(255, 255, 255, 70%);
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100%;
+    justify-content: center;
 `;
 
   const CenteredForm = styled(Form)`
@@ -267,13 +266,35 @@ const DinosaurDictPage = () => {
   `;
 
   const CenteredImage = styled(Form.Control)`
-    height: 300px;
-    width: 300px;
+    height: 350px;
+    width: 290px;
     display: flex;
     justify-content: center;
     align-items: center;
   `;
 
+  const StyledModal = styled(Modal)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255,255,255, 0.7);
+`;
+
+const ModalContent = styled.div`
+  width: 100%; /* 모달 너비 조정 */
+  background-color: rgb(208, 192, 237, 0.4);
+  border-radius: 60px;
+`;
+
+const StyledHeader = styled(Modal.Header)`
+  background-color: rgb(208, 192, 237, 0.9); /* 모달 헤더 배경색 설정 */
+  border-radius: 8px 8px 0px 0px;
+`;
+
+const StyledFooter = styled(Modal.Footer)`
+  background-color: rgb(208, 192, 237, 0.9); /* 모달 푸터 배경색 설정 */
+  border-radius: 0px 0px 8px 8px;
+`;
   //  최종 화면 구성
   return (
     <>
@@ -308,15 +329,11 @@ const DinosaurDictPage = () => {
           </div>
         </div>
       </div>
-      <CenteredModal
-        show={show}
-        onHide={() => setShow(false)}
-      >
-      
-        <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
-        <Modal.Header closeButton>
+      <StyledModal show={show} centered onClick={() => setShow(false)}>
+      <ModalContent>
+        <StyledHeader closeButton>
           <Modal.Title>나와 함께 할래?</Modal.Title>
-        </Modal.Header>
+        </StyledHeader>
         <Modal.Body>
           <CenteredForm>
             <CenteredImage
@@ -325,22 +342,22 @@ const DinosaurDictPage = () => {
             />
           </CenteredForm>
         </Modal.Body>
-        <Modal.Footer style={{justifyContent: 'space-between'}}>
+        <StyledFooter style={{ justifyContent: 'space-between' }}>
           <Button
             variant="secondary"
             onClick={() => changeMyDino(userInfo.memberId, chooseDino)}
           >
             함께하기
           </Button>
-          <Button variant="secondary" onClick={() => setShow(false)}>
+          <Button variant="secondary" onClick={() => setShow(false)} >
             취소
           </Button>
           {/* <Button variant='primary' onClick={handleSubmit}>
             생성
           </Button> */}
-        </Modal.Footer>
-        </Modal.Dialog>
-      </CenteredModal>
+        </StyledFooter>
+      </ModalContent>
+    </StyledModal>
     </>
   );
 };
