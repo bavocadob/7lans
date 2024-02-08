@@ -39,6 +39,8 @@ public class WhisperServiceImpl implements WhisperService{
                 .content(whisperCreateDto.getContent())
                 .build();
 
+        relation.getEgg().increaseExpByWritingWhisper();
+
         relation.addWhisperList(whisper);
 
 //         addWhisperList에 대한 테스트 필요.
