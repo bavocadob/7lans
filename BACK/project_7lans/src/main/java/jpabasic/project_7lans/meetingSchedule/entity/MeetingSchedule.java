@@ -39,7 +39,7 @@ public class MeetingSchedule {
     @OneToMany(mappedBy = "meetingSchedule", cascade = CascadeType.PERSIST)
     private List<MeetingImage> meetingImageList = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private ActivityLog activityLog;
 
 
@@ -58,7 +58,14 @@ public class MeetingSchedule {
         this.thumbnailImgPath = thumbnail;
     }
 
-    public void changeStatus(ScheduleType status){this.status = status;}
+    public void statusChangeToOpen(){
+        this.status = ScheduleType.OPENED;
+    };
+
+    public void statusChangeToClosed(){
+        this.status = ScheduleType.CLOSED;
+    };
+//    public void changeStatus(ScheduleType status){this.status = status;}
 
     public void addMeetingImage(MeetingImage meetingImage) {
         this.meetingImageList.add(meetingImage);
