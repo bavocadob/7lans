@@ -44,7 +44,8 @@ const ChatCardVol = styled.div`
 
 const CustomModal = styled(Modal)`
   width: 70%;
-  margin: 100px auto;
+  height: 60%;
+  margin: 150px auto;
   border-radius: 15px;
   outline: none;
   background: #fff;
@@ -54,6 +55,7 @@ const CustomModal = styled(Modal)`
 const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   height: 300px;
