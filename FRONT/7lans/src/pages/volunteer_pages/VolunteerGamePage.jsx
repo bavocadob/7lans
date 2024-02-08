@@ -31,7 +31,7 @@ const VolunteerGamePage = ({session, renderUserVideoComponent, mainStreamManager
         }
         if (gameSelector === 4) {
             return (
-                <Words/>
+                <Words session={session}/>
             )
         }
         return (
