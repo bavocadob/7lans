@@ -19,7 +19,6 @@ const RightSide = styled.div`
   border-radius: 0 20px 20px 0;
   background-color: rgb(255,255,255);
 `
-
 const WhisperPage = () => {
   const change = useSelector((state) => state.viewletter.value);
   const dispatch = useDispatch();

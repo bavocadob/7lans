@@ -5,19 +5,22 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import getEnv from "../../../utils/getEnv";
 
+
 const ChatContainer = styled.div`
-  background-color: #f5f5f5;
+  background-color: rgb(255, 248, 223);
   padding: 20px;
   border-radius: 10px;
-  height: 500px;
-  width: 90%;
+  height: 93%;
+  width: 95%;
   overflow-y: auto;
-  position: relative;
-`;
+  margin-top: 22px;
+  margin-left: 20px;
+  `;
 
 const ChatCardChild = styled.div`
-  background-color: #9785fd;
+  background-color: #a396ea;
   height: 40%;
+  width: 440px;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 15px;
@@ -27,19 +30,20 @@ const ChatCardChild = styled.div`
 `;
 
 const ChatCardVol = styled.div`
-  background-color: #8bf678;
+  background-color: #a4e399;
   height: 40%;
+  width: 440px;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 15px;
   cursor: pointer;
   position: relative;
-  margin-left: 50px;
+  margin-left: 400px;
+  margin-right: 20px;
 `;
 
 const CustomModal = styled(Modal)`
   width: 70%;
-  max-width: 400px;
   margin: 100px auto;
   border-radius: 15px;
   outline: none;
@@ -71,16 +75,35 @@ const ModalButton = styled.button`
 
 const WriteButton = styled.button`
   position: fixed;
-  bottom: 20px;
-  left: 50%;
+  bottom: 8%;
+  left: 82%;
   transform: translateX(-50%);
   padding: 10px;
   cursor: pointer;
-  background: #3498db;
-  color: #fff;
-  border: none;
+  background:rgba(255, 237, 140, 1);
+  font-weight: bold;
+  border: 2px solid rgb(255, 184, 36);
   border-radius: 5px;
 `;
+
+// button {
+//   background: linear-gradient(
+//               300deg,
+//               rgba(255, 184, 36, 1),
+//               rgba(255, 237, 140, 1));
+//   font-size: 19px;
+//   font-weight: bold;
+//   border: none;
+//   border-radius: 50px;
+//   margin: 0.5rem;
+//   padding: 0.5rem;
+//   height: 50px;
+//   width: 130px;
+//   margin-left: 35%;
+//   margin-top: 7%;
+//   color: white;
+//   text-decoration-line: none;
+// };
 
 const WriteModal = styled(Modal)`
   width: 70%;
@@ -191,6 +214,7 @@ const WhisperLetter = () => {
 
   return (
     <ChatContainer>
+      
       {chatMessages.map((message, index) =>
         message.writer === userName ? (
           <ChatCardVol key={index} onClick={() => openModal(message)}>
@@ -204,7 +228,7 @@ const WhisperLetter = () => {
         )
       )}
 
-      <WriteButton onClick={openWriteModal}>속닥속닥 쓰기</WriteButton>
+      <WriteButton onClick={openWriteModal}>속닥속닥 적어봐요</WriteButton>
       <CustomModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -229,7 +253,7 @@ const WhisperLetter = () => {
         contentLabel="Write Modal"
       >
         <WriteModalContainer>
-          <h2>속닥속닥 쓰기</h2>
+          <h2>속닥속닥 보내기</h2>
           <textarea
             rows={5}
             cols={55}
@@ -243,6 +267,7 @@ const WhisperLetter = () => {
           </ModalButtonContainer>
         </WriteModalContainer>
       </WriteModal>
+
     </ChatContainer>
   );
 };

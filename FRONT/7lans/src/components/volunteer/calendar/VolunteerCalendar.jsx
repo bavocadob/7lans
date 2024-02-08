@@ -16,8 +16,6 @@ import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
-setAppElement("#root");
-
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
   return (
@@ -149,24 +147,20 @@ const Meeting = ({ meeting, currentMonth, cloneDay }) => {
     return <div>{meeting.meetingId}</div>;
   }
 };
-
 const VolunteerCalendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
   const [meetings, setMeetings] = useState([]);
   const [relationId, setRelation] = useState(1);
-
   const navigate = useNavigate();
   const currentDate = new Date();
   const dayOfMonth = currentDate.getDate();
   const childInfo = useSelector((state) => state.child.value)
   const urlInfo = getEnv('API_URL');
-
   //해당 아동의 미팅 정보 불러오기
   useEffect(() => {
     //console.log("change")
-
     setRelation(childInfo.relationId);
     axios
       .post(`${urlInfo}/meetingSchedue`, {
