@@ -141,11 +141,10 @@ const Button = styled.button`
   border-radius: 50px;
   height: 40px;
   width: 100px;
-  margin-left: 90%;
+  margin-left: 160px;
   color: white;
   text-decoration-line: none;
   position: relative;
-  right: 7%;
 `;
 const CommonSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);

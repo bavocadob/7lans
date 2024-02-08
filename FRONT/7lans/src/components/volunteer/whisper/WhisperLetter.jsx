@@ -5,7 +5,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import getEnv from "../../../utils/getEnv";
 
-
 const ChatContainer = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 20px;
@@ -15,31 +14,33 @@ const ChatContainer = styled.div`
   overflow-y: auto;
   margin-top: 22px;
   margin-left: 20px;
-  `;
-
-const ChatCardChild = styled.div`
-  background-color: #a396ea;
-  height: 40%;
-  width: 440px;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 15px;
-  cursor: pointer;
-  position: relative;
-  margin-right: 50px;
 `;
 
+// 봉사자가 보내는 속닥속닥
 const ChatCardVol = styled.div`
-  background-color: #a4e399;
   height: 40%;
   width: 440px;
-  padding: 20px;
   margin-bottom: 20px;
   border-radius: 15px;
   cursor: pointer;
-  position: relative;
   margin-left: 400px;
-  margin-right: 20px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+`;
+
+// 아이가 보낸 속닥속닥
+const ChatCardChild = styled.div`
+  height: 40%;
+  width: 440px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
 `;
 
 const CustomModal = styled(Modal)`
@@ -68,21 +69,20 @@ const ModalContent = styled.div`
 const ModalButton = styled.button`
   padding: 10px;
   cursor: pointer;
-  background: #3498db;
-  color: #fff;
-  border: none;
+  background: rgba(255, 237, 140, 1);
+  font-weight: bold;
+  border: 2px solid rgb(255, 184, 36);
   border-radius: 5px;
-  margin-left: 5px;
 `;
 
 const WriteButton = styled.button`
   position: fixed;
   bottom: 8%;
-  left: 82%;
-  transform: translateX(-50%);
+  left: 78%;
+  /* transform: translateX(-50%); */
   padding: 10px;
   cursor: pointer;
-  background:rgba(255, 237, 140, 1);
+  background: rgba(255, 237, 140, 1);
   font-weight: bold;
   border: 2px solid rgb(255, 184, 36);
   border-radius: 5px;
@@ -127,7 +127,7 @@ const WriteModalContainer = styled.div`
 
 const ModalButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   margin-top: 20px;
 `;
@@ -216,16 +216,60 @@ const WhisperLetter = () => {
 
   return (
     <ChatContainer>
-      
       {chatMessages.map((message, index) =>
         message.writer === userName ? (
           <ChatCardVol key={index} onClick={() => openModal(message)}>
-            {message.content}
+            <img
+              src="../../notes.png"
+              style={{
+                width: "350px",
+                height: "230px",
+                position: "absolute",
+                transform: "scaleX(-1)",
+                transition: "transform 0.2s ease-in-out",
+              }}
+              onMouseEnter={(e) => (e.target.style.transform = "scale(1.01)")}
+              onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+            />
+            <div
+              style={{
+                position: "absolute",
+                left: "25%",
+                top: "27%",
+                right: "2%",
+                fontSize: "25px",
+              }}
+            >
+              {message.content}{" "}
+              <ChatDate>{new Date().toLocaleString()}</ChatDate>
+            </div>
+
             {/* 생성시간 넣기..? */}
           </ChatCardVol>
         ) : (
           <ChatCardChild key={index} onClick={() => openModal(message)}>
-            {message.content}
+            <img
+              src="../../notes.png"
+              style={{
+                width: "350px",
+                height: "230px",
+                position: "absolute",
+                transition: "transform 0.2s ease-in-out",
+              }}
+              onMouseEnter={(e) => (e.target.style.transform = "scale(1.01)")}
+              onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
+            />
+            <div
+              style={{
+                position: "absolute",
+                left: "6%",
+                top: "27%",
+                right: "2%",
+                fontSize: "25px",
+              }}
+            >
+              {message.content}
+            </div>
           </ChatCardChild>
         )
       )}
@@ -260,8 +304,15 @@ const WhisperLetter = () => {
             rows={5}
             cols={55}
             value={typingMessage}
-            onChange={(e) => setTypingMessage(e.target.value)}
+            placeholder="50자 이내로 작성하세요"
+            onChange={(e) => {
+              const inputValue = e.target.value;
+              if (inputValue.length <= 50) {
+                setTypingMessage(inputValue);
+              } else alert("50자 이내로 작성하세요💛");
+            }}
           />
+          {/* 90자 제한주기 */}
 
           <ModalButtonContainer>
             <ModalButton onClick={handleWriteMessage}>확인</ModalButton>
@@ -269,7 +320,6 @@ const WhisperLetter = () => {
           </ModalButtonContainer>
         </WriteModalContainer>
       </WriteModal>
-
     </ChatContainer>
   );
 };
