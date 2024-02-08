@@ -91,16 +91,29 @@ const GetActivityLog = (activityLogs, cloneDay, currentMonth) => {
 }
 
 const Activity = ({activityLog, currentMonth, cloneDay}) => {
-    // console.log(activityLog)
-    // console.log(currentMonth)
     if(activityLog){
         
         //TODO: activity log 상태에 따라 다른 이미지 출력
+        //제출 전, 제출 후(승인 전), 제출 후(승인 후)
+        //현재는 책, 알, 공룡 순으로 임의의 이미지 배정
+        //PREVIOUS_SUBMIT, SUBMIT, APPROVE
+
         if(currentMonth.getMonth() == cloneDay.getMonth()){
-        return (
+            let thumbnail = ""
+            //제출 완료
+            if(activityLog.approveStatus){
+                thumbnail = getEnv('APPROVE')
+            }
+            else if(activityLog.writeDoneStatus){
+                thumbnail = getEnv('SUBMIT')
+            }
+            else{
+                thumbnail = getEnv('PREVIOUS_SUBMIT')
+            }
+            return (
                 <div>
                     {activityLog.activityLogId}
-                    <img    src={`./activity_log/activityLog_approve.png`} 
+                    <img    src={thumbnail} 
                             alt=""  
                             style={{ width: '100%'}}/>
                 </div>
