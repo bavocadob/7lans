@@ -86,6 +86,7 @@ const Quiz = ({
     const receiveAns = ((event) => {
         const submittedAns = event.data;
         setAnsCorrect(submittedAns);
+        dispatch(gameChange(true));
     })
 
     useEffect(() => {
