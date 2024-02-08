@@ -9,7 +9,23 @@ import lombok.NoArgsConstructor;
 
 public class MeetingScheduleResponseDto {
 
-    //일정 달력 조회
+    /*
+    위에서부터 아래로 내려가는 방향 순서대로
+    생성, 조회, 수정, 삭제의 코드가 있다.
+    가장 아래는 현재 사용되지 않으면서 주석처리된 코드들이 있다.
+     */
+
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 생성
+
+
+    // =================================================================================================================
+    // =================================================================================================================
+    // 조회
+
+    // 일정 년도, 일정 월의 화상 미팅 조회
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class monthList{
@@ -40,23 +56,35 @@ public class MeetingScheduleResponseDto {
         }
     }
 
-    //이미지 조회
-    @Getter
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class imgList{
-        @NotNull(message = "[MeetingScheduleRequestDto.imgList] imgId 는 Null 일 수 없습니다.")
-        Long imgId;
-        @NotNull(message = "[MeetingScheduleRequestDto.imgList] imgPath 는 Null 일 수 없습니다.")
-        String imgPath;
+    // =================================================================================================================
+    // =================================================================================================================
+    // 수정
 
+    // =================================================================================================================
+    // =================================================================================================================
+    // 삭제
 
-        @Builder
-        imgList(
-                Long imgId,
-                String imgPath
-        ){
-            this.imgId = imgId;
-            this.imgPath = imgPath;
-        }
-    }
+    // =================================================================================================================
+    // =================================================================================================================
+    // 일단 주석된 코드들
+
+//    //이미지 조회
+//    @Getter
+//    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+//    public static class imgList{
+//        @NotNull(message = "[MeetingScheduleRequestDto.imgList] imgId 는 Null 일 수 없습니다.")
+//        Long imgId;
+//        @NotNull(message = "[MeetingScheduleRequestDto.imgList] imgPath 는 Null 일 수 없습니다.")
+//        String imgPath;
+//
+//
+//        @Builder
+//        imgList(
+//                Long imgId,
+//                String imgPath
+//        ){
+//            this.imgId = imgId;
+//            this.imgPath = imgPath;
+//        }
+//    }
 }
