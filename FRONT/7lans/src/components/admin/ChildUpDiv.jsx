@@ -139,6 +139,7 @@ function ChildUpDiv() {
       .catch((err) => {
         console.log(err, "ChildUpDiv, 특이사항쓰기 에러");
       });
+    setNote("");
     setShowModal(false); // 모달 닫기
   };
 
