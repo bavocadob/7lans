@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FaEnvelope, FaPhone, FaHome, FaClock, FaBirthdayCake, FaEdit } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaHome, FaClock, FaBirthdayCake, FaEdit, FaRegBell } from 'react-icons/fa';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux'
 import { getDownloadURL, getStorage, uploadBytesResumable, ref as strRef } from 'firebase/storage';
@@ -11,7 +11,7 @@ const StyledDinosaurSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 2rem;
   color: white;
-  max-width: 300px;
+  width: 350px;
   border-radius: 20px 0 0 20px;
   height: 100%;
   
@@ -24,15 +24,16 @@ const StyledDinosaurSidePanel = styled.div`
 const InnerContainer = styled.div`
   height: 40%;
   position: relative;
-  
-  @media (max-width: 768px) {
-    height: 100%;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CloseButton = styled.button`
   position: absolute;
-  left: 85%;
+  left: 96%;
+  top: 0;
   border-radius: 25px;
   border: none;
   background-color: rgb(255, 248, 223);
@@ -45,13 +46,12 @@ const CloseButton = styled.button`
 `;
 
 const ProfileImage = styled.img`
-  position: absolute;
-  left: 9%;
-  top: 2%;
+  paddingright: 15px;
   height: 9rem;
   width: 9rem;
   border-radius: 100px;
-  border: 5px solid rgb(0, 0, 0);
+  border: 4px solid rgb(45,45,45);
+  padding: 2px;
   
   @media (max-width: 768px) {
     position: relative;
@@ -82,17 +82,17 @@ const DetailContainer = styled.div`
   width: 100%;
   height: 100%;
   color: rgb(0, 0, 0);
-  padding: 1rem;
+  padding: 2rem;
   background-color: rgb(255, 255, 255);
   box-shadow: 2px 2px 1px rgb(240, 165, 8, 0.7);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  
-  @media (max-width: 768px) {
-    margin-top: 0;
-  }
+  justify-content: flex-start;
+  align-items: center;
+  font-size:20px;
+  position: relative;  
+}
 `;
 
 const DetailParagraph = styled.p`
@@ -102,7 +102,9 @@ const DetailParagraph = styled.p`
 `;
 
 const StyledFaEdit = styled(FaEdit)`
-  color: black;
+  position: absolute;
+  left: 67%;
+  top: 69%;
   cursor: pointer;
   height: 30px;
   width: 30px
@@ -111,14 +113,15 @@ const StyledFaEdit = styled(FaEdit)`
 const DinosaurSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
   const userInfo = useSelector((state) => state.user.value)
-
+ 
   const userProfile = useSelector((state) => state.userProfile.value)
   const ref = useRef(null)
   const dispatch = useDispatch()
   const handleOpenImage = () => {
     ref.current.click()
+    
   }
-
+  console.log(userInfo)
   const handleUploadImage = (event) => {
     
     const file = event.target.files[0]
@@ -180,30 +183,51 @@ const DinosaurSidePanel = () => {
     );
   }
 
+  // 함께한 날짜세기
+  const currentDate = new Date();
+  const enterdDate = new Date(userInfo.enterDate);
+  const diffTime = Math.abs(currentDate - enterdDate);
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+
   const renderSidePanel = () => {
     if (sidePanelStatus) {
       return (
+        
         <StyledDinosaurSidePanel>
           <InnerContainer>
+          <div>
             <CloseButton onClick={() => setSidePanelStatus(false)}>{"<<"}</CloseButton>
             <ProfileImage src={`${userProfile}`} alt="" />
-            <StyledFaEdit onClick={handleOpenImage} />
+          </div>
+          <div onClick={handleOpenImage} style={{color: 'rgb(45,45,45)', fontSize: '16px', display:'flex', alignItems: 'flex-end', gap: '13px' }}> 
+            <StyledFaEdit/> 
+          </div>
             <input type="file" accept='image/jpeg, image/png' ref={ref} onChange={handleUploadImage} style={{display: 'none'}}/>
           </InnerContainer>
           <InfoContainer>
             <NameHeader>{userInfo.volunteerName} 봉사자님</NameHeader>
             <DetailContainer>
-              <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} />{userInfo.email}</DetailParagraph>
-              <DetailParagraph><FaPhone style={{ marginRight: '10px' }} />{userInfo.phoneNumber}</DetailParagraph>
+              <div>
+              <DetailParagraph><FaEnvelope style={{ marginRight: '10px' }} /> {userInfo.email}</DetailParagraph>
+              <DetailParagraph><FaPhone style={{ marginRight: '10px' }} /> {userInfo.phoneNumber}</DetailParagraph>
               {/* <DetailParagraph><FaHome style={{ marginRight: '10px' }} />SSAFY 보듬 센터</DetailParagraph> 봉사자는 다른 정보 제공 */} 
-              <DetailParagraph><FaClock style={{ marginRight: '10px' }} />{userInfo.enterDate}</DetailParagraph>
               <DetailParagraph><FaBirthdayCake style={{ marginRight: '10px' }} />{userInfo.birth}</DetailParagraph>
+              </div>
+              <div style={{position: 'absolute', bottom: '13%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{fontSize: '25px', fontWeight: 'bold'}}> 7Lans와 함께 한지 </div>
+              <div style={{background: 'rgb(255, 248, 223)', width: '100%', borderRadius: '5px', fontSize: '25px', fontWeight: 'bold', textAlign: 'center'}}>
+              💛 {diffDays} 일째 💛
+              </div>
+              
+              </div>
             </DetailContainer>
           </InfoContainer>
         </StyledDinosaurSidePanel>
       );
     } else {
       return (
+        // 좌측 패널 열기
         <button style={{height: '25px', borderRadius: '25px', backgroundColor: 'rgb(255, 248, 223)', fontWeight: 'bold', color: 'rgb(240, 165, 8)', margin: '2rem', border: 'none' }} onClick={() => setSidePanelStatus(true)}>{">>"}</button>
       );
     }
