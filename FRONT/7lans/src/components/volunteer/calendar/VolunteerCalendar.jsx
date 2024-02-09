@@ -125,7 +125,7 @@ const GetMeeting = (meetings, cloneDay, currentMonth) => {
 };
 
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
+const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings, childInfo }) => {
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
@@ -170,6 +170,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
             meeting={meeting}
             currentMonth={currentMonth}
             cloneDay={cloneDay}
+            childInfo={childInfo}
           />
         </div>
       );
@@ -186,7 +187,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
 };
 
 //달력 칸에 썸네일 출력하기
-const Meeting = ({ meeting, currentMonth, cloneDay }) => {
+const Meeting = ({ meeting, currentMonth, cloneDay, childInfo }) => {
   //console.log(meeting);
   // console.log(currentMonth);
   // console.log(cloneDay);
@@ -195,11 +196,12 @@ const Meeting = ({ meeting, currentMonth, cloneDay }) => {
     let thumbnail = ""
     let printTime = ""
     
-    if(meeting.status == "SCHEDULED"){//예정이라면 사진과 시간
-        thumbnail = getEnv('DEFAULT_THUMBNAIL')
-        printTime = "시"
+    console.log(childInfo)
+    if(meeting.status == "SCHEDULED"){//예정이라면 프로필 사진과 시간  
+      thumbnail = childInfo.childProfileImagePath
+      printTime = childInfo.childName + " : " + meeting.time.substring(0, 2) + "시" + meeting.time.substring(3, 5) + "분"
     }
-    else if(meeting.status == "OPENED"){//열렸다면 환영하는 문구
+    else if(meeting.status == "OPENED"){//열렸다면 환영하는 문구와 프로필 사진
         thumbnail = getEnv('DEFAULT_THUMBNAIL')
         printTime = "어서와!"
     }
@@ -328,6 +330,7 @@ const VolunteerCalendar = () => {
         selectedDate={selectedDate}
         onDateClick={onDateClick}
         meetings={meetings}
+        childInfo={childInfo}
       />
       {isModalOpen && (
         <MeetingModal

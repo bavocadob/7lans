@@ -90,7 +90,7 @@ const GetMeeting = (meetings, cloneDay, currentMonth) => {
 }
 
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
+const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings, volInfo}) => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
@@ -135,6 +135,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
                     meeting = {meeting}
                     currentMonth = {currentMonth}
                     cloneDay = {cloneDay}
+                    volInfo = {volInfo}
                   />
               </div>,
           );
@@ -152,7 +153,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings}) => {
     return <div className="body">{rows}</div>;
 };
 
-const Meeting = ({meeting, currentMonth, cloneDay}) => {
+const Meeting = ({meeting, currentMonth, cloneDay, volInfo}) => {
     //console.log(meeting);
     //console.log(currentMonth.getMonth());
     //console.log(cloneDay);
@@ -161,9 +162,10 @@ const Meeting = ({meeting, currentMonth, cloneDay}) => {
         let thumbnail = ""
         let printTime = ""
         
+        console.log(volInfo)
         if(meeting.status == "SCHEDULED"){//예정이라면 사진과 시간
-            thumbnail = getEnv('DEFAULT_THUMBNAIL')
-            printTime = "시"
+            thumbnail = volInfo.volunteerProfileImagePath
+            printTime = volInfo.volunteerName + " : " + meeting.time.substring(0, 2) + "시" + meeting.time.substring(3, 5) + "분"
         }
         else if(meeting.status == "OPENED"){//열렸다면 환영하는 문구
             thumbnail = getEnv('DEFAULT_THUMBNAIL')
@@ -270,6 +272,7 @@ const ChildCalendar = () => {
                     selectedDate={selectedDate}
                     onDateClick={onDateClick}
                     meetings = {meetings}
+                    volInfo={volInfo}
                 />
             </div>
       
