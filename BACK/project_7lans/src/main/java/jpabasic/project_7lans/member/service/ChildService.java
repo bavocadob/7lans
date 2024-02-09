@@ -21,8 +21,6 @@ public interface ChildService {
     // 해당 센터의 아동 리스트
     public List<ChildResponseDto.listByCenter> listByCenter(Long centerId);
 
-    public List<VolunteerResponseDto.list> volunteerList(Long childId);
-
     // 관리자가 센터 관리화면에서 선택한 봉사자와 친구 추가가 되어 있지 않은 아동 리스트
     public List<ChildResponseDto.childListByVolunteerAndCenter> childListByVolunteerAndCenter(ChildRequestDto.childListByVolunteerAndCenter childReqDto);
 

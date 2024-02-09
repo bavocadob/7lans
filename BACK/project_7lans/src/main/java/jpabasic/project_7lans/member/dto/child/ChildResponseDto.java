@@ -17,6 +17,7 @@ public class ChildResponseDto {
     // ================================================================================================================
     // 조회
 
+    // 아동 상세 조회
     @Getter
     @Builder
     public static class detail {

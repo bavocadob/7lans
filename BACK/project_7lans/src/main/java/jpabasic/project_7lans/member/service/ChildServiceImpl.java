@@ -55,6 +55,7 @@ public class ChildServiceImpl implements ChildService {
                 .build();
     }
 
+    // ================================================================================================================
     //해당 봉사자의 아이 리스트
     @Override
     public List<ChildResponseDto.listByVolunteer> listByVolunteer(Long volunteerId) {
@@ -73,21 +74,7 @@ public class ChildServiceImpl implements ChildService {
         return children;
     }
 
-    public List<VolunteerResponseDto.list> volunteerList(Long childId) {
-        Child child = childRepository.findById(childId)
-                .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.volunteerList] 해당 Id와 일치하는 Volunteer가 존재하지 않습니다."));
-
-        List<Relation> relationsList = relationRepository.findByChild(child);
-
-        List<VolunteerResponseDto.list> volunteers = new ArrayList<>();
-        for (Relation relation : relationsList) {
-            Volunteer volunteer = relation.getVolunteer();
-            volunteers.add(VolunteerResponseDto.toListDto(volunteer, relation));
-        }
-
-        return volunteers;
-    }
-
+    // ================================================================================================================
     // 해당 센터의 아동 리스트
     @Override
     public List<ChildResponseDto.listByCenter> listByCenter(Long centerId) {
@@ -104,6 +91,7 @@ public class ChildServiceImpl implements ChildService {
         return childrenResponse;
     }
 
+    // ================================================================================================================
     // 관리자가 센터 관리화면에서 선택한 봉사자와 친구 추가가 되어 있지 않은 아동 리스트
     @Override
     public List<ChildResponseDto.childListByVolunteerAndCenter> childListByVolunteerAndCenter(ChildRequestDto.childListByVolunteerAndCenter childReqDto) {
