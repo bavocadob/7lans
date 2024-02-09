@@ -26,7 +26,7 @@ const VolunteerGamePage = ({session, renderUserVideoComponent, mainStreamManager
         }
         if (gameSelector === 3) {
             return (
-                <Gugudan/>
+                <Gugudan session={session} />
             )
         }
         if (gameSelector === 4) {
