@@ -144,10 +144,14 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
 };
 const Meeting = ({ meeting, currentMonth, cloneDay }) => {
   //console.log(meeting);
-  //console.log(currentMonth.getMonth());
-  //console.log(cloneDay);
-  if (currentMonth.getMonth() == cloneDay.getMonth()) {
-    return <div>{meeting.meetingId}</div>;
+  // console.log(currentMonth);
+  // console.log(cloneDay);
+  if (meeting && currentMonth.getMonth() == cloneDay.getMonth()) {
+    //return <div>{meeting.thumbnailImgPath}</div>;
+    return <img 
+              src={meeting.thumbnailImgPath}
+              alt=""  
+              style={{ width: '100%'}}></img>
   }
 };
 const VolunteerCalendar = () => {

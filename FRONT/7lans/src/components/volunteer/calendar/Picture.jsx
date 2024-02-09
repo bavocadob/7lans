@@ -1,5 +1,5 @@
 import { Button } from 'bootstrap'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom'
 import styled from 'styled-components';
@@ -52,7 +52,7 @@ const Desk = styled.div`
   top: 95%;
 `;
 
-
+//이미지 렌덤한 각으로 돌려서 출력
 function Images({image}){
   return(
     <Outer>
@@ -67,62 +67,54 @@ function Images({image}){
     </Outer>
   )
 }
-const Picture = () => {
 
+
+const Picture = () => {
+  const [images, setImages] = useState([])
+  
   //부모에게서 전달받은 값
   const location = useLocation();
   const state = {...location.state};
+  
   const urlInfo = getEnv('API_URL');
 
   //console.log("Picture")
   //console.log(state.meetingId);
 
-
   //이미지 데이터 가져오기
-  axios.get(`${urlInfo}/meetingSchedue/image/${state.meetingId}`)
-  .then(function (response) {
-      console.log(response)
-  }).catch(function (error){
+  useEffect(() => {
+    axios.get(`${urlInfo}/meetingImage/${state.meetingId}`)
+      .then((res) => {
+        //console.log(res)
 
-  }).then(function() {
+        const image = [];
 
-  });
+        res.data.map((meetingImage, index) => {
+          image.push(meetingImage)
+        })
 
-  const images = [
-    {
-      id: '1',
-      src: "7lans_logo.png"
-     },
-     {
-      id: '2',
-      src: "7lans_logo1.png"
-     },
-     {
-      id: '3',
-      src: "7lans_logo2.png"
-     },
-     {
-      id: '4',
-      src: "7lans_logo3.png"
-     },
-     {
-      id: '5',
-      src: "anonymous.jpg"
-     },]
+        setImages(image)
+      
+      }).catch((error) => {
+
+    }).then(() => {
+
+    });
+  }, []);
 
   return (
     <div>
     {images.map((element) => (
       <Images 
-        key={element.id}
-        image={element.src}
+        key={element.meetingImageId}
+        image={element.meetingImagePath}
         />
     ))}
     
-    <div>
-      <Blackboard src="blackboard.png"/>
-    </div>
-    <Desk></Desk>
+      <div>
+        <Blackboard src="blackboard.png"/>
+      </div>
+      <Desk></Desk>
     </div>
     
     
