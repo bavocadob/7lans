@@ -142,16 +142,26 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
   }
   return <div className="body">{rows}</div>;
 };
+
+//달력 칸에 썸네일 출력하기
 const Meeting = ({ meeting, currentMonth, cloneDay }) => {
   //console.log(meeting);
   // console.log(currentMonth);
   // console.log(cloneDay);
   if (meeting && currentMonth.getMonth() == cloneDay.getMonth()) {
-    //return <div>{meeting.thumbnailImgPath}</div>;
-    return <img 
-              src={meeting.thumbnailImgPath}
-              alt=""  
-              style={{ width: '100%'}}></img>
+
+    //console.log(meeting.thumbnailImgPath)
+    if(meeting.thumbnailImgPath != "defaultThumbnailImgPath"){
+      return <img 
+                src={meeting.thumbnailImgPath}
+                alt=""  
+                style={{ width: '100%'}}></img>
+    }
+    else{
+      return <img
+                src={'./egg_img.png'}
+                style={{width: '100%'}}></img>
+    }
   }
 };
 const VolunteerCalendar = () => {
@@ -181,7 +191,7 @@ const VolunteerCalendar = () => {
         //console.log(res);
       })
       .catch((err) => {});
-  }, [childInfo, currentMonth]);
+  }, [childInfo, currentMonth, isModalOpen]);
 
   const prevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));

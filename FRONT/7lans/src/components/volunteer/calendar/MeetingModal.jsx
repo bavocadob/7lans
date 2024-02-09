@@ -178,8 +178,8 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
       //해당 월의 미팅 목록 생성하기
       axios.post(`${urlInfo}/meetingSchedue/create`,{
         relationId: childInfo.relationId,
-        ScheduledStartTime: createStart,
-        ScheduledEndTime: createEnd
+        scheduledStartTime: createStart,
+        scheduledEndTime: createEnd
       })
       .then((res) => {
         console.log(res)
