@@ -13,8 +13,10 @@ import java.time.LocalDateTime;
 
 public class ChildResponseDto {
 
-    // ===============================================================================
+    // ================================================================================================================
+    // ================================================================================================================
     // 조회
+
     @Getter
     @Builder
     public static class detail {
@@ -37,43 +39,69 @@ public class ChildResponseDto {
         @NotNull(message = "[ChildResponseDto.detail] childSpecialContent 는 Null 일 수 없습니다.")
         private String childSpecialContent;
 
-        public static ChildResponseDto.detail toDetailDto(Child child){
-            return detail.builder()
-                    .childId(child.getId())
-                    .childEmail(child.getEmail())
-                    .childName(child.getName())
-                    .childPhoneNumber(child.getPhoneNumber())
-                    .childBirth(child.getBirth())
-                    .childProfileImagePath(child.getProfileImgPath())
-                    .childEnterDate(child.getEnterDate())
-                    .childCenterName(child.getChildCenter().getName())
-                    .childSpecialContent(child.getSpecialContent())
-                    .build();
+        // 아래의 toDTO 활용
+        @Builder
+        detail(
+                Long childId,
+                String childEmail,
+                String childName,
+                String childPhoneNumber,
+                LocalDate childBirth,
+                String childProfileImagePath,
+                LocalDateTime childEnterDate,
+                String childCenterName,
+                String childSpecialContent
+        ){
+            this.childId = childId;
+            this.childEmail = childEmail;
+            this.childName = childName;
+            this.childPhoneNumber = childPhoneNumber;
+            this.childBirth = childBirth;
+            this.childProfileImagePath = childProfileImagePath;
+            this.childEnterDate = childEnterDate;
+            this.childCenterName = childCenterName;
+            this.childSpecialContent = childSpecialContent;
         }
     }
 
+    // detail 를 위한 DTO
+    public static ChildResponseDto.detail toDetailDto(Child child){
+        return detail.builder()
+                .childId(child.getId())
+                .childEmail(child.getEmail())
+                .childName(child.getName())
+                .childPhoneNumber(child.getPhoneNumber())
+                .childBirth(child.getBirth())
+                .childProfileImagePath(child.getProfileImgPath())
+                .childEnterDate(child.getEnterDate())
+                .childCenterName(child.getChildCenter().getName())
+                .childSpecialContent(child.getSpecialContent())
+                .build();
+    }
+
+    // ================================================================================================================
+    // 봉사자의 아동 리스트 반환
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class list {
-        @NotNull(message = "[ChildResponseDto.list] childId 는 Null 일 수 없습니다.")
+    public static class listByVolunteer{
+        @NotNull(message = "[ChildResponseDto.listByVolunteer] childId 는 Null 일 수 없습니다.")
         private Long childId;
-        @NotNull(message = "[ChildResponseDto.list] childName 은 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByVolunteer] childName 은 Null 일 수 없습니다.")
         private String childName;
-        @NotNull(message = "[ChildResponseDto.list] childBirth 은 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByVolunteer] childBirth 은 Null 일 수 없습니다.")
         private LocalDate childBirth;
-        @NotNull(message = "[ChildResponseDto.list] childProfileImagePath 는 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByVolunteer] childProfileImagePath 는 Null 일 수 없습니다.")
         private String childProfileImagePath;
-        @NotNull(message = "[ChildResponseDto.list] childCenterName 는 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByVolunteer] childCenterName 는 Null 일 수 없습니다.")
         private String childCenterName;
-        @NotNull(message = "[ChildResponseDto.list] childSpecialContent 는 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByVolunteer] childSpecialContent 는 Null 일 수 없습니다.")
         private String childSpecialContent;
-        @NotNull(message = "[ChildResponseDto.list] relationId 는 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByVolunteer] relationId 는 Null 일 수 없습니다.")
         private Long relationId;
 
-
-
+        // 아래의 toDTO 활용
         @Builder
-        list(
+        listByVolunteer(
                 Long childId,
                 String childName,
                 LocalDate childBirth,
@@ -92,22 +120,39 @@ public class ChildResponseDto {
         }
     }
 
+    // listByVolunteer 를 위한 DTO
+    public static ChildResponseDto.listByVolunteer toListByVolunteerDto(Child child, Relation relation) {
+        return listByVolunteer.builder()
+                .childId(child.getId())
+                .childName(child.getName())
+                .childBirth(child.getBirth())
+                .childProfileImagePath(child.getProfileImgPath())
+                .childCenterName(child.getChildCenter().getName())
+                .childSpecialContent(child.getSpecialContent())
+                .relationId(relation.getId())
+                .build();
+    }
+
+
+    // ================================================================================================================
+    // 해당 센터의 아동 리스트
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class noRelationList {
-        @NotNull(message = "[ChildResponseDto.list] childId 는 Null 일 수 없습니다.")
+    public static class listByCenter {
+        @NotNull(message = "[ChildResponseDto.listByCenter] childId 는 Null 일 수 없습니다.")
         private Long childId;
-        @NotNull(message = "[ChildResponseDto.list] childName 은 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByCenter] childName 은 Null 일 수 없습니다.")
         private String childName;
-        @NotNull(message = "[ChildResponseDto.list] childBirth 은 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByCenter] childBirth 은 Null 일 수 없습니다.")
         private LocalDate childBirth;
-        @NotNull(message = "[ChildResponseDto.list] childPhoneNumber 은 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByCenter] childPhoneNumber 은 Null 일 수 없습니다.")
         private String childPhoneNumber;
-        @NotNull(message = "[ChildResponseDto.list] childChildCenterId 는 Null 일 수 없습니다.")
+        @NotNull(message = "[ChildResponseDto.listByCenter] childChildCenterId 는 Null 일 수 없습니다.")
         private String childCenterName;
 
+        // 아래의 toDTO 활용
         @Builder
-        noRelationList(
+        listByCenter(
                 Long childId,
                 String childName,
                 LocalDate childBirth,
@@ -122,6 +167,19 @@ public class ChildResponseDto {
         }
     }
 
+    // listByCenter 를 위한 DTO
+    public static ChildResponseDto.listByCenter toListByCenterDto(Child child) {
+        return listByCenter.builder()
+                .childId(child.getId())
+                .childName(child.getName())
+                .childBirth(child.getBirth())
+                .childCenterName(child.getChildCenter().getName())
+                .childPhoneNumber(child.getPhoneNumber())
+                .build();
+    }
+
+    // ================================================================================================================
+    // 관리자가 센터 관리화면에서 선택한 봉사자와 친구 추가가 되어 있지 않은 아동 리스트
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class childListByVolunteerAndCenter{
@@ -136,6 +194,7 @@ public class ChildResponseDto {
         @NotNull(message = "[ChildResponseDto.childListByVolunteerAndCenter] childChildCenterId 는 Null 일 수 없습니다.")
         private String childCenterName;
 
+        // 아래의 toDTO 활용
         @Builder
         childListByVolunteerAndCenter(
                 Long childId,
@@ -152,31 +211,7 @@ public class ChildResponseDto {
         }
     }
 
-    // ===============================================================================
-    // 생성 매소드
-
-    public static ChildResponseDto.list toListDto(Child child, Relation relation) {
-        return list.builder()
-                .childId(child.getId())
-                .childName(child.getName())
-                .childBirth(child.getBirth())
-                .childProfileImagePath(child.getProfileImgPath())
-                .childCenterName(child.getChildCenter().getName())
-                .childSpecialContent(child.getSpecialContent())
-                .relationId(relation.getId())
-                .build();
-    }
-
-    public static ChildResponseDto.noRelationList toNoRelationListDto(Child child) {
-        return noRelationList.builder()
-                .childId(child.getId())
-                .childName(child.getName())
-                .childBirth(child.getBirth())
-                .childCenterName(child.getChildCenter().getName())
-                .childPhoneNumber(child.getPhoneNumber())
-                .build();
-    }
-
+    // childListByVolunteerAndCenter 를 위한 DTO
     public static ChildResponseDto.childListByVolunteerAndCenter toChildListByVolunteerAndCenterDto(Child child) {
         return childListByVolunteerAndCenter.builder()
                 .childId(child.getId())
@@ -187,4 +222,6 @@ public class ChildResponseDto {
                 .build();
     }
 
+    // ================================================================================================================
+    // ================================================================================================================
 }

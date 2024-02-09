@@ -21,29 +21,17 @@ public class ChildController {
 
     private final ChildService childService;
 
-    //나의 봉사자 리스트
-    @Operation(summary = "아동이 나의 봉사자 리스트 조회")
-    @GetMapping("/list/{childId}")
-    public ResponseEntity<List<VolunteerResponseDto.list>> volunteerList(@PathVariable("childId") Long childId){
-        try{
-            List<VolunteerResponseDto.list> volunteers = childService.volunteerList(childId);
-            return new ResponseEntity<List<VolunteerResponseDto.list>>(volunteers, HttpStatus.OK);
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    //아동 상세보기
+    // ================================================================================================================
+    // ================================================================================================================
+    // 조회
+    // 아동 상세보기
     @Operation(summary = "특정 아동 상세 조회")
     @GetMapping("/{childId}")
-    public ResponseEntity<?> childDetail(@PathVariable("childId") Long childId){
+    public ResponseEntity<ChildResponseDto.detail> childDetail(@PathVariable("childId") Long childId){
         try{
 
             ChildResponseDto.detail child = childService.childDetail(childId);
-            return new ResponseEntity<ChildResponseDto.detail>(child, HttpStatus.OK);
+            return new ResponseEntity(child, HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -51,14 +39,62 @@ public class ChildController {
         }
     }
 
-    @Operation(summary = "센터에서 봉사자와 친구 추가하지 않은 아동 리스트")
+    // 봉사자의 아동 리스트 반환
+    @Operation(summary = "봉사자의 아동 리스트 반환")
+    @GetMapping("/listByVolunteer/{volunteerId}")
+    public ResponseEntity<List<ChildResponseDto.listByVolunteer>> listByVolunteer(@PathVariable("volunteerId") Long volunteerId){
+        try{
+            List<ChildResponseDto.listByVolunteer> children = childService.listByVolunteer(volunteerId);
+            return new ResponseEntity(children, HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 해당 센터의 아동 리스트
+    @Operation(summary = "해당 센터의 아동 리스트")
+    @GetMapping("/listByCenter/{centerId}")
+    public ResponseEntity<List<ChildResponseDto.listByCenter>> listByCenter(@PathVariable("centerId") Long centerId){
+        try{
+            List<ChildResponseDto.listByCenter> children = childService.listByCenter(centerId);
+            System.out.println(children.size());
+            return new ResponseEntity(children, HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 관리자가 센터 관리화면에서 선택한 봉사자와 친구 추가가 되어 있지 않은 아동 리스트
+    @Operation(summary = "우리 센터의 봉사자와 친구 추가하지 않은 아동 리스트")
     @PostMapping("/centerAndVolunteerNoRelation")
-    public ResponseEntity<List<ChildResponseDto.childListByVolunteerAndCenter>> childList(@RequestBody ChildRequestDto.childListByVolunteerAndCenter childReqDto){
+    public ResponseEntity<List<ChildResponseDto.childListByVolunteerAndCenter>> childListByVolunteerAndCenter(@RequestBody ChildRequestDto.childListByVolunteerAndCenter childReqDto){
         try{
             List<ChildResponseDto.childListByVolunteerAndCenter> children = childService.childListByVolunteerAndCenter(childReqDto);
             return new ResponseEntity(children, HttpStatus.OK);
         }
         catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // ================================================================================================================
+    // ================================================================================================================
+    // 수정
+
+    // 아동의 특이사항 작성하기
+    @Operation(summary = "해당 센터의 아동의 특이사항 작성하기")
+    @PostMapping("/content")
+    public ResponseEntity writeContent(@RequestBody ChildRequestDto.childWithContent childWithContent){
+        try{
+
+            childService.modifyContent(childWithContent);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(Exception e){
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -32,6 +32,47 @@ public class ChildServiceImpl implements ChildService {
     private final VolunteerRepository volunteerRepository;
     private final ChildRepository childRepository;
 
+    // ================================================================================================================
+    // ================================================================================================================
+    // 조회
+
+    // 아동 상세보기
+    @Override
+    public ChildResponseDto.detail childDetail(Long childId) {
+        Child child = childRepository.findById(childId)
+                .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.childDetail] 해당 Id와 일치하는 Child 가 존재하지 않습니다."));
+
+        return ChildResponseDto.detail.builder()
+                .childId(child.getId())
+                .childEmail(child.getEmail())
+                .childName(child.getName())
+                .childPhoneNumber(child.getPhoneNumber())
+                .childBirth(child.getBirth())
+                .childProfileImagePath(child.getProfileImgPath())
+                .childEnterDate(child.getEnterDate())
+                .childCenterName(child.getChildCenter().getName())
+                .childSpecialContent(child.getSpecialContent())
+                .build();
+    }
+
+    //해당 봉사자의 아이 리스트
+    @Override
+    public List<ChildResponseDto.listByVolunteer> listByVolunteer(Long volunteerId) {
+        Volunteer volunteer = volunteerRepository.findById(volunteerId)
+                .orElseThrow(()-> new IllegalArgumentException("[ChildServiceImpl.childListByVolunteer] 해당 Id와 일치하는 Volunteer 가 존재하지 않습니다."));
+
+        List<Relation> relations = relationRepository.findByVolunteer(volunteer);
+
+        List<ChildResponseDto.listByVolunteer> children = new ArrayList<>();
+
+        for(Relation relation : relations){
+            Child child = relation.getChild();
+            children.add(ChildResponseDto.toListByVolunteerDto(child, relation));
+        }
+
+        return children;
+    }
+
     public List<VolunteerResponseDto.list> volunteerList(Long childId) {
         Child child = childRepository.findById(childId)
                 .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.volunteerList] 해당 Id와 일치하는 Volunteer가 존재하지 않습니다."));
@@ -47,34 +88,23 @@ public class ChildServiceImpl implements ChildService {
         return volunteers;
     }
 
+    // 해당 센터의 아동 리스트
     @Override
-    public ChildResponseDto.detail childDetail(Long childId) {
-        Child child = childRepository.findById(childId)
-                .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.childDetail] 해당 Id와 일치하는 child가 존재하지 않습니다."));
+    public List<ChildResponseDto.listByCenter> listByCenter(Long centerId) {
+        ChildCenter childCenter = childCenterRepository.findById(centerId)
+                .orElseThrow(() -> new IllegalArgumentException("[ChildCenterServiceImpl.childList] 해당 Id와 일치하는 center가 존재하지 않습니다."));
 
-        return ChildResponseDto.detail.builder()
-                .childId(child.getId())
-                .childEmail(child.getEmail())
-                .childName(child.getName())
-                .childPhoneNumber(child.getPhoneNumber())
-                .childBirth(child.getBirth())
-                .childProfileImagePath(child.getProfileImgPath())
-                .childEnterDate(child.getEnterDate())
-                .childCenterName(child.getChildCenter().getName())
-                .childSpecialContent(child.getSpecialContent())
-                .build();
+        List<Child> children = childCenter.getChildList();
+
+        List<ChildResponseDto.listByCenter> childrenResponse = new ArrayList<>();
+        for(Child child : children){
+            childrenResponse.add(ChildResponseDto.toListByCenterDto(child));
+        }
+
+        return childrenResponse;
     }
 
-    @Override
-    @Transactional
-    public void modifyContent(ChildRequestDto.childWithContent childWithContent) {
-        Child child = childRepository.findById(childWithContent.getId())
-                .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.modifyContent] 해당 Id와 일치하는 child가 존재하지 않습니다."));
-
-        child.changeSpecialContent(childWithContent.getSpecialContent());
-        childRepository.save(child);
-    }
-
+    // 관리자가 센터 관리화면에서 선택한 봉사자와 친구 추가가 되어 있지 않은 아동 리스트
     @Override
     public List<ChildResponseDto.childListByVolunteerAndCenter> childListByVolunteerAndCenter(ChildRequestDto.childListByVolunteerAndCenter childReqDto) {
         // 해당 센터의 아동 리스트 가져오기.
@@ -106,7 +136,21 @@ public class ChildServiceImpl implements ChildService {
         }
 
         return childrenResponse;
+    }
 
+    // ================================================================================================================
+    // ================================================================================================================
+    // 수정
+
+    // 아동의 특이사항 작성하기
+    @Override
+    @Transactional
+    public void modifyContent(ChildRequestDto.childWithContent childWithContent) {
+        Child child = childRepository.findById(childWithContent.getId())
+                .orElseThrow(() -> new IllegalArgumentException("[ChildServiceImpl.modifyContent] 해당 Id와 일치하는 child가 존재하지 않습니다."));
+
+        child.changeSpecialContent(childWithContent.getSpecialContent());
+        childRepository.save(child);
     }
 
 }
