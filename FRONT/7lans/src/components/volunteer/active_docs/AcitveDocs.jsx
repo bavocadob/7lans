@@ -9,6 +9,18 @@ import getEnv from "../../../utils/getEnv";
 import "regenerator-runtime"
 import ActiveEdit from "./ActiveEdit";
 import NormalNav from "../../navs/NormalNav";
+import CommonSidePanel from "../../side_panels/CommonSidePanel";
+
+const RightSide = styled.div`
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-radius: 0 20px 20px 0;
+  background-color: rgb(255, 255, 255, 0.9);
+`;
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -145,39 +157,65 @@ export default function ActiveDocs() {
   }, [])
   
   return (
-    <>
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100vh',
-      width: '100vw',
-    }}>
+    
+     <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        width: "100vw",
+      }}
+    >
       <NormalNav />
-      <div style={{flex: 1, padding: '30px', backgroundColor: 'rgb(255, 226, 123)'}}>
-        <div style={{height: '100%', width: '100%', display: 'flex', borderRadius: '20px', backgroundColor: 'rgb(255, 226, 123)'}}>
-          {/* <CommonSidePanel /> */}
+      <div style={{ marginTop: "5.7%" }}></div>
+      <div
+        style={{
+          height: "650px",
+          padding: "30px",
+          paddingBottom: "20px",
+          backgroundColor: "rgb(255, 226, 123)",
+        }}
+      >
+        <div
+          style={{
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            borderRadius: "20px",
+            backgroundColor: "rgb(255, 226, 123)",
+          }}
+        >
+          <CommonSidePanel />
 
-          <div style={{width: '90%', flex: 1, borderRadius: '0 20px 20px 0', backgroundColor: 'rgb(255, 226, 200)'}}>
+          <RightSide>
             <ActiveEdit
               activityLog={activityLog}
               content={content}
               setContent={setContent}
               activityTime={activityTime}
             />
-          </div>
-          
-          <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
-            <PostIt message={'/volunteer_video_chatting_start'}/>
-            <SelectedPostit message={'/volunteer_active_doc'}/>
-            <PostIt message={'/volunteer_whispher'}/>
-            <PostIt message={'/volunteer_raise_egg'}/>
+          </RightSide>
+          <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>
+            <PostIt message={"/volunteer_video_chatting_start"} />
+            <PostIt message={"/volunteer_active_doc"} />
+            <PostIt message={"/volunteer_whispher"} />
+            <SelectedPostit message={"/volunteer_raise_egg"} />
           </div>
         </div>
-          <div style={{display: 'flex', flexDirection: 'column', position: 'absolute', right: '2%', top: '10rem'}}>
-          </div>
-      </div>
-    </div>
-    </>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            position: "absolute",
+            right: "2%",
+            top: "10rem",
+          }}
+        >
+
+        </div>
+        </div>
+        </div>
 
   );
 }
