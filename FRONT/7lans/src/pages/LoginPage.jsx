@@ -163,13 +163,14 @@ const LoginPage = () => {
           console.error(err)
         }
       }
-      representDino(res.data.memberId)
       // console.log(res);
       if (res && res.data.memberType === 'CHILD') {
+        representDino(res.data.memberId)
         navigate('/child_main');
         dispatch(updateUserInfo(res.data))
       }
       else if (res && res.data.memberType === 'VOLUNTEER') {
+        representDino(res.data.memberId)
         navigate('/volunteer_main')
         dispatch(updateUserInfo(res.data))
       }

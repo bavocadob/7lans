@@ -6,6 +6,7 @@ import { updateChildInfo } from "../../store/childSlice";
 import getEnv from "../../utils/getEnv";
 import viewletter, { viewLetter } from "../../store/viewLetterSlice";
 import { updateVolInfo } from "../../store/volSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const StyledCommonSidePanel = styled.div`
   background-color: rgb(255, 248, 223);
@@ -105,7 +106,7 @@ const Age = ({ birth }) => {
   //console.log(birth[0])
   //console.log(currentDate.getFullYear())
 
-  return <div>나이 : {currentDate.getFullYear() - birth[0] + 1} 살</div>;
+  return <div>나이 : {currentDate.getFullYear() - birth.substring(0, 4) + 1} 살</div>;
 };
 
 const Comment = ({ comment }) => {
@@ -160,6 +161,15 @@ const CommonSidePanel = () => {
   const urlInfo = getEnv("API_URL");
   const userId = userInfo.memberId;
 
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const navigateTo = () => {
+    if (location.pathname === '/child_start') {
+      navigate('/child_video_chatting_start')
+    }
+  }
+
   const renderSidePanel = () => {
     const postData = (vol) => {
       dispatch(updateVolInfo(vol));
@@ -185,7 +195,7 @@ const CommonSidePanel = () => {
                     <Age birth={el.volunteerBirth}></Age>
                     {/* <div>소속기관: {el.childCenterName}</div> */}
                     {/* <Comment comment={el.childSpecialContent}></Comment> */}
-                    <Button onClick={() => postData(el)}>선택하기</Button>
+                    <Button onClick={() => {postData(el), navigateTo()}}>선택하기</Button>
                     </div>
                   </ChildCard>
                 ))

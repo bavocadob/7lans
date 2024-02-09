@@ -17,6 +17,7 @@ import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
+import { dateToHyphen } from './DateTranslation';
 
 ReactModal.setAppElement('#root');
 
@@ -206,10 +207,13 @@ const ActivityCalendar = () => {
     //해당 아동의 활동일지 정보 불러오기
     useEffect(() => {
         setRelation(childInfo.relationId);
-    
+        
+        //console.log(dateToHyphen(currentMonth).substr(0, 10))
+        const dateInfo = dateToHyphen(currentMonth).substr(0, 10)
+        
         axios.post(`${urlInfo}/activityLog/volunteer/list`,{
             relationId: childInfo.relationId,
-            dateInfo: "2024-02-01"
+            dateInfo: dateInfo
         })
         .then((res) => {
             setActivityLogs(res.data);
@@ -217,7 +221,7 @@ const ActivityCalendar = () => {
         })
         .catch((err) => {
         });
-    }, [childInfo])
+    }, [childInfo, currentMonth])
 
     const prevMonth = () => {
         setCurrentMonth(subMonths(currentMonth, 1));
