@@ -36,18 +36,26 @@ const ResponsiveImage = styled.img`
 
 const CenteredText = styled.p`
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 30px;;
 `;
 
-const StyledButton = muiStyled(Button)({
-    fontFamily: 'inherit', // inherit body's font
-    fontWeight: 'bold', // set font weight to bold
-    backgroundColor: '#FFE27C',
-    color: 'black',
-    border: '3px solid #B08B57', // add darker border
-    boxShadow: '2px 2px 0px 0px #B08B57', // move the border bottom-right to create shadow effect
-    borderRadius: '30px',
-});
+const StyledButton = styled.button`
+background: linear-gradient(
+    190deg,
+    rgba(255, 184, 36, 1),
+    rgba(255, 237, 140, 1));
+font-size: 19px;
+font-weight: bold;
+border: 3px solid rgb(45,45,45);
+border-radius: 50px;
+margin: 0.5rem;
+padding: 0.5rem;
+height: 50px;
+width: 130px;
+margin-top: 7%;
+margin-bottom: 0;
+text-decoration-line: none;
+ `;
 
 const VideoChattingLobby = ({
                                 renderUserVideoComponent, mainStreamManager, subscribers
