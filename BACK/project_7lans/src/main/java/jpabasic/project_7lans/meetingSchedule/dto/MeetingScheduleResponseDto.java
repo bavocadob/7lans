@@ -1,11 +1,17 @@
 package jpabasic.project_7lans.meetingSchedule.dto;
 
 import jakarta.validation.constraints.NotNull;
+import jpabasic.project_7lans.activityLog.dto.ActivityLogResponseDto;
+import jpabasic.project_7lans.activityLog.entity.ActivityLog;
+import jpabasic.project_7lans.meetingSchedule.entity.MeetingSchedule;
 import jpabasic.project_7lans.meetingSchedule.entity.ScheduleType;
+import jpabasic.project_7lans.relation.entity.Relation;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalTime;
 
 public class MeetingScheduleResponseDto {
 
@@ -38,22 +44,39 @@ public class MeetingScheduleResponseDto {
         @NotNull(message = "[MeetingScheduleRequestDto.monthList] status 는 Null 일 수 없습니다.")
         ScheduleType status;
         @NotNull(message = "[MeetingScheduleRequestDto.monthList] day 는 Null 일 수 없습니다.")
-        int day;
+        Integer day;
+        @NotNull(message = "[MeetingScheduleRequestDto.monthList] time 는 Null 일 수 없습니다.")
+        LocalTime time;
 
+        // 바로 아래의 DTO를 사용할 것
         @Builder
         monthList(
                 Long meetingId,
                 String thumbnailImgPath,
                 String meetingUrl,
                 ScheduleType status,
-                int day
+                Integer day,
+                LocalTime time
         ){
             this.meetingId = meetingId;
             this.thumbnailImgPath = thumbnailImgPath;
             this.meetingUrl = meetingUrl;
             this.status = status;
             this.day = day;
+            this.time = time;
         }
+    }
+
+    // monthList 를 위한 DTO
+    public static MeetingScheduleResponseDto.monthList toMonthListDto(MeetingSchedule meetingSchedule){
+        return monthList.builder()
+                .meetingId(meetingSchedule.getId())
+                .thumbnailImgPath(meetingSchedule.getThumbnailImgPath())
+                .meetingUrl(meetingSchedule.getMeetingUrl())
+                .status(meetingSchedule.getStatus())
+                .day(meetingSchedule.getScheduledStartTime().getDayOfMonth())
+                .time(meetingSchedule.getScheduledStartTime().toLocalTime())
+                .build();
     }
 
     // =================================================================================================================

@@ -87,13 +87,7 @@ public class MeetingServiceImpl implements MeetingService{
                     meeting.getScheduledEndTime() != null &&
                     meeting.getScheduledStartTime().getMonthValue() == meetingsDto.getMonth() &&
                     meeting.getScheduledStartTime().getYear() == meetingsDto.getYear()){
-                monthMeeting.add(MeetingScheduleResponseDto.monthList.builder()
-                        .meetingId(meeting.getId())
-                        .thumbnailImgPath(meeting.getThumbnailImgPath())
-                        .meetingUrl(meeting.getMeetingUrl())
-                        .status(meeting.getStatus())
-                        .day(meeting.getScheduledStartTime().getDayOfMonth())
-                        .build());
+                monthMeeting.add(MeetingScheduleResponseDto.toMonthListDto(meeting));
             }
         }
         return monthMeeting;
