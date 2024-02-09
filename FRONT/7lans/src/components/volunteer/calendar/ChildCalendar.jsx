@@ -17,29 +17,46 @@ import SelectedPostit from '../post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
+import { getMeetingList } from './Axioses';
 
 ReactModal.setAppElement('#root');
 
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth, volunteer }) => {
     return (
-        <div className="header row">
-            <div className="col col-start">
-                <span className="text">
-                    <span className="text month">
-                        {format(currentMonth, 'M')}월
-                    </span>
-                    {format(currentMonth, 'yyyy')}
-                </span>
-                <span>
-                    {volunteer.childName}과의 일정
-                </span>
-            </div>
-            <div className="col col-end">
-                <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
-                <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
-            </div>
+        <div className="header row" style={{ marginBottom: '10px'}}>
+      <div style={{display:'flex', 
+                    flexDirection:'row', 
+                    justifyContent: 'space-between', 
+                    fontSize:'30px',
+                    marginBottom: '10px'
+                    }}>
+        <div>
+          <img
+            style={{ width: "30px" , transform: "scaleX(-1)"}}
+            src="../../next_button.png"
+            alt=""
+            onClick={prevMonth}
+          />
         </div>
+        <div>
+          <div className="col col-start">
+            <span className="text">
+              <span className="text month">{format(currentMonth, "M")}월</span>
+              {format(currentMonth, "yyyy")}
+            </span>
+          </div>
+        </div>
+        <div>
+          <img
+            style={{ width: "30px" }}
+            src="../../next_button.png"
+            alt=""
+            onClick={nextMonth}
+          />
+        </div>
+      </div>
+    </div>
     );
 };
 
@@ -139,12 +156,36 @@ const Meeting = ({meeting, currentMonth, cloneDay}) => {
     //console.log(meeting);
     //console.log(currentMonth.getMonth());
     //console.log(cloneDay);
-    if(currentMonth.getMonth() == cloneDay.getMonth()){
+    if (meeting && currentMonth.getMonth() == cloneDay.getMonth()) {
+
+        let thumbnail = ""
+        let printTime = ""
+        
+        if(meeting.status == "SCHEDULED"){//예정이라면 사진과 시간
+            thumbnail = getEnv('DEFAULT_THUMBNAIL')
+            printTime = "시"
+        }
+        else if(meeting.status == "OPENED"){//열렸다면 환영하는 문구
+            thumbnail = getEnv('DEFAULT_THUMBNAIL')
+            printTime = "어서와!"
+        }
+        else if(meeting.status == "CLOSED"){//지난거라면 썸네일
+            thumbnail = meeting.thumbnailImgPath != "defaultThumbnailImgPath" 
+                             ? meeting.thumbnailImgPath : getEnv('DEFAULT_THUMBNAIL')
+        }
+
         return (
             <div>
-                {meeting.meetingId}
+                <img 
+                    src={thumbnail}
+                    alt=""  
+                    style={{ width: '100%'}}></img>
+
+                <div>
+                    {printTime}
+                </div>
             </div>
-        );
+        )
     }
 }
 
@@ -157,24 +198,17 @@ const ChildCalendar = () => {
     const navigate = useNavigate();
     const currentDate = new Date();
     const dayOfMonth = currentDate.getDate();
-    const volInfo = useSelector((state) => state.vol.value)
 
+    const volInfo = useSelector((state) => state.vol.value)
     const urlInfo = getEnv('API_URL');
 
     //해당 아동의 미팅 정보 불러오기
     useEffect(() => {
-
-        axios.post(`${urlInfo}/meetingSchedue`,{
-            relationId: volInfo.relationId,
-            year: currentDate.getFullYear(),
-            month: currentDate.getMonth()+1
-        })
-        .then((res) => {
-            setMeetings(res.data);
-        })
-        .catch((err) => {
-        });
-    }, [volInfo])
+        getMeetingList(volInfo.relationId, 
+            currentMonth.getFullYear(),
+            currentMonth.getMonth()+1,
+            setMeetings)
+    }, [volInfo, currentMonth])
 
 
     const prevMonth = () => {
@@ -191,16 +225,23 @@ const ChildCalendar = () => {
 
         //지난날 + meeting존재 -> picture
         //지난날 + meeting없음 -> 무응답
-        //오늘 + meeting존재 -> 화상 채팅 이동
+        //오늘 + meeting존재 + OPENED -> 화상 채팅 이동
+        //오늘 + meeting존재 + SCHEDULED -> 아직 열리지 않았어요
         //오늘 + meeting없음 -> 무응답
         //이후 + meeting존재-> 무응답
         //이후 + meeting없음 -> 무응답
+
 
         const selectDate = day.getDate()
     
         //화상 채팅 입장
         if(meeting && (selectDate == dayOfMonth)){
-            console.log("세션입장")
+            if(meeting.status == "OPENED"){
+                console.log("세션입장")
+            }
+            else if(meeting.status == "SCHEDULED"){
+                console.log("아직 세션이 없습니다.")
+            }
         }
         //사진 기록들 보기
         else if(selectDate < dayOfMonth && meeting){

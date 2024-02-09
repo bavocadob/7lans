@@ -203,7 +203,7 @@ const VolunteerMainPage = () => {
   //아동 데이터 가져오기(봉사자 id를 가지고 있어야함)
   useEffect(() => {
     axios
-      .get(`${urlInfo}/vol/list/${userInfo.memberId}`)
+      .get(`${urlInfo}/child/listByVolunteer/${userInfo.memberId}`)
       .then((res) => {
         dispatch(updateChildInfo(res.data[0]));
         dispatch(updateChildrenInfo(res.data));

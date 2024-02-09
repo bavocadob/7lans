@@ -167,9 +167,10 @@ const Picture = () => {
     });
   }
 
+  console.log(images.length)
   return (
     <div>
-    {images.map((element) => (
+    {images.length > 0 && images.map((element) => (
       <Images 
         key={element.meetingImageId}
         image={element}
@@ -177,6 +178,14 @@ const Picture = () => {
         setIsModalOpen={setIsModalOpen}
         />
     ))}
+    {images.length == 0 && (
+     <div style={{height: '500px', position: 'absolute', top: '10%'}}>
+     <img src='./dinosourImage/dinosaur1_sad.png'
+          style={{height: '100%'}}/>
+      <div style={{color: 'white'}}>같이 찍은 사진이 없어요</div>
+      </div>
+
+    )}
     
       <div>
         <Blackboard src="blackboard.png"/>
