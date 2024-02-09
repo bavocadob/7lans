@@ -98,7 +98,7 @@ width: 130px;
 // margin-left: 8%;
 color: rgb(45, 45, 45);
 &:hover {
-  background-color: rgb(232, 225, 250);
+  background-color: rgb(232, 225, 250);}
 `;
 
 const RaiseEggPage = () => {
@@ -129,7 +129,7 @@ const RaiseEggPage = () => {
       }
     };
     egg();
-  }, []);
+  }, [childInfo]);
 
   const renderModal = () => {
     if (eggInfo?.childCheck === false && eggInfo?.volunteerCheck === true) {
