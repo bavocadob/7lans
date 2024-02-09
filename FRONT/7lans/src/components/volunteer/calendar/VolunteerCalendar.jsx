@@ -18,6 +18,7 @@ import SelectedPostit from '../../volunteer/post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
+import { createMeetingSession, getMeetingList } from "./Axioses";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -226,33 +227,22 @@ const VolunteerCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isModalOpen, setModalOpen] = useState(false); // 모달창을 제어하는 state
   const [isMeetingCreateModalOpen, setMeetingCreateModalOpen] = useState(false)
-  const [reload, setReload] = useState(false);
 
   const [meetings, setMeetings] = useState([]);
   const [selectedMeeting, setSelectedMeeting] = useState('')
-  const [relationId, setRelation] = useState(1);
   
   const navigate = useNavigate();
   const currentDate = new Date();
-  const dayOfMonth = currentDate.getDate();
   const childInfo = useSelector((state) => state.child.value)
   const urlInfo = getEnv('API_URL');
 
   //해당 아동의 미팅 정보 불러오기
   useEffect(() => {
-    setRelation(childInfo.relationId);
-    axios
-      .post(`${urlInfo}/meetingSchedue`, {
-        relationId: childInfo.relationId,
-        year: currentMonth.getFullYear(),
-        month: currentMonth.getMonth() + 1,
-      })
-      .then((res) => {
-        setMeetings(res.data);
-        //console.log(res);
-      })
-      .catch((err) => {});
-  }, [childInfo, currentMonth, reload]);
+    getMeetingList(childInfo.relationId, 
+                  currentMonth.getFullYear(), 
+                  currentMonth.getMonth()+1, 
+                  setMeetings)
+  }, [childInfo, currentMonth]);
 
   const prevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
@@ -315,19 +305,13 @@ const VolunteerCalendar = () => {
     setMeetingCreateModalOpen(false);
   };
 
-  const createMeetingSession = () => {
-    axios.put(`${urlInfo}/meetingSchedue/open`,{
-      meetingId: selectedMeeting.meetingId
-    })
-    .then((res) => {
-      setReload(!reload)
-    })
-    .catch((err) => {
-    });
-
-    
-    console.log(!reload)
-
+  const openMeeting = () => {
+    createMeetingSession(
+      selectedMeeting.meetingId, 
+      childInfo.relationId,
+      currentMonth,
+      setMeetings
+    )
   }
 
   return (
@@ -350,8 +334,8 @@ const VolunteerCalendar = () => {
           setModalOpen={setModalOpen}
           isModalOpen={isModalOpen}
           selectedDate={selectedDate}
-          setReload={setReload}
-          reload={reload}
+          setMeetings={setMeetings}
+          currentMonth={currentMonth}
         />
       )}
 
@@ -360,7 +344,7 @@ const VolunteerCalendar = () => {
         <ModalContent>
           <p>미팅 세션을 오픈할까요?</p>
           <CuteButton onClick={closeModal}>취소하기</CuteButton>
-          <CuteButton onClick={createMeetingSession}>생성하기</CuteButton>
+          <CuteButton onClick={openMeeting}>생성하기</CuteButton>
         </ModalContent>
       </ModalOverlay>
       )}

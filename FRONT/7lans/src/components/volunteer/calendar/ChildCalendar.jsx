@@ -17,6 +17,7 @@ import SelectedPostit from '../post_it/SelectedPostit';
 import Modal from 'react-modal';
 import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
+import { getMeetingList } from './Axioses';
 
 ReactModal.setAppElement('#root');
 
@@ -203,17 +204,10 @@ const ChildCalendar = () => {
 
     //해당 아동의 미팅 정보 불러오기
     useEffect(() => {
-        axios.post(`${urlInfo}/meetingSchedue`,{
-            relationId: volInfo.relationId,
-            year: currentMonth.getFullYear(),
-            month: currentMonth.getMonth()+1
-        })
-        .then((res) => {
-            setMeetings(res.data);
-            console.log(res.data)
-        })
-        .catch((err) => {
-        });
+        getMeetingList(volInfo.relationId, 
+            currentMonth.getFullYear(),
+            currentMonth.getMonth()+1,
+            setMeetings)
     }, [volInfo, currentMonth])
 
 

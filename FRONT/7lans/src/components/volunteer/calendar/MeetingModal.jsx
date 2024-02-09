@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { borderRadius, shadows } from '@mui/system';
 import { inline } from '@floating-ui/core';
 import {dateToString, calTime, dateToHyphen} from "./DateTranslation"
+import { getMeetingList } from './Axioses';
 
 ReactModal.setAppElement('#root');
 
@@ -152,7 +153,7 @@ const TimeSelect = ({selectedTimes, setSelectedTimes}) => {
 };
 
 
-const MeetingModal = ({setModalOpen, isModalOpen, selectedDate, setReload, reload}) => {
+const MeetingModal = ({setModalOpen, isModalOpen, selectedDate, setReload, reload, setMeetings, currentMonth}) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedTimes, setSelectedTimes] = useState([]);
     const [isCheckOpen, setIsCheckOpen] = useState(false);
@@ -182,8 +183,7 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate, setReload, reloa
         scheduledEndTime: createEnd
       })
       .then((res) => {
-        //console.log(res)
-        setReload(!reload)
+        getMeetingList(childInfo.relationId, currentMonth.getFullYear(), currentMonth.getMonth() + 1, setMeetings)
       })
       .catch((err) => {
       });
