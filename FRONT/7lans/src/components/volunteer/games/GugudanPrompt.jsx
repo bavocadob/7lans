@@ -73,7 +73,7 @@ const ResetButton = styled.button`
 `;
 
 
-const GugudanPrompt = ({currDan, multipleNum, inputRef, handleEnter, setSubmittedAns, submittedAns, resetGame}) => {
+const GugudanPrompt = ({currDan, multipleNum, inputRef, handleSubmitAnswer, setCurrInputAns, currInputAns, resetGame}) => {
   return (
     <>
       <QuestionContainer>
@@ -86,14 +86,13 @@ const GugudanPrompt = ({currDan, multipleNum, inputRef, handleEnter, setSubmitte
             <StyledInput
               ref={inputRef}
               type="text"
-              onKeyUp={handleEnter}
+              onKeyUp={handleSubmitAnswer}
               onChange={(e) => {
-                const numberValue = parseInt(e.target.value, 10);
-                if (!isNaN(numberValue)) {
-                  setSubmittedAns(numberValue);
-                }
+                const numberValue = parseInt(e.target.value, 10) || undefined;
+                setCurrInputAns(numberValue);
+
               }}
-              value={submittedAns}
+              value={currInputAns}
             />
           </AnswerInput>
         </InputContainer>

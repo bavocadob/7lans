@@ -2,11 +2,11 @@ import React, {useRef, useState} from 'react';
 import axios from "axios";
 import {OpenVidu} from "openvidu-browser";
 import UserVideoComponent from "../components/openvidu/UserVideoComponent.jsx";
-
+import getEnv from "../utils/getEnv";
 
 const UseOpenViduSession = () => {
-    const APPLICATION_SERVER_URL = 'https://i10e103.p.ssafy.io:6443/openvidu/';
-    const OPENVIDU_SERVER_SECRET = '741u741';
+    const APPLICATION_SERVER_URL = getEnv('OPENVIDU_URL');
+    const OPENVIDU_SERVER_SECRET = getEnv('OPENVIDU_SECRET');
 
     const [mySessionId, setMySessionId] = useState('60');
     const [myUserName, setMyUserName] = useState(`Participant${Math.floor(Math.random() * 100)}`);
