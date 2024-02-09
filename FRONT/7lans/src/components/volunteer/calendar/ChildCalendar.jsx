@@ -157,19 +157,35 @@ const Meeting = ({meeting, currentMonth, cloneDay}) => {
     //console.log(cloneDay);
     if (meeting && currentMonth.getMonth() == cloneDay.getMonth()) {
 
-        //console.log(meeting.thumbnailImgPath)
-        if(meeting.thumbnailImgPath != "defaultThumbnailImgPath"){
-          return <img 
-                    src={meeting.thumbnailImgPath}
+        let thumbnail = ""
+        let printTime = ""
+        
+        if(meeting.status == "SCHEDULED"){//예정이라면 사진과 시간
+            thumbnail = getEnv('DEFAULT_THUMBNAIL')
+            printTime = "시"
+        }
+        else if(meeting.status == "OPENED"){//열렸다면 환영하는 문구
+            thumbnail = getEnv('DEFAULT_THUMBNAIL')
+            printTime = "어서와!"
+        }
+        else if(meeting.status == "CLOSED"){//지난거라면 썸네일
+            thumbnail = meeting.thumbnailImgPath != "defaultThumbnailImgPath" 
+                             ? meeting.thumbnailImgPath : getEnv('DEFAULT_THUMBNAIL')
+        }
+
+        return (
+            <div>
+                <img 
+                    src={thumbnail}
                     alt=""  
                     style={{ width: '100%'}}></img>
-        }
-        else{
-          return <img
-                    src={'./egg_img.png'}
-                    style={{width: '100%'}}></img>
-        }
-      }
+
+                <div>
+                    {printTime}
+                </div>
+            </div>
+        )
+    }
 }
 
 const ChildCalendar = () => {
@@ -194,6 +210,7 @@ const ChildCalendar = () => {
         })
         .then((res) => {
             setMeetings(res.data);
+            console.log(res.data)
         })
         .catch((err) => {
         });
@@ -214,16 +231,23 @@ const ChildCalendar = () => {
 
         //지난날 + meeting존재 -> picture
         //지난날 + meeting없음 -> 무응답
-        //오늘 + meeting존재 -> 화상 채팅 이동
+        //오늘 + meeting존재 + OPENED -> 화상 채팅 이동
+        //오늘 + meeting존재 + SCHEDULED -> 아직 열리지 않았어요
         //오늘 + meeting없음 -> 무응답
         //이후 + meeting존재-> 무응답
         //이후 + meeting없음 -> 무응답
+
 
         const selectDate = day.getDate()
     
         //화상 채팅 입장
         if(meeting && (selectDate == dayOfMonth)){
-            console.log("세션입장")
+            if(meeting.status == "OPENED"){
+                console.log("세션입장")
+            }
+            else if(meeting.status == "SCHEDULED"){
+                console.log("아직 세션이 없습니다.")
+            }
         }
         //사진 기록들 보기
         else if(selectDate < dayOfMonth && meeting){

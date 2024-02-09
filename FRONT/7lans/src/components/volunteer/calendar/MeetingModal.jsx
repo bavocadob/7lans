@@ -152,7 +152,7 @@ const TimeSelect = ({selectedTimes, setSelectedTimes}) => {
 };
 
 
-const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
+const MeetingModal = ({setModalOpen, isModalOpen, selectedDate, setReload, reload}) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedTimes, setSelectedTimes] = useState([]);
     const [isCheckOpen, setIsCheckOpen] = useState(false);
@@ -182,7 +182,8 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
         scheduledEndTime: createEnd
       })
       .then((res) => {
-        console.log(res)
+        //console.log(res)
+        setReload(!reload)
       })
       .catch((err) => {
       });
