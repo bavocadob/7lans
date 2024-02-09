@@ -10,10 +10,6 @@ import java.util.List;
 
 public interface ChildCenterService {
 
-    public List<VolunteerResponseDto.list> volunteerList(Long centerId);
-
-    public List<ChildResponseDto.noRelationList> childList(Long centerId);
-
     List<ChildCenterResponseDto.list> list();
 
     void centerRegister(ChildCenterRequestDto.centerDto centerDto);
