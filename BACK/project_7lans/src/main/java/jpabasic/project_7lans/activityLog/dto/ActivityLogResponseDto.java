@@ -119,6 +119,8 @@ public class ActivityLogResponseDto {
     public static class listApprovedByManager {
         @NotNull(message = "[ActivityLogResponseDto.listApprovedByManager] activityId 은 Null 일 수 없습니다.")
         private Long activityId;
+        @NotNull(message = "[ActivityLogResponseDto.listApprovedByManager] relationId 은 Null 일 수 없습니다.")
+        private Long relationId;
         @NotNull(message = "[ActivityLogResponseDto.listApprovedByManager] title 은 Null 일 수 없습니다.")
         private String title;
         @NotNull(message = "[ActivityLogResponseDto.listApprovedByManager] volunteerName 은 Null 일 수 없습니다.")
@@ -132,12 +134,14 @@ public class ActivityLogResponseDto {
         @Builder
         listApprovedByManager(
                 Long activityId,
+                Long relationId,
                 String title,
                 String volunteerName,
                 String childName,
                 LocalDate dateInfo
         ){
             this.activityId = activityId;
+            this.relationId = relationId;
             this.title = title;
             this.volunteerName = volunteerName;
             this.childName = childName;
