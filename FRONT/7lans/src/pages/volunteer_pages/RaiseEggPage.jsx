@@ -90,7 +90,7 @@ const RaiseEggPage = () => {
       }
     }
     egg()
-  }, [])
+  }, [childInfo])
   
   const renderModal = () => {
     if (eggInfo?.childCheck === false && eggInfo?.volunteerCheck === true) {
