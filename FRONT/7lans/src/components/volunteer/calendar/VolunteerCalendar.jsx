@@ -57,6 +57,8 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
     </div>
   );
 };
+
+
 const RenderDays = () => {
   const days = [];
   const date = [
@@ -77,6 +79,8 @@ const RenderDays = () => {
   }
   return <div className="days row" style={{ marginLeft:'1px'}}>{days}</div>;
 };
+
+
 const GetMeeting = (meetings, cloneDay, currentMonth) => {
   let meeting = "";
   meetings.forEach((m) => {
@@ -86,21 +90,26 @@ const GetMeeting = (meetings, cloneDay, currentMonth) => {
   });
   return meeting;
 };
+
+
 const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings }) => {
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
   const endDate = endOfWeek(monthEnd);
+
   const rows = [];
   let days = [];
   let day = startDate;
   let formattedDate = "";
+
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       const cloneDay = addDays(day, 1);
       formattedDate = format(cloneDay, "d");
       //해당 날짜에 미팅이 있으면 담기
       const meeting = GetMeeting(meetings, cloneDay);
+      
       days.push(
         <div
           className={`col cell ${
