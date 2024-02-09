@@ -1,6 +1,9 @@
 package jpabasic.project_7lans.activityLog.dto;
 
 import jakarta.validation.constraints.NotNull;
+import jpabasic.project_7lans.activityLog.entity.ActivityLog;
+import jpabasic.project_7lans.member.entity.Volunteer;
+import jpabasic.project_7lans.relation.entity.Relation;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,10 +12,12 @@ import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class ActivityLogResponseDto {
 
-    // ================================================================================
+    // ================================================================================================================
+    // ================================================================================================================
     // 봉사자
 
     // 봉사자 활동 일지 조회 리스트
@@ -30,6 +35,7 @@ public class ActivityLogResponseDto {
         @NotNull(message = "[ActivityLogResponseDto.detailListByVolunteer] writeDoneStatus 은 Null 일 수 없습니다.")
         private boolean writeDoneStatus;
 
+        // 바로 아래의 DTO를 쓸 것.
         @Builder
         detailListByVolunteer(
                 Long activityLogId,
@@ -44,6 +50,17 @@ public class ActivityLogResponseDto {
         }
     }
 
+    // detailListByVolunteer 를 위한 DTO
+    public static ActivityLogResponseDto.detailListByVolunteer toDetailListByVolunteerDto(ActivityLog activityLog){
+        return detailListByVolunteer.builder()
+                .activityLogId(activityLog.getId())
+                .dateInfo(activityLog.getRealStartTime().toLocalDate())
+                .approveStatus(activityLog.getApproveStatus())
+                .writeDoneStatus(activityLog.getWriteStatus())
+                .build();
+    }
+
+    // ================================================================================================================
     // 봉사자 활동 일지 상세 조회
     // Req: Relation id, activityLog id
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
@@ -71,7 +88,7 @@ public class ActivityLogResponseDto {
         @NotNull(message = "[ActivityLogResponseDto.detailByVolunteer] approveStatus 은 Null 일 수 없습니다.")
         private boolean approveStatus;
 
-
+        // 바로 아래의 DTO를 쓸 것.
         @Builder
         detailByVolunteer(
                 Long activityLogId,
@@ -99,6 +116,23 @@ public class ActivityLogResponseDto {
         }
     }
 
+    // detailByVolunteer 를 위한 DTO
+    public static ActivityLogResponseDto.detailByVolunteer toDetailByVolunteerDto(ActivityLog activityLog, Relation relation){
+        return detailByVolunteer.builder()
+                .activityLogId(activityLog.getId())
+                .dateInfo(activityLog.getRealStartTime().toLocalDate())
+                .activityStartTime(activityLog.getRealStartTime())
+                .activityEndTime(activityLog.getRealEndTime())
+                .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
+                .centerName(relation.getChildCenter().getName())
+                .volunteerName(relation.getVolunteer().getName())
+                .content(activityLog.getContent())
+                .writeDoneStatus(activityLog.getWriteStatus())
+                .approveStatus(activityLog.getApproveStatus())
+                .build();
+    }
+
+    // ================================================================================================================
     // 봉사자 활동 일지 수정(작성 완료일 경우 수정 불가)
     // Req: Relation id, activityLog id, content
     // Res: 없음
@@ -108,10 +142,11 @@ public class ActivityLogResponseDto {
     // Res: 없음
 
 
-    // ================================================================================
+    // ================================================================================================================
+    // ================================================================================================================
     // 관리자
 
-    // 관리자 활동 일지 리스트 조회(승인 안된)
+    // 관리자 활동 일지 리스트 조회(승인된)
     // Req: Center Id
     // Res: activityLog id, 제목, 봉사자 명, 아동 명, 날짜(년, 월, 일)
     @Getter
@@ -130,7 +165,7 @@ public class ActivityLogResponseDto {
         @NotNull(message = "[ActivityLogResponseDto.listApprovedByManager] dateInfo 은 Null 일 수 없습니다.")
         private LocalDate dateInfo;
 
-
+        // 바로 아래의 DTO를 쓸 것.
         @Builder
         listApprovedByManager(
                 Long activityId,
@@ -149,8 +184,19 @@ public class ActivityLogResponseDto {
         }
     }
 
+    // listApprovedByManager 를 위한 DTO
+    public static ActivityLogResponseDto.listApprovedByManager toListApprovedByManagerDto(ActivityLog activityLog, Relation relation){
+        return listApprovedByManager.builder()
+                .activityId(activityLog.getId())
+                .relationId(relation.getId())
+                .volunteerName(relation.getVolunteer().getName())
+                .childName(relation.getChild().getName())
+                .dateInfo(activityLog.getRealStartTime().toLocalDate())
+                .build();
+    }
 
-    // 관리자 활동 일지 리스트 조회(승인된)
+    // ================================================================================================================
+    // 관리자 활동 일지 리스트 조회(승인안된)
     // Req: Center Id
     // Res: activityLog id, 제목, 봉사자 명, 아동 명, 날짜(년, 월, 일)
     @Getter
@@ -169,7 +215,7 @@ public class ActivityLogResponseDto {
         @NotNull(message = "[ActivityLogResponseDto.listDisapprovedByManager] dateInfo 은 Null 일 수 없습니다.")
         private LocalDate dateInfo;
 
-
+        // 바로 아래의 DTO를 쓸 것.
         @Builder
         listDisapprovedByManager(
                 Long activityId,
@@ -188,6 +234,18 @@ public class ActivityLogResponseDto {
         }
     }
 
+    // listDisapprovedByManager 를 위한 DTO
+    public static ActivityLogResponseDto.listDisapprovedByManager toListDisapprovedByManagerDto(ActivityLog activityLog, Relation relation){
+        return listDisapprovedByManager.builder()
+                .activityId(activityLog.getId())
+                .relationId(relation.getId())
+                .volunteerName(relation.getVolunteer().getName())
+                .childName(relation.getChild().getName())
+                .dateInfo(activityLog.getRealStartTime().toLocalDate())
+                .build();
+    }
+
+    // ================================================================================================================
     // 관리자 활동 일지 상세 조회
     // Req: Relation Id, activityLog Id
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
@@ -224,6 +282,7 @@ public class ActivityLogResponseDto {
         @NotNull(message = "[ActivityLogResponseDto.detailByManager] approveStatus 은 Null 일 수 없습니다.")
         private boolean approveStatus;
 
+        // 바로 아래의 DTO를 쓸 것.
         @Builder
         detailByManager(
                 Long activityLogId,
@@ -250,6 +309,23 @@ public class ActivityLogResponseDto {
         }
     }
 
+    // detailByManager 를 위한 DTO
+    public static ActivityLogResponseDto.detailByManager toDetailByManagerDto(ActivityLog activityLog, Relation relation){
+        return detailByManager.builder()
+                .activityLogId(activityLog.getId())
+                .dateInfo(activityLog.getRealStartTime().toLocalDate())
+                .activityStartTime(activityLog.getRealStartTime())
+                .activityEndTime(activityLog.getRealEndTime())
+                .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
+                .centerName(relation.getChildCenter().getName())
+                .volunteerName(relation.getVolunteer().getName())
+                .content(activityLog.getContent())
+                .writeDoneStatus(activityLog.getWriteStatus())
+                .approveStatus(activityLog.getApproveStatus())
+                .build();
+    }
+
+    // ================================================================================================================
     // 관리자 활동 일지 승인
     // Req: 관계 Id, 활동 일지 Id
     // Res: 없음

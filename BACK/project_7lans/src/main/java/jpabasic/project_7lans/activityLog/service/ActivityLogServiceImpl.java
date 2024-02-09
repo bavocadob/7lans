@@ -9,6 +9,7 @@ import jpabasic.project_7lans.childCenter.entity.ChildCenter;
 import jpabasic.project_7lans.childCenter.repository.ChildCenterRepository;
 import jpabasic.project_7lans.meetingSchedule.entity.MeetingSchedule;
 import jpabasic.project_7lans.meetingSchedule.repository.MeetingScheduleRepository;
+import jpabasic.project_7lans.member.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.member.entity.Volunteer;
 import jpabasic.project_7lans.member.repository.VolunteerRepository;
 import jpabasic.project_7lans.relation.entity.Relation;
@@ -31,7 +32,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     private final ActivityLogRepository activityLogRepository;
     private final MeetingScheduleRepository meetingScheduleRepository;
 
-    // ==================================================================================================
+    // ================================================================================================================
+    // ================================================================================================================
     // 봉사자
 
     // 봉사자 활동 일지 조회 리스트
@@ -53,20 +55,14 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             int dtoMonth = listDto.getDateInfo().getMonthValue();
 
             if (activityYear == dtoYear && activityMonth == dtoMonth) {
-                ActivityLogResponseDto.detailListByVolunteer dto = ActivityLogResponseDto.detailListByVolunteer.builder()
-                        .activityLogId(meetingSchedule.getActivityLog().getId())
-                        .dateInfo(meetingSchedule.getScheduledStartTime().toLocalDate())
-                        .approveStatus(meetingSchedule.getActivityLog().getApproveStatus())
-                        .writeDoneStatus(meetingSchedule.getActivityLog().getWriteStatus())
-                        .build();
-
-                detailList.add(dto);
+                detailList.add(ActivityLogResponseDto.toDetailListByVolunteerDto(meetingSchedule.getActivityLog()));
             }
         }
 
         return detailList;
     }
 
+    // ================================================================================================================
     // 봉사자 활동 일지 상세 조회
     // Req: relationId, activityLogId
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
@@ -78,20 +74,10 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         ActivityLog activityLog = activityLogRepository.findById(detailDto.getActivityLogId())
                 .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.detailByVolunteer]no such activityLog"));
 
-        return ActivityLogResponseDto.detailByVolunteer.builder()
-                .activityLogId(activityLog.getId())
-                .dateInfo(activityLog.getRealStartTime().toLocalDate())
-                .activityStartTime(activityLog.getRealStartTime())
-                .activityEndTime(activityLog.getRealEndTime())
-                .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
-                .centerName(relation.getChildCenter().getName())
-                .volunteerName(relation.getVolunteer().getName())
-                .content(activityLog.getContent())
-                .writeDoneStatus(activityLog.getWriteStatus())
-                .approveStatus(activityLog.getApproveStatus())
-                .build();
+        return ActivityLogResponseDto.toDetailByVolunteerDto(activityLog, relation);
     }
 
+    // ================================================================================================================
     // 봉사자 활동 일지 수정(작성 완료일 경우 수정 불가)
     // Req: Relation id, activityLog id, content
     // Res: 없음
@@ -115,6 +101,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         }
     }
 
+    // ================================================================================================================
     // 봉사자 활동 일지 작성 완료(작성 완료 후 동작 불가)
     // Req: activityLog id, content
     // Res: 없음
@@ -135,6 +122,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         }
     }
 
+    // ================================================================================================================
     // 화상채팅 시작시 활동 일지 시작 시간 입력(아이가 시작)
     @Override
     @Transactional
@@ -148,6 +136,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
     }
 
+    // ================================================================================================================
     // 화상채팅 종료시 활동 일지 종료 시간 입력(아이가 종료)
     @Override
     @Transactional
@@ -164,7 +153,8 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     }
 
 
-    // ==================================================================================================
+    // ================================================================================================================
+    // ================================================================================================================
     // 관리자
 
     // 관리자 활동 일지 리스트 조회(승인 안된)
@@ -194,23 +184,15 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                 if((!meetingScheduleList.get(j).getActivityLog().getApproveStatus()) && meetingScheduleList.get(j).getActivityLog().getWriteStatus()){
                     ActivityLog activityLog = meetingScheduleList.get(j).getActivityLog();
 
-                    // 리스트에 담을 DTO를 만들고
-                    ActivityLogResponseDto.listDisapprovedByManager dto = ActivityLogResponseDto.listDisapprovedByManager.builder()
-                            .activityId(activityLog.getId())
-                            .relationId(relationList.get(i).getId())
-                            .volunteerName(relationList.get(i).getVolunteer().getName())
-                            .childName(relationList.get(i).getChild().getName())
-                            .dateInfo(activityLog.getRealStartTime().toLocalDate())
-                            .build();
-
                     // DTO에 담는다.
-                    activityLogList.add(dto);
+                    activityLogList.add(ActivityLogResponseDto.toListDisapprovedByManagerDto(activityLog, relationList.get(i)));
                 }
             }
         }
         return activityLogList;
     }
 
+    // ================================================================================================================
     // 관리자 활동 일지 리스트 조회(승인된)
     // Req: Center Id
     // Res: activityLog id, 제목, 봉사자 명, 아동 명, 날짜(년, 월, 일)
@@ -238,22 +220,15 @@ public class ActivityLogServiceImpl implements ActivityLogService {
                 if(meetingScheduleList.get(j).getActivityLog().getApproveStatus()){
                     ActivityLog activityLog = meetingScheduleList.get(j).getActivityLog();
 
-                    // 리스트에 담을 DTO를 만들고
-                    ActivityLogResponseDto.listApprovedByManager dto = ActivityLogResponseDto.listApprovedByManager.builder()
-                            .activityId(activityLog.getId())
-                            .volunteerName(relationList.get(i).getVolunteer().getName())
-                            .childName(relationList.get(i).getChild().getName())
-                            .dateInfo(activityLog.getRealStartTime().toLocalDate())
-                            .build();
-
                     // DTO에 담는다.
-                    activityLogList.add(dto);
+                    activityLogList.add(ActivityLogResponseDto.toListApprovedByManagerDto(activityLog, relationList.get(i)));
                 }
             }
         }
         return activityLogList;
     }
 
+    // ================================================================================================================
     // 관리자 활동 일지 상세 조회
     // Req: Relation Id, activityLog Id
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
@@ -266,20 +241,10 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         ActivityLog activityLog = activityLogRepository.findById(detailDto.getActivityLogId())
                 .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.detailByManager] no such activityLog"));
 
-        return ActivityLogResponseDto.detailByManager.builder()
-                .activityLogId(activityLog.getId())
-                .dateInfo(activityLog.getRealStartTime().toLocalDate())
-                .activityStartTime(activityLog.getRealStartTime())
-                .activityEndTime(activityLog.getRealEndTime())
-                .activityTime(ChronoUnit.HOURS.between(activityLog.getRealStartTime(), activityLog.getRealEndTime()))
-                .centerName(relation.getChildCenter().getName())
-                .volunteerName(relation.getVolunteer().getName())
-                .content(activityLog.getContent())
-                .writeDoneStatus(activityLog.getWriteStatus())
-                .approveStatus(activityLog.getApproveStatus())
-                .build();
+        return ActivityLogResponseDto.toDetailByManagerDto(activityLog, relation);
     }
 
+    // ================================================================================================================
     // 관리자 활동 일지 승인
     // Req: activityLogId
     // Res: 없음
