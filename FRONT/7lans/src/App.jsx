@@ -43,6 +43,7 @@ import ChildManage from "./components/admin/ChildManage";
 import ActiveManage from "./components/admin/ActiveManage";
 
 import app from "./firebase";
+import Waiting from "./components/volunteer/games/Waitng";
 
 ReactModal.setAppElement('#root');
 
@@ -103,6 +104,10 @@ function App() {
         <Route path="/volunteer_manage" element={<VolunteerManage />} />
         <Route path="/child_manage" element={<ChildManage />} />
         <Route path="/active_manage" element={<ActiveManage />} />
+
+        {/* 테스트 페이지 */}
+        <Route path="/test" element={<Waiting />} />
+
       </Routes>
     </>
   );
