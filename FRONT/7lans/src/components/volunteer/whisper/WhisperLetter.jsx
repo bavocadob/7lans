@@ -43,41 +43,24 @@ const ChatCardChild = styled.div`
   position: relative;
 `;
 
-const CustomModal = styled(Modal)`
-  width: 70%;
-  height: 60%;
-  margin: 150px auto;
-  border-radius: 15px;
-  outline: none;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-`;
-
-const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  height: 300px;
-`;
-
-const ModalContent = styled.div`
-  padding: 30px;
-`;
 
 const ModalButton = styled.button`
-  padding: 10px;
+  padding-top: 0;
   cursor: pointer;
-  background: rgba(255, 237, 140, 1);
+  background: rgb(255, 252, 199);
   font-weight: bold;
   border: 2px solid rgb(255, 184, 36);
   border-radius: 5px;
+  padding-bottom:0px;
+  width: 70px;
+  height: 40px;
+  &:hover {
+    background-color: rgb(255, 215, 3);
 `;
 
 const WriteButton = styled.button`
   position: fixed;
-  bottom: 8%;
+  bottom: 10%;
   left: 78%;
   /* transform: translateX(-50%); */
   padding: 10px;
@@ -86,6 +69,8 @@ const WriteButton = styled.button`
   font-weight: bold;
   border: 2px solid rgb(255, 184, 36);
   border-radius: 5px;
+  &:hover {
+    background-color: rgb(255, 215, 3);
 `;
 
 // button {
@@ -110,34 +95,44 @@ const WriteButton = styled.button`
 const WriteModal = styled(Modal)`
   width: 70%;
   max-width: 600px;
-  margin: 100px auto;
+  height: 52%;
+  max-height: 400px;
+  margin: auto;
   border-radius: 15px;
   outline: none;
-  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 252, 199, 1) 0%,
+    rgba(255, 232, 102, 1) 100%
+  );
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `;
 
 const WriteModalContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
-  height: 100%;
-`;
+  position: relative;
+  top: 0;
+  `;
 
 const ModalButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   margin-top: 20px;
 `;
-
 const ChatDate = styled.p`
   font-size: 12px;
   color: #777;
   margin-top: 10px;
 `;
-
 const WhisperLetter = () => {
   const volInfo = useSelector((state) => state.vol.value);
   const userInfo = useSelector((state) => state.user.value);
@@ -225,7 +220,6 @@ const WhisperLetter = () => {
                 width: "350px",
                 height: "230px",
                 position: "absolute",
-                transform: "scaleX(-1)",
                 transition: "transform 0.2s ease-in-out",
               }}
               onMouseEnter={(e) => (e.target.style.transform = "scale(1.01)")}
@@ -275,36 +269,41 @@ const WhisperLetter = () => {
       )}
 
       <WriteButton onClick={openWriteModal}>속닥속닥 적어봐요</WriteButton>
-      <CustomModal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Chat Detail Modal"
-      >
-        <ModalContainer>
-          <h2>채팅 상세 정보</h2>
-          <ChatDate>{new Date().toLocaleString()}</ChatDate>
-          {selectedChat && (
-            <ModalContent>
-              {typingMessage}
-              <ModalButtonContainer>
-                <ModalButton onClick={closeModal}>확인</ModalButton>
-              </ModalButtonContainer>
-            </ModalContent>
-          )}
-        </ModalContainer>
-      </CustomModal>
+
       <WriteModal
         isOpen={writeModalIsOpen}
         onRequestClose={closeWriteModal}
         contentLabel="Write Modal"
       >
         <WriteModalContainer>
-          <h2>속닥속닥 보내기</h2>
+          <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
+            <h2 style={{marginBottom: '3%', paddingTop: '5%'}}>속닥속닥</h2>
+              <img src="../../close_button.png" 
+              onClick={closeWriteModal}
+              style={{position: 'relative', 
+                      width: '50px', 
+                      height: '50px', 
+                      top: '3px', 
+                      right: '0', 
+                      marginLeft: '33%'}}
+              onMouseEnter={(e) => {
+                e.target.style.cursor = 'pointer';
+              }}
+              />
+          </div>
           <textarea
             rows={5}
             cols={55}
             value={typingMessage}
             placeholder="50자 이내로 작성하세요"
+            style={{
+              backgroundColor: "rgb(255, 252, 199)",
+              fontSize: "20px",
+              border: "none",
+              outline: "none",
+              resize: "none",
+              padding: "2rem",
+            }}
             onChange={(e) => {
               const inputValue = e.target.value;
               if (inputValue.length <= 50) {
@@ -312,11 +311,9 @@ const WhisperLetter = () => {
               } else alert("50자 이내로 작성하세요💛");
             }}
           />
-          {/* 90자 제한주기 */}
 
           <ModalButtonContainer>
-            <ModalButton onClick={handleWriteMessage}>확인</ModalButton>
-            <ModalButton onClick={closeWriteModal}>닫기</ModalButton>
+            <ModalButton onClick={handleWriteMessage}>보내기</ModalButton>
           </ModalButtonContainer>
         </WriteModalContainer>
       </WriteModal>

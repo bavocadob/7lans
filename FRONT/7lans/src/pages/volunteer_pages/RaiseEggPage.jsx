@@ -59,8 +59,8 @@ const ExpBar = styled.div`
 
 const FilledExp = styled.div`
   height: 100%;
-  border-radius: 40px;
-  background-color: rgb(255, 183, 58, 0.8); /* 채우진 부분의 색상 */
+  border-radius: 9px;
+  background-color: rgb(255, 183, 58, 0.9); /* 채우진 부분의 색상 */
 `;
 
 const RaiseEggPage = () => {
