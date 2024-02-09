@@ -1,5 +1,5 @@
 import { Button } from 'bootstrap'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom'
 import styled from 'styled-components';
@@ -24,7 +24,11 @@ const Frame = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  //transform: rotate(${getRandomRotation()}deg);
+  background-color: transparent;
+
+  &:hover {
+    background-color: #FFB743;
+  }
 `;
 
 const Outer = styled.div`
@@ -50,10 +54,51 @@ const Desk = styled.div`
 
   position: absolute;
   top: 95%;
+  color: white;
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: ${({ open }) => (open ? "block" : "none")};
+`;
+
+const ModalContent = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+`;
+
+const CuteButton = styled.button`
+  background-color: #ff8c94;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-left: 5px;
 `;
 
 
-function Images({image}){
+//이미지 렌덤한 각으로 돌려서 출력
+const Images = ({image, setSelectedImage, setIsModalOpen}) => {
+
+  const selectThumbnail = () => {
+    setIsModalOpen(true)
+    setSelectedImage(image.meetingImageId)
+  }
+
   return(
     <Outer>
       <Frame style={
@@ -61,69 +106,94 @@ function Images({image}){
             transform: `rotate(${getRandomRotation()}deg)`,
             transformOrigin: 'right top'
           }
-        }>
-        <Image src={image}/>
+        }
+          onClick={() => {selectThumbnail()}}
+        >
+        <Image src={image.meetingImagePath}/>
       </Frame>
     </Outer>
   )
 }
-const Picture = () => {
 
+
+const Picture = () => {
+  const [images, setImages] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
+  
   //부모에게서 전달받은 값
   const location = useLocation();
   const state = {...location.state};
+  
   const urlInfo = getEnv('API_URL');
 
   //console.log("Picture")
   //console.log(state.meetingId);
 
-
   //이미지 데이터 가져오기
-  axios.get(`${urlInfo}/meetingSchedue/image/${state.meetingId}`)
-  .then(function (response) {
-      console.log(response)
-  }).catch(function (error){
+  useEffect(() => {
+    axios.get(`${urlInfo}/meetingImage/${state.meetingId}`)
+      .then((res) => {
+        //console.log(res)
 
-  }).then(function() {
+        const image = [];
 
-  });
+        res.data.map((meetingImage, index) => {
+          image.push(meetingImage)
+        })
 
-  const images = [
-    {
-      id: '1',
-      src: "7lans_logo.png"
-     },
-     {
-      id: '2',
-      src: "7lans_logo1.png"
-     },
-     {
-      id: '3',
-      src: "7lans_logo2.png"
-     },
-     {
-      id: '4',
-      src: "7lans_logo3.png"
-     },
-     {
-      id: '5',
-      src: "anonymous.jpg"
-     },]
+        setImages(image)
+      
+      }).catch((error) => {
+
+    }).then(() => {
+
+    });
+  }, []);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const changeThumbnail = () => {
+    //console.log(selectedImage)
+    axios.put(`${urlInfo}/meetingImage/changeThumbnailImage`, {
+      meetingImageId: selectedImage
+    })
+    .then((res)=> {
+
+    })
+    .catch((err) => {
+    });
+  }
 
   return (
     <div>
     {images.map((element) => (
       <Images 
-        key={element.id}
-        image={element.src}
+        key={element.meetingImageId}
+        image={element}
+        setSelectedImage={setSelectedImage}
+        setIsModalOpen={setIsModalOpen}
         />
     ))}
     
-    <div>
-      <Blackboard src="blackboard.png"/>
+      <div>
+        <Blackboard src="blackboard.png"/>
+      </div>
+      <Desk>사진을 선택하면 썸네일이 돼요!</Desk>
+
+{/* 썸네일 설정 확인 모달 */}
+      <ModalOverlay open={isModalOpen} onClick={closeModal}>
+        <ModalContent>
+          <p>해당 사진을 대표사진으로 설정할까요?</p>
+          <CuteButton onClick={closeModal}>취소하기</CuteButton>
+          <CuteButton onClick={changeThumbnail}>제출하기</CuteButton>
+        </ModalContent>
+      </ModalOverlay>
     </div>
-    <Desk></Desk>
-    </div>
+
+
     
     
   )

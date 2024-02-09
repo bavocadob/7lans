@@ -5,6 +5,8 @@ import ReactModal from 'react-modal';
 import getEnv from "../../../utils/getEnv";
 import styled from "styled-components";
 import { borderRadius, shadows } from '@mui/system';
+import { inline } from '@floating-ui/core';
+import {dateToString, calTime, dateToHyphen} from "./DateTranslation"
 
 ReactModal.setAppElement('#root');
 
@@ -41,6 +43,39 @@ const CuteButton = styled.button`
   margin-left: 5px;
 `;
 
+const ClockText = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+`
+
+//modal창 시간글자행 출력
+const printTime = (time) => {
+      //맨 처음 숫자 출력
+  const hourBlocks = [];
+  
+  if(time == "morning"){
+    hourBlocks.push(
+      <span>오전</span>
+    )
+  }
+  else if(time == "afternoon"){
+    hourBlocks.push(
+      <span>오후</span>
+    )
+  }
+      
+  for(let hour = 1; hour <= 12; hour += 1){
+  
+    hourBlocks.push(
+      <span>{hour}시</span>
+    )
+  }
+
+  return hourBlocks;
+
+}
+
 const resetSelect = (setSelectedTimes) => {
   setSelectedTimes([]);
 }
@@ -62,7 +97,16 @@ const TimeSelect = ({selectedTimes, setSelectedTimes}) => {
     }};
   
     const rows = [];
+
+    const morningHourBlocks = printTime("morning");
+
+    rows.push(
+      <ClockText>
+        {morningHourBlocks}
+      </ClockText>
+    )
   
+    //시간 선택 block
     for (let hour = 0; hour <= 13; hour += 12) {
       const timeBlocks = [];
   
@@ -85,11 +129,6 @@ const TimeSelect = ({selectedTimes, setSelectedTimes}) => {
             style={blockStyle}
             onClick={() => handleTimeClick(time)}
           >
-            {time % 1 === 0 && (
-              <div style={{ position: 'absolute', top: '-30px', left: '50%', transform: 'translateX(-50%)' }}>
-                {time}시
-              </div>
-            )}
           </div>
         );
       }
@@ -100,38 +139,18 @@ const TimeSelect = ({selectedTimes, setSelectedTimes}) => {
         </div>
       );
     }
-  
+
+    //오후 숫자 입력
+    const afternoonHourBlocks = printTime("afternoon")
+    
+    rows.push(
+      <ClockText>
+        {afternoonHourBlocks}
+      </ClockText>
+    )
     return <div className="body">{rows}</div>;
 };
 
-const calTime = (time) => {
-    //console.log("time" + time)
-  let returnTime = "";
-
-  //시간
-  if(time%1 == 0.5){
-    //시
-    if(time < 10){
-      returnTime += "0"
-    }
-    
-    returnTime += String(time-0.5) + ":";
-    
-    //분, 초
-    returnTime += "30" + ":00"
-  }
-  else{
-    if(time < 10){
-      returnTime += "0"
-    }
-    returnTime += String(time) + ":";
-    returnTime += "00" + ":00"
-  }
-
-  //console.log("returnTime" + returnTime)
-
-  return returnTime;
-}
 
 const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -145,37 +164,22 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
 
    //미팅 생성하기
     const saveMeeting = (selectedTimes) =>{       
-      //날짜 형식에 맞게 변경
-      //%1해서 0.5나오면 30분을 추가
 
-      //날짜
-      //년
-      let day = String(selectedDate.getFullYear()) + "-"
-      //월                
-      if(selectedDate.getMonth() < 9){
-        day += "0";
-      }
+      //localdateTime => 2024-02-02T
+      const day = dateToHyphen(selectedDate)
 
-      day += String(selectedDate.getMonth()+1) + "-"
-      //일
-      if(selectedDate.getDate() < 10){
-        day += "0";
-      }
-
-      day += String(selectedDate.getDate()) + "T";
-
-      //14 -> 14:00:00형식으로 변환
+      //14 -> 14:00:00
       const startTime = calTime(selectedTimes[0]);
       const endTime = calTime(selectedTimes[selectedTimes.length-1] + 0.5);
 
       const createStart = day+startTime
       const createEnd = day + endTime
 
-      //해당 월의 미팅 목록 불러오기
+      //해당 월의 미팅 목록 생성하기
       axios.post(`${urlInfo}/meetingSchedue/create`,{
         relationId: childInfo.relationId,
-        ScheduledStartTime: createStart,
-        ScheduledEndTime: createEnd
+        scheduledStartTime: createStart,
+        scheduledEndTime: createEnd
       })
       .then((res) => {
         console.log(res)
@@ -203,16 +207,11 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
           }
         }    
       
-        //날짜 형식에 맞게 변경
-        //%1해서 0.5나오면 30분을 추가
 
-        //날짜
-        //년
-        let day = String(selectedDate.getFullYear()) + "년"
-        day += String(selectedDate.getMonth()+1) + "월"
-        day += String(selectedDate.getDate()) + "일 ";
+        //localDateTime => 2024년2월4일
+        const day = dateToString(selectedDate)
 
-        //14 -> 14:00:00형식으로 변환
+        //14 -> 14:00:00
         const startTime = calTime(selectedTimes[0]);
         const endTime = calTime(selectedTimes[selectedTimes.length-1] + 0.5);
 
@@ -247,7 +246,7 @@ const MeetingModal = ({setModalOpen, isModalOpen, selectedDate}) => {
             top: '50%',
             left: '50%',
             width: '90%',
-            height: '60%',
+            height: '70%',
             transform: 'translate(-50%, -50%)',
             border: '1px solid #ccc',
             background: 'rgba(122, 80, 0, 0.73)',
