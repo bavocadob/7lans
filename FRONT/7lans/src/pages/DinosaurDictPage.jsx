@@ -273,7 +273,7 @@ const DinosaurDictPage = () => {
     align-items: center;
   `;
 
-  const StyledModal = styled(Modal)`
+const StyledModal = styled(Modal)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -330,7 +330,7 @@ const StyledFooter = styled(Modal.Footer)`
         </div>
       </div>
       <StyledModal show={show} centered onClick={() => setShow(false)}>
-      <ModalContent>
+      {/* <ModalContent> */}
         <StyledHeader closeButton>
           <Modal.Title>나와 함께 할래?</Modal.Title>
         </StyledHeader>
@@ -356,7 +356,7 @@ const StyledFooter = styled(Modal.Footer)`
             생성
           </Button> */}
         </StyledFooter>
-      </ModalContent>
+      {/* </ModalContent> */}
     </StyledModal>
     </>
   );

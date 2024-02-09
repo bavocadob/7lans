@@ -21,7 +21,7 @@ const RightSide = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   border-radius: 0 20px 20px 0;
-  background-color: rgb(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255, 0.9);
 `;
 
 const RowBox1 = styled.div`
@@ -63,6 +63,44 @@ const FilledExp = styled.div`
   background-color: rgb(255, 183, 58, 0.9); /* 채우진 부분의 색상 */
 `;
 
+const StyledModal = styled(Modal)`
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: rgb(255,255,255, 0.7);
+`;
+
+const StyledHeader = styled(Modal.Header)`
+  background-color: rgb(208, 192, 237, 0.9); /* 모달 헤더 배경색 설정 */
+  border-radius: 8px 8px 0px 0px;
+`;
+
+const StyledFooter = styled(Modal.Footer)`
+  background-color: rgb(208, 192, 237, 0.9); /* 모달 푸터 배경색 설정 */
+  border-radius: 0px 0px 8px 8px;
+  flex-direction: column-reverse
+`;
+
+const StyledBody = styled(Modal.Body)`
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+`
+
+const StyledButton = styled.button`
+background: rgb(232, 225, 255);
+font-size: 18px;
+font-weight: bold;
+border: none;
+border-radius: 15px;
+height: 50px;
+width: 130px;
+// margin-left: 8%;
+color: rgb(45, 45, 45);
+&:hover {
+  background-color: rgb(232, 225, 250);
+`;
+
 const RaiseEggPage = () => {
   const childInfo = useSelector((state) => state.child.value);
   const childrenInfo = useSelector((state) => state.children.value);
@@ -97,86 +135,94 @@ const RaiseEggPage = () => {
     if (eggInfo?.childCheck === false && eggInfo?.volunteerCheck === true) {
       //아이는 아직 알을 안깐 경우
       return (
-        <Modal show={show} onHide={() => setShow(false)}>
-          <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}>
-            <Modal.Header closeButton>
+        <StyledModal show={show} onHide={() => setShow(false)} centered>
+          {/* <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}> */}
+            <StyledHeader closeButton>
               <Modal.Title>
                 {childInfo.childName} 학생이 아직 알을 열어보지 않았어요.
               </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
+            </StyledHeader>
+            <StyledBody>
               <Form>
                 <Image
                   type="image"
                   src={`./dinosourImage/dinosaur${userDion}_sad.png`}
+                  style={{ height: "300px",
+                            width: '220px', 
+                          }}
                 />
               </Form>
-            </Modal.Body>
-            <Modal.Footer style={{ justifyContent: "space-between" }}>
-              <Button variant="secondary" onClick={() => setShow(false)}>
+            </StyledBody>
+            <StyledFooter style={{ justifyContent: "space-between" }}>
+              <StyledButton variant="secondary" onClick={() => setShow(false)}>
                 확인
-              </Button>
+              </StyledButton>
               {/* <Button variant='primary' onClick={handleSubmit}>
               생성
             </Button> */}
-            </Modal.Footer>
-          </Modal.Dialog>
-        </Modal>
+            </StyledFooter>
+          {/* </Modal.Dialog> */}
+        </StyledModal>
       );
     } else if (eggInfo?.experience !== 100) {
       //경험치가 100이 아닌 경우
       return (
-        <Modal show={show} onHide={() => setShow(false)}>
-          <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}>
-            <Modal.Header closeButton>
+        <StyledModal show={show} onHide={() => setShow(false)} centered>
+          {/* <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}> */}
+            <StyledHeader closeButton>
               <Modal.Title>
                 아직 경험치가 {eggInfo?.experience || 0} % 에요.
               </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
+            </StyledHeader>
+            <StyledBody>          
                 <Image
                   type="image"
-                  src={`./dinosourImage/dinosaur${userDion}_sad.png`}
-                />
-              </Form>
-            </Modal.Body>
-            <Modal.Footer style={{ justifyContent: "space-between" }}>
-              <Button variant="secondary" onClick={() => setShow(false)}>
+                  src={`./dinosourImage/dinosaur${userDion}_sad.png`} 
+                  style={{ height: "300px",
+                            width: '220px', 
+                          }}
+                          />
+              
+            </StyledBody>
+            <StyledFooter style={{ justifyContent: "space-between" }}>
+              <StyledButton variant="secondary" onClick={() => setShow(false)}>
                 확인
-              </Button>
+              </StyledButton>
               {/* <Button variant='primary' onClick={handleSubmit}>
               생성
             </Button> */}
-            </Modal.Footer>
-          </Modal.Dialog>
-        </Modal>
+            </StyledFooter>
+          {/* </Modal.Dialog> */}
+        </StyledModal>
       );
     } else {
       return (
-        <Modal show={show} onHide={() => setShow(false)}>
-          <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}>
-            <Modal.Header closeButton>
+        <StyledModal show={show} onHide={() => setShow(false)}>
+          {/* <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}> */}
+            <StyledHeader closeButton>
               <Modal.Title>나와 함께 하게 된걸 축하해!!!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
+            </StyledHeader>
+            <StyledBody>
               <Form>
                 <Image
                   type="image"
                   src={`./dinosourImage/dinosaur${newEgg?.id}_basic.png`}
+                  style={{ height: "300px",
+                            width: '220px', 
+                          }}
                 />
               </Form>
-            </Modal.Body>
-            <Modal.Footer style={{ justifyContent: "space-between" }}>
-              <Button variant="secondary" onClick={() => setShow(false)}>
+            </StyledBody>
+            <StyledFooter style={{ justifyContent: "space-between" }}>
+              <StyledButton variant="secondary" onClick={() => setShow(false)}>
                 확인
-              </Button>
+              </StyledButton>
               {/* <Button variant='primary' onClick={handleSubmit}>
               생성
             </Button> */}
-            </Modal.Footer>
-          </Modal.Dialog>
-        </Modal>
+            </StyledFooter>
+          {/* </Modal.Dialog> */}
+        </StyledModal>
       );
     }
   };
