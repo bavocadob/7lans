@@ -11,7 +11,7 @@ import axios from "axios";
 import { tr } from "date-fns/locale";
 import getEnv from "../../utils/getEnv";
 import { Button, Modal, Form, Image } from "react-bootstrap";
-import Audio from "../../components/Audio"
+import Audio from "../../components/Audio";
 
 const RightSide = styled.div`
   width: 90%;
@@ -46,13 +46,14 @@ const RowBox3 = styled.div`
   font-size: 20px;
   display: flex;
   align-items: end;
-`
+`;
 const ExpBar = styled.div`
   width: 100%;
   height: 40px;
   background-color: rgb(255, 183, 58, 0.5);
   border-radius: 10px;
   margin-top: 10px;
+  border: 3px solid rgba(45,45,45);
 `;
 
 const FilledExp = styled.div`
@@ -61,17 +62,16 @@ const FilledExp = styled.div`
   background-color: rgb(255, 183, 58, 0.8); /* 채우진 부분의 색상 */
 `;
 
-
 const RaiseEggPage = () => {
-  const childInfo = useSelector((state) => state.child.value)
-  const childrenInfo = useSelector((state) => state.children.value)
-  const userDion = useSelector((state) => state.dino.value)
-  const userInfo = useSelector((state) => state.user.value)
-  const urlInfo = getEnv('API_URL');
-  const [eggInfo, setEggInfo] = useState(null)
-  const [show, setShow] = useState(false)
-  const [newEgg, setNewEgg] = useState(null)
-  const [dinoState, setdinoState] = useState(false) //기본 상태, true == 행복한 상태 출력
+  const childInfo = useSelector((state) => state.child.value);
+  const childrenInfo = useSelector((state) => state.children.value);
+  const userDion = useSelector((state) => state.dino.value);
+  const userInfo = useSelector((state) => state.user.value);
+  const urlInfo = getEnv("API_URL");
+  const [eggInfo, setEggInfo] = useState(null);
+  const [show, setShow] = useState(false);
+  const [newEgg, setNewEgg] = useState(null);
+  const [dinoState, setdinoState] = useState(false); //기본 상태, true == 행복한 상태 출력
   // const eggInfo = useRef(null)
 
   console.log(childInfo);
@@ -87,123 +87,116 @@ const RaiseEggPage = () => {
       } catch (err) {
         console.error(err);
       }
-    }
-    egg()
-  }, [])
-  
+    };
+    egg();
+  }, []);
+
   const renderModal = () => {
     if (eggInfo?.childCheck === false && eggInfo?.volunteerCheck === true) {
       //아이는 아직 알을 안깐 경우
       return (
-        <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        >
-          <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
-          <Modal.Header closeButton>
-            <Modal.Title>{childInfo.childName} 학생이 아직 알을 열어보지 않았어요.</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Image
-                type="image"
-                src={`./dinosourImage/dinosaur${userDion}_sad.png`}
-              />
-            </Form>
-          </Modal.Body>
-          <Modal.Footer style={{justifyContent: 'space-between'}}>
-            <Button variant="secondary" onClick={() => setShow(false)}>
-              확인
-            </Button>
-            {/* <Button variant='primary' onClick={handleSubmit}>
+        <Modal show={show} onHide={() => setShow(false)}>
+          <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                {childInfo.childName} 학생이 아직 알을 열어보지 않았어요.
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Image
+                  type="image"
+                  src={`./dinosourImage/dinosaur${userDion}_sad.png`}
+                />
+              </Form>
+            </Modal.Body>
+            <Modal.Footer style={{ justifyContent: "space-between" }}>
+              <Button variant="secondary" onClick={() => setShow(false)}>
+                확인
+              </Button>
+              {/* <Button variant='primary' onClick={handleSubmit}>
               생성
             </Button> */}
-          </Modal.Footer>
+            </Modal.Footer>
           </Modal.Dialog>
         </Modal>
-      )
-    }
-    else if (eggInfo?.experience !== 100) {
+      );
+    } else if (eggInfo?.experience !== 100) {
       //경험치가 100이 아닌 경우
       return (
-        <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        >
-          <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
-          <Modal.Header closeButton>
-            <Modal.Title>아직 경험치가 {eggInfo?.experience || 0} % 에요.</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Image
-                type="image"
-                src={`./dinosourImage/dinosaur${userDion}_sad.png`}
-              />
-            </Form>
-          </Modal.Body>
-          <Modal.Footer style={{justifyContent: 'space-between'}}>
-            <Button variant="secondary" onClick={() => setShow(false)}>
-              확인
-            </Button>
-            {/* <Button variant='primary' onClick={handleSubmit}>
+        <Modal show={show} onHide={() => setShow(false)}>
+          <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                아직 경험치가 {eggInfo?.experience || 0} % 에요.
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Image
+                  type="image"
+                  src={`./dinosourImage/dinosaur${userDion}_sad.png`}
+                />
+              </Form>
+            </Modal.Body>
+            <Modal.Footer style={{ justifyContent: "space-between" }}>
+              <Button variant="secondary" onClick={() => setShow(false)}>
+                확인
+              </Button>
+              {/* <Button variant='primary' onClick={handleSubmit}>
               생성
             </Button> */}
-          </Modal.Footer>
+            </Modal.Footer>
           </Modal.Dialog>
         </Modal>
-      )
-    }
-    else {
+      );
+    } else {
       return (
-        <Modal
-        show={show}
-        onHide={() => setShow(false)}
-        >
-          <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
-          <Modal.Header closeButton>
-            <Modal.Title>나와 함께 하게 된걸 축하해!!!</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Image
-                type="image"
-                src={`./dinosourImage/dinosaur${newEgg?.id}_basic.png`}
-              />
-            </Form>
-          </Modal.Body>
-          <Modal.Footer style={{justifyContent: 'space-between'}}>
-            <Button variant="secondary" onClick={() => setShow(false)}>
-              확인
-            </Button>
-            {/* <Button variant='primary' onClick={handleSubmit}>
+        <Modal show={show} onHide={() => setShow(false)}>
+          <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}>
+            <Modal.Header closeButton>
+              <Modal.Title>나와 함께 하게 된걸 축하해!!!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Image
+                  type="image"
+                  src={`./dinosourImage/dinosaur${newEgg?.id}_basic.png`}
+                />
+              </Form>
+            </Modal.Body>
+            <Modal.Footer style={{ justifyContent: "space-between" }}>
+              <Button variant="secondary" onClick={() => setShow(false)}>
+                확인
+              </Button>
+              {/* <Button variant='primary' onClick={handleSubmit}>
               생성
             </Button> */}
-          </Modal.Footer>
+            </Modal.Footer>
           </Modal.Dialog>
         </Modal>
-      )
+      );
     }
-  } 
+  };
 
   const eggClick = () => {
-
     const eggHatch = async () => {
       try {
-        const memberId = userInfo.memberId
-        const relationId = childInfo.relationId
-        const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {memberId, relationId})
-        console.log(res.data)
-        setNewEgg(res.data)
-        setShow(true)
+        const memberId = userInfo.memberId;
+        const relationId = childInfo.relationId;
+        const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {
+          memberId,
+          relationId,
+        });
+        console.log(res.data);
+        setNewEgg(res.data);
+        setShow(true);
+      } catch (err) {
+        console.error(err);
       }
-      catch (err) {
-        console.error(err)
-      }
-    }
-    eggHatch()
-    
-  }
+    };
+    eggHatch();
+  };
 
   return (
     <div
@@ -251,35 +244,35 @@ const RaiseEggPage = () => {
               </div>
             </RowBox2>
             <RowBox3>
-               <img
+              <img
                 onClick={eggClick}
-                style={{ width: "140px",height: "150px", cursor: "pointer" }}
+                style={{ width: "140px", height: "150px", cursor: "pointer" }}
                 src="./egg_img.png"
                 alt=""
               />
               {!dinoState && (
-              <img
-                style={{ 
-                    // transform: "scaleX(-1)", 
-                    height: "300px" }}
-                src={`./dinosourImage/dinosaur${userDion}_basic.png`}
-                alt=""
-              />
+                <img
+                  style={{
+                    // transform: "scaleX(-1)",
+                    height: "300px",
+                  }}
+                  src={`./dinosourImage/dinosaur${userDion}_basic.png`}
+                  alt=""
+                />
               )}
               {dinoState && (
-              <img
-                style={{ 
+                <img
+                  style={{
                     // transform: "scaleX(-1)", //사진 좌우반전
-                    height: "300px" }}
-                src={`./dinosourImage/dinosaur${userDion}_happy.png`}
-                alt=""
-              />
+                    height: "300px",
+                  }}
+                  src={`./dinosourImage/dinosaur${userDion}_happy.png`}
+                  alt=""
+                />
               )}
-             {/* <div>여기 말하는 톰!</div> */}
-             <Audio
-              dinoState={dinoState}
-              setdinoState={setdinoState}
-             />
+              <div>
+                <Audio dinoState={dinoState} setdinoState={setdinoState} />
+              </div>
             </RowBox3>
           </RightSide>
 

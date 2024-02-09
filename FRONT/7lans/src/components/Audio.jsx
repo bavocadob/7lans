@@ -1,7 +1,26 @@
 import React, { useState, useCallback } from "react";
 import { Howl, Howler } from "howler";
+import styled from "styled-components";
 
-// made by 은희💛
+const Buttondiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  margin-left: 40px;
+`
+
+const Button = styled.button`
+  background: linear-gradient(
+              300deg,
+              rgba(255, 184, 36, 1),
+              rgba(255, 237, 140, 1));
+  border: 3px solid rgba(45,45,45);
+  border-radius: 100px;
+  width: 160px;
+  height: 110px;
+  font-size: 27px;
+`
+
 
 const ChildAudioPlay = ({dinoState, setdinoState}) => {
   const [stream, setStream] = useState();
@@ -11,9 +30,21 @@ const ChildAudioPlay = ({dinoState, setdinoState}) => {
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
   const [disabled, setDisabled] = useState(true); 
+  const [isRecording, setIsRecording] = useState(false);
+
+  const toggleRecording = () => {
+    if (isRecording) {
+      // If currently recording, stop recording
+      offRecAudio();
+    } else {
+      // If not currently recording, start recording
+      onRecAudio();
+    }
+    // Toggle recording state
+    setIsRecording(!isRecording);
+  };
 
   const onRecAudio = () => {
-
     setDisabled(true) 
     
     // 음원정보를 담은 노드를 생성하거나 음원을 실행또는 디코딩 시키는 일을 한다
@@ -91,7 +122,6 @@ const ChildAudioPlay = ({dinoState, setdinoState}) => {
   	
     setDisabled(false);
     console.log(sound); // File 정보 출력
-    
   };
 
   const play = () => { 
@@ -113,8 +143,10 @@ const ChildAudioPlay = ({dinoState, setdinoState}) => {
 
   return (
     <>
-      <button onClick={onRec ? onRecAudio : offRecAudio}>녹음</button>
-      <button onClick={play} disabled={disabled}>재생</button>
+      <Buttondiv>
+        <Button onClick={toggleRecording}> {isRecording ? '녹음완료' : '녹음시작'} </Button>
+        <Button onClick={play} disabled={disabled}>재생</Button>
+      </Buttondiv>
     </>
   );
 }
