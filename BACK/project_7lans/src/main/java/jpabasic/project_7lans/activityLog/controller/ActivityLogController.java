@@ -176,7 +176,7 @@ public class ActivityLogController {
     }
 
     // 화상채팅 시작시 활동 일지 시작 시간 입력(아이가 세션 입장)
-    @Operation(summary = "활동 일지 시작 시간 입력")
+    @Operation(summary = "활동 일지 시작 시간 입력(아동 세션 입장)")
     @PostMapping(value = "/startTime")
     public ResponseEntity setStartTime (@RequestBody ActivityLogRequestDto.startTime startTime) {
         log.info("[ActivityLogController.setStartTime] relationId: {}, time: {}", startTime.getMeetingId(), startTime.getStartTime());
@@ -189,8 +189,8 @@ public class ActivityLogController {
         }
     }
 
-    // 화상채팅 종료시 활동 일지 종료 시간 입력 (아이가 세션 종료)
-    @Operation(summary = "활동 일지 종료 시간 입력")
+    // 화상채팅 종료시 활동 일지 종료 시간 입력 (화상 채팅 세션이 닫히면)
+    @Operation(summary = "활동 일지 종료 시간 입력(화상 미팅 세션 종료시)")
     @PostMapping(value = "/endTime")
     public ResponseEntity setEndTime (@RequestBody ActivityLogRequestDto.endTime endTime) {
         log.info("[ActivityLogController.setEndTime] relationId: {}, time: {}", endTime.getMeetingId(), endTime.getEndTime());

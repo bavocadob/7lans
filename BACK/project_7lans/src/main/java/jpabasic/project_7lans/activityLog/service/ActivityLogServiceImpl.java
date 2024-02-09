@@ -155,6 +155,9 @@ public class ActivityLogServiceImpl implements ActivityLogService {
         MeetingSchedule meetingSchedule = meetingScheduleRepository.findById(endTime.getMeetingId())
                 .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.setEndTime] no such meetingSchedule"));
 
+        // 화상 채팅 종료로 인한 알 경험치 증가.
+        meetingSchedule.getRelation().getEgg().increaseExpByMeeting();
+
         ActivityLog activityLog = meetingSchedule.getActivityLog();
 
         activityLog.setRealEndTime(endTime.getEndTime());
