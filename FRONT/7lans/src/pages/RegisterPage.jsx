@@ -116,7 +116,8 @@ const RightContent = styled.div`
 `;
 
 const LogoImage = styled.img`
-  height: 22vh;
+  height: 100px;
+  width: 400px;
   margin-bottom: 8%;
 `;
 

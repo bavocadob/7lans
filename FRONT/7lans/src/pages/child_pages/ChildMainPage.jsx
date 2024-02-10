@@ -12,7 +12,12 @@ const Container = styled.div`
 /* font-family: 'Nanum Gothic', sans-serif; */
   height: 100vh;
   width: 100vw;
-  background-image: url('/main_page_background.png');
+  background: linear-gradient(
+    180deg,
+    rgba(255, 230.27, 102, 0.71),
+    rgb(255, 215, 3) 60%,
+    rgba(255, 248.22, 224.19, 0) 100%
+  );
   background-size: cover;
   background-position: center;
   display: flex;
@@ -127,28 +132,7 @@ const PostBox = styled.div`
   width: 220px;
 `;
 
-const UnderSection = styled.div`
-  position: absolute;
-  top: 78%;
-  left: 5%;
-  width: 90vw;
-  height: 115px;
-  padding: 1.4rem;
-`;
 
-const ExpBar = styled.div`
-  width: 100%;
-  height: 60px;
-  background-color: rgb(255, 240, 186);
-  border-radius: 10px;
-  margin-top: 10px;
-`;
-
-const FilledExp = styled.div`
-  height: 100%;
-  border-radius: 10px;
-  background-color: rgba(255, 184, 36, 1); /* 채우진 부분의 색상 */
-`;
 
 const VolunteerMainPage = () => {
   const urlInfo = getEnv('API_URL');
@@ -257,17 +241,7 @@ const VolunteerMainPage = () => {
           </PostBox>
         </Link>
       </Letter>
-      <UnderSection>
-        {quotient === 0? 
-          <h3> 아이들과 함께한 시간 : {calculatedWidth} 시간 </h3> 
-          : <h3> 아이들과 함께한 시간 : {quotient*100} 하고도 + {calculatedWidth} 시간 </h3> }
-        딴거해리
-        <div>
-          <ExpBar>
-            <FilledExp style={{ width: `${calculatedWidth}%` }} />
-          </ExpBar>
-        </div>
-      </UnderSection>
+      
     </Container>
   );
 };
