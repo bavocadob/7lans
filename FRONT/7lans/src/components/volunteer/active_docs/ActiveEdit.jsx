@@ -31,7 +31,7 @@ const ModalContent = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  : translate(-50%, -50%);
   background-color: white;
   padding: 20px;
   border-radius: 10px;

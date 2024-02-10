@@ -89,6 +89,7 @@ const RightContent = styled.div`
     margin-top: 7%;
     color: white;
     text-decoration-line: none;
+    
   };
 
   p {

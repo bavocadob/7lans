@@ -12,7 +12,12 @@ const Container = styled.div`
 /* font-family: 'Nanum Gothic', sans-serif; */
   height: 100vh;
   width: 100vw;
-  background-image: url('/main_page_background.png');
+  background: linear-gradient(
+              180deg,
+              rgba(255, 230.27, 102, 0.71),
+              rgb(255,215,3) 60%,
+              rgba(255, 248.22, 224.19, 0)100%);
+  // background-image: url('/Background.png');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -48,11 +53,9 @@ const LogoImage = styled.img`
 
 const MyChildren = styled.div`
   position: absolute;
-  left: 3rem;
-  top: 20%;
-  /* background-color: rgb(255, 240, 186); */
+  left: 5rem;
+  top: 55%;
   border-radius: 100px;
-  /* box-shadow: 5px 5px 5px #ffde95;  */
   .img {
     display: flex;
     align-items: center;
@@ -80,7 +83,7 @@ const MyChildren = styled.div`
 const Letter = styled.div`
   position: relative;
   width: 1250px;
-  top: 53px;
+  top: 40%;
   left: 200px;
   
 `;
@@ -89,7 +92,7 @@ const Overlap = styled.div`
   height: 195px;
   left: 218px;
   position: absolute;
-  top: 56px;
+  top: 79%;
   width: 867px;
   transform: rotate(3deg);
 `;
@@ -105,27 +108,41 @@ const LeftLetter = styled.div`
   position: absolute;
   left: 33%;
   top: 10%;
+
+  :hover{
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const MiddleLetter = styled.div`
   position: absolute;
   left: 56%;
   top: 20%;
+  :hover{
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const RightLetter = styled.div`
   position: absolute;
   left: 79%;
   top: 33%;
+  :hover{
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const AirPlane = styled.div`
-  left: 22%;
+  left: 15%;
   object-fit: cover;
   position: absolute;
   top: 65px;
   width: 164px;
-  transform: rotate(-20deg);
+  transform: rotate(10deg);
+  transform: scaleX(-1);
 `;
 
 const PostBox = styled.div`
@@ -149,16 +166,18 @@ const MainBanner = styled.div`
 `
 
 const BannerText = styled.div`
-  color: white;
+  color: white; 
+  text-shadow: 2px 2px rgb(45,45,45, 0.6);
   font-size: 50px;
+  width: 1000px;
   p {
-  animation-duration: 2s;
+  animation-duration: 4s;
   animation-name: slidein;
 }
 
 @keyframes slidein {
   from {
-    margin-right: 100%;
+    margin-left: -20%;
     /* width: 300%; */
   }
 
@@ -167,6 +186,7 @@ const BannerText = styled.div`
     /* width: 100%; */
   }
 }
+
 `
 
 const UnderSection = styled.div`
@@ -238,15 +258,15 @@ const VolunteerMainPage = () => {
         </Link>
       </header>
       <MyChildren>
-        <Link
+        {/* <Link
           to={"/volunteer_start"}
           style={{ fontSize: "23px", textDecorationLine: "none" }}
-        >
+        > */}
           <img src="../../../main_page/main_page_children.png" alt="나의 아이들 이미지" />
           {/* <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
   Tooltip on bottom
 </button> */}
-        </Link>
+        {/* </Link> */}
       </MyChildren>
         <MainBanner>
           {/* <img style={{ width: "80%", height: '70%' }} src="../../../main_page/main_banner.png" alt="선" /> */}
@@ -293,7 +313,7 @@ const VolunteerMainPage = () => {
         <AirPlane>
           <img
             style={{ width: "70px" }}
-            src="../../../main_page/airplane.png"
+            src="../../../dinosourImage/dinosaur14_basic.png"
             alt="비행기"
           />
         </AirPlane>
