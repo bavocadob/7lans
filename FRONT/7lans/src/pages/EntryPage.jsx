@@ -4,11 +4,14 @@ import styled from 'styled-components';
 import { motion} from "framer-motion";
 
 const Container = styled.div`
+  z-index: -100;
   background: linear-gradient(
                         180deg,
                   rgba(255, 230.27, 102, 0.71),
                   rgb(255,215,3) 60%,
                   rgba(255, 248.22, 224.19, 0)100%);
+  background-image: url('./Background.png');
+  background-size: cover;
   /* background-color: rgb(255, 215, 7); */
   min-height: 100vh;
   min-width: 100vw;
@@ -19,12 +22,16 @@ const Container = styled.div`
 `;
 
 const LogoImage = styled.img`
+  z-index: 1;
   margin-bottom: 1rem;
-  width: 380px;
-  margin-bottom:20px;
+  width: 500px;
+  padding-right: 10px;
+  margin-bottom:50px;
+  margin-top: 70px;
 `;
 
 const InfoSpan = styled.span`
+z-index: 1;
   background-color: rgb(253, 236, 136);
   padding: 0.8rem;
   padding-left: 2rem;
@@ -32,10 +39,11 @@ const InfoSpan = styled.span`
   border-radius: 1rem;
   text-align: center;
   margin-bottom:60px;
-  margin-top:20px
+  margin-top:5px
 `;
 
 const LoginButton = styled(Link)`
+z-index: 1;
   background-color: rgb(240, 165, 8);
   padding: 0.7rem;
   width: 231.86px;
@@ -43,7 +51,7 @@ const LoginButton = styled(Link)`
   transition: background-color 0.3s ease-in-out;
   gap:10.37px;
   text-decoration-line: none;
-
+  
   
   text-align: center;
   cursor: pointer;
@@ -103,7 +111,8 @@ const EntryPage = () => {
   return (
     
     <Container>
-      <LogoImage src="./7lans_logo.png" alt="" />
+      {/* <img src="./Background.png" alt='background'  style={{height: '100vh', width: '80vw'}}/> */}
+      <LogoImage src="./block_logo.png" alt="" />
         <Heart />
       <InfoSpan className='shadow'>
         <h3 style={{margin: '0'}}>

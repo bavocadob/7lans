@@ -89,6 +89,7 @@ const RightContent = styled.div`
     margin-top: 7%;
     color: white;
     text-decoration-line: none;
+    
   };
 
   p {
@@ -117,7 +118,8 @@ const PasswordInput = styled.input`
 `
 
 const LogoImage = styled.img`
-  height: 22vh;
+  height: 100px;
+  width: 400px;
   margin-bottom: 8%;
 `;
 

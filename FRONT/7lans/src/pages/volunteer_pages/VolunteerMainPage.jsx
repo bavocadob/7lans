@@ -1,18 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserInfo } from "../../store/userSlice";
 import { updateChildInfo } from "../../store/childSlice";
 import { updateChildrenInfo } from "../../store/childrenSlice";
-import axios from "axios"
+import axios from "axios";
 import getEnv from "../../utils/getEnv";
+import { Tooltip } from "react-tooltip";
 
 const Container = styled.div`
-/* font-family: 'Nanum Gothic', sans-serif; */
+  /* font-family: 'Nanum Gothic', sans-serif; */
   height: 100vh;
   width: 100vw;
-  background-image: url('/main_page_background.png');
+  background: linear-gradient(
+    180deg,
+    rgba(255, 230.27, 102, 0.71),
+    rgb(255, 215, 3) 60%,
+    rgba(255, 248.22, 224.19, 0) 100%
+  );
+  // background-image: url('/Background.png');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -48,17 +55,15 @@ const LogoImage = styled.img`
 
 const MyChildren = styled.div`
   position: absolute;
-  left: 3rem;
-  top: 20%;
-  /* background-color: rgb(255, 240, 186); */
+  left: 5rem;
+  top: 21.3%;
   border-radius: 100px;
-  /* box-shadow: 5px 5px 5px #ffde95;  */
   .img {
     display: flex;
     align-items: center;
   }
 
-  :hover{
+  :hover {
     transform: scale(1.01);
     transition: 0.2s ease-in-out;
   }
@@ -80,16 +85,15 @@ const MyChildren = styled.div`
 const Letter = styled.div`
   position: relative;
   width: 1250px;
-  top: 53px;
+  top: 12%;
   left: 200px;
-  
 `;
 
 const Overlap = styled.div`
   height: 195px;
   left: 218px;
   position: absolute;
-  top: 56px;
+  top: 79%;
   width: 867px;
   transform: rotate(3deg);
 `;
@@ -105,27 +109,41 @@ const LeftLetter = styled.div`
   position: absolute;
   left: 33%;
   top: 10%;
+
+  :hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const MiddleLetter = styled.div`
   position: absolute;
   left: 56%;
   top: 20%;
+  :hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const RightLetter = styled.div`
   position: absolute;
   left: 79%;
   top: 33%;
+  :hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const AirPlane = styled.div`
-  left: 22%;
+  left: 15%;
   object-fit: cover;
   position: absolute;
   top: 65px;
   width: 164px;
-  transform: rotate(-20deg);
+  transform: rotate(10deg);
+  transform: scaleX(-1);
 `;
 
 const PostBox = styled.div`
@@ -142,36 +160,38 @@ const MainBanner = styled.div`
   height: 80px;
   position: absolute;
   left: 390px;
-  top: 77%;
+  top: 47%;
   display: flex;
   flex-direction: row;
   justify-content: end;
-`
+`;
 
 const BannerText = styled.div`
   color: white;
+  text-shadow: 2px 2px rgb(45, 45, 45, 0.6);
   font-size: 50px;
+  width: 1100px;
   p {
-  animation-duration: 2s;
-  animation-name: slidein;
-}
-
-@keyframes slidein {
-  from {
-    margin-right: 100%;
-    /* width: 300%; */
+    animation-duration: 4s;
+    animation-name: slidein;
   }
 
-  to {
-    margin-left: 0%;
-    /* width: 100%; */
+  @keyframes slidein {
+    from {
+      margin-left: -20%;
+      /* width: 300%; */
+    }
+
+    to {
+      margin-left: 0%;
+      /* width: 100%; */
+    }
   }
-}
-`
+`;
 
 const UnderSection = styled.div`
   position: absolute;
-  top: 83%;
+  top: 53%;
   left: 2.5%;
   width: 95vw;
   height: 115px;
@@ -181,7 +201,7 @@ const UnderSection = styled.div`
 const ExpBar = styled.div`
   width: 100%;
   height: 60px;
-  border: 3px solid rgb(45,45,45);
+  border: 3px solid rgb(45, 45, 45);
   background-color: rgb(255, 240, 186);
   border-radius: 20px;
   margin-top: 10px;
@@ -193,12 +213,45 @@ const FilledExp = styled.div`
   background-color: rgba(255, 184, 36, 1); /* 채우진 부분의 색상 */
 `;
 
-const VolunteerMainPage = () => {
+const ChattingPicture = () => {
+  const [images, setImages] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
+  
+  //부모에게서 전달받은 값
+  const location = useLocation();
+  const state = {...location.state};
   const urlInfo = getEnv('API_URL');
+  //이미지 데이터 가져오기
+  useEffect(() => {
+    axios.get(`${urlInfo}/meetingImage/${state.meetingId}`)
+      .then((res) => {
+        //console.log(res)
+
+        const image = [];
+
+        res.data.map((meetingImage, index) => {
+          image.push(meetingImage)
+        })
+
+        setImages(image)
+      
+      }).catch((error) => {
+
+    }).then(() => {
+
+    });
+  }, []);}
+
+const VolunteerMainPage = () => {
+  const urlInfo = getEnv("API_URL");
   const userInfo = useSelector((state) => state.user.value);
-  const dino = useSelector((state) => state.dino.value)
+  const dino = useSelector((state) => state.dino.value);
   const dispatch = useDispatch();
-  const calculatedWidth = userInfo?.volunteerTime >= 100 ? userInfo.volunteerTime % 100 : userInfo?.volunteerTime || 0;
+  const calculatedWidth =
+    userInfo?.volunteerTime >= 100
+      ? userInfo.volunteerTime % 100
+      : userInfo?.volunteerTime || 0;
   const quotient = Math.floor(calculatedWidth / 100);
   //아동 데이터 가져오기(봉사자 id를 가지고 있어야함)
   useEffect(() => {
@@ -239,28 +292,41 @@ const VolunteerMainPage = () => {
       </header>
       <MyChildren>
         <Link
+          data-tooltip-id="child-tooltip"
           to={"/volunteer_start"}
           style={{ fontSize: "23px", textDecorationLine: "none" }}
         >
           <img src="../../../main_page/main_page_children.png" alt="나의 아이들 이미지" />
-          {/* <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
-  Tooltip on bottom
-</button> */}
         </Link>
+      
+        <Tooltip id="child-tooltip">
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>아이들과 함께할 공간으로</span>
+            <span>이동해 볼까요?</span>
+          </div>
+        </Tooltip>
       </MyChildren>
-        <MainBanner>
-          {/* <img style={{ width: "80%", height: '70%' }} src="../../../main_page/main_banner.png" alt="선" /> */}
+      <MainBanner>
         <BannerText>
-          {quotient === 0? 
-            <p> 아이들과 함께한 시간 : {calculatedWidth} 시간 </p> 
-          : <p> 아이들과 함께한 시간 : {quotient*100} 하고도 + {calculatedWidth} 시간 </p> }
-          </BannerText>
-        </MainBanner>
+          {quotient === 0 ? (
+            <p> 아이들과 함께한 시간 : {calculatedWidth} 시간 </p>
+          ) : (
+            <p>
+              {" "}
+              아이들과 함께한 시간 : {quotient * 100} 하고도 + {calculatedWidth}{" "}
+              시간{" "}
+            </p>
+          )}
+        </BannerText>
+      </MainBanner>
       <Letter>
         <Overlap>
           <Line>
-            <img style={{ width: "80%" }} src="../../../main_page/line.png" alt="선" />
-            
+            <img
+              style={{ width: "80%" }}
+              src="../../../main_page/line.png"
+              alt="선"
+            />
           </Line>
           <Link to={"/volunteer_whispher"}>
             <LeftLetter>
@@ -293,7 +359,7 @@ const VolunteerMainPage = () => {
         <AirPlane>
           <img
             style={{ width: "70px" }}
-            src="../../../main_page/airplane.png"
+            src="../../../dinosourImage/dinosaur14_basic.png"
             alt="비행기"
           />
         </AirPlane>
@@ -318,6 +384,7 @@ const VolunteerMainPage = () => {
           </ExpBar>
         </div>
       </UnderSection>
+      <ChattingPicture />
     </Container>
   );
 };

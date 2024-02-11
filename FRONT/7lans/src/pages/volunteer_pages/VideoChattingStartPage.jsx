@@ -20,6 +20,14 @@ const RightSide = styled.div`
   background-color: rgb(255,255,255, 0.9);
 `
 
+const NoChild = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items : center;
+  font-size : 40px;
+  margin-top: 5%;
+`
+
 const VideoChattingStartPage = () => {
   const [data, setData] = useState(0);
   const childInfo = useSelector((state) => state.child.value)
@@ -51,10 +59,12 @@ const VideoChattingStartPage = () => {
                 child={data}
               />
               :
-              <div>
+              <NoChild>
+                <p>
                 연걸된 아동이 없어요
-                <Wrong/>
-              </div>
+               </p> 
+               <Wrong/>
+              </NoChild>
             }     
 
          </RightSide>
