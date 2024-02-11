@@ -66,6 +66,24 @@ public class MeetingImageController {
     }
 
     // ================================================================================
+    // 지난 랜덤 화상 미팅 사진
+    @Operation(summary = "지난 랜덤 화상 미팅 사진")
+    @GetMapping("/random/{volunteerId}")
+    public ResponseEntity<List<MeetingImageResponseDto.randomMeetingImage>> randomMeetingImage(@PathVariable @Valid Long volunteerId){
+        try{
+            log.info("[MeetingImageController.randomMeetingImage] start... ");
+            List<MeetingImageResponseDto.randomMeetingImage> randomImageList = meetingImageService.randomMeetingImage(volunteerId);
+            log.info("[MeetingImageController.randomMeetingImage] SUCCESS!!! ");
+            return new ResponseEntity(randomImageList,HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.info("[MeetingImageController.randomMeetingImage] FAIL!!! ");
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // ================================================================================
     // ================================================================================
     // 수정
 

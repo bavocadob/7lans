@@ -42,12 +42,41 @@ public class MeetingImageResponseDto {
             this.meetingImagePath = meetingImagePath;
         }
 
-        public static MeetingImageResponseDto.imageList toDto(MeetingImage meetingImage) {
+        public static MeetingImageResponseDto.imageList toImageListDto(MeetingImage meetingImage) {
             return MeetingImageResponseDto.imageList.builder()
                     .meetingImageId(meetingImage.getMeetingImageId())
                     .meetingImagePath(meetingImage.getMeetingImagePath())
                     .build();
         }
+    }
+
+    // ================================================================================
+    // 지난 랜덤 화상 미팅 사진
+    // Req: PathVariable Long volunteerId
+    // Res: List<randomMeetingImage>
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class randomMeetingImage{
+        @NotNull(message = "[MeetingImageResponseDto.randomMeetingImage] randomImageId 는 Null 일 수 없습니다.")
+        Long randomImageId;
+        @NotNull(message = "[MeetingImageResponseDto.randomMeetingImage] randomImagePath 는 Null 일 수 없습니다.")
+        String randomImagePath;
+
+        @Builder
+        randomMeetingImage(
+                Long randomImageId,
+                String randomImagePath
+        ){
+            this.randomImageId = randomImageId;
+            this.randomImagePath = randomImagePath;
+        }
+    }
+
+    public static MeetingImageResponseDto.randomMeetingImage toRandomMeetingImageDto(MeetingImage meetingImage) {
+        return MeetingImageResponseDto.randomMeetingImage.builder()
+                .randomImageId(meetingImage.getMeetingImageId())
+                .randomImagePath(meetingImage.getMeetingImagePath())
+                .build();
     }
 
     // ================================================================================
