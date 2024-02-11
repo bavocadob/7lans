@@ -47,6 +47,16 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
             </span>
           </div>
         </div>
+
+        <div>
+          <img
+            style={{ width: "30px" }}
+            src="../../next_button.png"
+            alt=""
+            onClick={nextMonth}
+          />
+        </div>
+
         <div>
             <div style={{fontSize: "15px"}}>
                 <img 
@@ -68,14 +78,6 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
                 ></img>
                 <span> : 승인 완료</span>
             </div>
-        </div>
-        <div>
-          <img
-            style={{ width: "30px" }}
-            src="../../next_button.png"
-            alt=""
-            onClick={nextMonth}
-          />
         </div>
       </div>
     </div>
