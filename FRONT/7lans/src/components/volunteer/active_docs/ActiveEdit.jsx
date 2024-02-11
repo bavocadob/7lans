@@ -36,36 +36,51 @@ const ModalContent = styled.div`
   padding: 20px;
   border-radius: 10px;
   text-align: center;
+  border: solid;
 `;
 
-const CuteButton = styled.button`
-  background-color: #ff8c94;
+const ButtonStyle = styled.button`
+  background-color: transparent;
   border: none;
   border-radius: 15px;
   padding: 10px;
-  font-size: 14px;
-  color: white;
+  font-size: 20px;
+  color: black;
   cursor: pointer;
   margin-top: 5px;
   margin-left: 5px;
+`;
+
+const ModalButton = styled.button`
+  background-color: #FFD703;
+  border: none;
+  border-radius: 50px;
+  padding: 10px;
+  font-size: 20px;
+  color: black;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-left: 5px;
+  box-shadow: -4.148px -5.185px 1.763px 0px rgba(68, 58, 47, 0.25) inset;
+`;
+
+const ButtonWithMargin = styled(ButtonStyle)`
+  margin-right: 10px;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
-const CloseButton = styled.button`
+const CloseButton = styled.img`
   position: relative;
+  width: 50px;
+  height: 50px;
   margin-left: 78%;
   margin-top: 10px;
-  background-color: #ff8c94;
-  border: none;
-  border-radius: 50%;
-  padding: 5px 10px;
-  font-size: 16px;
-  color: white;
   cursor: pointer;
 `;
 
@@ -73,12 +88,15 @@ const InputRow = styled.div`
   display: flex;
   gap: 20px;
   margin-bottom: 10px;
-  width: 60%;
+  justify-content: space-evenly;
 `;
 
 const TextArea = styled.textarea`
-  width: 80%;
-  height: 200px;
+  width: 95%;
+  height: 80%;
+  background-color: #FFEDAA;
+  border: none;
+  outline: none;
 `;
 
 const ButtonContainer = styled.div`
@@ -90,9 +108,20 @@ const ButtonContainer = styled.div`
   margin-bottom: 2%;
 `;
 
-const CuteButtonWithMargin = styled(CuteButton)`
-  margin-right: 10px;
-`;
+const BasicText = styled.input.attrs({ readOnly: true })`
+  background-color: #FFEDAA;
+  border: none;
+  outline: none;
+  text-align:center;
+  width: 30%;
+  font-weight: bold;
+`
+
+const ButtonImg = styled.img`
+  width : 30px;
+  padding-right: 5px;
+
+`
 
 const ActiveEdit = ({activityLog, content, setContent, activityTime}) => {
     const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
@@ -180,41 +209,57 @@ const ActiveEdit = ({activityLog, content, setContent, activityTime}) => {
 
   return (
     <Container>
-      <CloseButton onClick={() => {navigate(-1)}}>X</CloseButton>
-      <h3>{childInfo.childName}의 활동일지</h3>
+      <CloseButton src="../../close_button.png" 
+        onClick={() => {navigate(-1)}}
+        />
+      <h3>{childInfo.childName} 학생과의 활동일지</h3>
       <br></br>
-      <InputRow>
+      <div style={{width: "95%"}}>
 
-        <div>
-          활동일자: <input type="date" value={activityLog.dateInfo} readOnly/>
-        </div>
-        <div>
-          활동시간: <input type="text" 
-                          value={activityTime} 
-                          style={{ width: `${activityTime.length * 8 + 9}px`}} 
-                          readOnly/>
-        </div>
-      </InputRow>
       <InputRow>
-        <div>
-          활동기관: <input type="text" value={activityLog.centerName} readOnly/>
-        </div>
-        <div>
-          봉사자 성명: <input type="text" value={activityLog.volunteerName} readOnly/>
-        </div>
+          <h4 style={{display: 'inline'}}>활동일자: </h4>
+          <BasicText
+            type="date" value={activityLog.dateInfo } />
+          <h4 style={{display: 'inline'}}>활동시간: </h4>
+          <BasicText type="text" 
+                          value={activityTime} />
       </InputRow>
-      
+
+      <InputRow>
+        <h4 style={{display: 'inline'}}>활동기관: </h4>
+        <BasicText type="text" value={activityLog.centerName}/>
+        <h4 style={{display: 'inline'}}>봉사자 성명: </h4>
+        <BasicText type="text" value={activityLog.volunteerName}/>
+      </InputRow>
+
+      </div>
+
+      <h4>
+        활동 내용 및 의견
+      </h4>
       <TextArea 
         value={content} 
         onChange={onChange}
         readOnly={activityLog.writeDoneStatus} />
       {!activityLog.writeDoneStatus &&  (
       <ButtonContainer>
-        <CuteButtonWithMargin onClick={handleSpeek}>
-          말하기
-        </CuteButtonWithMargin>     
-          <CuteButtonWithMargin onClick={changeContent}>수정하기</CuteButtonWithMargin>
-        <CuteButton onClick={handleSubmission}>제출하기</CuteButton>
+        <ButtonWithMargin onClick={handleSpeek}>
+          <ButtonImg
+            src="public\activity_log\mic.png"
+          />
+           말하기
+        </ButtonWithMargin> 
+
+          <ButtonWithMargin onClick={changeContent}>
+          <ButtonImg
+            src="public\activity_log\modify.png"
+          /> 
+          수정하기</ButtonWithMargin>
+        <ButtonStyle onClick={handleSubmission}>
+        <ButtonImg
+            src="public\activity_log\submit.png"
+          /> 
+          제출하기</ButtonStyle>
       </ButtonContainer>
       )}
 
@@ -222,9 +267,9 @@ const ActiveEdit = ({activityLog, content, setContent, activityTime}) => {
       <ModalOverlaySpeek open={isModalOpenSpeak} >
         <ModalContent>
           <p>활동 내용 및 의견을 말씀하시면 자동으로 작성됩니다.</p>
-          <CuteButton onClick={closeModalSpeek}>취소하기</CuteButton>
-          <CuteButton onClick={recordStart}>녹음하기</CuteButton>
-          <CuteButton onClick={() => { addRecord(transcript)}}>추가하기</CuteButton>
+          <ModalButton onClick={closeModalSpeek}>취소하기</ModalButton>
+          <ModalButton onClick={recordStart}>녹음하기</ModalButton>
+          <ModalButton onClick={() => { addRecord(transcript)}}>추가하기</ModalButton>
           {isRecordStart && (
             <>
     
@@ -233,16 +278,16 @@ const ActiveEdit = ({activityLog, content, setContent, activityTime}) => {
             ) : (
               <p>녹음 후 저장을 위해서는 수정 혹은 제출을 해주세요</p>
             )}
-              <CuteButton onClick={()=>{
+              <ModalButton onClick={()=>{
                 speech.startListening({continuous: true, language: 'ko'});
               }}
               >
-                녹음 시작하기</CuteButton>
-                <CuteButton onClick={()=>{
+                녹음 시작하기</ModalButton>
+                <ModalButton onClick={()=>{
                   speech.stopListening();
               }}
               >
-                녹음 멈추기</CuteButton>
+                녹음 멈추기</ModalButton>
                 {transcript && <div>{transcript}</div>}
             </>
           )}
@@ -252,15 +297,15 @@ const ActiveEdit = ({activityLog, content, setContent, activityTime}) => {
       <ModalOverlay open={isSubmitModalOpen} onClick={closeModal}>
         <ModalContent>
           <p>더 이상 수정이 불가합니다. 제출하시겠습니까?</p>
-          <CuteButton onClick={closeModal}>취소하기</CuteButton>
-          <CuteButton onClick={submit}>제출하기</CuteButton>
+          <ModalButton onClick={closeModal}>취소하기</ModalButton>
+          <ModalButton onClick={submit}>제출하기</ModalButton>
         </ModalContent>
       </ModalOverlay>
 
       <ModalOverlay open={isChangeModalOpen} onClick={closeChangeModal}>
         <ModalContent>
           <p>수정이 완료됐습니다. </p>
-          <CuteButton onClick={closeChangeModal}>닫기</CuteButton>
+          <ModalButton onClick={closeChangeModal}>닫기</ModalButton>
         </ModalContent>
       </ModalOverlay>
     </Container>
