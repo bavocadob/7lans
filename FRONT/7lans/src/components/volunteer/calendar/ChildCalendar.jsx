@@ -214,9 +214,11 @@ const ChildCalendar = () => {
 
 
     const prevMonth = () => {
+        setMeetings([])
         setCurrentMonth(subMonths(currentMonth, 1));
     };
     const nextMonth = () => {
+        setMeetings([])
         setCurrentMonth(addMonths(currentMonth, 1));
     };
     const onDateClick = (day, meeting) => {

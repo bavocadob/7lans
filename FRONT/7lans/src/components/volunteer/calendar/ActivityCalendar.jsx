@@ -48,6 +48,28 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
           </div>
         </div>
         <div>
+            <div style={{fontSize: "15px"}}>
+                <img 
+                    style={{width: "30px"}}
+                    src={getEnv('PREVIOUS_SUBMIT')}
+                
+                ></img>
+                <span> : 일지 작성</span>
+                <img 
+                    style={{width: "30px"}}
+                    src={getEnv('SUBMIT')}
+                
+                ></img>
+                <span> : 승인 전</span>
+                <img 
+                    style={{width: "30px"}}
+                    src={getEnv('APPROVE')}
+                
+                ></img>
+                <span> : 승인 완료</span>
+            </div>
+        </div>
+        <div>
           <img
             style={{ width: "30px" }}
             src="../../next_button.png"
@@ -113,7 +135,7 @@ const Activity = ({activityLog, currentMonth, cloneDay}) => {
             }
             return (
                 <div>
-                    {activityLog.activityLogId}
+                    {/* {activityLog.activityLogId} */}
                     <img    src={thumbnail} 
                             alt=""  
                             style={{ width: '100%'}}/>
@@ -224,9 +246,11 @@ const ActivityCalendar = () => {
     }, [childInfo, currentMonth])
 
     const prevMonth = () => {
+        setActivityLogs([])
         setCurrentMonth(subMonths(currentMonth, 1));
     };
     const nextMonth = () => {
+        setActivityLogs([])
         setCurrentMonth(addMonths(currentMonth, 1));
     };
 
