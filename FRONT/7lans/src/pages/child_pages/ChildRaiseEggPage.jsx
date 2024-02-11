@@ -21,7 +21,7 @@ const RightSide = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   border-radius: 0 20px 20px 0;
-  background-color: rgb(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255, 0.9);
 `;
 
 const RowBox1 = styled.div`
@@ -53,11 +53,12 @@ const ExpBar = styled.div`
   background-color: rgb(255, 183, 58, 0.5);
   border-radius: 10px;
   margin-top: 10px;
+  border: 3px solid rgba(45,45,45);
 `;
 
 const FilledExp = styled.div`
   height: 100%;
-  border-radius: 40px;
+  border-radius: 9px;
   background-color: rgb(255, 183, 58, 0.8); /* 채우진 부분의 색상 */
 `;
 

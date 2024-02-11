@@ -207,7 +207,7 @@ const Meeting = ({ meeting, currentMonth, cloneDay, childInfo }) => {
     //console.log(childInfo)
     if(meeting.status == "SCHEDULED"){//예정이라면 프로필 사진과 시간  
       thumbnail = childInfo.childProfileImagePath
-      printTime = childInfo.childName + " : " + meeting.time.substring(0, 2) + "시" + meeting.time.substring(3, 5) + "분"
+      printTime = childInfo.childName + " " + meeting.time.substring(0, 2) + " : " + meeting.time.substring(3, 5)
     }
     else if(meeting.status == "OPENED"){//열렸다면 환영하는 문구와 프로필 사진
         thumbnail = getEnv('DEFAULT_THUMBNAIL')
@@ -219,16 +219,16 @@ const Meeting = ({ meeting, currentMonth, cloneDay, childInfo }) => {
     }
 
     return (
-        <div>
-            <img 
-                src={thumbnail}
-                alt=""  
-                style={{ width: '100%'}}></img>
+      <div style={{alignSelf: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <img 
+            src={thumbnail}
+            alt=""  
+            style={{ width: '50%', opacity: 1}}></img>
 
-            <div>
-                {printTime}
-            </div>
+        <div style={{fontSize: '0.95rem', fontWeight: 'bold'}}>
+            {printTime}
         </div>
+      </div>
     )
 }
 };

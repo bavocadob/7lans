@@ -165,7 +165,7 @@ const Meeting = ({meeting, currentMonth, cloneDay, volInfo}) => {
         console.log(volInfo)
         if(meeting.status == "SCHEDULED"){//예정이라면 사진과 시간
             thumbnail = volInfo.volunteerProfileImagePath
-            printTime = volInfo.volunteerName + " : " + meeting.time.substring(0, 2) + "시" + meeting.time.substring(3, 5) + "분"
+            printTime = volInfo.volunteerName + " " + meeting.time.substring(0, 2) + " : " + meeting.time.substring(3, 5)
         }
         else if(meeting.status == "OPENED"){//열렸다면 환영하는 문구
             thumbnail = getEnv('DEFAULT_THUMBNAIL')
@@ -177,13 +177,13 @@ const Meeting = ({meeting, currentMonth, cloneDay, volInfo}) => {
         }
 
         return (
-            <div>
+            <div style={{alignSelf: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <img 
                     src={thumbnail}
                     alt=""  
-                    style={{ width: '100%'}}></img>
+                    style={{ width: '50%', opacity: 1}}></img>
 
-                <div>
+                <div style={{fontSize: '0.95rem', fontWeight: 'bold'}}>
                     {printTime}
                 </div>
             </div>

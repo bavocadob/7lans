@@ -91,7 +91,6 @@ const DetailContainer = styled.div`
   align-items: center;
   font-size:20px;
   position: relative;  
-}
 `;
 
 const DetailParagraph = styled.p`
@@ -186,10 +185,13 @@ const ChildDinosaurSidePanel = () => {
       return (
         <StyledDinosaurSidePanel>
           <InnerContainer>
-            {console.log(userProfile)}
+            <div>
             <CloseButton onClick={() => setSidePanelStatus(false)}>{"<<"}</CloseButton>
             <ProfileImage src={`${userProfile}`} alt="" />
-            <StyledFaEdit onClick={handleOpenImage} />
+            </div>
+            <div onClick={handleOpenImage} style={{color: 'rgb(45,45,45)', fontSize: '16px', display:'flex', alignItems: 'flex-end', gap: '13px' }}> 
+              <StyledFaEdit/> 
+            </div>
             <input type="file" accept='image/jpeg, image/png' ref={ref} onChange={handleUploadImage} style={{display: 'none'}}/>
           </InnerContainer>
           <InfoContainer>
