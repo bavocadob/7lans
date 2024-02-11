@@ -42,8 +42,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, volunteer }) => {
         <div>
           <div className="col col-start">
             <span className="text">
-              <span className="text month">{format(currentMonth, "M")}월</span>
-              {format(currentMonth, "yyyy")}
+              <span className="text month">{format(currentMonth, "yyyy")}년 {format(currentMonth, "M")}월</span>
             </span>
           </div>
         </div>
@@ -192,7 +191,6 @@ const Meeting = ({meeting, currentMonth, cloneDay, volInfo}) => {
                         style={{ width: '90%', opacity: 1, borderRadius: '.2rem'}}
                     />
                 }
-
                 <div style={{fontSize: '0.95rem', fontWeight: 'bold'}}>
                     {printTime}
                 </div>
