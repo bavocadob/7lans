@@ -93,25 +93,47 @@ public class MeetingImageServiceImpl implements MeetingImageService{
 
         List<Relation> relationList = relationRepository.findByVolunteer(volunteer);
 
-
-        // 관계 맺은 아동이 없으면 return null;
-        if(relationList.size() == 0 ) return null;
-
         List<MeetingImageResponseDto.randomMeetingImage> randomImages = new ArrayList<>();
 
-        for(int i=0; i<5; i++){
-            if(relationList.size() != 0){
-                List<MeetingSchedule> meetingScheduleList = relationList.get(new Random().nextInt(relationList.size())).getMeetingScheduleList();
-                if(meetingScheduleList.size() != 0){
-                    MeetingSchedule meetingSchedule = meetingScheduleList.get(new Random().nextInt(meetingScheduleList.size()));
-                    List<MeetingImage> meetingImageList = meetingSchedule.getMeetingImageList();
-                    if(meetingImageList.size() != 0){
-                        MeetingImage meetingImage = meetingImageList.get(new Random().nextInt(meetingImageList.size()));
-                        randomImages.add(MeetingImageResponseDto.toRandomMeetingImageDto(meetingImage));
-                    }
+        List<MeetingImage> meetingImageList = new ArrayList<>();
+        int relationSize = relationList.size();
+        for(int i=0; i<relationSize; i++){
+            List<MeetingSchedule> meetingScheduleList = relationList.get(i).getMeetingScheduleList();
+
+            int meetingScheduleSize = meetingScheduleList.size();
+            for(int j=0; j<meetingScheduleSize; j++){
+
+                List<MeetingImage> tempMeetingImages = meetingScheduleList.get(j).getMeetingImageList();
+
+                int tempMeetingImagesSize = tempMeetingImages.size();
+                for(int k=0; k<tempMeetingImagesSize; k++){
+                    meetingImageList.add(tempMeetingImages.get(k));
                 }
             }
         }
+
+
+        int size = meetingImageList.size();
+        if(5 < size){
+            Map<Integer, MeetingImage> map = new HashMap<>();
+
+            int index = 0;
+            while(index < 5){
+                Integer num = new Random().nextInt(size);
+
+                if(map.containsKey(num)) continue;
+
+                MeetingImage meetingImage = meetingImageList.get(num);
+                map.put(num, meetingImageList.get(num));
+                randomImages.add(MeetingImageResponseDto.toRandomMeetingImageDto(meetingImage));
+                index++;
+            }
+        }else if(0 < size){
+            for(MeetingImage meetingImage: meetingImageList){
+                randomImages.add(MeetingImageResponseDto.toRandomMeetingImageDto(meetingImage));
+            }
+        }
+
         return randomImages;
     }
 
