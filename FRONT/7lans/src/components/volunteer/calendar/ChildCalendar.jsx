@@ -161,6 +161,7 @@ const Meeting = ({meeting, currentMonth, cloneDay, volInfo}) => {
 
         let thumbnail = ""
         let printTime = ""
+        let lastPic = ""
         
         console.log(volInfo)
         if(meeting.status == "SCHEDULED"){//예정이라면 사진과 시간
@@ -172,16 +173,25 @@ const Meeting = ({meeting, currentMonth, cloneDay, volInfo}) => {
             printTime = "어서와!"
         }
         else if(meeting.status == "CLOSED"){//지난거라면 썸네일
-            thumbnail = meeting.thumbnailImgPath != "defaultThumbnailImgPath" 
+            lastPic = meeting.thumbnailImgPath != "defaultThumbnailImgPath" 
                              ? meeting.thumbnailImgPath : getEnv('DEFAULT_THUMBNAIL')
         }
 
         return (
             <div style={{alignSelf: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <img 
-                    src={thumbnail}
-                    alt=""  
-                    style={{ width: '50%', opacity: 1}}></img>
+                {thumbnail?
+                    <img 
+                        src={thumbnail}
+                        alt=""  
+                        style={{ width: '50%', opacity: 1, borderRadius: '.2rem'}}
+                    />
+                :
+                    <img 
+                        src={lastPic}
+                        alt=""  
+                        style={{ width: '90%', opacity: 1, borderRadius: '.2rem'}}
+                    />
+                }
 
                 <div style={{fontSize: '0.95rem', fontWeight: 'bold'}}>
                     {printTime}
