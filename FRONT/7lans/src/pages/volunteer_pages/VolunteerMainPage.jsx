@@ -9,7 +9,6 @@ import axios from "axios";
 import getEnv from "../../utils/getEnv";
 import { Tooltip } from "react-tooltip";
 
-
 const Container = styled.div`
   /* font-family: 'Nanum Gothic', sans-serif; */
   height: 100vh;
@@ -214,28 +213,48 @@ const FilledExp = styled.div`
   background-color: rgba(255, 184, 36, 1); /* 채우진 부분의 색상 */
 `;
 
+const ImgArray = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 3%;
+  margin-top: 22.5%;
+  justify-content: space-evenly;
+  margin-left: 2rem;
+  margin-right: 2rem;
+`
+
+const defaultImagePath = "./default_image.png";
+
+const Images = ({ image }) => {
+  return (
+    <div>
+      <img src={image.meetingImagePath} />
+    </div>
+  );
+};
 
 const ChattingPicture = () => {
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
-  
+
   //부모에게서 전달받은 값
   const location = useLocation();
-  const state = {...location.state};
-  const urlInfo = getEnv('API_URL');
+  // const state = {...location.state};
+  const urlInfo = getEnv("API_URL");
 
-  const children = useSelector((state) => state.children.value)
-  const relations = children.map((child) =>{
-    return (
-      child.relationId);
-    })
+  const children = useSelector((state) => state.children.value);
+  const relations = children.map((child) => {
+    return child.relationId;
+  });
 
-  const [meetings, setMeetings] = useState([])
+  const [meetings, setMeetings] = useState([]);
 
-  const currentday = new Date()
-  console.log(relations, 'relations')
-  console.log(relations[Math.floor(Math.random() * relations.length)],'relation')
+  const currentday = new Date();
+  console.log(relations, "relations");
+  console.log(
+    relations[Math.floor(Math.random() * relations.length)],
+    "relation"
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -243,64 +262,54 @@ const ChattingPicture = () => {
         const response = await axios.post(`${urlInfo}/meetingSchedue`, {
           relationId: relations[Math.floor(Math.random() * relations.length)],
           year: currentday.getFullYear(),
-          month: currentday.getMonth() + 1
+          month: currentday.getMonth() + 1,
         });
         const meetingsData = response.data;
         setMeetings(meetingsData);
-  
-        console.log(meetingsData, 'meetings');
-  
-        const meetingIds = meetingsData.map(meeting => meeting.meetingId);
-        console.log(meetingIds, 'meetingIds');
-  
-        const randomMeetingId = meetingIds[Math.floor(Math.random() * meetingIds.length)];
-        console.log(randomMeetingId, 'randomMeetingId');
-  
-        const imageResponse = await axios.get(`${urlInfo}/meetingImage/${randomMeetingId}`);
+
+        console.log(meetingsData, "meetings");
+
+        const meetingIds = meetingsData.map((meeting) => meeting.meetingId);
+        console.log(meetingIds, "meetingIds");
+
+        const randomMeetingId =
+          meetingIds[Math.floor(Math.random() * meetingIds.length)];
+        console.log(randomMeetingId, "randomMeetingId");
+
+        const imageResponse = await axios.get(
+          `${urlInfo}/meetingImage/${randomMeetingId}`
+        );
         const imageData = imageResponse.data;
-  
-        const images = imageData.map(meetingImage => meetingImage);
+
+        const images = imageData.map((meetingImage) => meetingImage);
         setImages(images);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, []);
-  
-  const Images = ({ image, setSelectedImage, setIsModalOpen }) => {
-    const selectThumbnail = () => {
-      setIsModalOpen(true);
-      setSelectedImage(image.meetingImageId);
-    };
-  
-    return (
-      <div>
-        <div
-          style={{
-            transformOrigin: "right top",
-          }}
-        >
-          <img src={image.meetingImagePath} />
-        </div>
-      </div>
-    );
-  };
-  
+
   return (
-    <div>
-    {images.length > 0 &&
-      images.map((element) => (
-        <Images
-          key={element.meetingImageId}
-          image={element}
-          setSelectedImage={setSelectedImage}
-          setIsModalOpen={setIsModalOpen}
-        />
-        ))}
-    </div>
-  )}
+    <ImgArray style={{ display: 'flex', flexDirection: 'row', gap: '3%', marginTop: '22.5%', justifyContent: 'space-evenly', marginLeft: '2rem', marginRight: '2rem' }}>
+    {Array.from({ length: 5 }).map((_, index) => (
+      <img
+        key={index}
+        src={images[index]?.meetingImagePath || defaultImagePath}
+        alt={`Image ${index + 1}`}
+        style={{
+          width: '15%',
+          height: '200px',
+        }}
+      />
+    ))}
+  </ImgArray>
+  );
+};
+
+
+
 
 const VolunteerMainPage = () => {
   const urlInfo = getEnv("API_URL");
@@ -355,9 +364,12 @@ const VolunteerMainPage = () => {
           to={"/volunteer_start"}
           style={{ fontSize: "23px", textDecorationLine: "none" }}
         >
-          <img src="../../../main_page/main_page_children.png" alt="나의 아이들 이미지" />
+          <img
+            src="../../../main_page/main_page_children.png"
+            alt="나의 아이들 이미지"
+          />
         </Link>
-      
+
         <Tooltip id="child-tooltip">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span>아이들과 함께할 공간으로</span>

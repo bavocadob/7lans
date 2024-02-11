@@ -29,7 +29,9 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
                     flexDirection:'row', 
                     justifyContent: 'space-between', 
                     fontSize:'30px',
-                    marginBottom: '10px'
+                    marginBottom: '10px',
+                    alignItems: 'center',
+                    position: 'relative'
                     }}>
         <div>
           <img
@@ -48,19 +50,18 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
           </div>
         </div>
         <div>
-            <div style={{fontSize: "15px"}}>
+            <div style={{fontSize: "18px", width: '400px', position: 'absolute', left: '55%', top: '7px', display: 'flex', gap: '6px' }}>
                 <img 
                     style={{width: "30px"}}
                     src={getEnv('PREVIOUS_SUBMIT')}
                 
                 ></img>
-                <span> : 일지 작성</span>
+                <span style={{marginRight: '10px'}}> : 작성하기 </span>
                 <img 
                     style={{width: "30px"}}
                     src={getEnv('SUBMIT')}
-                
                 ></img>
-                <span> : 승인 전</span>
+                <span style={{marginRight: '10px'}}> : 승인 중</span>
                 <img 
                     style={{width: "30px"}}
                     src={getEnv('APPROVE')}
@@ -136,9 +137,13 @@ const Activity = ({activityLog, currentMonth, cloneDay}) => {
             return (
                 <div>
                     {/* {activityLog.activityLogId} */}
-                    <img    src={thumbnail} 
-                            alt=""  
-                            style={{ width: '100%'}}/>
+                    <img src={thumbnail} 
+                        alt=""  
+                        style={{ width: '55px', 
+                                height: '55px', 
+                                marginTop: '1rem', 
+                                opacity : '1', 
+                                marginLeft: '1rem' }}/>
                 </div>
             )
         }
