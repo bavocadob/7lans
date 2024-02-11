@@ -3,13 +3,20 @@ import axios from "axios";
 import {OpenVidu} from "openvidu-browser";
 import UserVideoComponent from "../components/openvidu/UserVideoComponent.jsx";
 import getEnv from "../utils/getEnv";
+import {useSelector} from "react-redux";
 
 const UseOpenViduSession = () => {
     const APPLICATION_SERVER_URL = getEnv('OPENVIDU_URL');
     const OPENVIDU_SERVER_SECRET = getEnv('OPENVIDU_SECRET');
 
-    const [mySessionId, setMySessionId] = useState('60');
-    const [myUserName, setMyUserName] = useState(`Participant${Math.floor(Math.random() * 100)}`);
+    const userInfo = useSelector((state) => state.user.value)
+
+    // TODO 세션 ID props에서 받아서 수정
+    const [mySessionId, setMySessionId] = useState('15550');
+    const [myUserName, setMyUserName] = useState(
+      userInfo.memberType === 'VOLUNTEER' ? `${userInfo.volunteerName} 봉사자` : `${userInfo.childName} 학생`
+    );
+
     const [session, setSession] = useState(undefined);
     const [mainStreamManager, setMainStreamManager] = useState(undefined);
     const [publisher, setPublisher] = useState(undefined);
@@ -24,8 +31,7 @@ const UseOpenViduSession = () => {
             setMainStreamManager(stream);
         }
     }
-
-
+    
     // 사용자 화상 화면 렌더링
     const renderUserVideoComponent = (stream) => {
         let key = "";

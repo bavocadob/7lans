@@ -6,7 +6,7 @@ import {CSSTransition} from 'react-transition-group';
 import {Flipper, Flipped} from 'react-flip-toolkit';
 import './Chatting.css';
 import PropTypes from "prop-types";
-import {StreamManager} from "openvidu-browser";
+import {Session, StreamManager} from "openvidu-browser";
 import {addChat} from '../../../store/chatSlice';
 
 // Extracted common styles
@@ -39,25 +39,23 @@ const Chat = ({
 
     const direction = isChatVisible ? 'row' : 'column';
     const basis = isChatVisible ? '30%' : '100%';
+    const [chatList, setChatList] = useState([])
 
-    const chatList = useSelector((state) => state.chat.value)
-
-    const bottomRef = useRef();
+    const chatBoxRef = useRef();
 
     useEffect(() => {
         // 채팅창이 업데이트 될 때마다 스크롤을 이동
-        if (bottomRef.current) {
-            bottomRef.current.scrollIntoView(false);
+        if (chatBoxRef.current) {
+            chatBoxRef.current.scrollIntoView(false);
         }
-    }, [chatList]);
+    }, [chatList, chatInput]);
 
     const sendMessage = (chatData) => {
         const signalOptions = {
             data: chatData,
             type: 'chat'
         }
-
-        console.log(`message 보냄 ${chatData}`);
+        
         session.signal(signalOptions)
             .then(() => console.log('Message sent'))
             .catch(err => console.log(err));
@@ -81,7 +79,7 @@ const Chat = ({
         const signalEventHandler = event => {
             const { data } = event;
             const chatData = JSON.parse(data);
-            dispatch(addChat(chatData));
+            setChatList(prevChatList => [...prevChatList, chatData]);
         };
 
         // 이벤트 리스너를 추가합니다.
@@ -104,7 +102,7 @@ const Chat = ({
                     <strong>{chat.writer}</strong>: {chat.message}
                 </p>
             ))}
-            <div ref={bottomRef} style={{float: "left", clear: "both"}}/>
+            <div ref={chatBoxRef} style={{float: "left", clear: "both"}}/>
         </div>
     )
 
@@ -196,6 +194,8 @@ Chat.propTypes = {
     mainStreamManager: PropTypes.instanceOf(StreamManager).isRequired,
     // 사용자의 Session에 참여하고 있는 Subscriber의 List
     subscribers: PropTypes.arrayOf(PropTypes.instanceOf(StreamManager)).isRequired,
+    // session이 Session의 인스턴스인지 확인
+    session: PropTypes.instanceOf(Session).isRequired, 
 }
 
 

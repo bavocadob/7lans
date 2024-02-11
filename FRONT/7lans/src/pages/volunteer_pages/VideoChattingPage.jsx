@@ -4,6 +4,7 @@ import GameNav from '../../components/navs/GameNav';
 import UseOpenViduSession from "../../helpers/useOpenViduSession.jsx";
 import VideoChattingLobby from "./VideoChattingLobby.jsx";
 import VolunteerGamePage from "./VolunteerGamePage.jsx";
+import {useSelector} from "react-redux";
 
 const AppContainer = styled.div`
     margin-top: 5.7%;
@@ -18,6 +19,8 @@ const VideoChattingPage = () => {
   const {session, mainStreamManager, subscribers, joinSession, renderUserVideoComponent} = UseOpenViduSession();
 
   const [isGameStarted, setGameStarted] = useState(false);
+  const userInfo = useSelector((state) => state.user.value);
+
 
   // 페이지 로드시 세션 생성
   useEffect(() => {
@@ -32,6 +35,12 @@ const VideoChattingPage = () => {
       }
     }
   }, [session]);
+
+  useEffect(() => {
+
+  //   TODO 미팅 ID를 바탕으로 이쪽에 접속, 접속시 미팅 데이터를 조회하고 본인과 관계없는 미팅이면 돌려보낸다.
+    console.log(userInfo)
+  }, [userInfo]);
 
 
   // FIXME 테스트용 토글 method 이후 지울 것
