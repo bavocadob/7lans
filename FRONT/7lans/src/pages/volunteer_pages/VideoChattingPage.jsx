@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
+import {useSelector} from "react-redux";
 import GameNav from '../../components/navs/GameNav';
 import UseOpenViduSession from "../../helpers/useOpenViduSession.jsx";
 import VideoChattingLobby from "./VideoChattingLobby.jsx";
 import VolunteerGamePage from "./VolunteerGamePage.jsx";
-import {useSelector} from "react-redux";
+import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn.jsx";
 
 const AppContainer = styled.div`
     margin-top: 5.7%;
@@ -71,7 +72,9 @@ const VideoChattingPage = () => {
         {isGameStarted ? 'Stop Game' : 'Start Game'}
       </button>
 
+      <ImgCaptureBtn/>
     </AppContainer>
+
   );
 };
 
