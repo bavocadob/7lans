@@ -13,7 +13,7 @@ const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   display: ${({ open }) => (open ? "block" : "none")};
 `;
 
@@ -21,22 +21,69 @@ const ModalOverlaySpeek = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  font-size: 20px;
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  height: 100%;  
+  background: rgba(0, 0, 0, 0.3);
   display: ${({ open }) => (open ? "block" : "none")};
 `;
 
 const ModalContent = styled.div`
   position: fixed;
-  top: 50%;
-  left: 50%;
-  :translate(-50%, -50%);
+  top: 30%;
+  left: 45%;
+  width: 620px;
+  height: 400px;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   border: solid;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 252, 199, 1) 0%,
+    rgba(255, 232, 102, 1) 100%
+  );
+`;
+
+const CompleteContent = styled.div`
+  position: fixed;
+  top: 65%;
+  left: 67%;
+  width: 300px;
+  height: 130px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  border: solid;
+  font-size: 20px;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 252, 199, 1) 0%,
+    rgba(255, 232, 102, 1) 100%
+  );
+`;
+
+const SubmitContent = styled.div`
+  position: fixed;
+  top: 60%;
+  left: 70%;
+  width: 320px;
+  height: 170px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  border: solid;
+  font-size: 20px;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 252, 199, 1) 0%,
+    rgba(255, 232, 102, 1) 100%
+  );
 `;
 
 const ButtonStyle = styled.button`
@@ -49,20 +96,24 @@ const ButtonStyle = styled.button`
   cursor: pointer;
   margin-top: 5px;
   margin-left: 5px;
+ 
 `;
 
 const ModalButton = styled.button`
-  background-color: #ffd703;
+  background: rgb(255, 184, 36);
+  font-size: 17px;
+  font-weight: bold;
   border: none;
   border-radius: 50px;
-  padding: 10px;
-  font-size: 20px;
-  color: black;
-  cursor: pointer;
-  margin-top: 5px;
-  margin-left: 5px;
-  box-shadow: -4.148px -5.185px 1.763px 0px rgba(68, 58, 47, 0.25) inset;
+  height: 40px;
+  width: 100px;
+  margin-left: 16px;
+  text-decoration-line: none;
+  position: relative;
+  &:hover {
+    background-color: rgb(0, 164, 25);
 `;
+
 
 const ButtonWithMargin = styled(ButtonStyle)`
   margin-right: 10px;
@@ -107,7 +158,7 @@ const TextArea = styled.textarea`
 const ButtonContainer = styled.div`
   position: absolute;
   top: 86%;
-  left: 60%;
+  left: 57%;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 2%;
@@ -219,12 +270,12 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
         <ButtonContainer>
           <ButtonWithMargin onClick={handleSpeek}>
             <ButtonImg src="public\activity_log\mic.png" />
-            말하기
+            녹음하기
           </ButtonWithMargin>
 
           <ButtonWithMargin onClick={changeContent}>
             <ButtonImg src="public\activity_log\modify.png" />
-            수정하기
+            수정완료
           </ButtonWithMargin>
           <ButtonStyle onClick={handleSubmission}>
             <ButtonImg src="public\activity_log\submit.png" />
@@ -265,7 +316,10 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
       {/* 버튼에 대한 모달창들 */}
       <ModalOverlaySpeek open={isModalOpenSpeak}>
         <ModalContent>
+          <div>
           <p>활동 내용 및 의견을 말씀하시면 자동으로 작성됩니다.</p>
+          </div>
+          <div>
           <ModalButton onClick={closeModalSpeek}>취소하기</ModalButton>
           <ModalButton onClick={recordStart}>녹음하기</ModalButton>
           <ModalButton
@@ -275,15 +329,16 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
           >
             추가하기
           </ModalButton>
+          </div>
           {isRecordStart && (
             <>
               {listening ? (
-                <p>
+                <p style={{marginTop: '10px'}}>
                   음성을 듣고 있습니다. 종료를 원하시면 녹음을 멈추고 추가하기를
                   눌러주세요
                 </p>
               ) : (
-                <p>녹음 후 저장을 위해서는 수정 혹은 제출을 해주세요</p>
+                <p style={{marginTop: '10px'}}>녹음 후 저장을 위해서는 수정 혹은 제출을 해주세요</p>
               )}
               <ModalButton
                 onClick={() => {
@@ -306,18 +361,19 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
       </ModalOverlaySpeek>
 
       <ModalOverlay open={isSubmitModalOpen} onClick={closeModal}>
-        <ModalContent>
-          <p>더 이상 수정이 불가합니다. 제출하시겠습니까?</p>
+        <SubmitContent>
+          <p>더 이상 수정이 불가합니다.</p>
+          <p>제출하시겠습니까?</p>
           <ModalButton onClick={closeModal}>취소하기</ModalButton>
           <ModalButton onClick={submit}>제출하기</ModalButton>
-        </ModalContent>
+        </SubmitContent>
       </ModalOverlay>
 
       <ModalOverlay open={isChangeModalOpen} onClick={closeChangeModal}>
-        <ModalContent>
+        <CompleteContent>
           <p>수정이 완료됐습니다. </p>
           <ModalButton onClick={closeChangeModal}>닫기</ModalButton>
-        </ModalContent>
+        </CompleteContent>
       </ModalOverlay>
     </Container>
   );
