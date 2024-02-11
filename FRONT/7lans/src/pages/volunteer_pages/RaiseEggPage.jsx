@@ -21,8 +21,11 @@ const RightSide = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   border-radius: 0 20px 20px 0;
-  // background-color: rgb(255, 255, 255, 0.9);
-  background-image: url('./egg_raise_background.png');
+  background-color: rgb(255, 255, 255, 0.9);
+  // background-image: url('./egg_raise_background.png');
+  opacity: 1;
+  align-items: flex-end;
+  padding-bottom: 2rem;
 `;
 
 const RowBox1 = styled.div`
@@ -30,7 +33,6 @@ const RowBox1 = styled.div`
   height: 5%;
   font-size: 30px;
   font-weight: bold;
-  margin-top: 3%;
 `;
 
 const RowBox2 = styled.div`
@@ -38,7 +40,7 @@ const RowBox2 = styled.div`
   height: 20%;
   font-size: 30px;
   font-weight: bold;
-  margin-top: 3%;
+  margin-bottom: 10%;
 `;
 
 const RowBox3 = styled.div`
@@ -48,7 +50,15 @@ const RowBox3 = styled.div`
   display: flex;
   align-items: end;
   padding-left: 55px;
+  position: relative;
 `;
+
+const DinoState = styled.div`
+  position: absolute;
+  left: 60%;
+  bottom: 30%;
+`;
+
 const ExpBar = styled.div`
   width: 100%;
   height: 40px;
@@ -68,7 +78,7 @@ const StyledModal = styled(Modal)`
 display: flex;
 align-items: center;
 justify-content: center;
-background-color: rgb(255,255,255, 0.7);
+background-color: rgb(255,255,255, 0.5);
 `;
 
 const StyledHeader = styled(Modal.Header)`
@@ -295,10 +305,11 @@ const RaiseEggPage = () => {
             <RowBox3>
               <img
                 onClick={eggClick}
-                style={{ width: "140px", height: "150px", cursor: "pointer" }}
+                style={{ width: "300px", height: "300px", cursor: "pointer", marginBottom: '1rem' }}
                 src="./egg_img.png"
                 alt=""
               />
+              <DinoState>
               {!dinoState && (
                 <img
                   style={{
@@ -319,6 +330,8 @@ const RaiseEggPage = () => {
                   alt=""
                 />
               )}
+              </DinoState>
+              <div style={{width: '50px'}}></div>
               <div>
                 <Audio dinoState={dinoState} setdinoState={setdinoState} />
               </div>
