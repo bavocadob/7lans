@@ -125,7 +125,7 @@ const GetMeeting = (meetings, cloneDay, currentMonth) => {
 };
 
 
-const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings, childInfo }) => {
+const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings, childInfo, setMeetings }) => {
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
@@ -136,6 +136,14 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings, childI
   let day = startDate;
   let formattedDate = "";
 
+    //해당 아동의 미팅 정보 불러오기
+  // useEffect(() => {
+  //   getMeetingList(childInfo.relationId, 
+  //                 currentMonth.getFullYear(), 
+  //                 currentMonth.getMonth()+1, 
+  //                 setMeetings)
+  // }, [childInfo, currentMonth]);
+  console.log("RenderCell")
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       const cloneDay = addDays(day, 1);
@@ -196,7 +204,7 @@ const Meeting = ({ meeting, currentMonth, cloneDay, childInfo }) => {
     let thumbnail = ""
     let printTime = ""
     
-    console.log(childInfo)
+    //console.log(childInfo)
     if(meeting.status == "SCHEDULED"){//예정이라면 프로필 사진과 시간  
       thumbnail = childInfo.childProfileImagePath
       printTime = childInfo.childName + " : " + meeting.time.substring(0, 2) + "시" + meeting.time.substring(3, 5) + "분"
@@ -244,13 +252,18 @@ const VolunteerCalendar = () => {
                   currentMonth.getFullYear(), 
                   currentMonth.getMonth()+1, 
                   setMeetings)
+
+    console.log("axios")
   }, [childInfo, currentMonth]);
 
   const prevMonth = () => {
+    //console.log("prevMonth")
+    setMeetings([])
     setCurrentMonth(subMonths(currentMonth, 1));
   };
 
   const nextMonth = () => {
+    setMeetings([])
     setCurrentMonth(addMonths(currentMonth, 1));
   };
 
@@ -331,6 +344,7 @@ const VolunteerCalendar = () => {
         onDateClick={onDateClick}
         meetings={meetings}
         childInfo={childInfo}
+        setMeetings={setMeetings}
       />
       {isModalOpen && (
         <MeetingModal
