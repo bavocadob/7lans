@@ -189,17 +189,5 @@ public class ActivityLogController {
         }
     }
 
-    // 화상채팅 종료시 활동 일지 종료 시간 입력 (화상 채팅 세션이 닫히면)
-    @Operation(summary = "활동 일지 종료 시간 입력(화상 미팅 세션 종료시)")
-    @PostMapping(value = "/endTime")
-    public ResponseEntity setEndTime (@RequestBody ActivityLogRequestDto.endTime endTime) {
-        log.info("[ActivityLogController.setEndTime] relationId: {}, time: {}", endTime.getMeetingId(), endTime.getEndTime());
-        try{
-            activityLogServiceImpl.setEndTime(endTime);
-            log.info("[ActivityLogController.setEndTime] set end time done");
-            return new ResponseEntity(HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    // 화상채팅 종료시 활동 일지 종료 시간 입력(세션 종료) -> MeetingServiceImpl(화상 미팅 세션 CLOSE)로 이동
 }

@@ -8,6 +8,7 @@ import jpabasic.project_7lans.activityLog.repository.ActivityLogRepository;
 import jpabasic.project_7lans.childCenter.entity.ChildCenter;
 import jpabasic.project_7lans.childCenter.repository.ChildCenterRepository;
 import jpabasic.project_7lans.meetingSchedule.entity.MeetingSchedule;
+import jpabasic.project_7lans.meetingSchedule.entity.ScheduleType;
 import jpabasic.project_7lans.meetingSchedule.repository.MeetingScheduleRepository;
 import jpabasic.project_7lans.member.dto.volunteer.VolunteerResponseDto;
 import jpabasic.project_7lans.member.entity.Volunteer;
@@ -54,7 +55,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
             int dtoYear = listDto.getDateInfo().getYear();
             int dtoMonth = listDto.getDateInfo().getMonthValue();
 
-            if (activityYear == dtoYear && activityMonth == dtoMonth) {
+            if (activityYear == dtoYear && activityMonth == dtoMonth && meetingSchedule.getStatus() == ScheduleType.CLOSED) {
                 detailList.add(ActivityLogResponseDto.toDetailListByVolunteerDto(meetingSchedule.getActivityLog()));
             }
         }
@@ -137,20 +138,7 @@ public class ActivityLogServiceImpl implements ActivityLogService {
     }
 
     // ================================================================================================================
-    // 화상채팅 종료시 활동 일지 종료 시간 입력(아이가 종료)
-    @Override
-    @Transactional
-    public void setEndTime(ActivityLogRequestDto.endTime endTime) {
-        MeetingSchedule meetingSchedule = meetingScheduleRepository.findById(endTime.getMeetingId())
-                .orElseThrow(()->new IllegalArgumentException("[ActivityLogServiceImpl.setEndTime] no such meetingSchedule"));
-
-        // 화상 채팅 종료로 인한 알 경험치 증가.
-        meetingSchedule.getRelation().getEgg().increaseExpByMeeting();
-
-        ActivityLog activityLog = meetingSchedule.getActivityLog();
-
-        activityLog.setRealEndTime(endTime.getEndTime());
-    }
+    // 화상채팅 종료시 활동 일지 종료 시간 입력(세션 종료) -> MeetingServiceImpl(화상 미팅 세션 CLOSE)로 이동
 
 
     // ================================================================================================================

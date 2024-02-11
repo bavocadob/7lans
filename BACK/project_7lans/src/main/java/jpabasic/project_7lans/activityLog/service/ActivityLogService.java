@@ -34,8 +34,7 @@ public interface ActivityLogService {
     // 화상채팅 시작시 활동 일지 시작 시간 입력(아이가 시작)
     public void setStartTime(ActivityLogRequestDto.startTime startTime);
 
-    // 화상채팅 종료시 활동 일지 종료 시간 입력(아이가 종료)
-    public void setEndTime(ActivityLogRequestDto.endTime endTime);
+    // 화상채팅 종료시 활동 일지 종료 시간 입력(세션 종료) -> MeetingServiceImpl(화상 미팅 세션 CLOSE)로 이동
 
     // ================================================================================================================
     // ================================================================================================================

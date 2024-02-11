@@ -59,4 +59,12 @@ public class ActivityLog {
         this.approveStatus = false;
     }
 
+    @Builder
+    public ActivityLog(
+            LocalDateTime realStartTime,
+            LocalDateTime realEndTime
+    ){
+        this.realStartTime = realStartTime;
+        this.realEndTime = realEndTime;
+    }
 }

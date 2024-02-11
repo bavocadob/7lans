@@ -57,6 +57,11 @@ public class Relation {
         meetingSchedule.setRelation(this);
     }
 
+    public void deleteMeetingSchedule(MeetingSchedule meetingSchedule){
+        meetingScheduleList.remove(meetingSchedule);
+        meetingSchedule.setRelation(null);
+    }
+
     public void addWhisperList(Whisper whisper){
         whisperList.add(whisper);
         whisper.setRelation(this);

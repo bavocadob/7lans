@@ -225,23 +225,5 @@ public class ActivityLogRequestDto {
     }
 
     // ================================================================================================================
-    // 화상채팅 종료시 활동 일지 종료 시간 입력(아이가 종료)
-    @Getter
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class endTime {
-        @NotNull(message = "[ActivityLogRequestDto.endTime] meetingId 은 Null 일 수 없습니다.")
-        private Long meetingId;
-        @NotNull(message = "[ActivityLogRequestDto.endTime] endTime 은 Null 일 수 없습니다.")
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-        private LocalDateTime endTime;
-
-        @Builder
-        endTime(
-                Long meetingId,
-                LocalDateTime endTime
-        ){
-            this.meetingId = meetingId;
-            this.endTime = endTime;
-        }
-    }
+    // 화상채팅 종료시 활동 일지 종료 시간 입력(아이가 종료) -> MeetingServiceImpl(화상 미팅 세션 CLOSE)로 이동
 }
