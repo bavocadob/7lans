@@ -124,7 +124,7 @@ public class MeetingImageServiceImpl implements MeetingImageService{
                 if(map.containsKey(num)) continue;
 
                 MeetingImage meetingImage = meetingImageList.get(num);
-                map.put(num, meetingImageList.get(num));
+                map.put(num, meetingImage);
                 randomImages.add(MeetingImageResponseDto.toRandomMeetingImageDto(meetingImage));
                 index++;
             }
