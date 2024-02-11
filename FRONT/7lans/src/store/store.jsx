@@ -20,6 +20,7 @@ import volsSlice from "./volsSlice";
 import viewLetterSlice from "./viewLetterSlice";
 import userProfileSlice from "./userProfileSlice";
 import adminSelectChildSlice from "./adminSelectChildSlice";
+import imgNumSlice from "./imgNumSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -39,6 +40,7 @@ const reducers = combineReducers({
   vols: volsSlice,
   viewletter: viewLetterSlice,
   userProfile: userProfileSlice,
+  imgNum: imgNumSlice,
 });
 
 const persistConfig = {
