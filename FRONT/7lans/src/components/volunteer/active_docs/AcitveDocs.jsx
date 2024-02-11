@@ -144,10 +144,10 @@ export default function ActiveDocs() {
       
       //time값 설정
       const time = res.data.activityTime + "시간"
-                  + " : " + res.data.activityStartTime.substring(11, 13) + "시"
+                  + " ( " + res.data.activityStartTime.substring(11, 13) + "시"
                   + res.data.activityStartTime.substring(14, 16) +"분"
                   +" ~ " + res.data.activityEndTime.substring(11, 13) + "시"
-                  + res.data.activityEndTime.substring(14, 16) + "분"
+                  + res.data.activityEndTime.substring(14, 16) + "분" + " ) "
       setActivityTime(time)
       console.log(time)
 
