@@ -104,13 +104,16 @@ public class MeetingScheduleRequestDto {
     public static class closeMeeting{
         @NotNull(message = "[MeetingScheduleRequestDto.closeMeeting] meetingId 는 Null 일 수 없습니다.")
         Long meetingId;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+        private LocalDateTime endTime;
 
         @Builder
         closeMeeting(
-                Long meetingId
+                Long meetingId,
+                LocalDateTime endTime
         ){
             this.meetingId = meetingId;
-
+            this.endTime = endTime;
         }
     }
 

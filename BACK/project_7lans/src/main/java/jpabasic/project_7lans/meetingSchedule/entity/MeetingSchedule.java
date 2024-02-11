@@ -36,10 +36,10 @@ public class MeetingSchedule {
 
     private String meetingUrl = "meetingUrl";
 
-    @OneToMany(mappedBy = "meetingSchedule", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "meetingSchedule", cascade = CascadeType.ALL)
     private List<MeetingImage> meetingImageList = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     private ActivityLog activityLog;
 
 

@@ -7,6 +7,8 @@ import jpabasic.project_7lans.activityLog.repository.ActivityLogRepository;
 import jpabasic.project_7lans.meetingSchedule.entity.MeetingSchedule;
 import jpabasic.project_7lans.meetingSchedule.entity.ScheduleType;
 import jpabasic.project_7lans.meetingSchedule.repository.MeetingScheduleRepository;
+import jpabasic.project_7lans.member.entity.Child;
+import jpabasic.project_7lans.member.repository.ChildRepository;
 import jpabasic.project_7lans.relation.entity.Relation;
 import jpabasic.project_7lans.relation.repository.RelationRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class MeetingServiceImpl implements MeetingService{
 
     private final MeetingScheduleRepository meetingRepository;
     private final RelationRepository relationRepository;
+    private final ChildRepository childRepository;
 
     /*
     위에서부터 아래로 내려가는 방향 순서대로
@@ -45,7 +48,10 @@ public class MeetingServiceImpl implements MeetingService{
                 .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.create] 해당 Id와 일치하는 relation이 존재하지 않습니다."));
 
         // 활동 일지 생성
-        ActivityLog activityLog = new ActivityLog();
+        ActivityLog activityLog = ActivityLog.builder()
+                .realStartTime(meeting.getScheduledStartTime())
+                .realEndTime(meeting.getScheduledEndTime())
+                .build();
 
         // 미팅 스케줄을 생성한다.
         MeetingSchedule newMeeting = MeetingSchedule.builder()
@@ -74,7 +80,7 @@ public class MeetingServiceImpl implements MeetingService{
     public List<MeetingScheduleResponseDto.monthList> findMeetingsByRelation(MeetingScheduleRequestDto.meetings meetingsDto){
         //관계 찾기
         Relation relation = relationRepository.findById(meetingsDto.getRelationId())
-                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.findMeetingsByRelation] 해당 Id와 일치하는 relation이 존재하지 않습니다."));
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.findMeetingsByRelation] 해당 Id와 일치하는 Relation 이 존재하지 않습니다."));
 
         //관계된 모든 일정 받기 -> 월을 먼저 걸러서 받는 방법?
         List<MeetingSchedule> totalMeeting = relation.getMeetingScheduleList();
@@ -93,16 +99,55 @@ public class MeetingServiceImpl implements MeetingService{
         return monthMeeting;
     }
 
+    // =================================================================================================================
+    // 미팅 스케줄 Id를 바탕으로 미팅 Detail 조회
+    public MeetingScheduleResponseDto.meetingDetailById meetingDetailById(Long meetingId){
+        MeetingSchedule meetingSchedule = meetingRepository.findById(meetingId)
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.meetingDetailById] 해당 Id와 일치하는 Relation 이 존재하지 않습니다."));
+
+        return MeetingScheduleResponseDto.toMeetingDetailByIdDto(meetingSchedule, meetingSchedule.getRelation());
+    }
+
+    // =================================================================================================================
+    // 유저 Id를 바탕으로 현재 진행중인 미팅 조회
+    // 문제) 아동은 여러 개의 관계를 맺을 수 있다. -> 현재 구현 상 봉사자가 아동 한 명과 동시에 같은 시간에 미팅을 열 수 있다. -> 우선 가장 첫 조회를 반환한다.
+    public MeetingScheduleResponseDto.meetingOpenedByMember meetingOpenedByMember(Long childId){
+        Child child = childRepository.findById(childId)
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.meetingOpenedByMember] 해당 Id와 일치하는 Child 가 존재하지 않습니다."));
+
+        // 아이는 여러 개의 관계들을 가지고 있다.
+        List<Relation> relationList = relationRepository.findByChild(child);
+
+        // 해당 관계들 중 관계 각각에 대해
+        for(Relation relation : relationList){
+            // 화상 미팅 정보들을 하나씩 가져와서
+            List<MeetingSchedule> meetingScheduleList = relation.getMeetingScheduleList();
+            for(MeetingSchedule meetingSchedule : meetingScheduleList){
+                // 현재 화상 미팅이 열려 있지 않으면 continue
+                if(! meetingSchedule.getStatus().equals(ScheduleType.OPENED)) continue;
+
+                // 화상 미팅이 열려있는 경우이므로 값을 반환한다.
+                return MeetingScheduleResponseDto.toMeetingOpenedByMemberDto(meetingSchedule, relation);
+            }
+        }
+
+        // 모든 반복문을 돌고 나서도 없으면 현재 열려있는 화상 미팅이 존재 하지 않으므로 null 을 반환한다.
+        return null;
+    }
+
+    // =================================================================================================================
     //미팅 상태 확인(SCHEDULED)
     public boolean isScheduled(MeetingSchedule meetingSchedule){
         return meetingSchedule.getStatus().equals(ScheduleType.SCHEDULED);
     }
 
+    // =================================================================================================================
     //미팅 상태 확인(OPENED)
     public boolean isOpened(MeetingSchedule meetingSchedule){
         return meetingSchedule.getStatus().equals(ScheduleType.OPENED);
     }
 
+    // =================================================================================================================
     //미팅 상태 확인(CLOSED)
     public boolean isClosed(MeetingSchedule meetingSchedule){
         return meetingSchedule.getStatus().equals(ScheduleType.CLOSED);
@@ -128,7 +173,13 @@ public class MeetingServiceImpl implements MeetingService{
     @Transactional
     public void closeMeeting(MeetingScheduleRequestDto.closeMeeting meetingDto) {
         MeetingSchedule meeting = meetingRepository.findById(meetingDto.getMeetingId())
-                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.openMeeting] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.openMeeting] 해당 Id와 일치하는 meeting 이 존재하지 않습니다."));
+
+        // 화상 채팅 종료로 인한 알 경험치 증가.
+        meeting.getRelation().getEgg().increaseExpByMeeting();
+
+        // 활동 일지 종료 시간 수정.
+        meeting.getActivityLog().setRealEndTime(meetingDto.getEndTime());
 
         //미팅이 닫힘
         meeting.statusChangeToClosed();
@@ -138,6 +189,16 @@ public class MeetingServiceImpl implements MeetingService{
     // =================================================================================================================
     // 삭제
 
+    @Override
+    @Transactional
+    public void deleteMeeting(Long meetingId){
+        MeetingSchedule meetingSchedule = meetingRepository.findById(meetingId)
+                .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.deleteMeeting] 해당 Id와 일치하는 meeting 이 존재하지 않습니다."));
+
+        meetingSchedule.getRelation().deleteMeetingSchedule(meetingSchedule);
+
+        meetingRepository.delete(meetingSchedule);
+    }
 
     // =================================================================================================================
     // =================================================================================================================

@@ -38,13 +38,12 @@ public class MeetingController {
     public ResponseEntity create(@RequestBody MeetingScheduleRequestDto.create newMeeting){
         try{
             meetingService.create(newMeeting);
-
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
 
         }
         catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -55,16 +54,43 @@ public class MeetingController {
     // 해당 년도, 해당 월 미팅 조회하기
     @Operation(summary = "해당하는 달의 화상미팅 일정 조회")
     @PostMapping("")
-    public ResponseEntity<?> monthList(@RequestBody @Valid MeetingScheduleRequestDto.meetings meetingsDto){
+    public ResponseEntity<List<MeetingScheduleResponseDto.monthList>> monthList(@RequestBody @Valid MeetingScheduleRequestDto.meetings meetingsDto){
         try{
             List<MeetingScheduleResponseDto.monthList> meetingSchedule = meetingService.findMeetingsByRelation(meetingsDto);
-
-            return new ResponseEntity<List<MeetingScheduleResponseDto.monthList>>(meetingSchedule, HttpStatus.OK);
+            return new ResponseEntity<>(meetingSchedule, HttpStatus.OK);
 
         }
         catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // =================================================================================================================
+    // 미팅 스케줄 Id를 바탕으로 미팅 Detail 조회
+    @Operation(summary = "미팅 일정 상세 조회")
+    @GetMapping("/{meetingId}")
+    public ResponseEntity<MeetingScheduleResponseDto.meetingDetailById> meetingDetailById(@PathVariable @Valid Long meetingId){
+        try{
+            return new ResponseEntity<>(meetingService.meetingDetailById(meetingId) ,HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // =================================================================================================================
+    // 유저 Id를 바탕으로 현재 진행중인 미팅 조회(현재는 아동을 대상으로 한다.)
+    @Operation(summary = "현재 진행중인 미팅 조회")
+    @GetMapping("/open/{childId}")
+    public ResponseEntity<MeetingScheduleResponseDto.meetingOpenedByMember> meetingOpenedByMember(@PathVariable @Valid Long childId){
+        try{
+            return new ResponseEntity<>(meetingService.meetingOpenedByMember(childId), HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -78,11 +104,11 @@ public class MeetingController {
     public ResponseEntity openMeeting(@RequestBody @Valid MeetingScheduleRequestDto.openMeeting meetingDto){
         try{
             meetingService.openMeeting(meetingDto);
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -92,11 +118,11 @@ public class MeetingController {
     public ResponseEntity closeMeeting(@RequestBody @Valid MeetingScheduleRequestDto.closeMeeting meetingDto){
         try{
             meetingService.closeMeeting(meetingDto);
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -104,6 +130,18 @@ public class MeetingController {
     // =================================================================================================================
     // =================================================================================================================
     // 삭제
+    @Operation(description = "화상 미팅 취소")
+    @DeleteMapping("/delete/{meetingId}")
+    public ResponseEntity deleteMeeting(@PathVariable @Valid Long meetingId){
+        try{
+            meetingService.deleteMeeting(meetingId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
     // =================================================================================================================
