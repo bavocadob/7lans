@@ -99,8 +99,7 @@ public class MeetingImageServiceImpl implements MeetingImageService{
 
         List<MeetingImageResponseDto.randomMeetingImage> randomImages = new ArrayList<>();
 
-        int index = 0;
-        while(index < 5){
+        for(int i=0; i<5; i++){
             if(relationList.size() != 0){
                 List<MeetingSchedule> meetingScheduleList = relationList.get(new Random().nextInt(relationList.size())).getMeetingScheduleList();
                 if(meetingScheduleList.size() != 0){
@@ -109,7 +108,6 @@ public class MeetingImageServiceImpl implements MeetingImageService{
                     if(meetingImageList.size() != 0){
                         MeetingImage meetingImage = meetingImageList.get(new Random().nextInt(meetingImageList.size()));
                         randomImages.add(MeetingImageResponseDto.toRandomMeetingImageDto(meetingImage));
-                        index++;
                     }
                 }
             }
