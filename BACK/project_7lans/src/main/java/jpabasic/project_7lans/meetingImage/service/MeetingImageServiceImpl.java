@@ -102,13 +102,7 @@ public class MeetingImageServiceImpl implements MeetingImageService{
 
             int meetingScheduleSize = meetingScheduleList.size();
             for(int j=0; j<meetingScheduleSize; j++){
-
-                List<MeetingImage> tempMeetingImages = meetingScheduleList.get(j).getMeetingImageList();
-
-                int tempMeetingImagesSize = tempMeetingImages.size();
-                for(int k=0; k<tempMeetingImagesSize; k++){
-                    meetingImageList.add(tempMeetingImages.get(k));
-                }
+                meetingImageList.addAll(meetingScheduleList.get(j).getMeetingImageList());
             }
         }
 
