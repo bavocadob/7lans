@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { updateChildrenInfo } from "../../store/childrenSlice";
 import axios from "axios";
 import getEnv from "../../utils/getEnv";
 import { Tooltip } from "react-tooltip";
+
 
 const Container = styled.div`
   /* font-family: 'Nanum Gothic', sans-serif; */
@@ -213,6 +214,7 @@ const FilledExp = styled.div`
   background-color: rgba(255, 184, 36, 1); /* 채우진 부분의 색상 */
 `;
 
+
 const ChattingPicture = () => {
   const [images, setImages] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -222,26 +224,83 @@ const ChattingPicture = () => {
   const location = useLocation();
   const state = {...location.state};
   const urlInfo = getEnv('API_URL');
-  //이미지 데이터 가져오기
+
+  const children = useSelector((state) => state.children.value)
+  const relations = children.map((child) =>{
+    return (
+      child.relationId);
+    })
+
+  const [meetings, setMeetings] = useState([])
+
+  const currentday = new Date()
+  console.log(relations, 'relations')
+  console.log(relations[Math.floor(Math.random() * relations.length)],'relation')
+
   useEffect(() => {
-    axios.get(`${urlInfo}/meetingImage/${state.meetingId}`)
-      .then((res) => {
-        //console.log(res)
-
-        const image = [];
-
-        res.data.map((meetingImage, index) => {
-          image.push(meetingImage)
-        })
-
-        setImages(image)
-      
-      }).catch((error) => {
-
-    }).then(() => {
-
-    });
-  }, []);}
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(`${urlInfo}/meetingSchedue`, {
+          relationId: relations[Math.floor(Math.random() * relations.length)],
+          year: currentday.getFullYear(),
+          month: currentday.getMonth() + 1
+        });
+        const meetingsData = response.data;
+        setMeetings(meetingsData);
+  
+        console.log(meetingsData, 'meetings');
+  
+        const meetingIds = meetingsData.map(meeting => meeting.meetingId);
+        console.log(meetingIds, 'meetingIds');
+  
+        const randomMeetingId = meetingIds[Math.floor(Math.random() * meetingIds.length)];
+        console.log(randomMeetingId, 'randomMeetingId');
+  
+        const imageResponse = await axios.get(`${urlInfo}/meetingImage/${randomMeetingId}`);
+        const imageData = imageResponse.data;
+  
+        const images = imageData.map(meetingImage => meetingImage);
+        setImages(images);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+  const Images = ({ image, setSelectedImage, setIsModalOpen }) => {
+    const selectThumbnail = () => {
+      setIsModalOpen(true);
+      setSelectedImage(image.meetingImageId);
+    };
+  
+    return (
+      <div>
+        <div
+          style={{
+            transformOrigin: "right top",
+          }}
+        >
+          <img src={image.meetingImagePath} />
+        </div>
+      </div>
+    );
+  };
+  
+  return (
+    <div>
+    {images.length > 0 &&
+      images.map((element) => (
+        <Images
+          key={element.meetingImageId}
+          image={element}
+          setSelectedImage={setSelectedImage}
+          setIsModalOpen={setIsModalOpen}
+        />
+        ))}
+    </div>
+  )}
 
 const VolunteerMainPage = () => {
   const urlInfo = getEnv("API_URL");
