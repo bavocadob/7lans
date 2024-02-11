@@ -92,7 +92,6 @@ const DetailContainer = styled.div`
   align-items: center;
   font-size:20px;
   position: relative;  
-}
 `;
 
 const DetailParagraph = styled.p`
