@@ -119,7 +119,7 @@ const ChildManage = () => {
   // 해당 센터의 학생리스트 가져오기
   useEffect(() => {
     axios
-      .get(`${urlInfo}/manager/child/${centerId}`)
+      .get(`${urlInfo}/child/listByCenter/${centerId}`)
       .then((response) => {
         const arr = [];
         // console.log(response.data, "센터의 아동들");
