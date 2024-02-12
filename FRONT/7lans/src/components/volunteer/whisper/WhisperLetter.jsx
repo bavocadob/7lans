@@ -55,7 +55,7 @@ const ModalButton = styled.button`
   width: 70px;
   height: 40px;
   &:hover {
-    background-color: rgb(255, 215, 3);
+    background-color: rgb(255, 215, 3)};
 `;
 
 const WriteButton = styled.button`
@@ -70,7 +70,7 @@ const WriteButton = styled.button`
   border: 2px solid rgb(255, 184, 36);
   border-radius: 5px;
   &:hover {
-    background-color: rgb(255, 215, 3);
+    background-color: rgb(255, 215, 3)};
 `;
 
 // button {
@@ -138,12 +138,12 @@ const WhisperLetter = () => {
   const userInfo = useSelector((state) => state.user.value);
   const childInfo = useSelector((state) => state.child.value);
   const childRelationId = childInfo.relationId;
+  const volRelationId = volInfo.relationId
   console.log(childRelationId);
   const writerId = userInfo.memberId;
   const urlInfo = getEnv("API_URL");
 
-  const userName = userInfo.volunteerName;
-  const childName = childInfo.childName;
+  const userName = userInfo.volunteerName || userInfo.childName;
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [writeModalIsOpen, setWriteModalIsOpen] = useState(false);
@@ -151,16 +151,18 @@ const WhisperLetter = () => {
   const [selectedChat, setSelectedChat] = useState(null);
   const [chatMessages, setChatMessages] = useState([]);
 
+
+
   useEffect(() => {
     axios
-      .get(`${urlInfo}/whisper/list/${childRelationId}`)
+      .get(`${urlInfo}/whisper/list/${childRelationId || volRelationId}`)
       .then((res) => {
         setChatMessages(res.data);
       })
       .catch((err) => {
         console.log(err, "속닥속닥 리스트 불러오기 에러");
       });
-  }, [childRelationId]);
+  }, [childRelationId, volRelationId]);
 
   const openModal = (message) => {
     setSelectedChat(message);
@@ -188,13 +190,14 @@ const WhisperLetter = () => {
       axios
         .post(`${urlInfo}/whisper`, {
           writerId: writerId,
-          relationId: childRelationId,
+          relationId: childRelationId || volRelationId,
           content: typingMessage,
         })
         .then((res) => {
           // 속닥속닥 작성 후 갱신하기 위해 다시 불렀는데 더 좋은방법있나요?
+
           axios
-            .get(`${urlInfo}/whisper/list/${childRelationId}`)
+            .get(`${urlInfo}/whisper/list/${childRelationId || volRelationId}`)
             .then((res) => {
               setChatMessages(res.data);
             })
