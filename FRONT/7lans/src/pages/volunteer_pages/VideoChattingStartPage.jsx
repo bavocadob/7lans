@@ -8,13 +8,14 @@ import VolunteerCalendar from '../../components/volunteer/calendar/VolunteerCale
 import { useDispatch, useSelector } from 'react-redux';
 
 import Wrong from '../../components/dinosaur/Wrong';
+import Correct from '../../components/dinosaur/Correct';
 
 const RightSide = styled.div`
   width: 90%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-content: center;
   border-radius: 0 20px 20px 0;
   background-color: rgb(255,255,255, 0.9);
@@ -28,9 +29,18 @@ const NoChild = styled.div`
   margin-top: 5%;
 `
 
+const TextandimageBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+`
+
 const VideoChattingStartPage = () => {
   const [data, setData] = useState(0);
   const childInfo = useSelector((state) => state.child.value)
+  const childrenInfo = useSelector((state) => state.children.value)
 
   // const dispatch = useDispatch()
   console.log(childInfo)
@@ -54,17 +64,28 @@ const VideoChattingStartPage = () => {
             volunteerId={1}
             />
           <RightSide>
-             {childInfo? 
+            {childInfo? 
               <VolunteerCalendar 
                 child={data}
               />
               :
-              <NoChild>
-                <p>
-                연걸된 아동이 없어요
-               </p> 
-               <Wrong/>
-              </NoChild>
+              <>
+                {childrenInfo?
+                  <TextandimageBox>
+                    <h1>
+                      함께할 아이를 선택해주세요
+                    </h1>
+                    <Correct/>
+                  </TextandimageBox>
+                  :
+                  <NoChild>
+                    <p>
+                      연결된 아동이 없어요
+                    </p> 
+                  <Wrong/>
+                  </NoChild>
+                }
+              </>
             }     
 
          </RightSide>

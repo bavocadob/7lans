@@ -12,6 +12,7 @@ import { Button, Modal, Form, Image } from "react-bootstrap";
 import Audio from "../../components/Audio"
 import ChildPostit from "../../components/volunteer/post_it/ChildPostit";
 import SelectedChildPostit from "../../components/volunteer/post_it/SelectedChildPostit";
+import Correct from "../../components/dinosaur/Correct";
 
 const RightSide = styled.div`
   width: 90%;
@@ -19,6 +20,7 @@ const RightSide = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   border-radius: 0 20px 20px 0;
   background-color: rgb(255, 255, 255, 0.9);
@@ -62,6 +64,13 @@ const FilledExp = styled.div`
   background-color: rgb(255, 183, 58, 0.8); /* 채우진 부분의 색상 */
 `;
 
+const TextandimageBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+`
 
 const ChildRaiseEggPage = () => {
   const volInfo = useSelector((state) => state.vol.value)
@@ -237,48 +246,59 @@ const ChildRaiseEggPage = () => {
           <ChildCommonSidePanel />
 
           <RightSide>
-            <RowBox2>
-              <p>알에서 뭐가 나올까? 추억을 쌓으면 알이 열려요</p>
-              <div>
-                exp: {eggInfo?.experience || 0} %
-                <ExpBar>
-                  <FilledExp
-                    style={{ width: `${eggInfo?.experience || 0}%` }}
+            {volInfo?
+              <>
+                <RowBox2>
+                  <p>알에서 뭐가 나올까? 추억을 쌓으면 알이 열려요</p>
+                  <div>
+                    exp: {eggInfo?.experience || 0} %
+                    <ExpBar>
+                      <FilledExp
+                        style={{ width: `${eggInfo?.experience || 0}%` }}
+                      />
+                    </ExpBar>
+                  </div>
+                </RowBox2>
+                <RowBox3>
+                  <img
+                    onClick={eggClick}
+                    style={{ width: "140px",height: "150px", cursor: "pointer" }}
+                    src="./egg_img.png"
+                    alt=""
                   />
-                </ExpBar>
-              </div>
-            </RowBox2>
-            <RowBox3>
-               <img
-                onClick={eggClick}
-                style={{ width: "140px",height: "150px", cursor: "pointer" }}
-                src="./egg_img.png"
-                alt=""
-              />
-              {!dinoState && (
-              <img
-                style={{ 
-                    // transform: "scaleX(-1)", 
-                    height: "300px" }}
-                src={`./dinosourImage/dinosaur${userDion}_basic.png`}
-                alt=""
-              />
-              )}
-              {dinoState && (
-              <img
-                style={{ 
-                    // transform: "scaleX(-1)", //사진 좌우반전
-                    height: "300px" }}
-                src={`./dinosourImage/dinosaur${userDion}_happy.png`}
-                alt=""
-              />
-              )}
-             {/* <div>여기 말하는 톰!</div> */}
-             <Audio
-              dinoState={dinoState}
-              setdinoState={setdinoState}
-             />
-            </RowBox3>
+                  {!dinoState && (
+                  <img
+                    style={{ 
+                        // transform: "scaleX(-1)", 
+                        height: "300px" }}
+                    src={`./dinosourImage/dinosaur${userDion}_basic.png`}
+                    alt=""
+                  />
+                  )}
+                  {dinoState && (
+                  <img
+                    style={{ 
+                        // transform: "scaleX(-1)", //사진 좌우반전
+                        height: "300px" }}
+                    src={`./dinosourImage/dinosaur${userDion}_happy.png`}
+                    alt=""
+                  />
+                  )}
+                {/* <div>여기 말하는 톰!</div> */}
+                <Audio
+                  dinoState={dinoState}
+                  setdinoState={setdinoState}
+                />
+                </RowBox3>
+              </>
+              :
+              <TextandimageBox>
+                <h1>
+                  함께할 선생님을 선택해주세요
+                </h1>
+                <Correct/>
+              </TextandimageBox>
+            }
           </RightSide>
 
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>

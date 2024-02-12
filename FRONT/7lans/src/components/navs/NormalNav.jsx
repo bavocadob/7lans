@@ -50,7 +50,7 @@ const NormalNav = () => {
         <ChildInfo>
               {location.pathname !== '/child_dinosaur_dict' ? 
                 <div>
-                  {volInfo.volunteerName} 선생님과의 공간입니다
+                  {volInfo? <p>{volInfo.volunteerName} 선생님과의 공간입니다</p> : ''}
                 </div>
                 :''}
         </ChildInfo>
@@ -66,7 +66,7 @@ const NormalNav = () => {
         <ChildInfo>
               {location.pathname !== '/dinosaur_dict' ? 
                 <div>
-                  {childInfo.childName} 학생과의 공간입니다.
+                  {childInfo && (location.pathname !== '/active_docs')? <p>{childInfo.childName} 학생과의 공간입니다.</p> : '' }
                 </div>
                 :''}
         </ChildInfo>

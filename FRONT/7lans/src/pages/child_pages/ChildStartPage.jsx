@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import NormalNav from '../../components/navs/NormalNav';
 import Correct from '../../components/dinosaur/Correct';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Wrong from '../../components/dinosaur/Wrong';
 import ChildPostit from '../../components/volunteer/post_it/ChildPostit';
 import ChildCommonSidePanel from '../../components/side_panels/ChildCommonSidePanel';
+import { updateVolInfo } from '../../store/volSlice';
 
 
 const RightSide = styled.div`
@@ -17,7 +18,7 @@ const RightSide = styled.div`
   justify-content: center;
   align-content: center;
   border-radius: 0 20px 20px 0;
-  background-color: rgb(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255, 0.9);
   /* border: 2px solid rgb(255, 183, 58);
   border-left: none; */
 
@@ -33,6 +34,12 @@ const TextandimageBox = styled.div`
 `
 
 const ChildStartPage = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(updateVolInfo(''))
+  }, [])
 
   const volInfo = useSelector((state) => state.vol.value)
   const volsInfo = useSelector((state) => state.vols.value)
@@ -62,7 +69,7 @@ const ChildStartPage = () => {
                       backgroundColor: 'rgb(255, 226, 123)'}}>
           <ChildCommonSidePanel />
           <RightSide>
-            {volInfo?
+            {volsInfo?
               <TextandimageBox>
                 <h1>
                 함께할 선생님을 선택해주세요
@@ -78,7 +85,7 @@ const ChildStartPage = () => {
               </TextandimageBox>
             }
           </RightSide>
-          {volInfo?
+          {volsInfo?
             <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
               <ChildPostit message={'/child_video_chatting_start'}/>
               <ChildPostit message={'/child_whispher'}/>

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import CommonSidePanel from '../../components/side_panels/CommonSidePanel';
 import NormalNav from '../../components/navs/NormalNav';
 import PostIt from '../../components/volunteer/post_it/PostIt';
 import Correct from '../../components/dinosaur/Correct';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Wrong from '../../components/dinosaur/Wrong';
+import { updateChildInfo } from '../../store/childSlice';
 
 
 const RightSide = styled.div`
@@ -17,7 +18,7 @@ const RightSide = styled.div`
   justify-content: center;
   align-content: center;
   border-radius: 0 20px 20px 0;
-  background-color: rgb(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255, 0.9);
   /* border: 2px solid rgb(255, 183, 58);
   border-left: none; */
 
@@ -29,10 +30,15 @@ const TextandimageBox = styled.div`
   align-items: center;
   justify-content: center;
   height: 400px;
-
 `
 
 const StartPage = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(updateChildInfo(''))
+  }, [])
 
   const childInfo = useSelector((state) => state.child.value)
   const childrenInfo = useSelector((state) => state.children.value)
@@ -66,7 +72,7 @@ const StartPage = () => {
                       backgroundColor: 'rgb(255, 226, 123)'}}>
           <CommonSidePanel />
           <RightSide>
-            {childInfo?
+            {childrenInfo?
               <TextandimageBox>
                 <h1>
                 함께할 아이를 선택해주세요
@@ -82,7 +88,7 @@ const StartPage = () => {
               </TextandimageBox>
             }
           </RightSide>
-          {childInfo?
+          {childrenInfo?
             <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
               <PostIt message={'/volunteer_video_chatting_start'}/>
               <PostIt message={'/volunteer_active_doc'}/>

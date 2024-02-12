@@ -7,13 +7,14 @@ import SelectedChildPostit from '../../components/volunteer/post_it/SelectedChil
 import ChildPostit from '../../components/volunteer/post_it/ChildPostit';
 import ChildCommonSidePanel from '../../components/side_panels/ChildCommonSidePanel';
 import ChildCalendar from '../../components/volunteer/calendar/ChildCalendar';
+import Correct from '../../components/dinosaur/Correct';
 
 const RightSide = styled.div`
   width: 90%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-content: center;
   border-radius: 0 20px 20px 0;
   background-color: rgb(255,255,255);
@@ -22,11 +23,26 @@ const RightSide = styled.div`
 const ChildVideoChattingStartPage = () => {
   const [data, setData] = useState(0);
   const volInfo = useSelector((state) => state.vol.value)
-
+  const volsInfo = useSelector((state) => state.vols.value)
   const dispatch = useDispatch()
   console.log(volInfo)
 
-  
+const TextandimageBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+`
+
+const NoChild = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items : center;
+  font-size : 40px;
+  margin-top: 5%;
+`
+
   return (
     <>
       <NormalNav />
@@ -48,12 +64,24 @@ const ChildVideoChattingStartPage = () => {
                 child={data}
               />
               :
-              <div>
-                연걸된 선생님이 없어요
-                <Wrong/>
-              </div>
+              <>
+                {volsInfo?
+                  <TextandimageBox>
+                    <h1>
+                      함께할 선생님을 선택해주세요
+                    </h1>
+                    <Correct/>
+                  </TextandimageBox>
+                  :
+                  <NoChild>
+                    <p>
+                      연결된 선생님이 없어요
+                    </p> 
+                  <Wrong/>
+                  </NoChild>
+                }
+              </>
             }     
-
           </RightSide>
 
           <div style={{width: '10%', backgroundColor: 'rgb(255, 226, 123)'}}>
