@@ -151,7 +151,7 @@ const VideoChattingLobby = ({
       <BorderBox>
         <h2
           style={{
-            paddingTop: "3rem",
+            paddingTop: "2rem",
             paddingBottom: "1rem",
             textAlign: "center",
           }}
