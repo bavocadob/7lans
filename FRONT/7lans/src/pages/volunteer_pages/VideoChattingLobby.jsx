@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import { styled as muiStyled } from "@mui/material/styles";
-import { Button } from "@mui/material";
+import {styled as muiStyled} from "@mui/material/styles";
+import {Button} from "@mui/material";
 import PropTypes from "prop-types";
-import { StreamManager } from "openvidu-browser";
-import { useSelector } from "react-redux";
-import { FiCamera } from "react-icons/fi";
-import { FiCameraOff } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import {StreamManager} from "openvidu-browser";
+import {useSelector} from "react-redux";
+import {FiCamera} from "react-icons/fi";
+import {FiCameraOff} from "react-icons/fi";
+import {Link} from "react-router-dom";
 
 const FlexCenterContainer = styled.div`
   flex: 1;
@@ -51,9 +51,9 @@ const CenteredText = styled.p`
 
 const StyledButton = styled.button`
   background: linear-gradient(
-    190deg,
-    rgba(255, 184, 36, 1),
-    rgba(255, 237, 140, 1)
+          190deg,
+          rgba(255, 184, 36, 1),
+          rgba(255, 237, 140, 1)
   );
   font-size: 19px;
   font-weight: bold;
@@ -80,23 +80,18 @@ const Camera = styled.div`
 `;
 
 const VideoChattingLobby = ({
-  renderUserVideoComponent,
-  mainStreamManager,
-  subscribers,
-}) => {
+                              renderUserVideoComponent,
+                              mainStreamManager,
+                              subscribers,
+                              toggleMyCamera,
+                              toggleMyMic,
+                              isMyCameraOn,
+                              isMyMicOn,
+                              isChildCameraOn,
+                              isChildMicOn
+                            }) => {
   const userDino = useSelector((state) => state.dino.value);
 
-  const [isMicOn, setIsMicOn] = useState(false);
-
-  const handleClick = () => {
-    setIsMicOn((prevMicState) => !prevMicState);
-  };
-
-  const [isCameraOn, setIsCameraOn] = useState(false);
-
-  const CameraClick = () => {
-    setIsCameraOn((prevCameraState) => !prevCameraState);
-  };
   return (
     <FlexCenterContainer>
       <BorderBox>
@@ -121,14 +116,14 @@ const VideoChattingLobby = ({
             marginTop: "15px",
           }}
         >
-          <Camera onClick={CameraClick}
+          <Camera onClick={toggleMyCamera}
           >
-             {isCameraOn ? <FiCamera style={{ width: "100%", height: "100%" }} /> 
-             : <FiCameraOff style={{ width: "100%", height: "100%" }} />}
+            {isMyCameraOn ? <FiCamera style={{width: "100%", height: "100%"}}/>
+              : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
           <Mic
-            onClick={handleClick}
-            src={isMicOn ? "./mic_on.png" : "./mic_off.png"}
+            onClick={toggleMyMic}
+            src={isMyMicOn ? "./mic_on.png" : "./mic_off.png"}
             alt="마이크 끄고켜기"
           />
         </div>
@@ -136,16 +131,16 @@ const VideoChattingLobby = ({
       <CenteredBox>
         <CenteredText>
           <p>둘만의 화상채팅 공간이에요</p>
-          <p>하고싶은 놀이를 선택해주세요</p> 
+          <p>하고싶은 놀이를 선택해주세요</p>
         </CenteredText>
         <ResponsiveImage
           src={`./dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
         />
         <Link to="/volunteer_video_chatting_start">
-        <StyledButton>
+          <StyledButton>
             화상채팅 종료
-        </StyledButton>
+          </StyledButton>
         </Link>
       </CenteredBox>
       <BorderBox>
@@ -173,15 +168,13 @@ const VideoChattingLobby = ({
 
           }}
         >
-           <Camera onClick={CameraClick}
+          <Camera
           >
-             {isCameraOn ? <FiCamera style={{ width: "100%", height: "100%" }} /> 
-             : <FiCameraOff style={{ width: "100%", height: "100%" }} />}
+            {isChildCameraOn ? <FiCamera style={{width: "100%", height: "100%"}}/>
+              : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
           <Mic
-            onClick={handleClick}
-            src={isMicOn ? "./mic_on.png" : "./mic_off.png"}
-            alt="마이크 끄고켜기"
+            src={isChildMicOn ? "./mic_on.png" : "./mic_off.png"}
           />
         </div>
       </BorderBox>

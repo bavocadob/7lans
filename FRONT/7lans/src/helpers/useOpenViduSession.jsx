@@ -46,6 +46,28 @@ const UseOpenViduSession = () => {
     );
   };
 
+
+  /**
+   * 카메라 상태를 토글합니다.
+   * 카메라가 켜져 있으면 끄고, 꺼져 있으면 켭니다.
+   */
+  const toggleCamera = (isMyCameraOn) => {
+    if (publisher !== undefined) {
+      publisher.publishVideo(isMyCameraOn);
+    }
+  };
+
+  /**
+   * 마이크 상태를 토글합니다.
+   * 마이크가 켜져 있으면 끄고, 꺼져 있으면 켭니다.
+   */
+  const toggleMic = (isMyMicOn) => {
+    if (publisher !== undefined) {
+      publisher.publishAudio(isMyMicOn);
+    }
+  };
+
+
   // 이미 세션이 존재하는지 확인하는 method
   const getSession = async (sessionId) => {
     try {
@@ -170,7 +192,12 @@ const UseOpenViduSession = () => {
       });
   };
 
-  return {session, mainStreamManager, subscribers, joinSession, renderUserVideoComponent};
+  return {
+    session, mainStreamManager,
+    subscribers, joinSession,
+    renderUserVideoComponent, toggleCamera,
+    toggleMic
+  };
 }
 
 export default UseOpenViduSession;
