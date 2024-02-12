@@ -93,10 +93,11 @@ const InputRow = styled.div`
 
 const TextArea = styled.textarea`
   width: 95%;
-  height: 80%;
+  height: 45%;
   background-color: #FFEDAA;
   border: none;
   outline: none;
+  resize: none;
 `;
 
 const ButtonContainer = styled.div`
