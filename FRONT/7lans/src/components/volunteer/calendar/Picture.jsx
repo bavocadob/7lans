@@ -10,24 +10,28 @@ const getRandomRotation = () => Math.floor(Math.random() * 30) - 20;
 const Image = styled.img`
   height: 100%;
   width: 100%;
-  object-fit: contain;
+  padding: 1rem;
+  padding-top: 2rem;
 `;
 
+
+
 const Frame = styled.div`
-  border: 5px solid #523329;
   padding: 10px;
-  width: 150px;
+  width: 200px;
   height: 150px;
-
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 30%;
+  left: 45%;
   transform: translate(-50%, -50%);
-
-  background-color: transparent;
-
+  cursor: pointer;
+  background-image: url("./frame.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
   &:hover {
-    background-color: #ffb743;
+    background-color:rgb(255, 215, 3, 0.2);
   }
 `;
 
@@ -62,6 +66,10 @@ const Desk = styled.div`
   top: 91%;
   color: white;
   border-radius: 2px;
+  font-size: 20px;
+  padding: 1rem;
+  padding-top: 9px;
+  text-align: center;
 `;
 
 const ModalOverlay = styled.div`
@@ -78,24 +86,37 @@ const ModalContent = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
+  width: 390px;
+  height: 200px;
   transform: translate(-50%, -50%);
-  background-color: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 15px;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 252, 199, 1) 0%,
+    rgba(255, 232, 102, 1) 100%
+  );
+  display: flex; /* Flexbox 설정 */
+  flex-direction: column; /* Vertical
+  justify-content: center; /* 가로 가운데 정렬 */
+  align-items: center;
   text-align: center;
 `;
 
 const CuteButton = styled.button`
-  background-color: #ff8c94;
-  border: none;
-  border-radius: 15px;
-  padding: 10px;
-  font-size: 14px;
-  color: white;
+background: rgb(255, 252, 199);
+font-weight: bold;
+border: 2px solid rgb(255, 184, 36);
+  border-radius: 10px;
+  font-size: 16px;
   cursor: pointer;
-  margin-top: 5px;
-  margin-left: 5px;
+  margin: 10px;
+  width: 90px;
+  height: 45px;
+  &:hover {
+    background-color: rgb(255, 215, 3);
 `;
+
 
 //이미지 렌덤한 각으로 돌려서 출력
 const Images = ({ image, setSelectedImage, setIsModalOpen }) => {
@@ -114,7 +135,7 @@ const Images = ({ image, setSelectedImage, setIsModalOpen }) => {
         onClick={() => {
           selectThumbnail();
         }}
-      >
+        >
         <Image src={image.meetingImagePath} />
       </Frame>
     </Outer>
@@ -202,15 +223,19 @@ const Picture = () => {
       )}
 
       <Blackboard src="blackboard.png" />
-      <Desk>사진을 선택하면 썸네일이 돼요!</Desk>
+      <Desk>사진을 선택하면 썸네일을 선택할 수 있어요 🙂</Desk>
       <Chork src="chork.png" />
 
       {/* 썸네일 설정 확인 모달 */}
       <ModalOverlay open={isModalOpen} onClick={closeModal}>
         <ModalContent>
-          <p>해당 사진을 대표사진으로 설정할까요?</p>
-          <CuteButton onClick={closeModal}>취소하기</CuteButton>
-          <CuteButton onClick={changeThumbnail}>제출하기</CuteButton>
+          <div style={{marginTop: '2rem'}}>
+          <h4>해당 사진을 대표사진으로 설정할까요?</h4>
+          </div>
+          <div>
+          <CuteButton onClick={closeModal}  style={{marginTop: '1.5rem'}}>돌아가기</CuteButton>
+          <CuteButton onClick={changeThumbnail}  style={{marginTop: '1.5rem'}}>설정하기</CuteButton>
+          </div>
         </ModalContent>
       </ModalOverlay>
     </div>

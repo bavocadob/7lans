@@ -49,8 +49,8 @@ const ChoosePicturePage = () => {
             <div
               style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}
             >
-              <PostIt message={"/volunteer_video_chatting_start"} />
-              <SelectedPostit message={"/volunteer_active_doc"} />
+              <SelectedPostit message={"/volunteer_video_chatting_start"} />
+              <PostIt message={"/volunteer_active_doc"} />
               <PostIt message={"/volunteer_whispher"} />
               <PostIt message={"/volunteer_raise_egg"} />
             </div>

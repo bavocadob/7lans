@@ -27,6 +27,8 @@ const WhisperPage = () => {
     dispatch(viewLetter(false));
   }, []);
 
+  const volInfo = useSelector((state) => state.vol.value)
+
   return (
     <>
       <NormalNav />
@@ -44,7 +46,7 @@ const WhisperPage = () => {
           <ChildCommonSidePanel />
 
           <RightSide>
-            {change ? <WhisperLetter /> : <WhisperFirst />}
+            {volInfo ? <WhisperLetter /> : <WhisperFirst />}
           </RightSide>
 
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>

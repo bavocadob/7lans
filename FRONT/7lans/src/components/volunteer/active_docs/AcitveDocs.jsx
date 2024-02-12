@@ -144,10 +144,10 @@ export default function ActiveDocs() {
       
       //time값 설정
       const time = res.data.activityTime + "시간"
-                  + " : " + res.data.activityStartTime.substring(11, 13) + "시"
+                  + " ( " + res.data.activityStartTime.substring(11, 13) + "시"
                   + res.data.activityStartTime.substring(14, 16) +"분"
                   +" ~ " + res.data.activityEndTime.substring(11, 13) + "시"
-                  + res.data.activityEndTime.substring(14, 16) + "분"
+                  + res.data.activityEndTime.substring(14, 16) + "분" + " ) "
       setActivityTime(time)
       console.log(time)
 
@@ -198,9 +198,9 @@ export default function ActiveDocs() {
           </RightSide>
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>
             <PostIt message={"/volunteer_video_chatting_start"} />
-            <PostIt message={"/volunteer_active_doc"} />
+            <SelectedPostit message={"/volunteer_active_doc"} />
             <PostIt message={"/volunteer_whispher"} />
-            <SelectedPostit message={"/volunteer_raise_egg"} />
+            <PostIt message={"/volunteer_raise_egg"} />
           </div>
         </div>
         <div

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { updateChildrenInfo } from "../../store/childrenSlice";
 import axios from "axios";
 import getEnv from "../../utils/getEnv";
 import { Tooltip } from "react-tooltip";
+import "../../../scss/_homepage.scss";
 
 const Container = styled.div`
   /* font-family: 'Nanum Gothic', sans-serif; */
@@ -213,35 +214,115 @@ const FilledExp = styled.div`
   background-color: rgba(255, 184, 36, 1); /* 채우진 부분의 색상 */
 `;
 
+const ImgArray = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 3%;
+  margin-top: 22.5%;
+  justify-content: space-evenly;
+  margin-left: 2rem;
+  margin-right: 2rem;
+`
+
+// const defaultImagePath = "./default_image.png";
+
+const Images = ({ image }) => {
+  return (
+    <div>
+      <img src={image.meetingImagePath} />
+    </div>
+  );
+};
+
 const ChattingPicture = () => {
-  const [images, setImages] = useState([])
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
-  
-  //부모에게서 전달받은 값
-  const location = useLocation();
-  const state = {...location.state};
-  const urlInfo = getEnv('API_URL');
-  //이미지 데이터 가져오기
+  const [images, setImages] = useState([]);
+
+  const [animate, setAnimate] = useState(true);
+    const onStop = () => setAnimate(false);
+    const onRun = () => setAnimate(true);
+
+  const urlInfo = getEnv("API_URL");
+
+  const volunteer = useSelector((state) => state.user.value);
+
   useEffect(() => {
-    axios.get(`${urlInfo}/meetingImage/${state.meetingId}`)
-      .then((res) => {
-        //console.log(res)
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${urlInfo}/meetingImage/random/${volunteer.memberId}`);
 
-        const image = [];
+        //console.log(response)
+        setImages(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-        res.data.map((meetingImage, index) => {
-          image.push(meetingImage)
-        })
+    fetchData();
+  }, []);
 
-        setImages(image)
-      
-      }).catch((error) => {
+  
 
-    }).then(() => {
+  return (
+    <div className="wrapper" style={{display: 'flex', flexDirection: 'row', gap: '3%', marginTop: '19%', justifyContent: 'space-evenly', marginLeft: '2rem', marginRight: '2rem', paddingTop: '10px'}}>
+      <div className="slide_container" >
+        <ul
+          className="slide_wrapper"
+          onMouseEnter={onStop}
+          onMouseLeave={onRun}
+        >
+          <div
+            className={"slide original".concat(
+                        animate ? "" : " stop"
+                      )}
+                      style={{marginBottom: '0', paddingBottom: '0'}}
+          >
+            {images.map((image, index) => (
+              <li
+                key={index}
+                  // className={index % 2 === 0 ? "big" : "small"}
+                  className="small"
+              >
+                <img
+                  key={index}
+                  src={image.randomImagePath}
+                  alt=""
+                  style={{
+                  height: '100%',
+                  }}
+                />
+              </li>
+            ))}
+          </div>
+          <div
+            className={"slide clone".concat(animate ? "" : " stop")}
+            style={{paddingBottom: '0', marginBottom: '0'}}
+          >
+            {images.map((image, index) => (
+              <li
+                key={index}
+                  // className={index % 2 === 0 ? "big" : "small"}
+                  className="small"
+              >
+                <img
+                  key={index}
+                  src={image.randomImagePath}
+                  alt=""
+                  style={{
+                    height: '100%',
+                  }}
+                />
+                      
+              </li>
+            ))}
+          </div>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-    });
-  }, []);}
+
+
 
 const VolunteerMainPage = () => {
   const urlInfo = getEnv("API_URL");
@@ -258,7 +339,9 @@ const VolunteerMainPage = () => {
     axios
       .get(`${urlInfo}/child/listByVolunteer/${userInfo.memberId}`)
       .then((res) => {
-        dispatch(updateChildInfo(res.data[0]));
+        // dispatch(updateChildInfo(res.data[0]));
+        // 메인 페이지에서 디폴트 아동 정보를 가져오지 않게 변경합니다.
+        dispatch(updateChildInfo(''))
         dispatch(updateChildrenInfo(res.data));
       })
       .catch((err) => {});
@@ -296,9 +379,12 @@ const VolunteerMainPage = () => {
           to={"/volunteer_start"}
           style={{ fontSize: "23px", textDecorationLine: "none" }}
         >
-          <img src="../../../main_page/main_page_children.png" alt="나의 아이들 이미지" />
+          <img
+            src="../../../main_page/main_page_children.png"
+            alt="나의 아이들 이미지"
+          />
         </Link>
-      
+
         <Tooltip id="child-tooltip">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span>아이들과 함께할 공간으로</span>

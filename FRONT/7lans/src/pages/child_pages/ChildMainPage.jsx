@@ -147,7 +147,9 @@ const VolunteerMainPage = () => {
       .get(`${urlInfo}/volunteer/listByChild/${userInfo.memberId}`)
       .then((res) => {
         console.log(res.data)
-        dispatch(updateVolInfo(res.data[0]));
+        // dispatch(updateVolInfo(res.data[0]));
+        // 기본값으로 첫 봉사자를 선택하지 않습니다.
+        dispatch(updateVolInfo(''))
         dispatch(updateVolsInfo(res.data));
       })
       .catch((err) => {

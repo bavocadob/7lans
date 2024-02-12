@@ -12,7 +12,7 @@ import { getMeetingDetail } from "../../api/axioses"
 
 const AppContainer = styled.div`
     margin-top: 5.7%;
-    height: 90vh;
+    height: 87vh;
     //width: 100wh;
     display: flex;
     flex-direction: column;

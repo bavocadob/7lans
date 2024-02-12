@@ -24,12 +24,14 @@ ReactModal.setAppElement('#root');
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
     return (
-        <div className="header row" style={{ marginBottom: '10px'}}>
+        <div className="header row" style={{ marginBottom: '10px', position: 'relative',}}>
       <div style={{display:'flex', 
                     flexDirection:'row', 
-                    justifyContent: 'space-between', 
                     fontSize:'30px',
-                    marginBottom: '10px'
+                    marginBottom: '10px',
+                    width: '100%',
+                    gap: '40px',
+                    paddingLeft: '1rem'
                     }}>
         <div>
           <img
@@ -42,25 +44,40 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
         <div>
           <div className="col col-start">
             <span className="text">
-              <span className="text month">{format(currentMonth, "M")}월</span>
-              {format(currentMonth, "yyyy")}
-            </span>
+            <span className="text month">{format(currentMonth, "yyyy")}년 {" "} {format(currentMonth, "M")}월</span>
+               </span>
           </div>
         </div>
+
         <div>
-            <div style={{fontSize: "15px"}}>
+          <img
+            style={{ width: "30px" }}
+            src="../../next_button.png"
+            alt=""
+            onClick={nextMonth}
+            />
+        </div>
+            </div>
+
+        <div>
+            <div style={{fontSize: "18px", 
+                        width: '400px', 
+                        position: 'absolute',
+                        right: '0', 
+                        top: '7px', 
+                        display: 'flex', 
+                        justifyContent:'end'}}>
                 <img 
                     style={{width: "30px"}}
                     src={getEnv('PREVIOUS_SUBMIT')}
                 
                 ></img>
-                <span> : 일지 작성</span>
+                <span style={{marginRight: '10px'}}> : 작성하기 </span>
                 <img 
                     style={{width: "30px"}}
                     src={getEnv('SUBMIT')}
-                
                 ></img>
-                <span> : 승인 전</span>
+                <span style={{marginRight: '10px'}}> : 승인 중</span>
                 <img 
                     style={{width: "30px"}}
                     src={getEnv('APPROVE')}
@@ -69,16 +86,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
                 <span> : 승인 완료</span>
             </div>
         </div>
-        <div>
-          <img
-            style={{ width: "30px" }}
-            src="../../next_button.png"
-            alt=""
-            onClick={nextMonth}
-          />
-        </div>
       </div>
-    </div>
   );
 };
 
@@ -136,9 +144,13 @@ const Activity = ({activityLog, currentMonth, cloneDay}) => {
             return (
                 <div>
                     {/* {activityLog.activityLogId} */}
-                    <img    src={thumbnail} 
-                            alt=""  
-                            style={{ width: '100%'}}/>
+                    <img src={thumbnail} 
+                        alt=""  
+                        style={{ width: '55px', 
+                                height: '55px', 
+                                marginTop: '1rem', 
+                                opacity : '1', 
+                                marginLeft: '1rem' }}/>
                 </div>
             )
         }

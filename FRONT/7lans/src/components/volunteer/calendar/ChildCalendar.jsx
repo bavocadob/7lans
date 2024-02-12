@@ -42,8 +42,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, volunteer }) => {
         <div>
           <div className="col col-start">
             <span className="text">
-              <span className="text month">{format(currentMonth, "M")}월</span>
-              {format(currentMonth, "yyyy")}
+              <span className="text month">{format(currentMonth, "yyyy")}년 {format(currentMonth, "M")}월</span>
             </span>
           </div>
         </div>
@@ -161,29 +160,38 @@ const Meeting = ({meeting, currentMonth, cloneDay, volInfo}) => {
 
         let thumbnail = ""
         let printTime = ""
+        let lastPic = ""
         
         console.log(volInfo)
         if(meeting.status == "SCHEDULED"){//예정이라면 사진과 시간
             thumbnail = volInfo.volunteerProfileImagePath
-            printTime = volInfo.volunteerName + " : " + meeting.time.substring(0, 2) + "시" + meeting.time.substring(3, 5) + "분"
+            printTime = volInfo.volunteerName + " " + meeting.time.substring(0, 2) + " : " + meeting.time.substring(3, 5)
         }
         else if(meeting.status == "OPENED"){//열렸다면 환영하는 문구
             thumbnail = getEnv('DEFAULT_THUMBNAIL')
             printTime = "어서와!"
         }
         else if(meeting.status == "CLOSED"){//지난거라면 썸네일
-            thumbnail = meeting.thumbnailImgPath != "defaultThumbnailImgPath" 
+            lastPic = meeting.thumbnailImgPath != "defaultThumbnailImgPath" 
                              ? meeting.thumbnailImgPath : getEnv('DEFAULT_THUMBNAIL')
         }
 
         return (
-            <div>
-                <img 
-                    src={thumbnail}
-                    alt=""  
-                    style={{ width: '100%'}}></img>
-
-                <div>
+            <div style={{alignSelf: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                {thumbnail?
+                    <img 
+                        src={thumbnail}
+                        alt=""  
+                        style={{ width: '50%', opacity: 1, borderRadius: '.2rem'}}
+                    />
+                :
+                    <img 
+                        src={lastPic}
+                        alt=""  
+                        style={{ width: '90%', opacity: 1, borderRadius: '.2rem'}}
+                    />
+                }
+                <div style={{fontSize: '0.95rem', fontWeight: 'bold'}}>
                     {printTime}
                 </div>
             </div>

@@ -12,6 +12,7 @@ import { tr } from "date-fns/locale";
 import getEnv from "../../utils/getEnv";
 import { Button, Modal, Form, Image } from "react-bootstrap";
 import Audio from "../../components/Audio";
+import Correct from "../../components/dinosaur/Correct";
 
 const RightSide = styled.div`
   width: 90%;
@@ -19,11 +20,12 @@ const RightSide = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   border-radius: 0 20px 20px 0;
-  background-color: rgb(255, 255, 255, 0.9);
+  // background-color: rgb(255, 255, 255, 0.9);
+  background-image: url('./egg_raise_background.png');
 `;
-
 const RowBox1 = styled.div`
   width: 90%;
   height: 5%;
@@ -31,7 +33,6 @@ const RowBox1 = styled.div`
   font-weight: bold;
   margin-top: 3%;
 `;
-
 const RowBox2 = styled.div`
   width: 90%;
   height: 20%;
@@ -39,7 +40,6 @@ const RowBox2 = styled.div`
   font-weight: bold;
   margin-top: 3%;
 `;
-
 const RowBox3 = styled.div`
   width: 90%;
   height: 50%;
@@ -56,37 +56,31 @@ const ExpBar = styled.div`
   margin-top: 10px;
   border: 3px solid rgba(45,45,45);
 `;
-
 const FilledExp = styled.div`
   height: 100%;
   border-radius: 9px;
   background-color: rgb(255, 183, 58, 0.9); /* 채우진 부분의 색상 */
 `;
-
 const StyledModal = styled(Modal)`
 display: flex;
 align-items: center;
 justify-content: center;
 background-color: rgb(255,255,255, 0.7);
 `;
-
 const StyledHeader = styled(Modal.Header)`
   background-color: rgb(208, 192, 237, 0.9); /* 모달 헤더 배경색 설정 */
   border-radius: 8px 8px 0px 0px;
 `;
-
 const StyledFooter = styled(Modal.Footer)`
   background-color: rgb(208, 192, 237, 0.9); /* 모달 푸터 배경색 설정 */
   border-radius: 0px 0px 8px 8px;
   flex-direction: column-reverse
 `;
-
 const StyledBody = styled(Modal.Body)`
   display: flex;
   justify-content: center; 
   align-items: center;
 `
-
 const StyledButton = styled.button`
 background: rgb(232, 225, 255);
 font-size: 18px;
@@ -101,6 +95,14 @@ color: rgb(45, 45, 45);
   background-color: rgb(232, 225, 250);}
 `;
 
+const TextandimageBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+`
+
 const RaiseEggPage = () => {
   const childInfo = useSelector((state) => state.child.value);
   const childrenInfo = useSelector((state) => state.children.value);
@@ -112,10 +114,8 @@ const RaiseEggPage = () => {
   const [newEgg, setNewEgg] = useState(null);
   const [dinoState, setdinoState] = useState(false); //기본 상태, true == 행복한 상태 출력
   // const eggInfo = useRef(null)
-
   console.log(childInfo);
   console.log(childrenInfo);
-
   useEffect(() => {
     const egg = async () => {
       try {
@@ -130,7 +130,6 @@ const RaiseEggPage = () => {
     };
     egg();
   }, [childInfo]);
-
   const renderModal = () => {
     if (eggInfo?.childCheck === false && eggInfo?.volunteerCheck === true) {
       //아이는 아직 알을 안깐 경우
@@ -226,7 +225,6 @@ const RaiseEggPage = () => {
       );
     }
   };
-
   const eggClick = () => {
     const eggHatch = async () => {
       try {
@@ -245,7 +243,6 @@ const RaiseEggPage = () => {
     };
     eggHatch();
   };
-
   return (
     <div
       style={{
@@ -278,52 +275,61 @@ const RaiseEggPage = () => {
           }}
         >
           <CommonSidePanel />
-
           <RightSide>
-            <RowBox2>
-              <p>알에서 뭐가 나올까? 추억을 쌓으면 알이 열려요</p>
-              <div>
-                exp: {eggInfo?.experience || 0} %
-                <ExpBar>
-                  <FilledExp
-                    style={{ width: `${eggInfo?.experience || 0}%` }}
+            {childInfo?
+              <>
+              <RowBox2>
+                <p>알에서 뭐가 나올까? 추억을 쌓으면 알이 열려요</p>
+                <div>
+                  exp: {eggInfo?.experience || 0} %
+                  <ExpBar>
+                    <FilledExp
+                      style={{ width: `${eggInfo?.experience || 0}%` }}
+                    />
+                  </ExpBar>
+                </div>
+              </RowBox2>
+              <RowBox3>
+                <img
+                  onClick={eggClick}
+                  style={{ width: "140px", height: "150px", cursor: "pointer" }}
+                  src="./egg_img.png"
+                  alt=""
+                />
+                {!dinoState && (
+                  <img
+                    style={{
+                      // transform: "scaleX(-1)",
+                      height: "300px",
+                    }}
+                    src={`./dinosourImage/dinosaur${userDion}_basic.png`}
+                    alt=""
                   />
-                </ExpBar>
-              </div>
-            </RowBox2>
-            <RowBox3>
-              <img
-                onClick={eggClick}
-                style={{ width: "140px", height: "150px", cursor: "pointer" }}
-                src="./egg_img.png"
-                alt=""
-              />
-              {!dinoState && (
-                <img
-                  style={{
-                    // transform: "scaleX(-1)",
-                    height: "300px",
-                  }}
-                  src={`./dinosourImage/dinosaur${userDion}_basic.png`}
-                  alt=""
-                />
-              )}
-              {dinoState && (
-                <img
-                  style={{
-                    // transform: "scaleX(-1)", //사진 좌우반전
-                    height: "300px",
-                  }}
-                  src={`./dinosourImage/dinosaur${userDion}_happy.png`}
-                  alt=""
-                />
-              )}
-              <div>
-                <Audio dinoState={dinoState} setdinoState={setdinoState} />
-              </div>
-            </RowBox3>
+                )}
+                {dinoState && (
+                  <img
+                    style={{
+                      // transform: "scaleX(-1)", //사진 좌우반전
+                      height: "300px",
+                    }}
+                    src={`./dinosourImage/dinosaur${userDion}_happy.png`}
+                    alt=""
+                  />
+                )}
+                <div>
+                  <Audio dinoState={dinoState} setdinoState={setdinoState} />
+                </div>
+              </RowBox3>
+              </>
+              :
+              <TextandimageBox>
+                <h1>
+                  함께할 아이를 선택해주세요
+                </h1>
+                <Correct/>
+              </TextandimageBox>
+            }
           </RightSide>
-
           <div style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}>
             <PostIt message={"/volunteer_video_chatting_start"} />
             <PostIt message={"/volunteer_active_doc"} />
@@ -345,5 +351,4 @@ const RaiseEggPage = () => {
     </div>
   );
 };
-
 export default RaiseEggPage;
