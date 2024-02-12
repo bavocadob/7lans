@@ -108,11 +108,11 @@ public class MeetingImageServiceImpl implements MeetingImageService{
 
 
         int size = meetingImageList.size();
-        if(5 < size){
+        if(20 < size){
             Map<Integer, MeetingImage> map = new HashMap<>();
 
             int index = 0;
-            while(index < 5){
+            while(index < 20){
                 Integer num = new Random().nextInt(size);
 
                 if(map.containsKey(num)) continue;
