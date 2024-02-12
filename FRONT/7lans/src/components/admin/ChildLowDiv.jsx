@@ -104,7 +104,7 @@ const ChildLowDiv = () => {
 
   useEffect(() => {
     axios
-      .get(`${urlInfo}/child/list/${childId}`)
+      .get(`${urlInfo}/volunteer/listByChild/${childId}`)
       .then((res) => {
         setChildVolList(res.data);
       })
@@ -125,6 +125,9 @@ const ChildLowDiv = () => {
       })
       .then((res) => {
         console.log(res, "친구끊기");
+        setChildVolList((prevList)=>
+          prevList.filter((vol) => vol.relationId != relationId)
+        )
       })
       .catch((err) => {
         console.log(err, "err -> ChildLowDiv 친구끊기 오류");

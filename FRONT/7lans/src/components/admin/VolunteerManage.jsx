@@ -118,7 +118,7 @@ const VolunteerManage = () => {
   // 어떻게 하면 더 이쁘고 깔끔하게 짤 수 있나요?
   useEffect(() => {
     axios
-      .get(`${urlInfo}/manager/volunteerList`)
+      .get(`${urlInfo}/volunteer/list`)
       .then((response) => {
         const arr = [];
         for (const ele of response.data) {

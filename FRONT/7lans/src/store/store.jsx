@@ -20,7 +20,12 @@ import volsSlice from "./volsSlice";
 import viewLetterSlice from "./viewLetterSlice";
 import userProfileSlice from "./userProfileSlice";
 import adminSelectChildSlice from "./adminSelectChildSlice";
+import adminAddFriendSlice from "./adminAddFriendSlice";
+import adminDeleteFriendSlice from "./adminDeleteFriendSlice";
+import adminApproveBtnSlice from "./adminApproveBtnSlice";
+import adminSelectActiveSlice from "./adminSelectActiveSlice";
 import imgNumSlice from "./imgNumSlice";
+import adminNoListSlice from "./adminNoListSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -32,6 +37,11 @@ const reducers = combineReducers({
   user: userSlice,
   adminSelectVol: adminSelectVolSlice,
   adminSelectChild: adminSelectChildSlice,
+  adminSelectActive: adminSelectActiveSlice,
+  adminAddFriend: adminAddFriendSlice,
+  adminDeleteFriend: adminDeleteFriendSlice,
+  adminApproveBtn: adminApproveBtnSlice,
+  adminNoList: adminNoListSlice,
   child: childSlice,
   children: childrenSlice,
   dino: dinoSlice,

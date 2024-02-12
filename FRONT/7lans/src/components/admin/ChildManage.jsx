@@ -119,7 +119,7 @@ const ChildManage = () => {
   // 해당 센터의 학생리스트 가져오기
   useEffect(() => {
     axios
-      .get(`${urlInfo}/manager/child/${centerId}`)
+      .get(`${urlInfo}/child/listByCenter/${centerId}`)
       .then((response) => {
         const arr = [];
         // console.log(response.data, "센터의 아동들");
@@ -173,7 +173,7 @@ const ChildManage = () => {
             <SearchContainer>
               <SearchInput
                 type="text"
-                placeholder="학생 이름 검색"
+                placeholder="학생이름이나 아동센터 검색"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
