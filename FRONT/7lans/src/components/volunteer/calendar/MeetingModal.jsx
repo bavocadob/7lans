@@ -275,7 +275,6 @@ const MeetingModal = ({
           width: "90%",
           height: "60%",
           transform: "translate(-50%, -50%)",
-          border: "1px solid #ccc",
           background: "rgba(122, 80, 0, 0.8)",
           overflow: "auto",
           WebkitOverflowScrolling: "touch",
@@ -304,7 +303,6 @@ const MeetingModal = ({
               <img
                 src="../../close_button.png"
                 style={{
-                  position: "relative",
                   width: "50px",
                   height: "50px",
                   top: "0",

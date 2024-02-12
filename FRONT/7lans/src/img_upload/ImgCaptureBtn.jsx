@@ -6,6 +6,8 @@ import { update, ref as dbRef } from 'firebase/database';
 import { useDispatch, useSelector } from "react-redux";
 import { db } from '../firebase';
 import { nextImgNum } from "../store/imgNumSlice";
+import { TbCaptureFilled } from "react-icons/tb";
+import styled from 'styled-components';
 
 
 const customStyles = {
@@ -20,6 +22,39 @@ const customStyles = {
     height: '50%', // Modal의 높이를 50%로 설정
   }
 };
+
+const ModalContent = styled.div`
+  position: fixed;
+  top: 30%;
+  left: 45%;
+  width: 620px;
+  height: 400px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  border: solid;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 252, 199, 1) 0%,
+    rgba(255, 232, 102, 1) 100%
+  );
+`;
+
+const ModalButton = styled.button`
+  background: rgb(255, 184, 36);
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  height: 40px;
+  width: 100px;
+  margin-left: 16px;
+  text-decoration-line: none;
+  position: relative;
+  &:hover {
+    background-color: rgb(0, 164, 25);
+`;
 
 Modal.setAppElement('#root');
 
@@ -107,7 +142,7 @@ export const ImgCaptureBtn = () => {
 
   return (
     <div>
-      <button onClick={captureScreen}>Capture Screen</button>
+      <button onClick={captureScreen}><TbCaptureFilled /> 화면 캡쳐</button>
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}
@@ -116,8 +151,8 @@ export const ImgCaptureBtn = () => {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <img src={imgData} alt="screen capture" style={{ width: '100%', height: 'auto' }} />
           <div>
-            <button onClick={handleUploadImage}>Upload</button>
-            <button onClick={closeModal}>Close</button>
+            <ModalButton onClick={handleUploadImage}> 사진저장</ModalButton>
+            <ModalButton onClick={closeModal}>저장취소</ModalButton>
           </div>
         </div>
       </Modal>

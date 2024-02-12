@@ -23,7 +23,7 @@ const ChatInput = styled.input`
     border-radius: 20px;
     padding: 15px;
     border: 0.2px solid;
-    box-shadow: 3px 3px 3px black;
+    box-shadow: 3px 3px 3px rgb(45,45,45);
 `;
 
 const Chat = () => {

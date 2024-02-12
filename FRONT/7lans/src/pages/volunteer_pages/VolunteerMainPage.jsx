@@ -16,9 +16,9 @@ const Container = styled.div`
   width: 100vw;
   background: linear-gradient(
     180deg,
-    rgba(255, 230.27, 102, 0.71),
-    rgb(255, 215, 3) 60%,
-    rgba(255, 248.22, 224.19, 0) 100%
+    rgb(255, 230.27, 102, 0.71),
+    rgb(255, 215, 3) 70%,
+    rgb(255, 248.22, 224.19, 0) 100%
   );
   // background-image: url('/Background.png');
   background-size: cover;
@@ -173,7 +173,7 @@ const BannerText = styled.div`
   font-size: 50px;
   width: 1100px;
   p {
-    animation-duration: 4s;
+    animation-duration: 3s;
     animation-name: slidein;
   }
 
@@ -222,9 +222,27 @@ const ImgArray = styled.div`
   justify-content: space-evenly;
   margin-left: 2rem;
   margin-right: 2rem;
-`
+`;
 
 // const defaultImagePath = "./default_image.png";
+const Frame = styled.div`
+  padding: 10px;
+  width: 200px;
+  height: 150px;
+  position: absolute;
+  top: 30%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  background-image: url("./frame.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+  &:hover {
+    background-color:rgb(255, 215, 3, 0.2);
+  }
+`;
 
 const Images = ({ image }) => {
   return (
@@ -238,8 +256,8 @@ const ChattingPicture = () => {
   const [images, setImages] = useState([]);
 
   const [animate, setAnimate] = useState(true);
-    const onStop = () => setAnimate(false);
-    const onRun = () => setAnimate(true);
+  const onStop = () => setAnimate(false);
+  const onRun = () => setAnimate(true);
 
   const urlInfo = getEnv("API_URL");
 
@@ -248,7 +266,9 @@ const ChattingPicture = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${urlInfo}/meetingImage/random/${volunteer.memberId}`);
+        const response = await axios.get(
+          `${urlInfo}/meetingImage/random/${volunteer.memberId}`
+        );
 
         //console.log(response)
         setImages(response.data);
@@ -260,34 +280,46 @@ const ChattingPicture = () => {
     fetchData();
   }, []);
 
-  
-
   return (
-    <div className="wrapper" style={{display: 'flex', flexDirection: 'row', gap: '3%', marginTop: '19%', justifyContent: 'space-evenly', marginLeft: '2rem', marginRight: '2rem', paddingTop: '10px'}}>
-      <div className="slide_container" >
+    <div
+      className="wrapper"
+      style={{
+        display: "flex",
+        width: "93.5%",
+        flexDirection: "row",
+        gap: "3%",
+        marginTop: "19.2%",
+        justifyContent: "space-evenly",
+        marginLeft: "2rem",
+        marginRight: "2rem",
+        paddingTop: "10px",
+        
+      }}
+    >
+      <div className="slide_container" style={{ marginLeft: "2rem" }}>
         <ul
           className="slide_wrapper"
           onMouseEnter={onStop}
           onMouseLeave={onRun}
         >
           <div
-            className={"slide original".concat(
-                        animate ? "" : " stop"
-                      )}
-                      style={{marginBottom: '0', paddingBottom: '0'}}
+            className={"slide original".concat(animate ? "" : " stop")}
+            style={{ marginBottom: "0", paddingBottom: "0" }}
           >
             {images.map((image, index) => (
               <li
                 key={index}
-                  // className={index % 2 === 0 ? "big" : "small"}
-                  className="small"
+                // className={index % 2 === 0 ? "big" : "small"}
+                className="small"
               >
                 <img
                   key={index}
                   src={image.randomImagePath}
                   alt=""
                   style={{
-                  height: '100%',
+                    height: "100%",
+                    border: "3.4px dashed  rgb(45,45,45)",
+                    borderRadius: "10px"
                   }}
                 />
               </li>
@@ -295,23 +327,24 @@ const ChattingPicture = () => {
           </div>
           <div
             className={"slide clone".concat(animate ? "" : " stop")}
-            style={{paddingBottom: '0', marginBottom: '0'}}
+            style={{ paddingBottom: "0", marginBottom: "0" }}
           >
             {images.map((image, index) => (
               <li
                 key={index}
-                  // className={index % 2 === 0 ? "big" : "small"}
-                  className="small"
+                // className={index % 2 === 0 ? "big" : "small"}
+                className="small"
               >
                 <img
                   key={index}
                   src={image.randomImagePath}
                   alt=""
                   style={{
-                    height: '100%',
+                    height: "100%",
+                    border: "3.4px dashed  rgb(45,45,45)",
+                    borderRadius: "10px"
                   }}
                 />
-                      
               </li>
             ))}
           </div>
@@ -320,9 +353,6 @@ const ChattingPicture = () => {
     </div>
   );
 };
-
-
-
 
 const VolunteerMainPage = () => {
   const urlInfo = getEnv("API_URL");
@@ -341,7 +371,7 @@ const VolunteerMainPage = () => {
       .then((res) => {
         // dispatch(updateChildInfo(res.data[0]));
         // 메인 페이지에서 디폴트 아동 정보를 가져오지 않게 변경합니다.
-        dispatch(updateChildInfo(''))
+        dispatch(updateChildInfo(""));
         dispatch(updateChildrenInfo(res.data));
       })
       .catch((err) => {});
