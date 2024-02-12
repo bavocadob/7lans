@@ -44,13 +44,8 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
         <div>
           <div className="col col-start">
             <span className="text">
-<<<<<<< HEAD
-              <span className="text month">{format(currentMonth, "yyyy")}년 {format(currentMonth, "M")}월</span>
-            </span>
-=======
             <span className="text month">{format(currentMonth, "yyyy")}년 {" "} {format(currentMonth, "M")}월</span>
                </span>
->>>>>>> feature/front/style
           </div>
         </div>
 
