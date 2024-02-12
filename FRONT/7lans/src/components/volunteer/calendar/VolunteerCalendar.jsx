@@ -302,7 +302,7 @@ const VolunteerCalendar = () => {
     else if (selectDate == current) {
       if(meeting.status == "OPENED"){
         console.log("세션입장");
-      
+        navigate(`/volunteer_video_chatting/${1}`);      
       }
       else if(meeting.status == "SCHEDULED"){
         console.log("세션 생성하기")
