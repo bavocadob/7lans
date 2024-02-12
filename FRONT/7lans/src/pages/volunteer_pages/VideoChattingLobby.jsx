@@ -124,8 +124,8 @@ const VideoChattingLobby = ({
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
           <Mic
-            onClick={handleClick}
-            src={isMicOn ? MIC1 : MIC2}
+            onClick={toggleMyMic}
+            src={isMyMicOn ? MIC1 : MIC2}
             alt="마이크 끄고켜기"
           />
         </div>
@@ -177,9 +177,7 @@ const VideoChattingLobby = ({
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
           <Mic
-            onClick={handleClick}
-            src={isMicOn ? MIC1 : MIC2}
-            alt="마이크 끄고켜기"
+            src={isChildMicOn ? MIC1 : MIC2}
           />
         </div>
       </BorderBox>
