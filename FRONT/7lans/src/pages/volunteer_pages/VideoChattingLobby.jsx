@@ -4,6 +4,7 @@ import {styled as muiStyled} from "@mui/material/styles";
 import {Button} from "@mui/material";
 import PropTypes from 'prop-types';
 import {StreamManager} from "openvidu-browser";
+import { useSelector } from 'react-redux';
 
 const FlexCenterContainer = styled.div`
     flex: 1;
@@ -57,25 +58,32 @@ margin-bottom: 0;
 text-decoration-line: none;
  `;
 
+
+
 const VideoChattingLobby = ({
                                 renderUserVideoComponent, mainStreamManager, subscribers
-                            }) => (
-        <FlexCenterContainer>
-            <BorderBox>
-                {mainStreamManager && renderUserVideoComponent(mainStreamManager)}
-            </BorderBox>
-            <CenteredBox>
-                <CenteredText>둘만의 화상채팅 공간이에요 하고싶은 놀이를 선택해주세요</CenteredText>
-                <ResponsiveImage
-                    src='https://www.creativefabrica.com/wp-content/uploads/2020/08/25/Cute-Dinosaur-Illustration-Graphics-5116630-1.png'
-                    alt='CenterImage'/>
-                <StyledButton>화상채팅 종료</StyledButton>
-            </CenteredBox>
-            <BorderBox>
-                {subscribers.map((subscriber) => subscriber && renderUserVideoComponent(subscriber))}
-            </BorderBox>
-        </FlexCenterContainer>
-    )
+                            }) => 
+    {
+        const userDino = useSelector((state) => state.dino.value)
+
+        return (
+            <FlexCenterContainer>
+                <BorderBox>
+                    {mainStreamManager && renderUserVideoComponent(mainStreamManager)}
+                </BorderBox>
+                <CenteredBox>
+                    <CenteredText>둘만의 화상채팅 공간이에요 하고싶은 놀이를 선택해주세요</CenteredText>
+                    <ResponsiveImage
+                        src={`./dinosourImage/dinosaur${userDino}_happy.png`}
+                        alt='CenterImage'/>
+                    <StyledButton>화상채팅 종료</StyledButton>
+                </CenteredBox>
+                <BorderBox>
+                    {subscribers.map((subscriber) => subscriber && renderUserVideoComponent(subscriber))}
+                </BorderBox>
+            </FlexCenterContainer>
+        )
+    }
 
 VideoChattingLobby.propTypes = {
     // 화면을 렌더링하는 method
