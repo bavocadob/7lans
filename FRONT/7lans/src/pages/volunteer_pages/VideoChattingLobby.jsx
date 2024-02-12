@@ -7,6 +7,7 @@ import { StreamManager } from "openvidu-browser";
 import { useSelector } from "react-redux";
 import { FiCamera } from "react-icons/fi";
 import { FiCameraOff } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const FlexCenterContainer = styled.div`
   flex: 1;
@@ -141,7 +142,11 @@ const VideoChattingLobby = ({
           src={`./dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
         />
-        <StyledButton>화상채팅 종료</StyledButton>
+        <Link to="/volunteer_video_chatting_start">
+        <StyledButton>
+            화상채팅 종료
+        </StyledButton>
+        </Link>
       </CenteredBox>
       <BorderBox>
         <h2
