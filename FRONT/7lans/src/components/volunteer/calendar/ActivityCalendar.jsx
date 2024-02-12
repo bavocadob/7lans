@@ -24,14 +24,14 @@ ReactModal.setAppElement('#root');
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
     return (
-        <div className="header row" style={{ marginBottom: '10px'}}>
+        <div className="header row" style={{ marginBottom: '10px', position: 'relative',}}>
       <div style={{display:'flex', 
                     flexDirection:'row', 
-                    justifyContent: 'space-between', 
                     fontSize:'30px',
                     marginBottom: '10px',
-                    alignItems: 'center',
-                    position: 'relative'
+                    width: '100%',
+                    gap: '40px',
+                    paddingLeft: '1rem'
                     }}>
         <div>
           <img
@@ -44,8 +44,13 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
         <div>
           <div className="col col-start">
             <span className="text">
+<<<<<<< HEAD
               <span className="text month">{format(currentMonth, "yyyy")}년 {format(currentMonth, "M")}월</span>
             </span>
+=======
+            <span className="text month">{format(currentMonth, "yyyy")}년 {" "} {format(currentMonth, "M")}월</span>
+               </span>
+>>>>>>> feature/front/style
           </div>
         </div>
 
@@ -55,11 +60,18 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
             src="../../next_button.png"
             alt=""
             onClick={nextMonth}
-          />
+            />
         </div>
+            </div>
 
         <div>
-            <div style={{fontSize: "18px", width: '400px', position: 'absolute', left: '55%', top: '7px', display: 'flex', gap: '6px' }}>
+            <div style={{fontSize: "18px", 
+                        width: '400px', 
+                        position: 'absolute',
+                        right: '0', 
+                        top: '7px', 
+                        display: 'flex', 
+                        justifyContent:'end'}}>
                 <img 
                     style={{width: "30px"}}
                     src={getEnv('PREVIOUS_SUBMIT')}
@@ -80,7 +92,6 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
             </div>
         </div>
       </div>
-    </div>
   );
 };
 
