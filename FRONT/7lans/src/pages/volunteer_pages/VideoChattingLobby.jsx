@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { FiCamera } from "react-icons/fi";
 import { FiCameraOff } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import MIC1 from '../../images/mic_on.png';
+import MIC2 from '../../images/mic_off.png';
 
 const FlexCenterContainer = styled.div`
   flex: 1;
@@ -128,7 +130,7 @@ const VideoChattingLobby = ({
           </Camera>
           <Mic
             onClick={handleClick}
-            src={isMicOn ? "./mic_on.png" : "./mic_off.png"}
+          src={isMicOn ? require('../../images/mic_on.png').default : require('../../images/mic_off.png').default}
             alt="마이크 끄고켜기"
           />
         </div>
@@ -142,6 +144,7 @@ const VideoChattingLobby = ({
           src={`./dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
         />
+        <img src="" alt="" />
         <Link to="/volunteer_video_chatting_start">
         <StyledButton>
             화상채팅 종료
@@ -180,7 +183,7 @@ const VideoChattingLobby = ({
           </Camera>
           <Mic
             onClick={handleClick}
-            src={isMicOn ? "./mic_on.png" : "./mic_off.png"}
+            src={isMicOn ? MIC1 : MIC2}
             alt="마이크 끄고켜기"
           />
         </div>
