@@ -106,7 +106,7 @@ const VolLowDiv = () => {
   const volId = selectVolCard.value[3];
   const dispatch = useDispatch();
 
-  console.log(addFriend)
+  console.log(addFriend, "addFreind")
   useEffect(() => {
     axios
       .get(`${urlInfo}/child/listByVolunteer/${volId}`)

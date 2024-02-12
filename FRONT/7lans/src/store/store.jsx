@@ -25,6 +25,7 @@ import adminDeleteFriendSlice from "./adminDeleteFriendSlice";
 import adminApproveBtnSlice from "./adminApproveBtnSlice";
 import adminSelectActiveSlice from "./adminSelectActiveSlice";
 import imgNumSlice from "./imgNumSlice";
+import adminNoListSlice from "./adminNoListSlice";
 
 const reducers = combineReducers({
   chat: chatSlice,
@@ -40,6 +41,7 @@ const reducers = combineReducers({
   adminAddFriend: adminAddFriendSlice,
   adminDeleteFriend: adminDeleteFriendSlice,
   adminApproveBtn: adminApproveBtnSlice,
+  adminNoList: adminNoListSlice,
   child: childSlice,
   children: childrenSlice,
   dino: dinoSlice,

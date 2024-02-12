@@ -173,7 +173,7 @@ const ChildManage = () => {
             <SearchContainer>
               <SearchInput
                 type="text"
-                placeholder="학생 이름 검색"
+                placeholder="학생이름이나 아동센터 검색"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />

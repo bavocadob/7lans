@@ -58,12 +58,17 @@ const ButtonContainer = styled.div`
   gap: 20px;
 `;
 
+const NoList = styled.div`
+  
+`
+
 const ActiveRight = () => {
   const { activityId, relationId } = useSelector(
     (state) => state.adminSelectActive
   );
   const userInfo = useSelector((state) => state.user);
   const isApproval = useSelector((state) => state.adminApproveBtn.value)
+  const {filteredListLen, filteredApproveListLen} = useSelector((state)=>state.adminNoList)
   const centerId = userInfo.value.centerId;
   const urlInfo = getEnv("API_URL");
   const [activeLog, setActiveLog] = useState([]);
@@ -77,13 +82,14 @@ const ActiveRight = () => {
     setModalIsOpen(false);
   };
 
+  // 값에 제목도 추가하기 -> 
   const fecthActives = async () => {
     try {
       const res = await axios.post(`${urlInfo}/activityLog/manager/detail`, {
         relationId: relationId,
         activityLogId: activityId,
       });
-      console.log(res.data, "활동일지");
+      console.log(res.data, "활동일지 상세보기");
       setActiveLog(res.data);
     } catch (err) {
       console.error("err ActiveRight activity detail", err);
@@ -115,7 +121,7 @@ const ActiveRight = () => {
         relationId: relationId,
         activityLogId: activityId,
       });
-      console.log(res.data, "승인완료");
+      console.log(res.data, "활동일지 승인완료");
     } catch (err) {
       console.error("err ActiveRight activity 승인", err);
     }
@@ -130,7 +136,9 @@ const ActiveRight = () => {
     fecthActives();
   }, [activityId]);
 
+// 승인완료된 리스트가 없는 상태는 일단 보류..
   return (
+    filteredListLen == 0 && !isApproval || filteredApproveListLen == 0 && isApproval ? <RightContainer>활동일지가 없습니다</RightContainer> :
     <RightContainer>
       <ActiveHeader>
         <HeaderItem>
@@ -160,7 +168,7 @@ const ActiveRight = () => {
       </ActiveHeader>
       <ActiveContent>
         {activeLog.content}
-        {isApproval ? null:<ApproveButton onClick={openModal}>승인하기</ApproveButton>}
+        {activeLog.approveStatus ? null:<ApproveButton onClick={openModal}>승인하기</ApproveButton>}
        
       </ActiveContent>
       <Modal

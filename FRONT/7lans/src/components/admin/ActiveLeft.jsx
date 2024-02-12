@@ -5,6 +5,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { adminSelectAcitve } from "../../store/adminSelectActiveSlice";
 import { adminApproveBtn } from "../../store/adminApproveBtnSlice";
+import { adminNoList } from "../../store/adminNoListSlice";
 
 const LeftContainer = styled.div`
   height: 90%;
@@ -90,24 +91,39 @@ const Title = styled.h1`
 `;
 
 const ApproveButton = styled.button`
-  background-color: #ff6b81;
+  background-color: ${({ isApproved }) => (isApproved ? "#2ecc71" : "#ff6b81")};
   color: white;
-  padding: 5px 10px;
-  border-radius: 20px;
+  padding: 10px 20px; /* 패딩 크기 조정 */
+  border-radius: 30px; /* 보다 둥근 형태로 변경 */
   border: none;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 1rem; /* 폰트 크기 조정 */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+
+  &:hover {
+    background-color: ${({ isApproved }) =>
+      isApproved ? "#27ae60" : "#ff4757"};
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* 마우스 호버 시 그림자 효과 강화 */
+  }
 `;
 
 const filterPosts = (posts, searchTerm) => {
-  return posts.filter(
-    (post) =>
-      (post.title && post.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (post.volunteerName && post.volunteerName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (post.childName && post.childName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (post.dateInfo && post.dateInfo.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  return posts.filter((post) => {
+    const lowercaseSearchTerm = searchTerm.toLowerCase();
+    const { title, volunteerName, childName, activityId } = post;
+    return (
+      (title && title.toLowerCase().includes(lowercaseSearchTerm)) ||
+      (volunteerName && volunteerName.toLowerCase().includes(lowercaseSearchTerm)) ||
+      (childName && childName.toLowerCase().includes(lowercaseSearchTerm)) ||
+      (activityId && activityId.toString().includes(searchTerm))
+    );
+  });
 };
+
 
 const ActiveLeft = () => {
   const [posts, setPosts] = useState([]);
@@ -160,14 +176,21 @@ const ActiveLeft = () => {
 
   const toggleApprovalStatus = () => {
     dispatch(adminApproveBtn());
-    console.log(isApproval); // 승인 상태를 토글
+    console.log(isApproval, "승인상태"); // 승인 상태를 토글
   };
 
+  useEffect(() => {
+    dispatch(adminNoList({
+      filteredListLen: filteredPosts.length, 
+      filteredApproveListLen: filteredApprovePosts.length
+    }));
+  }, [filteredPosts.length, filteredApprovePosts.length, isApproval]);
+    
   return (
     <>
       <LeftContainer>
         <Header>
-          <Title>귀여운 게시판 🐱</Title>
+          <Title>활동일지목록 🐱</Title>
           <ApproveButton onClick={toggleApprovalStatus}>
             {isApproval ? "승인완료" : "승인필요"}
           </ApproveButton>
@@ -175,7 +198,7 @@ const ActiveLeft = () => {
         <SearchContainer>
           <SearchBar
             type="text"
-            placeholder="검색..."
+            placeholder="활동일지 제목, 작성자, 학생으로 검색 가능"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -210,6 +233,7 @@ const ActiveLeft = () => {
               ))
             ) : (
               <p>검색 결과가 없습니다.</p>
+              
             )}
           </ActiveList>
         ) : (
@@ -242,6 +266,7 @@ const ActiveLeft = () => {
               ))
             ) : (
               <p>검색 결과가 없습니다.</p>
+              
             )}
           </ActiveList>
         )}

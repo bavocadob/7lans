@@ -158,8 +158,6 @@ function VolUpDiv() {
   time = selectVolCard[2];
   volId = selectVolCard[3];
 
-  console.log(deleteFriend, "deleteFreind state")
-
   const closeModal = () => {
     setShowModal(false);
   };
