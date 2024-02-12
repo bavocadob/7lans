@@ -8,6 +8,7 @@ import { updateChildrenInfo } from "../../store/childrenSlice";
 import axios from "axios";
 import getEnv from "../../utils/getEnv";
 import { Tooltip } from "react-tooltip";
+import "../../../scss/_homepage.scss";
 
 const Container = styled.div`
   /* font-family: 'Nanum Gothic', sans-serif; */
@@ -223,7 +224,7 @@ const ImgArray = styled.div`
   margin-right: 2rem;
 `
 
-const defaultImagePath = "./default_image.png";
+// const defaultImagePath = "./default_image.png";
 
 const Images = ({ image }) => {
   return (
@@ -235,54 +236,22 @@ const Images = ({ image }) => {
 
 const ChattingPicture = () => {
   const [images, setImages] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  //부모에게서 전달받은 값
-  const location = useLocation();
-  // const state = {...location.state};
+  const [animate, setAnimate] = useState(true);
+    const onStop = () => setAnimate(false);
+    const onRun = () => setAnimate(true);
+
   const urlInfo = getEnv("API_URL");
 
-  const children = useSelector((state) => state.children.value);
-  const relations = children.map((child) => {
-    return child.relationId;
-  });
-
-  const [meetings, setMeetings] = useState([]);
-
-  const currentday = new Date();
-  console.log(relations, "relations");
-  console.log(
-    relations[Math.floor(Math.random() * relations.length)],
-    "relation"
-  );
+  const volunteer = useSelector((state) => state.user.value);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(`${urlInfo}/meetingSchedue`, {
-          relationId: relations[Math.floor(Math.random() * relations.length)],
-          year: currentday.getFullYear(),
-          month: currentday.getMonth() + 1,
-        });
-        const meetingsData = response.data;
-        setMeetings(meetingsData);
+        const response = await axios.get(`${urlInfo}/meetingImage/random/${volunteer.memberId}`);
 
-        console.log(meetingsData, "meetings");
-
-        const meetingIds = meetingsData.map((meeting) => meeting.meetingId);
-        console.log(meetingIds, "meetingIds");
-
-        const randomMeetingId =
-          meetingIds[Math.floor(Math.random() * meetingIds.length)];
-        console.log(randomMeetingId, "randomMeetingId");
-
-        const imageResponse = await axios.get(
-          `${urlInfo}/meetingImage/${randomMeetingId}`
-        );
-        const imageData = imageResponse.data;
-
-        const images = imageData.map((meetingImage) => meetingImage);
-        setImages(images);
+        //console.log(response)
+        setImages(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -291,20 +260,64 @@ const ChattingPicture = () => {
     fetchData();
   }, []);
 
+  
+
   return (
-    <ImgArray style={{ display: 'flex', flexDirection: 'row', gap: '3%', marginTop: '22.5%', justifyContent: 'space-evenly', marginLeft: '2rem', marginRight: '2rem' }}>
-    {Array.from({ length: 5 }).map((_, index) => (
-      <img
-        key={index}
-        src={images[index]?.meetingImagePath || defaultImagePath}
-        alt={`Image ${index + 1}`}
-        style={{
-          width: '15%',
-          height: '200px',
-        }}
-      />
-    ))}
-  </ImgArray>
+    <div className="wrapper" style={{display: 'flex', flexDirection: 'row', gap: '3%', marginTop: '19%', justifyContent: 'space-evenly', marginLeft: '2rem', marginRight: '2rem', paddingTop: '10px'}}>
+      <div className="slide_container" >
+        <ul
+          className="slide_wrapper"
+          onMouseEnter={onStop}
+          onMouseLeave={onRun}
+        >
+          <div
+            className={"slide original".concat(
+                        animate ? "" : " stop"
+                      )}
+                      style={{marginBottom: '0', paddingBottom: '0'}}
+          >
+            {images.map((image, index) => (
+              <li
+                key={index}
+                  // className={index % 2 === 0 ? "big" : "small"}
+                  className="small"
+              >
+                <img
+                  key={index}
+                  src={image.randomImagePath}
+                  alt=""
+                  style={{
+                  height: '100%',
+                  }}
+                />
+              </li>
+            ))}
+          </div>
+          <div
+            className={"slide clone".concat(animate ? "" : " stop")}
+            style={{paddingBottom: '0', marginBottom: '0'}}
+          >
+            {images.map((image, index) => (
+              <li
+                key={index}
+                  // className={index % 2 === 0 ? "big" : "small"}
+                  className="small"
+              >
+                <img
+                  key={index}
+                  src={image.randomImagePath}
+                  alt=""
+                  style={{
+                    height: '100%',
+                  }}
+                />
+                      
+              </li>
+            ))}
+          </div>
+        </ul>
+      </div>
+    </div>
   );
 };
 
