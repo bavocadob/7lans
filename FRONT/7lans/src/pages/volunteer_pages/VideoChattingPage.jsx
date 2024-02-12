@@ -39,6 +39,15 @@ const VideoChattingPage = () => {
   const [capturedImages, setCapturedImages] = useState([
     'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F3?alt=media&token=110eab31-174b-4b3b-8b3e-7e30d7d7a359',
     'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F4?alt=media&token=3057f0bd-e410-4a91-946e-27d53e1d9686',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F3?alt=media&token=110eab31-174b-4b3b-8b3e-7e30d7d7a359',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F4?alt=media&token=3057f0bd-e410-4a91-946e-27d53e1d9686',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F3?alt=media&token=110eab31-174b-4b3b-8b3e-7e30d7d7a359',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F4?alt=media&token=3057f0bd-e410-4a91-946e-27d53e1d9686',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F3?alt=media&token=110eab31-174b-4b3b-8b3e-7e30d7d7a359',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F4?alt=media&token=3057f0bd-e410-4a91-946e-27d53e1d9686',
     'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84'
   ]);
 
