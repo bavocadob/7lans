@@ -341,6 +341,7 @@ const VolunteerMainPage = () => {
       .then((res) => {
         // dispatch(updateChildInfo(res.data[0]));
         // 메인 페이지에서 디폴트 아동 정보를 가져오지 않게 변경합니다.
+        dispatch(updateChildInfo(''))
         dispatch(updateChildrenInfo(res.data));
       })
       .catch((err) => {});

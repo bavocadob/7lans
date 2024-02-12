@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
 import axios from "axios";
@@ -151,7 +151,12 @@ const WhisperLetter = () => {
   const [selectedChat, setSelectedChat] = useState(null);
   const [chatMessages, setChatMessages] = useState([]);
 
+  const chatContainerRef = useRef(null);
 
+  useEffect(() => {
+    // 컴포넌트가 업데이트될 때마다 스크롤을 아래로 이동합니다.
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  });
 
   useEffect(() => {
     axios
@@ -213,7 +218,7 @@ const WhisperLetter = () => {
   };
 
   return (
-    <ChatContainer>
+    <ChatContainer ref={chatContainerRef}>
       {chatMessages.map((message, index) =>
         message.writer === userName ? (
           <ChatCardVol key={index} onClick={() => openModal(message)}>
