@@ -243,46 +243,28 @@ const ChattingPicture = () => {
   const urlInfo = getEnv("API_URL");
 
   const children = useSelector((state) => state.children.value);
-  const relations = children.map((child) => {
-    return child.relationId;
-  });
+  const volunteer = useSelector((state) => state.user.value);
+  // const relations = children.map((child) => {
+  //   return child.relationId;
+  // });
 
   const [meetings, setMeetings] = useState([]);
 
   const currentday = new Date();
-  console.log(relations, "relations");
-  console.log(
-    relations[Math.floor(Math.random() * relations.length)],
-    "relation"
-  );
+  // console.log(relations, "relations");
+  // console.log(
+  //   relations[Math.floor(Math.random() * relations.length)],
+  //   "relation"
+  // );
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(`${urlInfo}/meetingSchedue`, {
-          relationId: relations[Math.floor(Math.random() * relations.length)],
-          year: currentday.getFullYear(),
-          month: currentday.getMonth() + 1,
-        });
-        const meetingsData = response.data;
-        setMeetings(meetingsData);
+        const response = await axios.get(`${urlInfo}/meetingImage/random/${volunteer.memberId}`);
 
-        console.log(meetingsData, "meetings");
-
-        const meetingIds = meetingsData.map((meeting) => meeting.meetingId);
-        console.log(meetingIds, "meetingIds");
-
-        const randomMeetingId =
-          meetingIds[Math.floor(Math.random() * meetingIds.length)];
-        console.log(randomMeetingId, "randomMeetingId");
-
-        const imageResponse = await axios.get(
-          `${urlInfo}/meetingImage/${randomMeetingId}`
-        );
-        const imageData = imageResponse.data;
-
-        const images = imageData.map((meetingImage) => meetingImage);
-        setImages(images);
+        //console.log(response)
+        setImages(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -296,7 +278,7 @@ const ChattingPicture = () => {
     {Array.from({ length: 5 }).map((_, index) => (
       <img
         key={index}
-        src={images[index]?.meetingImagePath || defaultImagePath}
+        src={images[index]?.randomImagePath || defaultImagePath}
         alt={`Image ${index + 1}`}
         style={{
           width: '15%',
