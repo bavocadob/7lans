@@ -12,9 +12,9 @@ const UserVideoComponent = ({ streamManager }) => {
         <div>
             {streamManager !== undefined ? (
                 <div className="streamcomponent"
-                     style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+                     style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', padding: '0', borderRadius: '20px'}}>
                     <OpenViduVideoComponent streamManager={streamManager} />
-                    <div><p>{getNicknameTag()}</p></div>
+                    {/* <div><p>{getNicknameTag()}</p></div> */}
                 </div>
             ) : null}
         </div>

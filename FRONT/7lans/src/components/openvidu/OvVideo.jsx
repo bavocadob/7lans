@@ -9,7 +9,7 @@ const OpenViduVideoComponent = props => {
         }
     }, [props.streamManager]);
 
-    return <video style={{width: '85%'}} autoPlay ref={videoRef} />;
+    return <video style={{width: '95%', borderRadius: '10px', border:  '4px solid rgb(45,45,45)'}} autoPlay ref={videoRef} />;
 }
 
 export default OpenViduVideoComponent;
