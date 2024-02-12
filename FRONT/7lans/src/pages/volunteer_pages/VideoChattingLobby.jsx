@@ -3,11 +3,13 @@ import styled from "styled-components";
 import {styled as muiStyled} from "@mui/material/styles";
 import {Button} from "@mui/material";
 import PropTypes from "prop-types";
-import {StreamManager} from "openvidu-browser";
-import {useSelector} from "react-redux";
-import {FiCamera} from "react-icons/fi";
-import {FiCameraOff} from "react-icons/fi";
-import {Link} from "react-router-dom";
+import { StreamManager } from "openvidu-browser";
+import { useSelector } from "react-redux";
+import { FiCamera } from "react-icons/fi";
+import { FiCameraOff } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import MIC1 from '../../images/mic_on.png';
+import MIC2 from '../../images/mic_off.png';
 
 const FlexCenterContainer = styled.div`
   flex: 1;
@@ -122,8 +124,8 @@ const VideoChattingLobby = ({
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
           <Mic
-            onClick={toggleMyMic}
-            src={isMyMicOn ? "./mic_on.png" : "./mic_off.png"}
+            onClick={handleClick}
+            src={isMicOn ? MIC1 : MIC2}
             alt="마이크 끄고켜기"
           />
         </div>
@@ -134,9 +136,10 @@ const VideoChattingLobby = ({
           <p>하고싶은 놀이를 선택해주세요</p>
         </CenteredText>
         <ResponsiveImage
-          src={`./dinosourImage/dinosaur${userDino}_study.png`}
+          src={`${import.meta.env.VITE_PUBLIC_URL}/dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
         />
+        <img src="" alt="" />
         <Link to="/volunteer_video_chatting_start">
           <StyledButton>
             화상채팅 종료
@@ -174,7 +177,9 @@ const VideoChattingLobby = ({
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
           <Mic
-            src={isChildMicOn ? "./mic_on.png" : "./mic_off.png"}
+            onClick={handleClick}
+            src={isMicOn ? MIC1 : MIC2}
+            alt="마이크 끄고켜기"
           />
         </div>
       </BorderBox>
