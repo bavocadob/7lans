@@ -35,9 +35,9 @@ const VideoChattingPage = () => {
 
 
   // FIXME 테스트용 토글 method 이후 지울 것
-  // const toggleGameStarted = () => {
-  //   setGameStarted(prevState => !prevState);
-  // };
+  const toggleGameStarted = () => {
+    setGameStarted(prevState => !prevState);
+  };
 
   return (
     <AppContainer>
@@ -57,10 +57,10 @@ const VideoChattingPage = () => {
         />
       )}
 
-      {/* 게임 상태를 토글하는 버튼
+      게임 상태를 토글하는 버튼
       <button onClick={toggleGameStarted}>
         {isGameStarted ? 'Stop Game' : 'Start Game'}
-      </button> */}
+      </button>
 
     </AppContainer>
   );
