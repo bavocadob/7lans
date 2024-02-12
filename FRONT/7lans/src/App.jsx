@@ -81,7 +81,7 @@ function App() {
         <Route path="/activity_calendar" element={<ActivityCalendar />} />
         <Route path="/volunteer_whispher" element={<WhisperPage />} />
         <Route path="/volunteer_raise_egg" element={<RaiseEggPage />} />
-        <Route path="/volunteer_video_chatting/:id" element={<VideoChattingPage />}/>
+        <Route path="/volunteer_video_chatting" element={<VideoChattingPage />}/>
         <Route path="/volunteer_game" element={<VolunteerGamePage />} />
         <Route path="/volunteer_calendar" element={<VolunteerCalendar />} />
         <Route path="/volunteer_ChoosePicturePage" element={<ChoosePicturePage />} />

@@ -130,7 +130,7 @@ const VideoChattingLobby = ({
           </Camera>
           <Mic
             onClick={handleClick}
-          src={isMicOn ? require('../../images/mic_on.png').default : require('../../images/mic_off.png').default}
+            src={isMicOn ? MIC1 : MIC2}
             alt="마이크 끄고켜기"
           />
         </div>
