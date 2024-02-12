@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import GameNav from '../../components/navs/GameNav';
 import UseOpenViduSession from "../../helpers/useOpenViduSession.jsx";
 import VideoChattingLobby from "./VideoChattingLobby.jsx";
+import VideoChattingExit from "./VideoChattingExit.jsx";
 import VolunteerGamePage from "./VolunteerGamePage.jsx";
 import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn.jsx";
 import {getMeetingDetail} from "../../api/axioses"
@@ -17,7 +18,6 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
 
 const VideoChattingPage = () => {
   const {
@@ -35,6 +35,12 @@ const VideoChattingPage = () => {
   const [isMyMicOn, setIsMyMicOn] = useState(true)
   const [isChildCameraOn, setIsChildCameraOn] = useState(true)
   const [isChildMicOn, setIsChildMicOn] = useState(true)
+  const [isSessionEnd, setIsSessionEnd] = useState(false);
+  const [capturedImages, setCapturedImages] = useState([
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F3?alt=media&token=110eab31-174b-4b3b-8b3e-7e30d7d7a359',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F4?alt=media&token=3057f0bd-e410-4a91-946e-27d53e1d9686',
+    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84'
+  ]);
 
   const MEETING_ID = 1;
 
@@ -86,8 +92,8 @@ const VideoChattingPage = () => {
     session.signal({
       type: 'toggleCamera',
       data: JSON.stringify({
-        userId : userInfo.memberId,
-        status : !prevState,
+        userId: userInfo.memberId,
+        status: !prevState,
       })
     })
       .then(() => console.log(`카메라 토글 신호 보냄`))
@@ -102,14 +108,13 @@ const VideoChattingPage = () => {
     session.signal({
       type: 'toggleMic',
       data: JSON.stringify({
-        userId : userInfo.memberId,
-        status : !prevState,
+        userId: userInfo.memberId,
+        status: !prevState,
       })
     })
       .then(() => console.log(`마이크 토글 신호 보냄`))
       .catch(err => console.log(err))
   }
-
 
 
   // FIXME 테스트용 토글 method 이후 지울 것
@@ -173,41 +178,50 @@ const VideoChattingPage = () => {
   return (
     <AppContainer>
       <GameNav/>
-      {isGameStarted ? (
-        <VolunteerGamePage
-          renderUserVideoComponent={renderUserVideoComponent}
-          mainStreamManager={mainStreamManager}
-          subscribers={subscribers}
-          session={session}
-          toggleMyCamera={toggleMyCamera}
-          toggleMyMic={toggleMyMic}
-          isMyCameraOn={isMyCameraOn}
-          isMyMicOn={isMyMicOn}
-          isChildCameraOn={isChildCameraOn}
-          isChildMicOn={isChildMicOn}
-        />
+      {isSessionEnd ? (
+        <VideoChattingExit capturedImages={capturedImages}/>
       ) : (
-        <VideoChattingLobby
-          renderUserVideoComponent={renderUserVideoComponent}
-          mainStreamManager={mainStreamManager}
-          subscribers={subscribers}
-          toggleMyCamera={toggleMyCamera}
-          toggleMyMic={toggleMyMic}
-          isMyCameraOn={isMyCameraOn}
-          isMyMicOn={isMyMicOn}
-          isChildCameraOn={isChildCameraOn}
-          isChildMicOn={isChildMicOn}
-        />
+        <>
+          {isGameStarted ? (
+            <VolunteerGamePage
+              renderUserVideoComponent={renderUserVideoComponent}
+              mainStreamManager={mainStreamManager}
+              subscribers={subscribers}
+              session={session}
+              toggleMyCamera={toggleMyCamera}
+              toggleMyMic={toggleMyMic}
+              isMyCameraOn={isMyCameraOn}
+              isMyMicOn={isMyMicOn}
+              isChildCameraOn={isChildCameraOn}
+              isChildMicOn={isChildMicOn}
+            />
+          ) : (
+            <VideoChattingLobby
+              renderUserVideoComponent={renderUserVideoComponent}
+              mainStreamManager={mainStreamManager}
+              subscribers={subscribers}
+              toggleMyCamera={toggleMyCamera}
+              toggleMyMic={toggleMyMic}
+              isMyCameraOn={isMyCameraOn}
+              isMyMicOn={isMyMicOn}
+              isChildCameraOn={isChildCameraOn}
+              isChildMicOn={isChildMicOn}
+              isSessionEnd={isSessionEnd}
+              setIsSessionEnd={setIsSessionEnd}
+            />
+          )}
+
+          {/* 게임 상태를 토글하는 버튼 */}
+          <button onClick={signalToggleGameStarted}>
+            {isGameStarted ? 'Stop Game' : 'Start Game'}
+          </button>
+
+          <ImgCaptureBtn capturedImages={capturedImages}
+                         setCapturedImages={setCapturedImages}
+          />
+        </>
       )}
-
-      {/* 게임 상태를 토글하는 버튼 */}
-      <button onClick={signalToggleGameStarted}>
-        {isGameStarted ? 'Stop Game' : 'Start Game'}
-      </button>
-
-      <ImgCaptureBtn/>
     </AppContainer>
-
   );
 };
 

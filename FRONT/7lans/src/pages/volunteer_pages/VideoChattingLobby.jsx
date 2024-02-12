@@ -3,11 +3,11 @@ import styled from "styled-components";
 import {styled as muiStyled} from "@mui/material/styles";
 import {Button} from "@mui/material";
 import PropTypes from "prop-types";
-import { StreamManager } from "openvidu-browser";
-import { useSelector } from "react-redux";
-import { FiCamera } from "react-icons/fi";
-import { FiCameraOff } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import {StreamManager} from "openvidu-browser";
+import {useSelector} from "react-redux";
+import {FiCamera} from "react-icons/fi";
+import {FiCameraOff} from "react-icons/fi";
+import {Link} from "react-router-dom";
 import MIC1 from '../../images/mic_on.png';
 import MIC2 from '../../images/mic_off.png';
 
@@ -90,7 +90,9 @@ const VideoChattingLobby = ({
                               isMyCameraOn,
                               isMyMicOn,
                               isChildCameraOn,
-                              isChildMicOn
+                              isChildMicOn,
+                              isSessionEnd,
+                              setIsSessionEnd
                             }) => {
   const userDino = useSelector((state) => state.dino.value);
 
@@ -139,12 +141,13 @@ const VideoChattingLobby = ({
           src={`${import.meta.env.VITE_PUBLIC_URL}/dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
         />
-        <img src="" alt="" />
-        <Link to="/volunteer_video_chatting_start">
-          <StyledButton>
-            화상채팅 종료
-          </StyledButton>
-        </Link>
+        <img src="" alt=""/>
+        {/* <Link to="/volunteer_video_chatting_start"> */}
+        <StyledButton
+          onClick={() => setIsSessionEnd(true)}>
+          화상채팅 종료
+        </StyledButton>
+        {/* </Link> */}
       </CenteredBox>
       <BorderBox>
         <h2
