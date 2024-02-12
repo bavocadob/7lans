@@ -141,7 +141,7 @@ const VideoChattingLobby = ({
           <p>하고싶은 놀이를 선택해주세요</p> 
         </CenteredText>
         <ResponsiveImage
-          src={`./dinosourImage/dinosaur${userDino}_study.png`}
+          src={`${import.meta.env.VITE_PUBLIC_URL}/dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
         />
         <img src="" alt="" />
