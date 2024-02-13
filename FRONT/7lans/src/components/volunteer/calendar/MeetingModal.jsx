@@ -9,6 +9,8 @@ import { inline } from "@floating-ui/core";
 import { dateToString, calTime, dateToHyphen } from "./DateTranslation";
 import { getMeetingList } from "./Axioses";
 
+import CloseIcon from "../../../images/next_button.png"
+
 ReactModal.setAppElement("#root");
 
 const ModalOverlay = styled.div`
@@ -302,7 +304,7 @@ const MeetingModal = ({
                 [ 시간 선택 ]
               </h1>
               <img
-                src="../../close_button.png"
+                src={CloseIcon}
                 style={{
                   position: "relative",
                   width: "50px",

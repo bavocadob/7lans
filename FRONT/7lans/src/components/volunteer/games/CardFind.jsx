@@ -21,12 +21,12 @@ const Card = ({num, isFlipped, isDisabled, handleClick}) => {
                     backgroundColor: 'rgb(255, 215, 3)',
                   }}
                   onClick={handleClick}>
-    {isFlipped && (<img src={`./cardImage/cardImage${cardImageNum}.png`}
+    {isFlipped && (<img src={`${getEnv("PUBLIC_URL")}/cardImage/cardImage${cardImageNum}.png`}
                         alt=""
                         style={{
                           height: '60px', width: '60px'
                         }}/>)}
-    <img src={`./cardImage/cardImage${num}`} alt=""/>
+    <img src={`${getEnv("PUBLIC_URL")}/cardImage/cardImage${num}`} alt=""/>
   </button>);
 }
 

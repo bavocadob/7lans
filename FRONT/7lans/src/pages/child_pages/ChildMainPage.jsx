@@ -8,6 +8,15 @@ import { updateVolInfo } from "../../store/volSlice";
 import { updateVolsInfo } from "../../store/volsSlice";
 import getEnv from "../../utils/getEnv";
 
+import Logo from "../../images/7lans_logo.png"
+import MainChildren from "../../images/main_page/main_page_children.png";
+import LineIcon from "../../images/main_page/line.png"
+import LeftLetterIcon from "../../images/main_page/left_letter.png"
+import MiddleLetterIcon from "../../images/main_page/middle_letter.png"
+import RightLetterIcon from "../../images/main_page/right_letter.png"
+import AirPlaneIcon from "../../images/main_page/airplane.png"
+import PostIcon from "../../images/main_page/post.png"
+
 const Container = styled.div`
 /* font-family: 'Nanum Gothic', sans-serif; */
   height: 100vh;
@@ -168,7 +177,7 @@ const VolunteerMainPage = () => {
       {console.log(userInfo)}
       {console.log(dino)}
       <header className="shadow">
-        <LogoImage src="./7lans_logo.png" />
+        <LogoImage src={Logo} />
         <Link
           style={{ fontSize: "23px", textDecorationLine: "none" }}
           to={"/child_dinosaur_dict"}
@@ -188,21 +197,21 @@ const VolunteerMainPage = () => {
           to={"/child_start"}
           style={{ fontSize: "23px", textDecorationLine: "none" }}
         >
-          <img src="../../../main_page/main_page_children.png" alt="나의 아이들 이미지" />
+          <img src={MainChildren} alt="나의 아이들 이미지" />
         </Link>
       </MyChildren>
 
       <Letter>
         <Overlap>
           <Line>
-            <img style={{ width: "80%" }} src="../../../main_page/line.png" alt="선" />
+            <img style={{ width: "80%" }} src={LineIcon} alt="선" />
           </Line>
 
           <Link to={"/child_whispher"}>
             <LeftLetter>
               <img
                 style={{ width: "70px" }}
-                src="../../../main_page/left_letter.png"
+                src={LeftLetterIcon}
                 alt="편지"
               />
             </LeftLetter>
@@ -211,7 +220,7 @@ const VolunteerMainPage = () => {
             <MiddleLetter>
               <img
                 style={{ width: "70px" }}
-                src="../../../main_page/middle_letter.png"
+                src={MiddleLetterIcon}
                 alt="편지"
               />
             </MiddleLetter>
@@ -220,7 +229,7 @@ const VolunteerMainPage = () => {
             <RightLetter>
               <img
                 style={{ width: "70px" }}
-                src="../../../main_page/right_letter.png"
+                src={RightLetterIcon}
                 alt="편지"
               />
             </RightLetter>
@@ -229,7 +238,7 @@ const VolunteerMainPage = () => {
         <AirPlane>
           <img
             style={{ width: "70px" }}
-            src="../../../main_page/airplane.png"
+            src={AirPlaneIcon}
             alt="비행기"
           />
         </AirPlane>
@@ -237,7 +246,7 @@ const VolunteerMainPage = () => {
           <PostBox>
             <img
               style={{ width: "180px" }}
-              src="../../../main_page/post.png"
+              src={PostIcon}
               alt="우편함"
             />
           </PostBox>

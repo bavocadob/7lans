@@ -20,6 +20,8 @@ import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
 import { createMeetingSession, getMeetingList } from "./Axioses";
 
+import NextIcon from "../../../images/next_button.png"
+
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -65,7 +67,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
         <div>
           <img
             style={{ width: "30px" , transform: "scaleX(-1)"}}
-            src="../../next_button.png"
+            src={NextIcon}
             alt=""
             onClick={prevMonth}
           />
@@ -81,7 +83,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
         <div>
           <img
             style={{ width: "30px" }}
-            src="../../next_button.png"
+            src={NextIcon}
             alt=""
             onClick={nextMonth}
           />

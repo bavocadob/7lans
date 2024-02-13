@@ -11,6 +11,8 @@ import { FcSmartphoneTablet } from "react-icons/fc";
 import { useSelector } from "react-redux";
 import getEnv from "../utils/getEnv";
 
+import Logo from "../images/7lans_logo.png";
+
 const Container = styled.div`
   height: 93vh;
   width: 95vw;
@@ -209,7 +211,7 @@ const Register = () => {
       <H1>회원가입</H1>
       <ContentWrapper>
         <LeftContent>
-          <LogoImage src="./7lans_logo.png" alt="" />
+          <LogoImage src={Logo} alt="" />
           <InfoSpan>
             <h5 style={{margin: '0'}}>
               봉사자와 피봉사자의 연결을 도와주는 보조 웹 사이트
