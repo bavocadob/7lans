@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 import { adminAddFriend } from "../../store/adminAddFriendSlice";
-import {adminDeleteFriend }from "../../store/adminDeleteFriendSlice";
+import { adminDeleteFriend } from "../../store/adminDeleteFriendSlice";
+
+import ProfileExample from "../../images/admin_pic/profile_example.png";
 
 const LowerDiv = styled.div`
   flex: 2.1;
@@ -99,14 +101,14 @@ const CancelButton = styled.button`
 const VolLowDiv = () => {
   const urlInfo = getEnv("API_URL");
   const selectVolCard = useSelector((state) => state.adminSelectVol);
-  const addFriend = useSelector((state) => state.adminAddFriend)
+  const addFriend = useSelector((state) => state.adminAddFriend);
   const [childList, setChildList] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [relationId, setRelationId] = useState(null);
   const volId = selectVolCard.value[3];
   const dispatch = useDispatch();
 
-  console.log(addFriend, "addFreind")
+  console.log(addFriend, "addFreind");
   useEffect(() => {
     axios
       .get(`${urlInfo}/child/listByVolunteer/${volId}`)
@@ -116,7 +118,7 @@ const VolLowDiv = () => {
       .catch((err) => {
         console.log(err, "err -> VolLowDiv");
       });
-      // 다른 걸 감시해야함
+    // 다른 걸 감시해야함
   }, [volId, addFriend]);
 
   const handleDeleteClick = (relationId) => {
@@ -134,8 +136,8 @@ const VolLowDiv = () => {
         setChildList((prevChildList) =>
           prevChildList.filter((child) => child.relationId !== relationId)
         );
-        dispatch(adminAddFriend(false))
-        dispatch(adminDeleteFriend(true))
+        dispatch(adminAddFriend(false));
+        dispatch(adminDeleteFriend(true));
       })
       .catch((err) => {
         console.log(err, "err -> VolLowDiv 친구끊기 오류");
@@ -150,9 +152,9 @@ const VolLowDiv = () => {
   return (
     <>
       <LowerDiv>
-        {childList.map((child) => (
-          <LowerProfileCard key={child.relationId}>
-            <LowerProfileImage src="./admin_pic/프로필예시.png" alt="Profile" />
+        {childList.map((child, index) => (
+          <LowerProfileCard key={index}>
+            <LowerProfileImage src={ProfileExample} alt="Profile" />
             <DeleteButton onClick={() => handleDeleteClick(child.relationId)}>
               X
             </DeleteButton>

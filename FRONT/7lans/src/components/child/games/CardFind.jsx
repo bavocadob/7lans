@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-
+import getEnv from '../../../utils/getEnv';
 const cardNum = Array.from({ length: 16 }, (_, index) => index + 1);
 const CardFind = () => {
     
@@ -100,15 +100,15 @@ const CardFind = () => {
                             key={index} 
                             onClick={(e) => handleCard(e, num)}>
                               {(nowCard.includes(num) || flippedCard.includes(num))? 
-                              (num > 8 ? <img src={`./cardImage/cardImage${num-8}.png`} 
+                              (num > 8 ? <img src={`${getEnv("PUBLIC_URL")}/cardImage/cardImage${num-8}.png`} 
                                               alt="" 
                                               style={{height: '60px', 
                                                       width: '60px'}} /> : 
-                              <img src={`./cardImage/cardImage${num}.png`} 
+                              <img src={`${getEnv("PUBLIC_URL")}/cardImage/cardImage${num}.png`} 
                                    alt="" 
                                    style={{height: '60px', 
                                            width: '60px'}} />) : ''}
-                            <img src={`./cardImage/cardImage${num}`} alt="" />
+                            <img src={`${getEnv("PUBLIC_URL")}/cardImage/cardImage${num}`} alt="" />
                     </button>
                 )})}
             </div>

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeGame } from "../../store/chooseGameSlice";
 import { motion } from "framer-motion"
 
+import Logo from "../../images/7lans_logo.png";
+ 
 const NavBar = styled.nav`
   position: fixed;
   width: 100%;
@@ -35,7 +37,7 @@ const GameNav = () => {
   return (
     <NavBar className="shadow">
       <Link to="/volunteer_main">
-        <LogoImage src="./7lans_logo.png" alt="logo" />
+        <LogoImage src={Logo} alt="logo" />
       </Link>
      
       <div style={{display: 'flex', width: '100%', marginLeft:'33%'}}>

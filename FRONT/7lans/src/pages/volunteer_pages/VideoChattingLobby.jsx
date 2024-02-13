@@ -8,21 +8,25 @@ import { useSelector } from "react-redux";
 import { FiCamera } from "react-icons/fi";
 import { FiCameraOff } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import MIC1 from '../../images/mic_on.png';
-import MIC2 from '../../images/mic_off.png';
+
+import MicOn from '../../images/meeting/mic_on.png';
+import MicOff from '../../images/meeting/mic_off.png';
+import getEnv from "../../utils/getEnv";
+
+import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn";
 
 const FlexCenterContainer = styled.div`
-  flex: 1;
-  background-color: rgb(255, 233, 156);
+  /* flex: 1; */
+  /* background-color: rgb(255, 233, 156); */
   display: flex;
   padding: 2rem;
-  height: 70%;
+  /* height: 100%; */
   justify-content: space-between;
 `;
 
 const BorderBox = styled.div`
   width: 34vw;
-  height: 72vh;
+  height: 74vh;
   background-color: rgb(255, 248, 224);
   border: 4px solid rgb(45, 45, 45);
   border-radius: 20px;
@@ -76,6 +80,7 @@ const Mic = styled.img`
   margin-top: 3px;
 `;
 
+
 const Camera = styled.div`
   width: 35px;
   height: 35px;
@@ -115,7 +120,7 @@ const VideoChattingLobby = ({
             alignItems: "end",
             gap: "15px",
             marginLeft: "78%",
-            marginTop: "15px",
+            marginTop: "5px",
           }}
         >
           <Camera onClick={toggleMyCamera}
@@ -125,7 +130,7 @@ const VideoChattingLobby = ({
           </Camera>
           <Mic
             onClick={toggleMyMic}
-            src={isMyMicOn ? MIC1 : MIC2}
+            src={isMyMicOn ? MicOn : MicOff}
             alt="마이크 끄고켜기"
           />
         </div>
@@ -136,15 +141,18 @@ const VideoChattingLobby = ({
           <p>하고싶은 놀이를 선택해주세요</p>
         </CenteredText>
         <ResponsiveImage
-          src={`${import.meta.env.VITE_PUBLIC_URL}/dinosourImage/dinosaur${userDino}_study.png`}
+          src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
         />
         <img src="" alt="" />
+        <div style={{display: 'flex', marginTop: '22px'}}>
         <Link to="/volunteer_video_chatting_start">
           <StyledButton>
             화상채팅 종료
           </StyledButton>
         </Link>
+        <ImgCaptureBtn/>
+        </div>
       </CenteredBox>
       <BorderBox>
         <h2
@@ -152,6 +160,7 @@ const VideoChattingLobby = ({
             paddingTop: "2rem",
             paddingBottom: "1rem",
             textAlign: "center",
+            marginTop: "5px",
           }}
         >
           {" "}
@@ -167,8 +176,6 @@ const VideoChattingLobby = ({
             alignItems: "end",
             gap: "15px",
             marginLeft: "78%",
-            marginTop: "15px",
-
           }}
         >
           <Camera
@@ -176,8 +183,9 @@ const VideoChattingLobby = ({
             {isChildCameraOn ? <FiCamera style={{width: "100%", height: "100%"}}/>
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
+
           <Mic
-            src={isChildMicOn ? MIC1 : MIC2}
+            src={isChildMicOn ? MicOn : MicOff}
           />
         </div>
       </BorderBox>

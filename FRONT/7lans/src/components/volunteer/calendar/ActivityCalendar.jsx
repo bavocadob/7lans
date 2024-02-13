@@ -19,6 +19,11 @@ import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
 import { dateToHyphen } from './DateTranslation';
 
+import NextIcon from "../../../images/next_button.png";
+import PreSubmit from "../../../images/activity_log/pre_submit.png";
+import WhileApproving from "../../../images/activity_log/while_approving.png";
+import Approve from "../../../images/activity_log/approve.png";
+
 ReactModal.setAppElement('#root');
 
 
@@ -36,7 +41,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
         <div>
           <img
             style={{ width: "30px" , transform: "scaleX(-1)"}}
-            src="../../next_button.png"
+            src={NextIcon}
             alt=""
             onClick={prevMonth}
           />
@@ -52,7 +57,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
         <div>
           <img
             style={{ width: "30px" }}
-            src="../../next_button.png"
+            src={NextIcon}
             alt=""
             onClick={nextMonth}
             />
@@ -69,18 +74,18 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
                         justifyContent:'end'}}>
                 <img 
                     style={{width: "30px"}}
-                    src={getEnv('PREVIOUS_SUBMIT')}
+                    src={PreSubmit}
                 
                 ></img>
                 <span style={{marginRight: '10px'}}> : 작성하기 </span>
                 <img 
                     style={{width: "30px"}}
-                    src={getEnv('SUBMIT')}
+                    src={WhileApproving}
                 ></img>
                 <span style={{marginRight: '10px'}}> : 승인 중</span>
                 <img 
                     style={{width: "30px"}}
-                    src={getEnv('APPROVE')}
+                    src={Approve}
                 
                 ></img>
                 <span> : 승인 완료</span>

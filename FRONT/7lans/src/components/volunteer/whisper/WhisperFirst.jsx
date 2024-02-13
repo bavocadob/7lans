@@ -2,6 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
+import Balloon from "../../../images/text_balloon.png";
+import getEnv from "../../../utils/getEnv";
+
 const Box = styled.div`
   width: 100%;
   height: 100%;
@@ -49,9 +52,9 @@ export default function WhisperFirst() {
     <>
       <Box>
         {/* 이미지를 바꿀 수 있게 수정하기*/}
-        <Image src={`./dinosourImage/dinosaur${userDino}_study.png`} alt="dinosaur" />
+        <Image src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDino}_study.png`} alt="dinosaur" />
         <TextContainer>
-          <img src="../../text_balloon.png" alt="말풍선" style={{width:'400px', transform: 'rotate(-20deg)'}}></img>
+          <img src={Balloon} alt="말풍선" style={{width:'400px', transform: 'rotate(-20deg)'}}></img>
           {userInfo.memberType === 'CHILD'?
           <Text>어떤 선생님의 속닥속닥을 보실건가요? 선생님을을 선택해 주세요</Text>
            :

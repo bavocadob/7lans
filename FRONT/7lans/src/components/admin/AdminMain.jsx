@@ -3,6 +3,10 @@ import styled, { keyframes } from "styled-components";
 import NormalNav from "../../components/navs/NormalNav";
 import { useNavigate } from "react-router";
 
+import VolunteerManage from "../../images/admin_pic/volunteer_manage.png"
+import ChildManage from "../../images/admin_pic/child_manage.png"
+import ActivityManage from "../../images/admin_pic/activity_manage.png"
+
 const ButtonContainer = styled.div`
   display: flex;
   margin: 20px;
@@ -65,15 +69,15 @@ const AdminMain = () => {
       <NormalNav />
       <ButtonContainer>
         <LargeButton onClick={() => handleBtnClick("/volunteer_manage")}>
-          <ButtonImage src="./admin_pic/봉사자관리.png" alt="Button 1" />
+          <ButtonImage src={VolunteerManage} alt="Button 1" />
           <ButtonText>봉사자 관리</ButtonText>
         </LargeButton>
         <LargeButton onClick={() => handleBtnClick("/child_manage")}>
-          <ButtonImage src="./admin_pic/학생관리.png" alt="Button 2" />
+          <ButtonImage src={ChildManage} alt="Button 2" />
           <ButtonText>학생 관리</ButtonText>
         </LargeButton>
         <LargeButton onClick={() => handleBtnClick("/active_manage")}>
-          <ButtonImage src="./admin_pic/활동일지관리.png" alt="Button 3" />
+          <ButtonImage src={ActivityManage} alt="Button 3" />
           <ButtonText>활동 일지 관리</ButtonText>
         </LargeButton>
       </ButtonContainer>

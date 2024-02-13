@@ -6,6 +6,8 @@ import getEnv from "../../utils/getEnv";
 import { adminAddFriend } from "../../store/adminAddFriendSlice";
 import { adminDeleteFriend } from "../../store/adminDeleteFriendSlice";
 
+import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png"
+
 const UpperDiv = styled.div`
   flex: 1.2;
   background-color: #fffdf6;
@@ -220,7 +222,7 @@ function VolUpDiv() {
       <UpperDiv>
         <ProfileCard>
           {/* 이미지도 넣기 */}
-          <ProfileImage src="./admin_pic/봉사자프로필예시.png" alt="Profile" />
+          <ProfileImage src={VolunteerProfileEx} alt="Profile" />
         </ProfileCard>
         <InformationSection>
           <p>Name : {name}</p>

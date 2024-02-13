@@ -231,8 +231,8 @@ const DinosaurDictPage = () => {
                 }
                 src={
                   userDinosaurList.includes(num)
-                    ? `./dinosourImage/dinosaur${num}_basic.png`
-                    : `./dinosourImage/dinosaur${num}_sihouette.png`
+                    ? `${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${num}_basic.png`
+                    : `${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${num}_sihouette.png`
                 }
                 alt="공룡 이미지들"
               />
@@ -242,7 +242,7 @@ const DinosaurDictPage = () => {
         <RightSide>
           <img
             style={{ width: '200px', height:'300px'}}
-            src={`./dinosourImage/dinosaur${chooseDino}_basic.png`}
+            src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${chooseDino}_basic.png`}
             alt=""
           />
           <Detail>{renderChooseDino(chooseDino)}</Detail>
@@ -338,7 +338,7 @@ const StyledFooter = styled(Modal.Footer)`
           <CenteredForm>
             <CenteredImage
               type="image"
-              src={`./dinosourImage/dinosaur${chooseDino}_basic.png`}
+              src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${chooseDino}_basic.png`}
             />
           </CenteredForm>
         </Modal.Body>

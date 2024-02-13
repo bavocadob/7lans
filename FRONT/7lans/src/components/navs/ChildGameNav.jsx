@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 
+import Logo from "../../images/7lans_logo.png"
 
 const NavBar = styled.nav`
   position: fixed;
@@ -21,7 +22,7 @@ const ChildGameNav = () => {
   return (
       <NavBar className='shadow'>
         <Link to="/child_main">
-          <LogoImage src="./7lans_logo.png" alt="logo" />
+          <LogoImage src={Logo} alt="logo" />
         </Link>
       </NavBar>
   )

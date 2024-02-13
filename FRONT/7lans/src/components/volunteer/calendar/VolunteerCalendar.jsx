@@ -20,6 +20,8 @@ import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
 import { createMeetingSession, getMeetingList } from "./Axioses";
 
+import NextIcon from "../../../images/next_button.png"
+
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -34,23 +36,41 @@ const ModalContent = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
+  width: 390px;
+  height: 200px;
   transform: translate(-50%, -50%);
-  background-color: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 15px;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 252, 199, 1) 0%,
+    rgba(255, 232, 102, 1) 100%
+  );
+  display: flex; /* Flexbox 설정 */
+  flex-direction: column; /* Vertical
+  justify-content: center; /* 가로 가운데 정렬 */
+  align-items: center;
   text-align: center;
 `;
 
 const CuteButton = styled.button`
-  background-color: #ff8c94;
-  border: none;
-  border-radius: 15px;
-  padding: 10px;
-  font-size: 14px;
-  color: white;
+  font-size: 17px;
+  color: black;
   cursor: pointer;
   margin-top: 5px;
   margin-left: 5px;
+  background: rgb(255, 184, 36);
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  height: 45px;
+  width: 100px;
+  margin-left: 16px;
+  text-decoration-line: none;
+  position: relative;
+  &:hover {
+    background-color: #ffd703};
 `;
 
 const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
@@ -65,7 +85,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
         <div>
           <img
             style={{ width: "30px" , transform: "scaleX(-1)"}}
-            src="../../next_button.png"
+            src={NextIcon}
             alt=""
             onClick={prevMonth}
           />
@@ -81,7 +101,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
         <div>
           <img
             style={{ width: "30px" }}
-            src="../../next_button.png"
+            src={NextIcon}
             alt=""
             onClick={nextMonth}
           />

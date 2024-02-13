@@ -14,6 +14,8 @@ import { Button, Modal, Form, Image } from "react-bootstrap";
 import Audio from "../../components/Audio";
 import Correct from "../../components/dinosaur/Correct";
 
+import EggImg from "../../images/egg_img.png"
+
 const RightSide = styled.div`
   width: 90%;
   height: 100%;
@@ -148,7 +150,7 @@ const RaiseEggPage = () => {
               <Form>
                 <Image
                   type="image"
-                  src={`./dinosourImage/dinosaur${userDion}_sad.png`}
+                  src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDion}_sad.png`}
                   style={{ height: "300px",
                             width: '220px', 
                           }}
@@ -179,7 +181,7 @@ const RaiseEggPage = () => {
             <StyledBody>          
                 <Image
                   type="image"
-                  src={`./dinosourImage/dinosaur${userDion}_sad.png`} 
+                  src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDion}_sad.png`} 
                   style={{ height: "300px",
                             width: '220px', 
                           }}
@@ -208,7 +210,7 @@ const RaiseEggPage = () => {
               <Form>
                 <Image
                   type="image"
-                  src={`./dinosourImage/dinosaur${newEgg?.id}_basic.png`}
+                  src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${newEgg?.id}_basic.png`}
                   style={{ height: "300px",
                             width: '220px', 
                           }}
@@ -296,7 +298,7 @@ const RaiseEggPage = () => {
                 <img
                   onClick={eggClick}
                   style={{ width: "140px", height: "150px", cursor: "pointer" }}
-                  src="./egg_img.png"
+                  src={EggImg}
                   alt=""
                 />
                 {!dinoState && (
@@ -305,7 +307,7 @@ const RaiseEggPage = () => {
                       // transform: "scaleX(-1)",
                       height: "300px",
                     }}
-                    src={`./dinosourImage/dinosaur${userDion}_basic.png`}
+                    src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDion}_basic.png`}
                     alt=""
                   />
                 )}
@@ -315,7 +317,7 @@ const RaiseEggPage = () => {
                       // transform: "scaleX(-1)", //사진 좌우반전
                       height: "300px",
                     }}
-                    src={`./dinosourImage/dinosaur${userDion}_happy.png`}
+                    src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDion}_happy.png`}
                     alt=""
                   />
                 )}

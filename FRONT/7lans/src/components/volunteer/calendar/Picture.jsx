@@ -6,6 +6,10 @@ import styled from "styled-components";
 import getEnv from "../../../utils/getEnv";
 import { useSelector } from "react-redux";
 
+import BlackboardIcon from "../../../images/picture_page/blackboard.png";
+import ChorkIcon from "../../../images/picture_page/chork.png";
+import NoPicture from "../../../images/picture_page/dinosaur1_sad.png";
+
 const getRandomRotation = () => Math.floor(Math.random() * 30) - 20;
 const Image = styled.img`
   height: 100%;
@@ -52,7 +56,7 @@ const Blackboard = styled.img`
 
 const Chork = styled.img`
   position: absolute;
-  top: 85%;
+  top: 82%;
   left: 30%;
   width: 750px;
   height: 50px;
@@ -63,7 +67,7 @@ const Desk = styled.div`
   height: 50px;
   background-color: #964b00;
   position: absolute;
-  top: 91%;
+  top: 86.8%;
   color: white;
   border-radius: 2px;
   font-size: 20px;
@@ -114,7 +118,7 @@ border: 2px solid rgb(255, 184, 36);
   width: 90px;
   height: 45px;
   &:hover {
-    background-color: rgb(255, 215, 3);
+    background-color: rgb(255, 215, 3)};
 `;
 
 
@@ -216,15 +220,15 @@ const Picture = () => {
             같이 찍은 사진이 없어요
           </div>
           <img
-            src="./dinosourImage/dinosaur1_sad.png"
+            src={NoPicture}
             style={{ height: "400px", width: "350px" }}
           />
         </div>
       )}
 
-      <Blackboard src="blackboard.png" />
+      <Blackboard src={BlackboardIcon}/>
       <Desk>사진을 선택하면 썸네일을 선택할 수 있어요 🙂</Desk>
-      <Chork src="chork.png" />
+      <Chork src={ChorkIcon} />
 
       {/* 썸네일 설정 확인 모달 */}
       <ModalOverlay open={isModalOpen} onClick={closeModal}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import PostIt from '../post_it/PostIt'
 import styled from 'styled-components'
-import Spinner from '../../../../public/loading.gif'
+import Spinner from '../../../images/loading.gif';
 
 const RightSide = styled.div`
   width: 90%;
@@ -61,7 +61,7 @@ const Waiting = ({}) => {
        <Background>
         <LoadingText>
             <p>
-                출제 중입니다
+            출제 중입니다
             </p>
             <p>
             조금만 기다려 주세요
