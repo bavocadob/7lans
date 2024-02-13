@@ -26,7 +26,7 @@ const VideoChattingPage = () => {
   } = UseOpenViduSession();
 
   const [isGameStarted, setGameStarted] = useState(false);
-  const [meetingValid, setMeetingValid] = useState()
+  const [meetingValid, setMeetingValid] = useState(true)
   const userInfo = useSelector((state) => state.user.value);
   const navigate = useNavigate();
 
@@ -62,19 +62,19 @@ const VideoChattingPage = () => {
    * - 일치하면, 미팅 참여 상태를 true로 설정합니다.
    */
   useEffect(() => {
-    const fetchData = async () => {
-      if (userInfo !== null) {
-        const meetingData = await getMeetingDetail(MEETING_ID);
-        console.log(meetingData)
-        if (meetingData.childId !== userInfo.memberId &&
-          meetingData.volunteerId !== userInfo.memberId) {
-          navigate('/'); // 메인페이지로 이동
-        } else {
-          setMeetingValid(true);
-        }
-      }
-    }
-    fetchData();
+    // const fetchData = async () => {
+    //   if (userInfo !== null) {
+    //     const meetingData = await getMeetingDetail(MEETING_ID);
+    //     console.log(meetingData)
+    //     if (meetingData.childId !== userInfo.memberId &&
+    //       meetingData.volunteerId !== userInfo.memberId) {
+    //       navigate('/'); // 메인페이지로 이동
+    //     } else {
+    //       setMeetingValid(true);
+    //     }
+    //   }
+    // }
+    // fetchData();
   }, [userInfo, navigate]);
 
 
@@ -172,7 +172,7 @@ const VideoChattingPage = () => {
   return (
     <>
           <GameNav/>
-      <div  style={{ marginTop: "5.7%" }}>
+      <div  style={{ marginTop: "5.7%", display: 'flex', flexDirection: 'row' }}>
       
       {isGameStarted ? (
         <VolunteerGamePage
@@ -201,11 +201,11 @@ const VideoChattingPage = () => {
         />
       )}
 
+</div>
       {/* 게임 상태를 토글하는 버튼 */}
       <button onClick={signalToggleGameStarted}>
         {isGameStarted ? 'Stop Game' : 'Start Game'}
       </button>
-</div>
     </>
 
   );

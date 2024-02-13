@@ -24,12 +24,26 @@ const LogoImage = styled.img`
   margin-top: 15px;
 `;
 
+const TimeZone = styled.div`
+  width: 240px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  font-size: 20px;
+  border: none;
+  border-radius: 20px;
+  margin-top: 20px;
+`;
+
 const CloseImg = styled.img`
   height: 90px;
   width: 80px;
   padding-bottom: 1.5rem;
   margin-top: 0;
 `;
+
 
 const GameNav = () => {
   const gameChange = useSelector((state) => state.isPlayGameNow.value);
@@ -169,7 +183,7 @@ const GameNav = () => {
             border: "none",
             borderRadius: "20px",
             backgroundColor: "rgb(255, 237, 170)",
-            margin: "0 2rem 0 0",
+            margin: "0",
           }}
         >
           <button
@@ -183,7 +197,7 @@ const GameNav = () => {
               border: "none",
               borderRadius: "20px",
               backgroundColor: "rgb(255, 237, 170)",
-              margin: "0 2rem 0 0",
+              margin: "0",
             }}
             onClick={() => goToOtherGame(Number(4))}
           >
@@ -191,18 +205,9 @@ const GameNav = () => {
             문장 만들기
           </button>
         </motion.a>
-        <div style={{
-            width: "200px",
-            height: "55px",
-            alignSelf: "center",
-            fontWeight: "bolder",
-            fontSize: "20px",
-            border: "none",
-            borderRadius: "20px",
-            margin: "0",
-            alignSelf: "center",}}>
+        <TimeZone>
           화상 시간 나오는 공간
-        </div>
+        </TimeZone>
         <motion.a
           className="shadow"
           whileHover={{ scale: 1 }}
