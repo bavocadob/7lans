@@ -206,6 +206,11 @@ const DinosaurDictPage = () => {
     width: 130px;
     // margin-left: 8%;
     color: rgb(45, 45, 45);
+    &:hover{
+      background:rgba(196, 163, 255, 0.7);
+      border: rgba(196, 163, 255, 1);
+      color: white;
+   }
   `;
   const renderBody = () => {
     const dinoArr = Array.from({ length: 18 }, (_, index) => index + 1);
@@ -330,7 +335,6 @@ const StyledFooter = styled(Modal.Footer)`
         </div>
       </div>
       <StyledModal show={show} centered onClick={() => setShow(false)}>
-      {/* <ModalContent> */}
         <StyledHeader closeButton>
           <Modal.Title>나와 함께 할래?</Modal.Title>
         </StyledHeader>
@@ -356,7 +360,6 @@ const StyledFooter = styled(Modal.Footer)`
             생성
           </Button> */}
         </StyledFooter>
-      {/* </ModalContent> */}
     </StyledModal>
     </>
   );
