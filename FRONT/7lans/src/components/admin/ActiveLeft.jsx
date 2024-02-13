@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { adminSelectAcitve } from "../../store/adminSelectActiveSlice";
 import { adminApproveBtn } from "../../store/adminApproveBtnSlice";
 import { adminNoList } from "../../store/adminNoListSlice";
+import { adminAddFriend } from "../../store/adminAddFriendSlice";
 
 const LeftContainer = styled.div`
   height: 90%;
@@ -90,40 +91,62 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const ApproveButton = styled.button`
-  background-color: ${({ isApproved }) => (isApproved ? "#2ecc71" : "#ff6b81")};
-  color: white;
-  padding: 10px 20px; /* 패딩 크기 조정 */
-  border-radius: 30px; /* 보다 둥근 형태로 변경 */
-  border: none;
+const ToggleBtn = styled.input`
+  position: relative;
+  height: 30px;
+  width: 60px;
   cursor: pointer;
-  font-size: 1rem; /* 폰트 크기 조정 */
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 30px;
+  background-color: ${({ isApproved }) => (isApproved ? "#2ecc71" : "#ff6b81")};
   transition: background-color 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  outline: none;
 
-  &:hover {
-    background-color: ${({ isApproved }) =>
-      isApproved ? "#27ae60" : "#ff4757"};
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* 마우스 호버 시 그림자 효과 강화 */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: ${({ isApproved }) =>
+      isApproved
+        ? "calc(100% - 25px)"
+        : "5px"}; // Adjusted left position to keep the circle indicator inside the button
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    transition: left 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
+  &:checked::before {
+    left: ${({ isApproved }) =>
+      isApproved
+        ? "5px"
+        : "calc(100% - 25px)"}; // Adjusted left position when checked to keep the circle indicator inside the button
+  }
+`;
+
+const ToggleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const filterPosts = (posts, searchTerm) => {
   return posts.filter((post) => {
     const lowercaseSearchTerm = searchTerm.toLowerCase();
-    const { title, volunteerName, childName, activityId } = post;
+    const { volunteerName, childName, activityId, dateInfo } = post;
     return (
-      (title && title.toLowerCase().includes(lowercaseSearchTerm)) ||
-      (volunteerName && volunteerName.toLowerCase().includes(lowercaseSearchTerm)) ||
+      (volunteerName &&
+        volunteerName.toLowerCase().includes(lowercaseSearchTerm)) ||
       (childName && childName.toLowerCase().includes(lowercaseSearchTerm)) ||
-      (activityId && activityId.toString().includes(searchTerm))
+      (activityId && activityId.toString().includes(searchTerm)) ||
+      (dateInfo && dateInfo.includes(searchTerm)) // 작성시간 검색 추가
     );
   });
 };
-
 
 const ActiveLeft = () => {
   const [posts, setPosts] = useState([]);
@@ -134,6 +157,7 @@ const ActiveLeft = () => {
   const urlInfo = getEnv("API_URL");
   const userInfo = useSelector((state) => state.user);
   const centerId = userInfo.value.centerId;
+  const stateCheck = useSelector((state) => state.adminAddFriend);
   const dispatch = useDispatch();
 
   const fetchPosts = async () => {
@@ -143,6 +167,7 @@ const ActiveLeft = () => {
       );
       console.log(response.data, "ActiveManage 승인안된 활동일지리스트");
       setPosts(response.data);
+      dispatch(adminAddFriend(false));
     } catch (error) {
       console.error("Error ActiveLeft", error);
     }
@@ -155,6 +180,7 @@ const ActiveLeft = () => {
       );
       console.log(response.data, "ActiveManage 승인되어버린 활동일지리스트");
       setApprovePosts(response.data);
+      dispatch(adminAddFriend(false));
     } catch (error) {
       console.error("Error ActiveLeft", error);
     }
@@ -163,7 +189,7 @@ const ActiveLeft = () => {
   useEffect(() => {
     fetchPosts();
     fetchApprovePosts();
-  }, []);
+  }, [stateCheck]);
 
   const filteredPosts = filterPosts(posts, searchTerm);
   const filteredApprovePosts = filterPosts(approvePosts, searchTerm);
@@ -180,25 +206,36 @@ const ActiveLeft = () => {
   };
 
   useEffect(() => {
-    dispatch(adminNoList({
-      filteredListLen: filteredPosts.length, 
-      filteredApproveListLen: filteredApprovePosts.length
-    }));
+    dispatch(
+      adminNoList({
+        filteredListLen: filteredPosts.length,
+        filteredApproveListLen: filteredApprovePosts.length,
+      })
+    );
   }, [filteredPosts.length, filteredApprovePosts.length, isApproval]);
-    
+
   return (
     <>
       <LeftContainer>
         <Header>
-          <Title>활동일지목록 🐱</Title>
-          <ApproveButton onClick={toggleApprovalStatus}>
-            {isApproval ? "승인완료" : "승인필요"}
-          </ApproveButton>
+          <Title>
+            {isApproval
+              ? "승인이 '완료된' 활동일지 목록"
+              : "승인이 '필요한' 활동일지 목록"}{" "}
+            {isApproval ? <span>&#128035;</span> : <span>&#128036;</span>}
+          </Title>
+          <ToggleContainer>
+            <ToggleBtn
+              type="checkbox"
+              checked={isApproval}
+              onChange={toggleApprovalStatus}
+            />
+          </ToggleContainer>
         </Header>
         <SearchContainer>
           <SearchBar
             type="text"
-            placeholder="활동일지 제목, 작성자, 학생으로 검색 가능"
+            placeholder="봉사자, 학생, 작성시간으로 검색 가능"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -214,26 +251,19 @@ const ActiveLeft = () => {
                   }
                   className={index === selectedPostIndex ? "selected" : ""}
                 >
-                  <PostTitle>
-                    제목: {post.title} {post.activityId}
-                  </PostTitle>
+                  <PostTitle>시간: {post.dateInfo}</PostTitle>
                   <Info>
-                    <InfoLabel>작성자:</InfoLabel>
+                    <InfoLabel>봉사자:</InfoLabel>
                     <InfoValue>{post.volunteerName}</InfoValue>
                   </Info>
                   <Info>
                     <InfoLabel>학생:</InfoLabel>
                     <InfoValue>{post.childName}</InfoValue>
                   </Info>
-                  <Info>
-                    <InfoLabel>시간:</InfoLabel>
-                    <InfoValue>{post.dateInfo}</InfoValue>
-                  </Info>
                 </PostContainer>
               ))
             ) : (
               <p>검색 결과가 없습니다.</p>
-              
             )}
           </ActiveList>
         ) : (
@@ -247,26 +277,19 @@ const ActiveLeft = () => {
                   }
                   className={index === selectedPostIndex ? "selected" : ""}
                 >
-                  <PostTitle>
-                    제목: {post.title} {post.activityId}
-                  </PostTitle>
+                  <PostTitle>시간: {post.dateInfo}</PostTitle>
                   <Info>
-                    <InfoLabel>작성자:</InfoLabel>
+                    <InfoLabel>봉사자:</InfoLabel>
                     <InfoValue>{post.volunteerName}</InfoValue>
                   </Info>
                   <Info>
                     <InfoLabel>학생:</InfoLabel>
                     <InfoValue>{post.childName}</InfoValue>
                   </Info>
-                  <Info>
-                    <InfoLabel>시간:</InfoLabel>
-                    <InfoValue>{post.dateInfo}</InfoValue>
-                  </Info>
                 </PostContainer>
               ))
             ) : (
               <p>검색 결과가 없습니다.</p>
-              
             )}
           </ActiveList>
         )}

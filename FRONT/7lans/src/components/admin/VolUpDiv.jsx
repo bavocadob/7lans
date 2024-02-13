@@ -88,14 +88,14 @@ const ChildCard = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: -20px;
-  position: relative; /* 상대적인 위치 설정 */
-  z-index: 0; /* 카드의 층위를 설정하여 모달보다 위에 표시 */
+  position: relative;
+  z-index: 0;
 `;
 
 const GetFriendBtn = styled.button`
-  position: absolute; /* 부모 요소에 상대적으로 배치 */
-  top: 50px; /* 원하는 위치 조정 */
-  right: 10px; /* 원하는 위치 조정 */
+  position: absolute;
+  top: 50px;
+  right: 10px;
 `;
 
 const Modal = styled.div`
@@ -104,7 +104,7 @@ const Modal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은 배경 */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,7 +146,7 @@ function VolUpDiv() {
   const userInfo = useSelector((state) => state.user);
   const urlInfo = getEnv("API_URL");
   const centerId = userInfo.value.centerId;
-  const deleteFriend = useSelector((state) => state.adminDeleteFriend)
+  const deleteFriend = useSelector((state) => state.adminDeleteFriend);
   const [childList, setChildList] = useState([]);
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -189,7 +189,7 @@ function VolUpDiv() {
         property.toLowerCase().includes(search.toLowerCase())
     )
   );
-  // 친구추가하시겠습니까? 모달 창만들어서 확인 누르면 reducer을 통해 값이 변하게 하고, 이를 Lowdivdp
+
   const onClick = (childId) => {
     setChildId(childId);
     setShowModal(true);
@@ -206,8 +206,8 @@ function VolUpDiv() {
         setChildList((prevChildList) =>
           prevChildList.filter((child) => child.childId !== childId)
         );
-        dispatch(adminAddFriend(true))
-        dispatch(adminDeleteFriend(false))
+        dispatch(adminAddFriend(true));
+        dispatch(adminDeleteFriend(false));
       })
       .catch((err) => {
         console.error(err, "친구맺기 오류 -> VolUpDiv");

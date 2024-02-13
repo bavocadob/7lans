@@ -172,7 +172,7 @@ const VolunteerManage = () => {
             <SearchContainer>
               <SearchInput
                 type="text"
-                placeholder="봉사자 이름 검색"
+                placeholder="봉사자 이름, 이메일 검색"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />

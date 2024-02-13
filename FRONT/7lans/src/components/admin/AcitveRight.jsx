@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 import axios from "axios";
 import Modal from "react-modal";
+import { adminAddFriend } from "../../store/adminAddFriendSlice";
 
 const RightContainer = styled.div`
   height: 90%;
@@ -58,21 +59,24 @@ const ButtonContainer = styled.div`
   gap: 20px;
 `;
 
-const NoList = styled.div`
-  
-`
+const NoList = styled.div``;
 
 const ActiveRight = () => {
   const { activityId, relationId } = useSelector(
     (state) => state.adminSelectActive
   );
   const userInfo = useSelector((state) => state.user);
-  const isApproval = useSelector((state) => state.adminApproveBtn.value)
-  const {filteredListLen, filteredApproveListLen} = useSelector((state)=>state.adminNoList)
+  const isApproval = useSelector((state) => state.adminApproveBtn.value);
+  const { filteredListLen, filteredApproveListLen } = useSelector(
+    (state) => state.adminNoList
+  );
   const centerId = userInfo.value.centerId;
   const urlInfo = getEnv("API_URL");
   const [activeLog, setActiveLog] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isApproveSuccessModalOpen, setIsApproveSuccessModalOpen] =
+    useState(false);
+  const dispatch = useDispatch();
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -82,7 +86,11 @@ const ActiveRight = () => {
     setModalIsOpen(false);
   };
 
-  // 값에 제목도 추가하기 -> 
+  const closeApproveSuccessModal = () => {
+    setIsApproveSuccessModalOpen(false);
+  };
+
+  // 값에 제목도 추가하기 ->
   const fecthActives = async () => {
     try {
       const res = await axios.post(`${urlInfo}/activityLog/manager/detail`, {
@@ -91,6 +99,7 @@ const ActiveRight = () => {
       });
       console.log(res.data, "활동일지 상세보기");
       setActiveLog(res.data);
+      dispatch(adminAddFriend(true));
     } catch (err) {
       console.error("err ActiveRight activity detail", err);
     }
@@ -122,6 +131,9 @@ const ActiveRight = () => {
         activityLogId: activityId,
       });
       console.log(res.data, "활동일지 승인완료");
+      fecthActives();
+      setIsApproveSuccessModalOpen(true); // 승인 완료 모달을 표시합니다.
+      setTimeout(closeApproveSuccessModal, 1000); // 0.5초 후에 승인 완료 모달을 닫습니다.
     } catch (err) {
       console.error("err ActiveRight activity 승인", err);
     }
@@ -129,16 +141,18 @@ const ActiveRight = () => {
 
   const onClick = (centerId, relationId, activityId) => {
     fetchApporve(centerId, relationId, activityId);
-    closeModal()
+    closeModal();
   };
 
   useEffect(() => {
     fecthActives();
   }, [activityId]);
 
-// 승인완료된 리스트가 없는 상태는 일단 보류..
-  return (
-    filteredListLen == 0 && !isApproval || filteredApproveListLen == 0 && isApproval ? <RightContainer>활동일지가 없습니다</RightContainer> :
+  // 승인완료된 리스트가 없는 상태는 일단 보류..
+  return (filteredListLen == 0 && !isApproval) ||
+    (filteredApproveListLen == 0 && isApproval) ? (
+    <RightContainer>활동일지가 없습니다</RightContainer>
+  ) : (
     <RightContainer>
       <ActiveHeader>
         <HeaderItem>
@@ -166,11 +180,10 @@ const ActiveRight = () => {
           <div>{activeLog.centerName}</div>
         </HeaderItem>
       </ActiveHeader>
-      <ActiveContent>
-        {activeLog.content}
-        {activeLog.approveStatus ? null:<ApproveButton onClick={openModal}>승인하기</ApproveButton>}
-       
-      </ActiveContent>
+      <ActiveContent>{activeLog.content}</ActiveContent>
+      {activeLog.approveStatus ? null : (
+        <ApproveButton onClick={openModal}>승인하기</ApproveButton>
+      )}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -186,6 +199,15 @@ const ActiveRight = () => {
             </ApproveButton>
             <ApproveButton onClick={closeModal}>취소</ApproveButton>
           </ButtonContainer>
+        </ModalContainer>
+      </Modal>
+      <Modal
+        isOpen={isApproveSuccessModalOpen}
+        onRequestClose={closeApproveSuccessModal}
+        contentLabel="승인 완료"
+      >
+        <ModalContainer>
+          <div>활동일지가 승인되었습니다!</div>
         </ModalContainer>
       </Modal>
     </RightContainer>
