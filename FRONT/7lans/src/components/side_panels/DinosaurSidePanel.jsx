@@ -116,7 +116,6 @@ const DinosaurSidePanel = () => {
   const userInfo = useSelector((state) => state.user.value)
   const urlInfo = getEnv('API_URL');
  
-  const userProfile = useSelector((state) => state.userProfile.value)
   const ref = useRef(null)
   const dispatch = useDispatch()
   const handleOpenImage = () => {
