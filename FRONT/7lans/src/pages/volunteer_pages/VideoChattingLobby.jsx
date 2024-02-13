@@ -36,8 +36,8 @@ const BorderBox = styled.div`
 const CenteredBox = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
   padding: 1rem;
   width: 25vw;
   height: 72vh;
@@ -55,31 +55,11 @@ const CenteredText = styled.p`
   margin: 0;
 `;
 
-const StyledButton = styled.button`
-  background: linear-gradient(
-          190deg,
-          rgba(255, 184, 36, 1),
-          rgba(255, 237, 140, 1)
-  );
-  font-size: 19px;
-  font-weight: bold;
-  border: 3px solid rgb(45, 45, 45);
-  border-radius: 50px;
-  margin: 0.5rem;
-  padding: 0.5rem;
-  height: 50px;
-  width: 130px;
-  margin-top: 7%;
-  margin-bottom: 0;
-  text-decoration-line: none;
-`;
-
 const Mic = styled.img`
   width: 40px;
   height: 40px;
   margin-top: 3px;
 `;
-
 
 const Camera = styled.div`
   width: 35px;
@@ -104,6 +84,8 @@ const VideoChattingLobby = ({
       <BorderBox>
         <h2
           style={{
+            marginTop: '15px',
+            marginBottom: '15px',
             paddingTop: "2rem",
             paddingBottom: "1rem",
             textAlign: "center",
@@ -112,7 +94,9 @@ const VideoChattingLobby = ({
           {" "}
           💛 나의 화면 💛
         </h2>
+        <div style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}>
         {mainStreamManager && renderUserVideoComponent(mainStreamManager)}
+        </div>
         <div
           style={{
             display: "flex",
@@ -145,30 +129,27 @@ const VideoChattingLobby = ({
           alt="CenterImage"
         />
         <img src="" alt="" />
-        <div style={{display: 'flex', marginTop: '22px'}}>
-        <Link to="/volunteer_video_chatting_start">
-          <StyledButton>
-            화상채팅 종료
-          </StyledButton>
-        </Link>
-        <ImgCaptureBtn/>
-        </div>
+        
       </CenteredBox>
       <BorderBox>
         <h2
           style={{
+            marginTop: '15px',
+            marginBottom: '15px',
             paddingTop: "2rem",
             paddingBottom: "1rem",
             textAlign: "center",
-            marginTop: "5px",
           }}
         >
           {" "}
           💛 학생 화면 💛
         </h2>
+        <div style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}>
+        
         {subscribers.map(
           (subscriber) => subscriber && renderUserVideoComponent(subscriber)
         )}
+          </div>
         <div
           style={{
             display: "flex",
