@@ -10,6 +10,7 @@ import getEnv from "../../utils/getEnv";
 import { Tooltip } from "react-tooltip";
 import "../../../scss/_homepage.scss";
 
+
 import Logo from "../../images/7lans_logo.png";
 import MainChildren from "../../images/main_page/main_page_children.png";
 import LineIcon from "../../images/main_page/line.png"
