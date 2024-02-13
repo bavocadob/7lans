@@ -11,8 +11,7 @@ import {getMeetingDetail} from "../../api/axioses"
 
 
 const AppContainer = styled.div`
-  margin-top: 5.7%;
-  height: 87vh;
+  height: 100%;
   //width: 100wh;
   display: flex;
   flex-direction: column;
@@ -171,8 +170,10 @@ const VideoChattingPage = () => {
   }, [session]);
 
   return (
-    <AppContainer>
-      <GameNav/>
+    <>
+          <GameNav/>
+      <div  style={{ marginTop: "5.7%" }}>
+      
       {isGameStarted ? (
         <VolunteerGamePage
           renderUserVideoComponent={renderUserVideoComponent}
@@ -204,9 +205,8 @@ const VideoChattingPage = () => {
       <button onClick={signalToggleGameStarted}>
         {isGameStarted ? 'Stop Game' : 'Start Game'}
       </button>
-
-      <ImgCaptureBtn/>
-    </AppContainer>
+</div>
+    </>
 
   );
 };
