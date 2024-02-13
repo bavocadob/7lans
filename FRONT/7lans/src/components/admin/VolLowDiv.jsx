@@ -9,7 +9,8 @@ import { adminDeleteFriend } from "../../store/adminDeleteFriendSlice";
 import ProfileExample from "../../images/admin_pic/profile_example.png";
 
 const LowerDiv = styled.div`
-  flex: 2.1;
+  flex: 1.6;
+  max-height: 50vh;
   background-color: #fffdf6;
   border-radius: 20px;
   border-radius: 20px;
@@ -25,15 +26,15 @@ const LowerDiv = styled.div`
 
 const LowerProfileImage = styled.img`
   border-radius: 50%;
-  width: 60px;
-  height: 70px;
+  width: 50px;
+  height: 60px;
   margin-bottom: 10px;
 `;
 
 const LowerProfileCard = styled.div`
   position: relative;
   width: 20%;
-  height: 50%;
+  height: 60%;
   margin: 10px;
   padding: 10px;
   border: 2px solid black;
@@ -43,12 +44,11 @@ const LowerProfileCard = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
-  margin-top: 30px;
 `;
 
 const ProfileInfo = styled.div`
-  width: 90%;
-  height: 70%;
+  width: 80%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;

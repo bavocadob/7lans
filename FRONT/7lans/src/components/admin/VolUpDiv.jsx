@@ -9,7 +9,7 @@ import { adminDeleteFriend } from "../../store/adminDeleteFriendSlice";
 import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png"
 
 const UpperDiv = styled.div`
-  flex: 1.2;
+  flex: 0.4;
   background-color: #fffdf6;
   border-radius: 20px;
   border-radius: 20px;
@@ -63,7 +63,7 @@ const ChildSearchInput = styled.input`
 const ChildList = styled.div`
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100px;
   overflow-y: auto;
   position: relative;
   justify-content: center;

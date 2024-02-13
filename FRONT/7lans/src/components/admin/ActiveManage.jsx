@@ -7,15 +7,22 @@ import styled from "styled-components";
 import ActiveLeft from "./ActiveLeft";
 import ActiveRight from "./AcitveRight";
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+  height: 100vh; /* 화면 전체 높이만큼 설정 */
+`;
 
 const BoardContainer = styled.div`
   border: #ff9f1c solid;
-  margin-top: 130px;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
   height: 600px; /* 최소 높이 설정 */
+  width: 1500px;
   display: flex; /* 세로 정렬을 위해 flex 속성 적용 */
 `;
 
@@ -31,18 +38,18 @@ const ActiveRightContainer = styled.div`
 
 const ActiveManage = () => {
   return (
-    <>
+    <Container>
       <NormalNav />
       <BoardContainer>
         <ActiveLeftContainer>
           <ActiveLeft />
         </ActiveLeftContainer>
-       
+
         <ActiveRightContainer>
           <ActiveRight />
         </ActiveRightContainer>
       </BoardContainer>
-    </>
+    </Container>
   );
 };
 

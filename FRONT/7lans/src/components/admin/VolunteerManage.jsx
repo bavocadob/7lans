@@ -11,7 +11,7 @@ import getEnv from "../../utils/getEnv";
 const StyledVolunteerManage = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 80vh;
   margin-top: 100px;
 `;
 
@@ -22,15 +22,16 @@ const VolunteerManageContainer = styled.div`
 
 const LeftContainer = styled.div`
   flex: 1;
+  height: 100%;
   background-color: #fde79b;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 `;
 
 const RightContainer = styled.div`
   flex: 2;
+  height: 101%;
   background-color: #fde79b;
   padding: 20px;
   display: flex;
