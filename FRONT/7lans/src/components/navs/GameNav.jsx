@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 import Logo from "../../images/7lans_logo.png";
 import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn";
+import VideoCloseBtn from "../../images/Close_video_chat.png"
 
 const NavBar = styled.nav`
   position: fixed;

@@ -3,8 +3,9 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { StreamManager } from "openvidu-browser";
 import { useSelector } from "react-redux";
-import { FiCamera , FiCameraOff } from "react-icons/fi";
-
+import { Link } from "react-router-dom";
+import CameraOn from '../../images/meeting/Camera_on.png';
+import CameraOff from '../../images/meeting/Camera_off.png';
 import MicOn from '../../images/meeting/mic_on.png';
 import MicOff from '../../images/meeting/mic_off.png';
 import getEnv from "../../utils/getEnv";
@@ -41,13 +42,13 @@ const CenteredBox = styled.div`
 
 const ResponsiveImage = styled.img`
   max-width: 100%;
-  max-height: 68%;
+  max-height: 70%;
 `;
 
 const CenteredText = styled.p`
   text-align: center;
   font-size: 30px;
-  margin: 0;
+  margin-top: 15%;
 `;
 
 const Mic = styled.img`
@@ -56,9 +57,10 @@ const Mic = styled.img`
   margin-top: 3px;
 `;
 
-const Camera = styled.div`
-  width: 35px;
-  height: 35px;
+const Camera = styled.img`
+  width: 40px;
+  height: 40px;
+  margin-top: 3px;
 `;
 
 const VideoChattingLobby = ({
@@ -103,10 +105,10 @@ const VideoChattingLobby = ({
           }}
         >
           <Camera onClick={toggleMyCamera}
-          >
-            {isMyCameraOn ? <FiCamera style={{width: "100%", height: "100%"}}/>
-              : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
-          </Camera>
+            src = {isMyCameraOn ? CameraOn : CameraOff}
+            alt="카메라 끄고켜기"
+          />
+          
           <Mic
             onClick={toggleMyMic}
             src={isMyMicOn ? MicOn : MicOff}
@@ -116,15 +118,13 @@ const VideoChattingLobby = ({
       </BorderBox>
       <CenteredBox>
         <CenteredText>
-          <p>둘만의 화상채팅 공간이에요</p>
-          <p>하고싶은 놀이를 선택해주세요</p>
+          <p><strong>둘만의 화상채팅 공간이에요</strong></p>
+          <p><strong>하고싶은 놀이를 선택해주세요</strong></p>
         </CenteredText>
         <ResponsiveImage
           src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
-        />
-        <img src="" alt="" />
-        
+        />        
       </CenteredBox>
       <BorderBox>
         <h2
@@ -154,11 +154,9 @@ const VideoChattingLobby = ({
             marginLeft: "78%",
           }}
         >
-          <Camera
-          >
-            {isChildCameraOn ? <FiCamera style={{width: "100%", height: "100%"}}/>
-              : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
-          </Camera>
+          <Camera 
+            src = {isChildCameraOn ? CameraOn : CameraOff}
+          />
 
           <Mic
             src={isChildMicOn ? MicOn : MicOff}

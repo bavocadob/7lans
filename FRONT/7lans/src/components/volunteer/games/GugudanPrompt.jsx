@@ -6,7 +6,7 @@ const QuestionContainer = styled.div`
   flex-direction: column;
   align-items: center;
   height: 400px;
-  width: 80vw;
+  width: 50vw;
   font-size: 0;
 `;
 

@@ -67,7 +67,7 @@ const Desk = styled.div`
   height: 50px;
   background-color: #964b00;
   position: absolute;
-  top: 86.8%;
+  top: 88%;
   color: white;
   border-radius: 2px;
   font-size: 20px;

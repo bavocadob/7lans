@@ -60,19 +60,19 @@ const VideoChattingPage = () => {
    * - 일치하면, 미팅 참여 상태를 true로 설정합니다.
    */
   useEffect(() => {
-    const fetchData = async () => {
-      if (userInfo !== null) {
-        const meetingData = await getMeetingDetail(MEETING_ID);
-        console.log(meetingData)
-        if (meetingData.childId !== userInfo.memberId &&
-          meetingData.volunteerId !== userInfo.memberId) {
-          navigate('/'); // 메인페이지로 이동
-        } else {
-          setMeetingValid(true);
-        }
-      }
-    }
-    fetchData();
+    // const fetchData = async () => {
+    //   if (userInfo !== null) {
+    //     const meetingData = await getMeetingDetail(MEETING_ID);
+    //     console.log(meetingData)
+    //     if (meetingData.childId !== userInfo.memberId &&
+    //       meetingData.volunteerId !== userInfo.memberId) {
+    //       navigate('/'); // 메인페이지로 이동
+    //     } else {
+    //       setMeetingValid(true);
+    //     }
+    //   }
+    // }
+    // fetchData();
   }, [userInfo, navigate]);
 
 
@@ -184,7 +184,7 @@ const VideoChattingPage = () => {
       <GameNav
         exitSessionSignal={exitSessionSignal}
       />
-      <div style={{marginTop: "5.7%"}}>
+      <div style={{marginTop: "5.7%", display: 'flex', flexDirection: 'row', gap: '40px' }}>
         {!isSessionEnd ? ( // Change here
           isGameStarted
             ? <VolunteerGamePage
