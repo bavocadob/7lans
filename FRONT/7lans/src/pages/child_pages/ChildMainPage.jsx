@@ -157,6 +157,17 @@ const ChattingPicture = () => {
 
         //console.log(response)
         setImages(response.data);
+
+        if (response.data.length === 0) {
+          setImages([
+            {randomImagePath: './default_image.png'},
+            {randomImagePath: './default_image.png'},
+            {randomImagePath: './default_image.png'},
+            {randomImagePath: './default_image.png'},
+            {randomImagePath: './default_image.png'},
+          ])
+        }
+        
       } catch (error) {
         console.error("Error fetching data:", error);
         setImages([
@@ -170,6 +181,7 @@ const ChattingPicture = () => {
     };
 
     fetchData();
+
   }, []);
 
   return (

@@ -136,14 +136,14 @@ const RaiseEggPage = () => {
     egg();
   }, [childInfo]);
   const renderModal = () => {
-    if (eggInfo?.childCheck === false && eggInfo?.volunteerCheck === true) {
-      //아이는 아직 알을 안깐 경우
+    if (eggInfo?.experience !== 100) {
+      //경험치 100이 아닌 경우
       return (
         <StyledModal show={show} onHide={() => setShow(false)} centered>
           {/* <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}> */}
             <StyledHeader closeButton>
               <Modal.Title>
-                {childInfo.childName} 학생이 아직 알을 열어보지 않았어요.
+                아직 경험치가 {eggInfo?.experience || 0} % 에요.
               </Modal.Title>
             </StyledHeader>
             <StyledBody>
@@ -168,14 +168,14 @@ const RaiseEggPage = () => {
           {/* </Modal.Dialog> */}
         </StyledModal>
       );
-    } else if (eggInfo?.experience !== 100) {
-      //경험치가 100이 아닌 경우
+    } else if (eggInfo?.childCheck === false && eggInfo?.volunteerCheck === true) {
+      //아이는 알을 안깐 경우
       return (
         <StyledModal show={show} onHide={() => setShow(false)} centered>
           {/* <Modal.Dialog style={{ height: "100%", marginTop: "3rem" }}> */}
             <StyledHeader closeButton>
               <Modal.Title>
-                아직 경험치가 {eggInfo?.experience || 0} % 에요.
+                {childInfo.childName} 학생이 아직 알을 열어보지 않았어요.
               </Modal.Title>
             </StyledHeader>
             <StyledBody>          
