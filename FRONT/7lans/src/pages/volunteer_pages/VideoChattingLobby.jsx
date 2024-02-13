@@ -13,8 +13,8 @@ import MicOn from '../../images/meeting/mic_on.png';
 import MicOff from '../../images/meeting/mic_off.png';
 import getEnv from "../../utils/getEnv";
 
-import MIC1 from '../../images/mic_on.png';
-import MIC2 from '../../images/mic_off.png';
+import MIC1 from '../../images/meeting/mic_on.png';
+import MIC2 from '../../images/meeting/mic_off.png';
 import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn";
 
 const FlexCenterContainer = styled.div`
@@ -76,17 +76,12 @@ const StyledButton = styled.button`
   text-decoration-line: none;
 `;
 
-const Mic1 = styled.img`
+const Mic = styled.img`
   width: 40px;
   height: 40px;
   margin-top: 3px;
 `;
 
-const Mic2 = styled.img`
-  width: 40px;
-  height: 40px;
-  margin-top: 3px;
-`;
 
 const Camera = styled.div`
   width: 35px;
@@ -135,7 +130,7 @@ const VideoChattingLobby = ({
             {isMyCameraOn ? <FiCamera style={{width: "100%", height: "100%"}}/>
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
-          <Mic1
+          <Mic
             onClick={toggleMyMic}
             src={isMyMicOn ? MicOn : MicOff}
             alt="마이크 끄고켜기"
@@ -191,7 +186,7 @@ const VideoChattingLobby = ({
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
 
-          <Mic2
+          <Mic
             src={isChildMicOn ? MIC1 : MIC2}
           />
         </div>
