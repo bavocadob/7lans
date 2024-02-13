@@ -13,3 +13,12 @@ export const getMeetingDetail = async (meetingId) => {
     return {};
   }
 };
+
+export const postMeetingImage = async (meetingId, meetingImagePath) => {
+  try {
+    const response = await axios.post(`${urlInfo}/meetingImage/save`, { meetingId, meetingImagePath });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+}

@@ -39,15 +39,6 @@ const VideoChattingPage = () => {
   const [capturedImages, setCapturedImages] = useState([
     'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F3?alt=media&token=110eab31-174b-4b3b-8b3e-7e30d7d7a359',
     'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F4?alt=media&token=3057f0bd-e410-4a91-946e-27d53e1d9686',
-    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84',
-    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F3?alt=media&token=110eab31-174b-4b3b-8b3e-7e30d7d7a359',
-    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F4?alt=media&token=3057f0bd-e410-4a91-946e-27d53e1d9686',
-    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84',
-    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F3?alt=media&token=110eab31-174b-4b3b-8b3e-7e30d7d7a359',
-    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F4?alt=media&token=3057f0bd-e410-4a91-946e-27d53e1d9686',
-    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84',
-    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F3?alt=media&token=110eab31-174b-4b3b-8b3e-7e30d7d7a359',
-    'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F4?alt=media&token=3057f0bd-e410-4a91-946e-27d53e1d9686',
     'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84'
   ]);
 
@@ -167,12 +158,25 @@ const VideoChattingPage = () => {
     }
   }
 
+  const exitSessionSignal = () => {
+    session.signal({
+      type: 'exitSession'
+    })
+      .then(() => console.log(`세션 종료 신호 보냄`))
+      .catch(err => console.log(err))
+  }
+
+  const receiveExitSessionSignal = ((event) => {
+    setIsSessionEnd(true);
+  })
+
 
   useEffect(() => {
     if (session) {
       session.on('signal:toggleGame', receiveToggleGameStarted);
       session.on('signal:toggleCamera', receiveToggleCamera);
       session.on('signal:toggleMic', receiveToggleMic);
+      session.on('signal:exitSession', receiveExitSessionSignal);
     }
 
     return () => {
@@ -180,6 +184,7 @@ const VideoChattingPage = () => {
         session.off('signal:toggleGame', receiveToggleGameStarted);
         session.off('signal:toggleCamera', receiveToggleCamera);
         session.off('signal:toggleMic', receiveToggleMic);
+        session.off('signal:exitSession', receiveExitSessionSignal);
       }
     }
   }, [session]);
@@ -188,7 +193,10 @@ const VideoChattingPage = () => {
     <AppContainer>
       <GameNav/>
       {isSessionEnd ? (
-        <VideoChattingExit capturedImages={capturedImages}/>
+        <VideoChattingExit
+          capturedImages={capturedImages}
+          session={session}
+        />
       ) : (
         <>
           {isGameStarted ? (
@@ -216,7 +224,7 @@ const VideoChattingPage = () => {
               isChildCameraOn={isChildCameraOn}
               isChildMicOn={isChildMicOn}
               isSessionEnd={isSessionEnd}
-              setIsSessionEnd={setIsSessionEnd}
+              exitSessionSignal={exitSessionSignal}
             />
           )}
 

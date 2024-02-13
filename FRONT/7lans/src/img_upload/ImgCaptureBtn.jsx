@@ -23,7 +23,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-export const ImgCaptureBtn = ({
+const ImgCaptureBtn = ({
                                 capturedImages,
                                 setCapturedImages
                               }) => {
@@ -129,5 +129,4 @@ export const ImgCaptureBtn = ({
     </div>
   );
 };
-
 export default ImgCaptureBtn;

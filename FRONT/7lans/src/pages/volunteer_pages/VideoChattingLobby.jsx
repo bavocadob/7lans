@@ -92,7 +92,7 @@ const VideoChattingLobby = ({
                               isChildCameraOn,
                               isChildMicOn,
                               isSessionEnd,
-                              setIsSessionEnd
+                              exitSessionSignal
                             }) => {
   const userDino = useSelector((state) => state.dino.value);
 
@@ -144,7 +144,7 @@ const VideoChattingLobby = ({
         <img src="" alt=""/>
         {/* <Link to="/volunteer_video_chatting_start"> */}
         <StyledButton
-          onClick={() => setIsSessionEnd(true)}>
+          onClick={exitSessionSignal}>
           화상채팅 종료
         </StyledButton>
         {/* </Link> */}
