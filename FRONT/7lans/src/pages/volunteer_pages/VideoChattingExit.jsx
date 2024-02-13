@@ -284,8 +284,8 @@ const VideoChattingExit = ({
 
   const handleConfirmModalConfirm = () => {
     // const meetingId = props.meetingId; // props로부터 meetingId 받아오기
-    // 임시로 meetingId는 1번으로 설정
-    const meetingId = 1;
+    // 임시로 meetingId는 39번으로 설정
+    const meetingId = 39;
     imageUploadSignal(true)
 
     setTimeout(async () => {

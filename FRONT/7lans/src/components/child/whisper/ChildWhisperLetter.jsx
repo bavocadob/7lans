@@ -5,9 +5,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import getEnv from "../../../utils/getEnv";
 
-import Note from "../../../images/whisper/notes.png"
-import CloseIcon from "../../../images/close_button.png"
-
 const ChatContainer = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 20px;
@@ -136,7 +133,7 @@ const ChatDate = styled.p`
   color: #777;
   margin-top: 10px;
 `;
-const WhisperLetter = () => {
+const ChildWhisperLetter = () => {
   const volInfo = useSelector((state) => state.vol.value);
   const userInfo = useSelector((state) => state.user.value);
   const childInfo = useSelector((state) => state.child.value);
@@ -165,7 +162,6 @@ const WhisperLetter = () => {
     axios
       .get(`${urlInfo}/whisper/list/${childRelationId || volRelationId}`)
       .then((res) => {
-        console.log(chatMessages)
         setChatMessages(res.data);
       })
       .catch((err) => {
@@ -192,16 +188,6 @@ const WhisperLetter = () => {
     setModalIsOpen(false);
     setTypingMessage("");
     setSelectedChat(null);
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
 
   const handleWriteMessage = () => {
@@ -237,7 +223,7 @@ const WhisperLetter = () => {
         message.writer === userName ? (
           <ChatCardVol key={index} onClick={() => openModal(message)}>
             <img
-              src={Note}
+              src="../../notes.png"
               style={{
                 width: "350px",
                 height: "230px",
@@ -257,7 +243,7 @@ const WhisperLetter = () => {
               }}
             >
               {message.content}{" "}
-              <ChatDate>{formatDate(message.createDate)}</ChatDate>
+              <ChatDate>{new Date().toLocaleString()}</ChatDate>
             </div>
 
             {/* 생성시간 넣기..? */}
@@ -265,7 +251,7 @@ const WhisperLetter = () => {
         ) : (
           <ChatCardChild key={index} onClick={() => openModal(message)}>
             <img
-              src={Note}
+              src="../../notes.png"
               style={{
                 width: "350px",
                 height: "230px",
@@ -285,7 +271,6 @@ const WhisperLetter = () => {
               }}
             >
               {message.content}
-            <ChatDate>{formatDate(message.createDate)}</ChatDate>
             </div>
           </ChatCardChild>
         )
@@ -301,7 +286,7 @@ const WhisperLetter = () => {
         <WriteModalContainer>
           <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
             <h2 style={{marginBottom: '3%', paddingTop: '5%'}}>속닥속닥</h2>
-              <img src={CloseIcon}
+              <img src="../../close_button.png" 
               onClick={closeWriteModal}
               style={{position: 'relative', 
                       width: '50px', 
@@ -344,4 +329,4 @@ const WhisperLetter = () => {
   );
 };
 
-export default WhisperLetter;
+export default ChildWhisperLetter;

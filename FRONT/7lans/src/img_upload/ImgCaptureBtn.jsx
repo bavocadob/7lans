@@ -4,12 +4,12 @@ import Modal from 'react-modal';
 import { getDownloadURL, getStorage, uploadBytesResumable, ref as strRef } from 'firebase/storage';
 import { update, ref as dbRef } from 'firebase/database';
 import { useDispatch, useSelector } from "react-redux";
-import styled from 'styled-components';
 import { TbCaptureFilled } from "react-icons/tb";
+import styled from 'styled-components';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { db } from '../firebase';
 import { nextImgNum } from "../store/imgNumSlice";
-import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'
 
 
 const customStyles = {
@@ -26,22 +26,15 @@ const customStyles = {
 };
 
 const StyledButton = styled.button`
-  background: linear-gradient(
-          190deg,
-          rgba(255, 184, 36, 1),
-          rgba(255, 237, 140, 1)
-  );
-  font-size: 19px;
-  font-weight: bold;
-  border: 3px solid rgb(45, 45, 45);
-  border-radius: 50px;
-  margin: 0.5rem;
-  padding: 0.5rem;
-  height: 50px;
-  width: 130px;
-  margin-top: 7%;
-  margin-bottom: 0;
-  text-decoration-line: none;
+  width: 100px;
+  height: 54px;
+  align-self: center;
+  font-weight: bolder;
+  font-size: 20px;
+  border: 2px dashed rgb(45,45,45);
+  border-radius: 20px;
+  background: rgba(255, 184, 36, 1);
+  margin: 0 3rem 0 0;
 `;
 
 const ModalContent = styled.div`
@@ -79,10 +72,7 @@ const ModalButton = styled.button`
 
 Modal.setAppElement('#root');
 
-const ImgCaptureBtn = ({
-                                capturedImages,
-                                setCapturedImages
-                              }) => {
+export const ImgCaptureBtn = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgData, setImgData] = useState(null);
   const imgNum = useSelector((state) => state.imgNum.value)
@@ -144,8 +134,6 @@ const ImgCaptureBtn = ({
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log('File available at', downloadURL);
           // downloadURL에 이미지 경로 들어옴
-
-          setCapturedImages(prevImages => [...prevImages, downloadURL]);
           // Update database with the download URL
           update(dbRef(db, `users/${imgNum}`), { image: downloadURL });
         });
@@ -166,17 +154,15 @@ const ImgCaptureBtn = ({
     return new File([u8arr], filename, {type:mime});
   }
 
-  // TODO 화면캡쳐 버튼 위치랑 확정나면 signal 기능 추가하고 메시지 정확하게 수정
   const toastTest = () => {
-    closeModal();
     toast.success('사진이 저장되었습니다.', {
-      position: "bottom-right",
+      position: "bottom-right"
     })
   }
 
   return (
     <div>
-      <StyledButton onClick={toastTest}><TbCaptureFilled /> 화면 캡쳐</StyledButton>
+      <StyledButton onClick={toastTest}> 캡쳐 <TbCaptureFilled /></StyledButton>
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}
@@ -185,7 +171,7 @@ const ImgCaptureBtn = ({
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <img src={imgData} alt="screen capture" style={{ width: '100%', height: 'auto' }} />
           <div>
-            <ModalButton onClick={toastTest}> 사진저장</ModalButton>
+            <ModalButton onClick={handleUploadImage}> 사진저장</ModalButton>
             <ModalButton onClick={closeModal}>저장취소</ModalButton>
           </div>
         </div>
@@ -195,4 +181,5 @@ const ImgCaptureBtn = ({
     </div>
   );
 };
+
 export default ImgCaptureBtn;

@@ -35,7 +35,8 @@ const VolunteerGamePage = ({session, renderUserVideoComponent, mainStreamManager
             )
         }
         return (
-            <div className='center' style={{
+            <div className='center' 
+            style={{
                 fontSize: '45px',
                 display: 'flex',
                 flexDirection: 'column',

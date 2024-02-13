@@ -17,7 +17,7 @@ const VideoChattingPage = () => {
   } = UseOpenViduSession();
 
   const [isGameStarted, setGameStarted] = useState(false);
-  const [meetingValid, setMeetingValid] = useState()
+  const [meetingValid, setMeetingValid] = useState(false)
   const userInfo = useSelector((state) => state.user.value);
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ const VideoChattingPage = () => {
     'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84'
   ]);
 
-  const MEETING_ID = 1;
+  const MEETING_ID = 39;
 
 
   // 페이지 로드시 세션 생성
@@ -181,7 +181,9 @@ const VideoChattingPage = () => {
 
   return (
     <>
-      <GameNav/>
+      <GameNav
+        exitSessionSignal={exitSessionSignal}
+      />
       <div style={{marginTop: "5.7%"}}>
         {!isSessionEnd ? ( // Change here
           isGameStarted
@@ -206,7 +208,7 @@ const VideoChattingPage = () => {
               isMyMicOn={isMyMicOn}
               isChildCameraOn={isChildCameraOn}
               isChildMicOn={isChildMicOn}
-              exitSessionSignal={exitSessionSignal}/>
+              />
         ) : (
             <VideoChattingExit
               capturedImages={capturedImages}

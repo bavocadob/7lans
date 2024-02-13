@@ -61,7 +61,7 @@ const CuteButton = styled.button`
   text-decoration-line: none;
   position: relative;
   &:hover {
-    background-color: #ffd703;
+    background-color: #ffd703};
 `;
 
 const ClockText = styled.div`

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import { updateUserInfo } from "../../store/userSlice";
 import axios from "axios";
 import { updateVolInfo } from "../../store/volSlice";
 import { updateVolsInfo } from "../../store/volsSlice";
+import { Tooltip } from "react-tooltip";
 import getEnv from "../../utils/getEnv";
 
 import Logo from "../../images/7lans_logo.png"
@@ -65,22 +66,16 @@ const LogoImage = styled.img`
 
 const MyChildren = styled.div`
   position: absolute;
-  left: 4rem;
-  top: 20%;
+  left: 5rem;
+  top: 21.3%;
+  border-radius: 100px;
   .img {
     display: flex;
     align-items: center;
   }
-  .h2 {
-    position: absolute;
-    left: 3.4rem;
-    top: 69%;
-    width: 220px;
-    font-size: 23px;
-    border-radius: 40px;
-    background: rgba(255, 184, 36, 1);
-    text-align: center;
-    box-shadow: 5px 5px 5px #dfb150;
+  :hover {
+    transform: scale(1.01);
+    transition: 0.2s ease-in-out;
   }
 `;
 
@@ -125,12 +120,13 @@ const RightLetter = styled.div`
 `;
 
 const AirPlane = styled.div`
-  left: 22%;
+  left: 15%;
   object-fit: cover;
   position: absolute;
   top: 65px;
   width: 164px;
-  transform: rotate(-20deg);
+  transform: rotate(10deg);
+  transform: scaleX(-1);
 `;
 
 const PostBox = styled.div`
@@ -141,7 +137,114 @@ const PostBox = styled.div`
   width: 220px;
 `;
 
+const ChattingPicture = () => {
+  const [images, setImages] = useState([]);
 
+  const [animate, setAnimate] = useState(true);
+  const onStop = () => setAnimate(false);
+  const onRun = () => setAnimate(true);
+
+  const urlInfo = getEnv("API_URL");
+
+  const userInfo = useSelector((state) => state.user.value);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${urlInfo}/meetingImage/random/${userInfo.memberId}`
+        );
+
+        //console.log(response)
+        setImages(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setImages([
+          {randomImagePath: './default_image.png'},
+          {randomImagePath: './default_image.png'},
+          {randomImagePath: './default_image.png'},
+          {randomImagePath: './default_image.png'},
+          {randomImagePath: './default_image.png'},
+        ])
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div
+      className="wrapper"
+      style={{
+        display: "flex",
+        width: "93.5%",
+        flexDirection: "row",
+        gap: "3%",
+        marginTop: "19.2%",
+        justifyContent: "space-evenly",
+        marginLeft: "2rem",
+        marginRight: "2rem",
+        paddingTop: "10px",
+        
+      }}
+    >
+      <div className="slide_container" style={{ marginLeft: "2rem" }}>
+        <ul
+          className="slide_wrapper"
+          onMouseEnter={onStop}
+          onMouseLeave={onRun}
+        >
+          <div
+            className={"slide original".concat(animate ? "" : " stop")}
+            style={{ marginBottom: "0", paddingBottom: "0" }}
+          >
+            {images.map((image, index) => (
+              <li
+                key={index}
+                // className={index % 2 === 0 ? "big" : "small"}
+                className="small"
+              >
+                <img
+                  key={index}
+                  src={image.randomImagePath}
+                  alt=""
+                  style={{
+                    height: "100%",
+                    border: "3.4px dashed  rgb(45,45,45)",
+                    borderRadius: "10px"
+                  }}
+                />
+              </li>
+            ))}
+          </div>
+          <div
+            className={"slide clone".concat(animate ? "" : " stop")}
+            style={{ paddingBottom: "0", marginBottom: "0" }}
+          >
+            {images.map((image, index) => (
+              <li
+                key={index}
+                // className={index % 2 === 0 ? "big" : "small"}
+                className="small"
+              >
+                <img
+                  key={index}
+                  src={image.randomImagePath}
+                  alt=""
+                  style={{
+                    height: "100%",
+                    border: "3.4px dashed  rgb(45,45,45)",
+                    borderRadius: "10px"
+                  }}
+                />
+              </li>
+            ))}
+          </div>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
 const VolunteerMainPage = () => {
   const urlInfo = getEnv('API_URL');
@@ -194,11 +297,19 @@ const VolunteerMainPage = () => {
       </header>
       <MyChildren>
         <Link
+          data-tooltip-id="vol-tooltip"
           to={"/child_start"}
           style={{ fontSize: "23px", textDecorationLine: "none" }}
         >
           <img src={MainChildren} alt="나의 아이들 이미지" />
         </Link>
+
+        <Tooltip id="vol-tooltip">
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>선생님과 함께할 공간으로</span>
+            <span>이동해 볼까요?</span>
+          </div>
+        </Tooltip>
       </MyChildren>
 
       <Letter>
@@ -238,7 +349,7 @@ const VolunteerMainPage = () => {
         <AirPlane>
           <img
             style={{ width: "70px" }}
-            src={AirPlaneIcon}
+            src="../../../dinosourImage/dinosaur17_basic.png"
             alt="비행기"
           />
         </AirPlane>
@@ -252,7 +363,7 @@ const VolunteerMainPage = () => {
           </PostBox>
         </Link>
       </Letter>
-      
+      <ChattingPicture />    
     </Container>
   );
 };
