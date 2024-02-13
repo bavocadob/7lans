@@ -128,8 +128,8 @@ function ChildUpDiv() {
 
   const handleSaveNote = (note) => {
     axios
-      .post(`${urlInfo}/manager/content`, {
-        id: centerId,
+      .post(`${urlInfo}/child/content`, {
+        id: childId,
         specialContent: note,
       })
       .then((res) => {
@@ -175,7 +175,7 @@ function ChildUpDiv() {
               <NotePlaceholder>특이사항을 적어주세요!</NotePlaceholder>
             )}
           </NoteDiv>
-          <Button onClick={() => setShowModal(true)}>특이사항 수정</Button>
+          <Button onClick={() => setShowModal(true)}>특이사항 쓰기</Button>
         </NoteContainer>
         {/* 모달 */}
         {showModal && (

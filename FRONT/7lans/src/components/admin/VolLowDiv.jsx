@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
+import { adminAddFriend } from "../../store/adminAddFriendSlice";
+import {adminDeleteFriend }from "../../store/adminDeleteFriendSlice";
 
 const LowerDiv = styled.div`
   flex: 2.1;
@@ -97,26 +99,29 @@ const CancelButton = styled.button`
 const VolLowDiv = () => {
   const urlInfo = getEnv("API_URL");
   const selectVolCard = useSelector((state) => state.adminSelectVol);
+  const addFriend = useSelector((state) => state.adminAddFriend)
   const [childList, setChildList] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [relationId, setLelationId] = useState(null);
+  const [relationId, setRelationId] = useState(null);
   const volId = selectVolCard.value[3];
+  const dispatch = useDispatch();
 
+  console.log(addFriend, "addFreind")
   useEffect(() => {
     axios
-      .get(`${urlInfo}/vol/list/${volId}`)
+      .get(`${urlInfo}/child/listByVolunteer/${volId}`)
       .then((res) => {
         setChildList(res.data);
-        // console.log(res.data, "아동리스트 -> volLowDiv");
       })
       .catch((err) => {
         console.log(err, "err -> VolLowDiv");
       });
-  }, [volId]);
+      // 다른 걸 감시해야함
+  }, [volId, addFriend]);
 
   const handleDeleteClick = (relationId) => {
     setShowDeleteModal(true);
-    setLelationId(relationId);
+    setRelationId(relationId);
   };
 
   const handleConfirmDelete = () => {
@@ -126,6 +131,11 @@ const VolLowDiv = () => {
       })
       .then((res) => {
         console.log(res, "친구끊기");
+        setChildList((prevChildList) =>
+          prevChildList.filter((child) => child.relationId !== relationId)
+        );
+        dispatch(adminAddFriend(false))
+        dispatch(adminDeleteFriend(true))
       })
       .catch((err) => {
         console.log(err, "err -> VolLowDiv 친구끊기 오류");
@@ -140,8 +150,8 @@ const VolLowDiv = () => {
   return (
     <>
       <LowerDiv>
-        {childList.map((child, index) => (
-          <LowerProfileCard key={index}>
+        {childList.map((child) => (
+          <LowerProfileCard key={child.relationId}>
             <LowerProfileImage src="./admin_pic/프로필예시.png" alt="Profile" />
             <DeleteButton onClick={() => handleDeleteClick(child.relationId)}>
               X

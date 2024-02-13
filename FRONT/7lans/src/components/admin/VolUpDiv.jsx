@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
+import { adminAddFriend } from "../../store/adminAddFriendSlice";
+import { adminDeleteFriend } from "../../store/adminDeleteFriendSlice";
 
 const UpperDiv = styled.div`
   flex: 1.2;
@@ -86,13 +88,57 @@ const ChildCard = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: -20px;
-  position: relative; /* 상대적인 위치 설정 */
+  position: relative;
+  z-index: 0;
 `;
 
 const GetFriendBtn = styled.button`
-  position: absolute; /* 부모 요소에 상대적으로 배치 */
-  top: 50px; /* 원하는 위치 조정 */
-  right: 10px; /* 원하는 위치 조정 */
+  position: absolute;
+  top: 50px;
+  right: 10px;
+`;
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const ModalContent = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+`;
+
+const ConfirmButton = styled.button`
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const CancelButton = styled.button`
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 `;
 
 function VolUpDiv() {
@@ -100,49 +146,44 @@ function VolUpDiv() {
   const userInfo = useSelector((state) => state.user);
   const urlInfo = getEnv("API_URL");
   const centerId = userInfo.value.centerId;
+  const deleteFriend = useSelector((state) => state.adminDeleteFriend);
   const [childList, setChildList] = useState([]);
   const [search, setSearch] = useState("");
-
+  const [showModal, setShowModal] = useState(false);
+  const [childId, setChildId] = useState("");
+  const dispatch = useDispatch();
   let name, email, time, volId;
   name = selectVolCard[0];
   email = selectVolCard[1];
   time = selectVolCard[2];
   volId = selectVolCard[3];
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   useEffect(() => {
     axios
-      .get(`${urlInfo}/manager/child/${centerId}`)
+      .post(`${urlInfo}/child/centerAndVolunteerNoRelation`, {
+        childCenterId: centerId,
+        volunteerId: volId,
+      })
       .then((response) => {
-        const arr = [];
-        // console.log(response.data, "센터의 아동들");
-        for (const element of response.data) {
-          // console.log(element, "아동개인의 정보");
-          let childName, centerName, childRelationId, childBirth, childId;
-          for (const ele in element) {
-            if (ele === "childName") {
-              childName = element[ele];
-            }
-            if (ele === "childCenterName") {
-              centerName = element[ele];
-            }
-            if (ele === "childBirth") {
-              childBirth = element[ele];
-            }
-            if (ele === "childId") {
-              childId = element[ele];
-            }
-          }
-          arr.push([childName, centerName, childBirth, childId]);
-        }
+        const arr = response.data.map((element) => ({
+          childName: element.childName,
+          centerName: element.childCenterName,
+          childBirth: element.childBirth,
+          childId: element.childId,
+        }));
         setChildList(arr);
       })
       .catch((err) => {
         console.error(err, "err -> VolUpDiv");
       });
-  }, []);
+  }, [volId, deleteFriend]);
 
-  const filteredChilds = childList.filter((Child) =>
-    Child.some(
+  const filteredChilds = childList.filter((child) =>
+    Object.values(child).some(
       (property) =>
         typeof property === "string" &&
         property.toLowerCase().includes(search.toLowerCase())
@@ -150,6 +191,11 @@ function VolUpDiv() {
   );
 
   const onClick = (childId) => {
+    setChildId(childId);
+    setShowModal(true);
+  };
+
+  const handleAddFriend = () => {
     axios
       .post(`${urlInfo}/relation/create`, {
         childId: childId,
@@ -157,10 +203,16 @@ function VolUpDiv() {
       })
       .then((res) => {
         console.log("친구맺기 성공");
+        setChildList((prevChildList) =>
+          prevChildList.filter((child) => child.childId !== childId)
+        );
+        dispatch(adminAddFriend(true));
+        dispatch(adminDeleteFriend(false));
       })
       .catch((err) => {
-        console.log(err, "친구맺기 오류 -> VolUpDiv");
+        console.error(err, "친구맺기 오류 -> VolUpDiv");
       });
+    setShowModal(false);
   };
 
   return (
@@ -187,9 +239,9 @@ function VolUpDiv() {
           <ChildList>
             {filteredChilds.map((child, index) => (
               <ChildCard key={index}>
-                <h6>{child[0]}</h6>
-                <h6>{child[2]}</h6>
-                <GetFriendBtn onClick={() => onClick(child[3])}>
+                <h6>{child.childName}</h6>
+                <h6>{child.childBirth}</h6>
+                <GetFriendBtn onClick={() => onClick(child.childId)}>
                   친구추가
                 </GetFriendBtn>
               </ChildCard>
@@ -197,6 +249,17 @@ function VolUpDiv() {
           </ChildList>
         </SearchChildContainer>
       </UpperDiv>
+      {showModal && (
+        <Modal>
+          <ModalContent>
+            <p>친구 추가하시겠습니까?</p>
+            <ButtonContainer>
+              <ConfirmButton onClick={handleAddFriend}>확인</ConfirmButton>
+              <CancelButton onClick={closeModal}>취소</CancelButton>
+            </ButtonContainer>
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 }
