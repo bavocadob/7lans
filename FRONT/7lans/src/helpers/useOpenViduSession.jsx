@@ -12,7 +12,7 @@ const UseOpenViduSession = () => {
   const userInfo = useSelector((state) => state.user.value)
 
   // TODO 세션 ID props에서 받아서 수정
-  const [mySessionId, setMySessionId] = useState('15550');
+  const [mySessionId, setMySessionId] = useState('15552030');
   const [myUserName, setMyUserName] = useState(
     userInfo.memberType === 'VOLUNTEER' ? `${userInfo.volunteerName} 봉사자` : `${userInfo.childName} 학생`
   );

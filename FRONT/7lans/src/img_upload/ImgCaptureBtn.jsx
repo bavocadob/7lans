@@ -77,7 +77,10 @@ const ModalButton = styled.button`
 
 Modal.setAppElement('#root');
 
-export const ImgCaptureBtn = () => {
+const ImgCaptureBtn = ({
+                                capturedImages,
+                                setCapturedImages
+                              }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgData, setImgData] = useState(null);
   const imgNum = useSelector((state) => state.imgNum.value)
@@ -139,6 +142,8 @@ export const ImgCaptureBtn = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log('File available at', downloadURL);
           // downloadURL에 이미지 경로 들어옴
+
+          setCapturedImages(prevImages => [...prevImages, downloadURL]);
           // Update database with the download URL
           update(dbRef(db, `users/${imgNum}`), { image: downloadURL });
         });
@@ -178,5 +183,4 @@ export const ImgCaptureBtn = () => {
     </div>
   );
 };
-
 export default ImgCaptureBtn;
