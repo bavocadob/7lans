@@ -12,6 +12,7 @@ import {getMeetingDetail} from "../../api/axioses"
 const VideoChattingPage = () => {
   const {
     session, mainStreamManager, subscribers,
+    sessionCreatedAt,
     joinSession, renderUserVideoComponent,
     toggleCamera, toggleMic
   } = UseOpenViduSession();
@@ -184,6 +185,7 @@ const VideoChattingPage = () => {
       <GameNav
         exitSessionSignal={exitSessionSignal}
         setCapturedImages={setCapturedImages}
+        sessionCreatedAt={sessionCreatedAt}
       />
       <div style={{marginTop: "5.7%"}}>
         {!isSessionEnd ? ( // Change here

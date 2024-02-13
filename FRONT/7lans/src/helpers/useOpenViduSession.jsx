@@ -22,6 +22,7 @@ const UseOpenViduSession = () => {
   const [publisher, setPublisher] = useState(undefined);
   const [subscribers, setSubscribers] = useState([]);
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
+  const [sessionCreatedAt, setSessionCreatedAt] = useState()
 
 
   const OV = useRef();
@@ -101,6 +102,10 @@ const UseOpenViduSession = () => {
     } else {
       console.log(`${sessionId} session already exists.`);
     }
+
+    const dateObject = new Date(tempSession.createdAt);
+    setSessionCreatedAt(dateObject)
+
     return tempSession;
   };
 
@@ -194,9 +199,10 @@ const UseOpenViduSession = () => {
 
   return {
     session, mainStreamManager,
-    subscribers, joinSession,
-    renderUserVideoComponent, toggleCamera,
-    toggleMic
+    subscribers, sessionCreatedAt,
+    joinSession, renderUserVideoComponent,
+    toggleCamera, toggleMic,
+
   };
 }
 

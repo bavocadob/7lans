@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types';
 import { Session } from 'openvidu-browser';
-
+import getEnv from "../../../utils/getEnv.jsx";
 
 // 화면에서 나타날 카드 컴포넌트
 // eslint-disable-next-line react/prop-types
