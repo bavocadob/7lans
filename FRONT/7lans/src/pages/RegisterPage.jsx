@@ -151,6 +151,7 @@ const Register = () => {
 
   const navigate = useNavigate();
   const urlInfo = getEnv('API_URL');
+  const [centerList, setCenterList] = useState(null)
 
   // phoneNumber 변경 함수 (자동으로 '-' 삽입)=
   const handlePhoneNumberChange = (e) => {
@@ -158,6 +159,18 @@ const Register = () => {
     const formattedValue = value.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
     setPhoneNumber(formattedValue);
   };
+
+  useEffect(() => {
+    try {
+      const res = axios.get(`${urlInfo}/childCenter/list`)
+      setCenterList(res.data)
+      console.log(res)
+    }
+    catch (err) {
+      console.log(err)
+    }
+    console.log(centerList)
+  }, [])
 
   const signUp = async (
     memberEmail,
