@@ -13,8 +13,6 @@ import MicOn from '../../images/meeting/mic_on.png';
 import MicOff from '../../images/meeting/mic_off.png';
 import getEnv from "../../utils/getEnv";
 
-import MIC1 from '../../images/meeting/mic_on.png';
-import MIC2 from '../../images/meeting/mic_off.png';
 import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn";
 
 const FlexCenterContainer = styled.div`
@@ -187,7 +185,7 @@ const VideoChattingLobby = ({
           </Camera>
 
           <Mic
-            src={isChildMicOn ? MIC1 : MIC2}
+            src={isChildMicOn ? MicOn : MicOff}
           />
         </div>
       </BorderBox>
