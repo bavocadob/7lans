@@ -293,7 +293,7 @@ const ActiveLeft = () => {
                   }
                   className={index === selectedPostIndex ? "selected" : ""}
                 >
-                  <PostTitle>시간: {post.dateInfo}</PostTitle>
+                  <PostTitle>날짜: {post.dateInfo}</PostTitle>
                   <Info>
                     <InfoLabel>봉사자:</InfoLabel>
                     <InfoValue>{post.volunteerName}</InfoValue>

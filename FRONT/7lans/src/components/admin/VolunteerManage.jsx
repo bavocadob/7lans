@@ -22,7 +22,7 @@ const VolunteerManageContainer = styled.div`
 
 const LeftContainer = styled.div`
   flex: 1;
-  height: 100%;
+  height: 620px;
   background-color: #fde79b;
   padding: 20px;
   display: flex;
@@ -87,20 +87,22 @@ const VolunteerCardList = styled.div`
 const VolunteerCard = styled.div`
   width: 80%;
   height: 160px;
-  background-color: ${(props) =>
-    props.isSelected
-      ? "#ffd700"
-      : "#ffe792"}; // isSelected에서 에러발생 (작동엔 이상 없음)
+  background-color: ${(props) => (props.isSelected ? "#ffd700" : "#ffe792")};
   margin-bottom: 15px;
   margin-left: 40px;
   padding: 15px;
-  border: 2px solid black;
-  border-radius: 10px;
+  border-radius: 20px; /* borderRadius 값을 20px로 변경하여 귀엽고 입체적인 느낌을 줍니다 */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s; /* transform transition 추가 */
+  align-items: center; /* 세로 중앙 정렬 추가 */
 
   &:hover {
     background-color: #ffd700;
+    transform: translateY(
+      -5px
+    ); /* 호버 시 약간 위로 이동하여 입체적인 느낌을 줍니다 */
   }
 `;
 
@@ -116,7 +118,6 @@ const VolunteerManage = () => {
   // 봉사자 리스트
   const [volunteerList, setVolunteerList] = useState([]);
 
-  // 어떻게 하면 더 이쁘고 깔끔하게 짤 수 있나요?
   useEffect(() => {
     axios
       .get(`${urlInfo}/volunteer/list`)
@@ -169,7 +170,7 @@ const VolunteerManage = () => {
       <VolunteerManageContainer>
         <LeftContainer>
           <VolunteerListContainer>
-            <h2>봉사자리스트!</h2>
+            <h2>봉사자 목록</h2>
             <SearchContainer>
               <SearchInput
                 type="text"
@@ -186,9 +187,9 @@ const VolunteerManage = () => {
                   isSelected={index === selectedCard}
                   onClick={() => handleVolunteerClick(volunteer, index)}
                 >
-                  <h3>{volunteer[0]} 봉사자</h3>
+                  <h4>봉사자 이름: {volunteer[0]}</h4>
                   <br />
-                  <h5>{volunteer[1]}</h5>
+                  <h5>봉사자 이메일: {volunteer[1]}</h5>
                 </VolunteerCard>
               ))}
             </VolunteerCardList>

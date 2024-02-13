@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 import getEnv from "../../utils/getEnv";
-
-import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png"
+import { motion } from "framer-motion";
+import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png";
 
 const UpperDiv = styled.div`
-  flex: 1.2;
+  flex: 0.4;
   background-color: #fffdf6;
   border-radius: 20px;
   border-radius: 20px;
@@ -18,7 +18,6 @@ const UpperDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: relative;
 `;
 
 const ProfileCard = styled.div`
@@ -27,6 +26,7 @@ const ProfileCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 100px;
 `;
 
 const ProfileImage = styled.img`
@@ -40,6 +40,8 @@ const InformationSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 50px;
+  font-size: 20px;
 `;
 
 const NoteDiv = styled.div`
@@ -61,14 +63,23 @@ const NotePlaceholder = styled.div`
   color: #aaa;
 `;
 
-const Button = styled.button`
-  padding: 10px 20px;
+//특이사항
+const Button = styled(motion.button)`
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
   background-color: #4caf50;
   color: white;
   cursor: pointer;
   margin-top: 10px;
+  margin-left: 207px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease; /* 모션을 위한 트랜지션 */
+
+  &:hover {
+    transform: scale(0.95); /* Hover 시 커지는 모션 */
+  }
 `;
 
 const ModalWrapper = styled.div`
@@ -105,6 +116,13 @@ const ModalButton = styled.button`
   background-color: #4caf50;
   color: white;
   cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease; /* 모션을 위한 트랜지션 */
+
+  &:hover {
+    transform: scale(0.95); /* Hover 시 커지는 모션 */
+  }
 `;
 
 const NoteContainer = styled.div`
@@ -165,9 +183,9 @@ function ChildUpDiv() {
           <ProfileImage src={VolunteerProfileEx} alt="Profile" />
         </ProfileCard>
         <InformationSection>
-          <p>Name : {name}</p>
-          <p>childCenter : {childCenter}</p>
-          <p>Birth : {Birth} </p>
+          <p>아동이름 : {name}</p>
+          <p>아동생년원일 : {Birth} </p>
+          <p>아동센터 : {childCenter}</p>
         </InformationSection>
         <NoteContainer>
           <NoteDiv>
