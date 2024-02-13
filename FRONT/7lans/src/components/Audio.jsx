@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Howl, Howler } from "howler";
 import styled from "styled-components";
 import { Tooltip } from "react-tooltip";
+import Tree from "../images/tree.png"
 
 const Buttondiv = styled.div`
   display: flex;
@@ -16,11 +17,16 @@ const Button = styled.button`
     rgba(255, 184, 36, 1),
     rgba(255, 237, 140, 1)
   );
+  // background-image: url(${props => props.image});
+  // background-size: contain; 
+  // background-repeat: no-repeat; /* 이미지 반복 없음 */
   border: 3px solid rgba(45, 45, 45);
   border-radius: 100px;
-  width: 160px;
-  height: 110px;
-  font-size: 27px;
+  // border:none;
+  width: 170px;
+  height: 130px;
+  font-size: 20px;
+  // background-color: none;
 `;
 
 const ChildAudioPlay = ({ dinoState, setdinoState }) => {
@@ -149,6 +155,7 @@ const ChildAudioPlay = ({ dinoState, setdinoState }) => {
         <a data-tooltip-id="record_tooltip">
           <Button
             onClick={toggleRecording}
+            // image={Tree}
             // title={isRecording ? '' : '녹음을 하면 공룡이 따라 말해요'}
           >
             {isRecording ? "녹음완료" : "녹음시작"}
