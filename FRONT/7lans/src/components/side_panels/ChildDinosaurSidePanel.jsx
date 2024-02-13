@@ -6,6 +6,8 @@ import { getDownloadURL, getStorage, uploadBytesResumable, ref as strRef } from 
 import { update, ref as dbRef } from 'firebase/database';
 import { updateUserProfile } from '../../store/userProfileSlice';
 import {db} from '../../firebase';
+import axios from 'axios';
+import getEnv from '../../utils/getEnv';
 
 const StyledDinosaurSidePanel = styled.div`
 background-color: rgb(255, 248, 223);
@@ -111,7 +113,7 @@ const StyledFaEdit = styled(FaEdit)`
 const ChildDinosaurSidePanel = () => {
   const [sidePanelStatus, setSidePanelStatus] = useState(true);
   const userInfo = useSelector((state) => state.user.value)
-
+  const urlInfo = getEnv('API_URL');
   const userProfile = useSelector((state) => state.userProfile.value)
   const ref = useRef(null)
   const dispatch = useDispatch()
@@ -173,8 +175,20 @@ const ChildDinosaurSidePanel = () => {
           console.log('File available at', downloadURL);
 
           dispatch(updateUserProfile(downloadURL))
-
           update(dbRef(db, `users/${userInfo.memberId}`), {image: downloadURL})
+
+          const memberId = userInfo.memberId
+          const profileImgPath = downloadURL
+
+          try {
+            const res = axios.put(`${urlInfo}/member/profile`, {memberId, profileImgPath})
+            console.log(res, '이미지 주소 백에 보내기')
+            console.log(downloadURL)
+          }
+          catch (err) {
+            console.error(err)
+          }
+
         });
       }
     );

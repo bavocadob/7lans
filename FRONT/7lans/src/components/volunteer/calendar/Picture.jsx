@@ -52,7 +52,7 @@ const Blackboard = styled.img`
 
 const Chork = styled.img`
   position: absolute;
-  top: 85%;
+  top: 82%;
   left: 30%;
   width: 750px;
   height: 50px;
@@ -63,7 +63,7 @@ const Desk = styled.div`
   height: 50px;
   background-color: #964b00;
   position: absolute;
-  top: 91%;
+  top: 86.8%;
   color: white;
   border-radius: 2px;
   font-size: 20px;
@@ -114,7 +114,7 @@ border: 2px solid rgb(255, 184, 36);
   width: 90px;
   height: 45px;
   &:hover {
-    background-color: rgb(255, 215, 3);
+    background-color: rgb(255, 215, 3)};
 `;
 
 

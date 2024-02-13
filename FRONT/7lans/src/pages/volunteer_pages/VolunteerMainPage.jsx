@@ -270,10 +270,16 @@ const ChattingPicture = () => {
           `${urlInfo}/meetingImage/random/${volunteer.memberId}`
         );
 
-        //console.log(response)
         setImages(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setImages([
+          {randomImagePath: './default_image.png'},
+          {randomImagePath: './default_image.png'},
+          {randomImagePath: './default_image.png'},
+          {randomImagePath: './default_image.png'},
+          {randomImagePath: './default_image.png'},
+        ])
       }
     };
 
