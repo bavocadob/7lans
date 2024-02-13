@@ -29,6 +29,7 @@ public interface MemberService {
     // 수정
     public void changeProfileImg(MemberRequestDto.changeProfile profileReqDto);
 
+    public void changePassword(MemberRequestDto.changePassword passwordReqDto);
     // ===============================================================================
     // 탈퇴
 

@@ -134,4 +134,28 @@ public class MemberRequestDto {
         }
     }
 
+
+    // ================================================================================================================
+    // 비밀번호 변경
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class changePassword {
+        @NotNull(message = "[MemberRequestDto.delete] memberId 는 null 이 될 수 없습니다.")
+        private Long memberId;
+        @NotNull(message = "[MemberRequestDto.delete] nowPassword 는 null 이 될 수 없습니다.")
+        private String nowPassword;
+        @NotNull(message = "[MemberRequestDto.delete] newPassword 는 null 이 될 수 없습니다.")
+        private String newPassword;
+
+        @Builder
+        changePassword(
+                Long memberId,
+                String nowPassword,
+                String newPassword
+        ){
+            this.memberId = memberId;
+            this.nowPassword = nowPassword;
+            this.newPassword = newPassword;
+        }
+    }
 }

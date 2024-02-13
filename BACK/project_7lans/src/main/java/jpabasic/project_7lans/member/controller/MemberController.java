@@ -85,4 +85,22 @@ public class MemberController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // ================================================================================================================
+    // 비밀번호 변경
+    @Operation(summary = "비밀번호 변경")
+    @PutMapping("/password")
+    public ResponseEntity changePassword(@RequestBody @Valid MemberRequestDto.changePassword passwordReqDto){
+        try{
+            log.info("[MemberController.changePassword] start change Member Password...");
+            memberService.changePassword(passwordReqDto);
+            log.info("[MemberController.changePassword] change Member Password SUCCESS!!!");
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(Exception e){
+            e.printStackTrace();
+            log.info("[MemberController.changePassword] change Member Password FAIL!!!");
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

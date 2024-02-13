@@ -239,9 +239,26 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void changeProfileImg(MemberRequestDto.changeProfile profileReqDto) {
         Member member = memberRepository.findById(profileReqDto.getMemberId())
-                .orElseThrow(()-> new IllegalArgumentException("[MemberServiceImpl.changeProfileImg] 해당 Id와 일치하는 Member가 존재하지 않습니다."));
+                .orElseThrow(()-> new IllegalArgumentException("[MemberServiceImpl.changeProfileImg] 해당 Id와 일치하는 Member 가 존재하지 않습니다."));
 
         member.changeProfileImage(profileReqDto.getProfileImgPath());
+    }
+
+    // 회원 비밀번호 변경
+    @Transactional
+    @Override
+    public void changePassword(MemberRequestDto.changePassword passwordReqDto){
+        log.info("[MemberServiceImpl.changePassword] change Password start... ");
+
+        Member member = memberRepository.findById(passwordReqDto.getMemberId())
+                .orElseThrow(()-> new IllegalArgumentException("[MemberServiceImpl.changePassword] 해당 Id와 일치하는 Member 가 존재하지 않습니다."));
+
+        // 현재 비밀번호가 일치 하지 않으면 그냥 return
+        if(! passwordEncoder.matches(passwordReqDto.getNowPassword(), member.getPassword())) return;
+
+        // 현재 비밀번호 일치하면 새 비밀번호로 변경.
+        member.changePassword(passwordEncoder.encode(passwordReqDto.getNewPassword()));
+        log.info("[MemberServiceImpl.changePassword] change Password finish!!! ");
     }
 
     @Transactional
@@ -251,9 +268,11 @@ public class MemberServiceImpl implements MemberService{
         Member member = memberRepository.findById(memberDto.getMemberId())
                 .orElseThrow(()-> new IllegalArgumentException("[MemberServiceImpl.deleteMember] 해당 Id와 일치하는 Member가 존재하지 않습니다."));
 
+        // 현재 비밀번호가 일치 하지 않으면 그냥 return
+        if(! passwordEncoder.matches(memberDto.getMemberPassword(), member.getPassword())) return;
+
         // 일치하면 탈퇴 처리
-        if(memberDto.getMemberPassword().equals(member.getPassword()))
-            memberRepository.delete(member);
+        memberRepository.delete(member);
     }
 
 
