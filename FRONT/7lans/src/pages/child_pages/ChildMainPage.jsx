@@ -349,11 +349,7 @@ const VolunteerMainPage = () => {
         <AirPlane>
           <img
             style={{ width: "70px" }}
-<<<<<<< HEAD
-            src={AirPlaneIcon}
-=======
             src="../../../dinosourImage/dinosaur17_basic.png"
->>>>>>> feature/front/minor-fix
             alt="비행기"
           />
         </AirPlane>
