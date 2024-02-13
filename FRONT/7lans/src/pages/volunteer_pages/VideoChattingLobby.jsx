@@ -1,12 +1,10 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {styled as muiStyled} from "@mui/material/styles";
-import {Button} from "@mui/material";
 import PropTypes from "prop-types";
 import { StreamManager } from "openvidu-browser";
 import { useSelector } from "react-redux";
-import { FiCamera } from "react-icons/fi";
-import { FiCameraOff } from "react-icons/fi";
+import { FiCamera , FiCameraOff } from "react-icons/fi";
+
 import { Link } from "react-router-dom";
 
 import MicOn from '../../images/meeting/mic_on.png';
@@ -95,7 +93,8 @@ const VideoChattingLobby = ({
                               isMyCameraOn,
                               isMyMicOn,
                               isChildCameraOn,
-                              isChildMicOn
+                              isChildMicOn,
+                              exitSessionSignal
                             }) => {
   const userDino = useSelector((state) => state.dino.value);
 
@@ -146,11 +145,13 @@ const VideoChattingLobby = ({
         />
         <img src="" alt="" />
         <div style={{display: 'flex', marginTop: '22px'}}>
-        <Link to="/volunteer_video_chatting_start">
-          <StyledButton>
+        {/* <Link to="/volunteer_video_chatting_start"> */}
+          <StyledButton
+            onClick={exitSessionSignal}
+          >
             화상채팅 종료
           </StyledButton>
-        </Link>
+        {/* </Link> */}
         <ImgCaptureBtn/>
         </div>
       </CenteredBox>

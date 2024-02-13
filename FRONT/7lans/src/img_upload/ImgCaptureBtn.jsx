@@ -4,10 +4,12 @@ import Modal from 'react-modal';
 import { getDownloadURL, getStorage, uploadBytesResumable, ref as strRef } from 'firebase/storage';
 import { update, ref as dbRef } from 'firebase/database';
 import { useDispatch, useSelector } from "react-redux";
+import styled from 'styled-components';
+import { TbCaptureFilled } from "react-icons/tb";
 import { db } from '../firebase';
 import { nextImgNum } from "../store/imgNumSlice";
-import { TbCaptureFilled } from "react-icons/tb";
-import styled from 'styled-components';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 
 const customStyles = {
@@ -164,9 +166,17 @@ const ImgCaptureBtn = ({
     return new File([u8arr], filename, {type:mime});
   }
 
+  // TODO 화면캡쳐 버튼 위치랑 확정나면 signal 기능 추가하고 메시지 정확하게 수정
+  const toastTest = () => {
+    closeModal();
+    toast.success('사진이 저장되었습니다.', {
+      position: "bottom-right",
+    })
+  }
+
   return (
     <div>
-      <StyledButton onClick={captureScreen}><TbCaptureFilled /> 화면 캡쳐</StyledButton>
+      <StyledButton onClick={toastTest}><TbCaptureFilled /> 화면 캡쳐</StyledButton>
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}
@@ -175,11 +185,13 @@ const ImgCaptureBtn = ({
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <img src={imgData} alt="screen capture" style={{ width: '100%', height: 'auto' }} />
           <div>
-            <ModalButton onClick={handleUploadImage}> 사진저장</ModalButton>
+            <ModalButton onClick={toastTest}> 사진저장</ModalButton>
             <ModalButton onClick={closeModal}>저장취소</ModalButton>
           </div>
         </div>
       </Modal>
+      <ToastContainer
+      />
     </div>
   );
 };
