@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion} from "framer-motion";
 
+import BlockLogoIcon from "../images/block_logo.png"
+
 const Container = styled.div`
   z-index: -100;
   background: linear-gradient(
@@ -112,7 +114,7 @@ const EntryPage = () => {
     
     <Container>
       {/* <img src="./Background.png" alt='background'  style={{height: '100vh', width: '80vw'}}/> */}
-      <LogoImage src="./block_logo.png" alt="" />
+      <LogoImage src={BlockLogoIcon} alt="" />
         <Heart />
       <InfoSpan className='shadow'>
         <h3 style={{margin: '0'}}>

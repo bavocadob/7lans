@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 
+import ProfileExample from "../../images/admin_pic/profile_example.png"
+
 const LowerDiv = styled.div`
   flex: 2;
   background-color: #fffdf6;
@@ -141,7 +143,7 @@ const ChildLowDiv = () => {
       <LowerDiv>
         {childVolList.map((vol, index) => (
           <LowerProfileCard key={index}>
-            <LowerProfileImage src="./admin_pic/프로필예시.png" alt="Profile" />
+            <LowerProfileImage src={ProfileExample} alt="Profile" />
             <DeleteButton onClick={() => handleDeleteClick(vol.relationId)}>
               X
             </DeleteButton>

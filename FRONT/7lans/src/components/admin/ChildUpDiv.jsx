@@ -4,6 +4,8 @@ import styled from "styled-components";
 import axios from "axios";
 import getEnv from "../../utils/getEnv";
 
+import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png"
+
 const UpperDiv = styled.div`
   flex: 1.2;
   background-color: #fffdf6;
@@ -160,7 +162,7 @@ function ChildUpDiv() {
     <>
       <UpperDiv>
         <ProfileCard>
-          <ProfileImage src="./admin_pic/봉사자프로필예시.png" alt="Profile" />
+          <ProfileImage src={VolunteerProfileEx} alt="Profile" />
         </ProfileCard>
         <InformationSection>
           <p>Name : {name}</p>

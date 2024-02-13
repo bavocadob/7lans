@@ -6,6 +6,10 @@ import styled from "styled-components";
 import getEnv from "../../../utils/getEnv";
 import { useSelector } from "react-redux";
 
+import BlackboardIcon from "../../../images/picture_page/blackboard.png";
+import ChorkIcon from "../../../images/picture_page/chork.png";
+import NoPicture from "../../../images/picture_page/dinosaur1_sad.png";
+
 const getRandomRotation = () => Math.floor(Math.random() * 30) - 20;
 const Image = styled.img`
   height: 100%;
@@ -216,15 +220,15 @@ const Picture = () => {
             같이 찍은 사진이 없어요
           </div>
           <img
-            src="./dinosourImage/dinosaur1_sad.png"
+            src={NoPicture}
             style={{ height: "400px", width: "350px" }}
           />
         </div>
       )}
 
-      <Blackboard src="blackboard.png" />
+      <Blackboard src={BlackboardIcon}/>
       <Desk>사진을 선택하면 썸네일을 선택할 수 있어요 🙂</Desk>
-      <Chork src="chork.png" />
+      <Chork src={ChorkIcon} />
 
       {/* 썸네일 설정 확인 모달 */}
       <ModalOverlay open={isModalOpen} onClick={closeModal}>

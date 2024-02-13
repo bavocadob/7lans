@@ -7,6 +7,11 @@ import "regenerator-runtime";
 import speech, { useSpeechRecognition } from "react-speech-recognition";
 import getEnv from "../../../utils/getEnv";
 
+import CloseIcon from "../../../images/close_button.png"
+import MicIcon from "../../../images/activity_log/mic.png"
+import ModifyIcon from "../../../images/activity_log/modify.png"
+import SubmitIcon from "../../../images/activity_log/submit.png"
+
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -261,7 +266,7 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
   return (
     <Container>
       <CloseButton
-        src="../../close_button.png"
+        src={CloseIcon}
         onClick={() => {
           navigate(-1);
         }}
@@ -269,16 +274,16 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
       {!activityLog.writeDoneStatus && (
         <ButtonContainer>
           <ButtonWithMargin onClick={handleSpeek}>
-            <ButtonImg src="public\activity_log\mic.png" />
+            <ButtonImg src={MicIcon} />
             녹음하기
           </ButtonWithMargin>
 
           <ButtonWithMargin onClick={changeContent}>
-            <ButtonImg src="public\activity_log\modify.png" />
+            <ButtonImg src={ModifyIcon} />
             수정완료
           </ButtonWithMargin>
           <ButtonStyle onClick={handleSubmission}>
-            <ButtonImg src="public\activity_log\submit.png" />
+            <ButtonImg src={SubmitIcon} />
             제출하기
           </ButtonStyle>
         </ButtonContainer>

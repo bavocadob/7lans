@@ -1,7 +1,7 @@
 import React from 'react'
 import PostIt from '../post_it/PostIt'
 import styled from 'styled-components'
-import Spinner from '../../../../public/loading.gif'
+import Spinner from '../../../images/loading.gif';
 
 const RightSide = styled.div`
   width: 90%;

@@ -19,6 +19,8 @@ import { current } from '@reduxjs/toolkit';
 import getEnv from "../../../utils/getEnv";
 import { getMeetingList } from './Axioses';
 
+import NextIcon from "../../../images/next_button.png"
+
 ReactModal.setAppElement('#root');
 
 
@@ -34,7 +36,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, volunteer }) => {
         <div>
           <img
             style={{ width: "30px" , transform: "scaleX(-1)"}}
-            src="../../next_button.png"
+            src={NextIcon}
             alt=""
             onClick={prevMonth}
           />
@@ -49,7 +51,7 @@ const RenderHeader = ({ currentMonth, prevMonth, nextMonth, volunteer }) => {
         <div>
           <img
             style={{ width: "30px" }}
-            src="../../next_button.png"
+            src={NextIcon}
             alt=""
             onClick={nextMonth}
           />

@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from "../../store/userSlice";
 
+import Logo from "../../images/7lans_logo.png";
 
 const NavBar = styled.nav`
   position: fixed;
@@ -45,7 +46,7 @@ const NormalNav = () => {
     return (
       <NavBar className="shadow">
         <Link to="/child_main">
-          <LogoImage src="./7lans_logo.png" alt="logo" />
+          <LogoImage src={Logo} alt="logo" />
         </Link>
         <ChildInfo>
               {location.pathname !== '/child_dinosaur_dict' ? 
@@ -61,7 +62,7 @@ const NormalNav = () => {
     return (
       <NavBar className="shadow">
         <Link to="/volunteer_main">
-          <LogoImage src="./7lans_logo.png" alt="logo" />
+          <LogoImage src={Logo} alt="logo" />
         </Link>
         <ChildInfo>
               {location.pathname !== '/dinosaur_dict' ? 
@@ -77,7 +78,7 @@ const NormalNav = () => {
     return (
       <NavBar className="shadow">
         <Link to="/admin_main_page">
-          <LogoImage src="./7lans_logo.png" alt="logo" />
+          <LogoImage src={Logo} alt="logo" />
         </Link>
         <ChildInfo>
               {/* {childInfo.childName} 학생과의 공간입니다 */}
@@ -102,7 +103,7 @@ const NormalNav = () => {
   else {
     return (
     <NavBar className="shadow">
-      <LogoImage src="./7lans_logo.png" alt="logo" />
+      <LogoImage src={Logo} alt="logo" />
     </NavBar>
     )
   }

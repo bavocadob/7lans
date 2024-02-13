@@ -5,6 +5,9 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import getEnv from "../../../utils/getEnv";
 
+import Note from "../../../images/whisper/notes.png"
+import CloseIcon from "../../../images/close_button.png"
+
 const ChatContainer = styled.div`
   background-color: rgb(255, 248, 223);
   padding: 20px;
@@ -223,7 +226,7 @@ const WhisperLetter = () => {
         message.writer === userName ? (
           <ChatCardVol key={index} onClick={() => openModal(message)}>
             <img
-              src="../../notes.png"
+              src={Note}
               style={{
                 width: "350px",
                 height: "230px",
@@ -251,7 +254,7 @@ const WhisperLetter = () => {
         ) : (
           <ChatCardChild key={index} onClick={() => openModal(message)}>
             <img
-              src="../../notes.png"
+              src={Note}
               style={{
                 width: "350px",
                 height: "230px",
@@ -286,7 +289,7 @@ const WhisperLetter = () => {
         <WriteModalContainer>
           <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'flex-end'}}>
             <h2 style={{marginBottom: '3%', paddingTop: '5%'}}>속닥속닥</h2>
-              <img src="../../close_button.png" 
+              <img src={CloseIcon}
               onClick={closeWriteModal}
               style={{position: 'relative', 
                       width: '50px', 

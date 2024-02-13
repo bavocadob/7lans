@@ -8,8 +8,10 @@ import { useSelector } from "react-redux";
 import { FiCamera } from "react-icons/fi";
 import { FiCameraOff } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import MIC1 from '../../images/mic_on.png';
-import MIC2 from '../../images/mic_off.png';
+
+import MicOn from '../../images/meeting/mic_on.png';
+import MicOff from '../../images/meeting/mic_off.png';
+import getEnv from "../../utils/getEnv";
 
 const FlexCenterContainer = styled.div`
   flex: 1;
@@ -125,7 +127,7 @@ const VideoChattingLobby = ({
           </Camera>
           <Mic
             onClick={toggleMyMic}
-            src={isMyMicOn ? MIC1 : MIC2}
+            src={isMyMicOn ? MicOn : MicOff}
             alt="마이크 끄고켜기"
           />
         </div>
@@ -136,7 +138,7 @@ const VideoChattingLobby = ({
           <p>하고싶은 놀이를 선택해주세요</p>
         </CenteredText>
         <ResponsiveImage
-          src={`${import.meta.env.VITE_PUBLIC_URL}/dinosourImage/dinosaur${userDino}_study.png`}
+          src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
         />
         <img src="" alt="" />
@@ -177,7 +179,7 @@ const VideoChattingLobby = ({
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
           <Mic
-            src={isChildMicOn ? MIC1 : MIC2}
+            src={isChildMicOn ? MicOn : MicOff}
           />
         </div>
       </BorderBox>
