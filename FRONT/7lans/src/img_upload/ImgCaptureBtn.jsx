@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import html2canvas from 'html2canvas';
 import Modal from 'react-modal';
-import { getDownloadURL, getStorage, uploadBytesResumable, ref as strRef } from 'firebase/storage';
-import { update, ref as dbRef } from 'firebase/database';
-import { useDispatch, useSelector } from "react-redux";
-import { TbCaptureFilled } from "react-icons/tb";
+import {getDownloadURL, getStorage, uploadBytesResumable, ref as strRef} from 'firebase/storage';
+import {update, ref as dbRef} from 'firebase/database';
+import {useDispatch, useSelector} from "react-redux";
+import {TbCaptureFilled} from "react-icons/tb";
 import styled from 'styled-components';
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { db } from '../firebase';
-import { nextImgNum } from "../store/imgNumSlice";
+import PropTypes from "prop-types";
+import {db} from '../firebase';
+import {nextImgNum} from "../store/imgNumSlice";
 
 
 const customStyles = {
-  content : {
+  content: {
     top: '50%',
     left: '50%',
     right: 'auto',
@@ -31,7 +32,7 @@ const StyledButton = styled.button`
   align-self: center;
   font-weight: bolder;
   font-size: 20px;
-  border: 2px dashed rgb(45,45,45);
+  border: 2px dashed rgb(45, 45, 45);
   border-radius: 20px;
   background: rgba(255, 184, 36, 1);
   margin: 0 3rem 0 0;
@@ -49,9 +50,9 @@ const ModalContent = styled.div`
   text-align: center;
   border: solid;
   background: linear-gradient(
-    160deg,
-    rgba(255, 252, 199, 1) 0%,
-    rgba(255, 232, 102, 1) 100%
+          160deg,
+          rgba(255, 252, 199, 1) 0%,
+          rgba(255, 232, 102, 1) 100%
   );
 `;
 
@@ -66,13 +67,18 @@ const ModalButton = styled.button`
   margin-left: 16px;
   text-decoration-line: none;
   position: relative;
+
   &:hover {
-    background-color: rgb(0, 164, 25)};
+    background-color: rgb(0, 164, 25)
+  }
+;
 `;
 
 Modal.setAppElement('#root');
 
-export const ImgCaptureBtn = () => {
+export const ImgCaptureBtn = ({
+                                setCapturedImages
+                              }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgData, setImgData] = useState(null);
   const imgNum = useSelector((state) => state.imgNum.value)
@@ -134,8 +140,12 @@ export const ImgCaptureBtn = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log('File available at', downloadURL);
           // downloadURL에 이미지 경로 들어옴
+
+          setCapturedImages(prevImages => [...prevImages, downloadURL]);  // URL 추가
+          toastTest()
+          
           // Update database with the download URL
-          update(dbRef(db, `users/${imgNum}`), { image: downloadURL });
+          update(dbRef(db, `users/${imgNum}`), {image: downloadURL});
         });
       }
     );
@@ -148,10 +158,10 @@ export const ImgCaptureBtn = () => {
   const dataURLtoFile = (dataurl, filename) => {
     let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
       bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-    while(n--){
+    while (n--) {
       u8arr[n] = bstr.charCodeAt(n);
     }
-    return new File([u8arr], filename, {type:mime});
+    return new File([u8arr], filename, {type: mime});
   }
 
   const toastTest = () => {
@@ -162,14 +172,14 @@ export const ImgCaptureBtn = () => {
 
   return (
     <div>
-      <StyledButton onClick={toastTest}> 캡쳐 <TbCaptureFilled /></StyledButton>
+      <StyledButton onClick={captureScreen}> 캡쳐 <TbCaptureFilled/></StyledButton>
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}
         style={customStyles}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <img src={imgData} alt="screen capture" style={{ width: '100%', height: 'auto' }} />
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <img src={imgData} alt="screen capture" style={{width: '100%', height: 'auto'}}/>
           <div>
             <ModalButton onClick={handleUploadImage}> 사진저장</ModalButton>
             <ModalButton onClick={closeModal}>저장취소</ModalButton>
@@ -182,4 +192,8 @@ export const ImgCaptureBtn = () => {
   );
 };
 
+
+ImgCaptureBtn.propTypes = {
+  setCapturedImages: PropTypes.func.isRequired
+};
 export default ImgCaptureBtn;

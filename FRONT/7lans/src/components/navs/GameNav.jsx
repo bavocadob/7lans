@@ -48,6 +48,7 @@ const CloseImg = styled.img`
 
 const GameNav = ({
                    exitSessionSignal,
+                   setCapturedImages
                  }) => {
   const gameChange = useSelector((state) => state.isPlayGameNow.value);
   const dispatch = useDispatch();
@@ -228,7 +229,9 @@ const GameNav = ({
             margin: "0 1rem 0 0",
           }}
         >
-          <ImgCaptureBtn />
+          <ImgCaptureBtn
+            setCapturedImages={setCapturedImages}
+          />
         </motion.a>
 
         <div style={{ display: "flex", marginTop: "12px", marginRight: "0" }}>

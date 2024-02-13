@@ -183,6 +183,7 @@ const VideoChattingPage = () => {
     <>
       <GameNav
         exitSessionSignal={exitSessionSignal}
+        setCapturedImages={setCapturedImages}
       />
       <div style={{marginTop: "5.7%"}}>
         {!isSessionEnd ? ( // Change here
