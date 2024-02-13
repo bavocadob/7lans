@@ -25,7 +25,7 @@ const RightSide = styled.div`
   align-items: center;
   flex-wrap: wrap;
   border-radius: 0 20px 20px 0;
-  background-color: rgb(255, 255, 255, 0.9);
+  background-image: url('./egg_raise_background.png');
 `;
 
 const RowBox1 = styled.div`

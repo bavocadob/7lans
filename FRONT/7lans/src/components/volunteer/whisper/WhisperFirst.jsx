@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Balloon from "../../../images/text_balloon.png";
+import getEnv from "../../../utils/getEnv";
 
 const Box = styled.div`
   width: 100%;
