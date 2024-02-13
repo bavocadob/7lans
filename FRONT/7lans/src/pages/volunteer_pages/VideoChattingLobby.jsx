@@ -13,18 +13,22 @@ import MicOn from '../../images/meeting/mic_on.png';
 import MicOff from '../../images/meeting/mic_off.png';
 import getEnv from "../../utils/getEnv";
 
+import MIC1 from '../../images/mic_on.png';
+import MIC2 from '../../images/mic_off.png';
+import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn";
+
 const FlexCenterContainer = styled.div`
-  flex: 1;
-  background-color: rgb(255, 233, 156);
+  /* flex: 1; */
+  /* background-color: rgb(255, 233, 156); */
   display: flex;
   padding: 2rem;
-  height: 70%;
+  /* height: 100%; */
   justify-content: space-between;
 `;
 
 const BorderBox = styled.div`
   width: 34vw;
-  height: 72vh;
+  height: 74vh;
   background-color: rgb(255, 248, 224);
   border: 4px solid rgb(45, 45, 45);
   border-radius: 20px;
@@ -72,7 +76,13 @@ const StyledButton = styled.button`
   text-decoration-line: none;
 `;
 
-const Mic = styled.img`
+const Mic1 = styled.img`
+  width: 40px;
+  height: 40px;
+  margin-top: 3px;
+`;
+
+const Mic2 = styled.img`
   width: 40px;
   height: 40px;
   margin-top: 3px;
@@ -117,7 +127,7 @@ const VideoChattingLobby = ({
             alignItems: "end",
             gap: "15px",
             marginLeft: "78%",
-            marginTop: "15px",
+            marginTop: "5px",
           }}
         >
           <Camera onClick={toggleMyCamera}
@@ -125,7 +135,7 @@ const VideoChattingLobby = ({
             {isMyCameraOn ? <FiCamera style={{width: "100%", height: "100%"}}/>
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
-          <Mic
+          <Mic1
             onClick={toggleMyMic}
             src={isMyMicOn ? MicOn : MicOff}
             alt="마이크 끄고켜기"
@@ -142,11 +152,14 @@ const VideoChattingLobby = ({
           alt="CenterImage"
         />
         <img src="" alt="" />
+        <div style={{display: 'flex', marginTop: '22px'}}>
         <Link to="/volunteer_video_chatting_start">
           <StyledButton>
             화상채팅 종료
           </StyledButton>
         </Link>
+        <ImgCaptureBtn/>
+        </div>
       </CenteredBox>
       <BorderBox>
         <h2
@@ -154,6 +167,7 @@ const VideoChattingLobby = ({
             paddingTop: "2rem",
             paddingBottom: "1rem",
             textAlign: "center",
+            marginTop: "5px",
           }}
         >
           {" "}
@@ -169,8 +183,6 @@ const VideoChattingLobby = ({
             alignItems: "end",
             gap: "15px",
             marginLeft: "78%",
-            marginTop: "15px",
-
           }}
         >
           <Camera
@@ -178,8 +190,9 @@ const VideoChattingLobby = ({
             {isChildCameraOn ? <FiCamera style={{width: "100%", height: "100%"}}/>
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
-          <Mic
-            src={isChildMicOn ? MicOn : MicOff}
+
+          <Mic2
+            src={isChildMicOn ? MIC1 : MIC2}
           />
         </div>
       </BorderBox>

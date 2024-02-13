@@ -61,7 +61,7 @@ const Waiting = ({}) => {
        <Background>
         <LoadingText>
             <p>
-                출제 중입니다
+            출제 중입니다
             </p>
             <p>
             조금만 기다려 주세요

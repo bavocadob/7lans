@@ -18,6 +18,7 @@ const UserVideoComponent = ({ streamManager }) => {
             flexDirection: "column",
             padding: "0",
             borderRadius: "20px",
+            height: "100%"
           }}
         >
           <OpenViduVideoComponent streamManager={streamManager} />

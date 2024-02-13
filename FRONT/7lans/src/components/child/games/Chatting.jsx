@@ -13,8 +13,10 @@ const commonDivStyles = {
     backgroundColor: 'rgb(255, 248, 224)',
     margin: '5px',
     border: '5px solid rgb(45, 45, 45)',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    height: '182px'
 };
+
 
 const ChatInput = styled.input`
     width: 95%;
@@ -22,9 +24,17 @@ const ChatInput = styled.input`
     margin-top: 1%;
     border-radius: 20px;
     padding: 15px;
-    border: 0.2px solid;
-    box-shadow: 3px 3px 3px rgb(45,45,45);
+    border: 2px solid;
+    box-shadow: 1px 1px 1px rgb(45,45,45);
 `;
+
+const ChattingBox = styled.div`
+    background-color: rgb(255, 248, 224);
+    margin: 5px;
+    border: 5px solid rgb(45, 45, 45);
+    border-radius: 20px;
+    height: 400px;
+`
 
 const Chat = () => {
     const [isChatVisible, setIsChatVisible] = useState(true)
@@ -57,7 +67,7 @@ const Chat = () => {
     return (
         <div style={{height: '100%', width: '100%', display: 'flex', flexDirection: 'column', padding: '1rem'}}>
             {/*  비디오 컴포넌트 영역 */}
-            <div className="video-panel" style={{flexBasis: basis}}>
+            <div className="video-panel" style={{height: '200px', width: '500px'}}>
                 <Flipper flipKey={direction}>
                     <div style={{height: '100%', display: "flex", flexDirection: direction}}>
                         <Flipped flipId="content">
@@ -79,25 +89,25 @@ const Chat = () => {
                 onEnter={() => setIsChatVisible(true)}
                 onExited={() => setIsChatVisible(false)}
             >
-                <div style={{flexBasis: '60%', ...commonDivStyles}}>
+                <ChattingBox>
                     <div className='shadow'
                          style={{
-                             height: '70%',
+                             height: '75%',
                              width: '95%',
                              backgroundColor: 'rgb(255, 255, 255)',
                              margin: '5px',
                              marginLeft: '2.5%',
                              marginTop: '1em',
-                             borderRadius: '20px',
-                             border: '0.2px solid'
+                             borderRadius: '15px',
+                             border: '2px solid'
                          }}>
-                        <button style={{
+                        {/* <button style={{
                             width: '30px', borderRadius: '20px', border: 'none',
                             backgroundColor: 'rgb(255, 215, 3)', margin: '10px'
                         }}
                                 onClick={() => setIsChatVisible(!isChatVisible)}>
                             <BiCaretDown/>
-                        </button>
+                        </button> */}
                         <ChatList/>
                     </div>
                     <div>
@@ -108,7 +118,7 @@ const Chat = () => {
                             value={chatInput}
                         />
                     </div>
-                </div>
+                </ChattingBox>
             </CSSTransition>
             {/*  채팅창 영역  */}
             {!isChatVisible && (

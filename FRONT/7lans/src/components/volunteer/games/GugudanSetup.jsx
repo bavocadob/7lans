@@ -7,7 +7,7 @@ const Container = styled.div`
   flex-direction: column;
   border: 5px solid black;
   border-radius: 20px;
-  height: 70%;
+  height: 90%;
   width: 90%;
   flex: 1;
   margin-top: 2%;
@@ -44,6 +44,9 @@ const ButtonArea = styled.button`
   background-color: rgb(255, 215, 3);
   margin-top: 0;
   margin-bottom: 15px;
+  &:hover {
+    background-color: rgb(0, 164, 27);
+  }
 `;
 
 

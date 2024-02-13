@@ -23,6 +23,25 @@ const customStyles = {
   }
 };
 
+const StyledButton = styled.button`
+  background: linear-gradient(
+          190deg,
+          rgba(255, 184, 36, 1),
+          rgba(255, 237, 140, 1)
+  );
+  font-size: 19px;
+  font-weight: bold;
+  border: 3px solid rgb(45, 45, 45);
+  border-radius: 50px;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  height: 50px;
+  width: 130px;
+  margin-top: 7%;
+  margin-bottom: 0;
+  text-decoration-line: none;
+`;
+
 const ModalContent = styled.div`
   position: fixed;
   top: 30%;
@@ -53,7 +72,7 @@ const ModalButton = styled.button`
   text-decoration-line: none;
   position: relative;
   &:hover {
-    background-color: rgb(0, 164, 25);
+    background-color: rgb(0, 164, 25)};
 `;
 
 Modal.setAppElement('#root');
@@ -142,7 +161,7 @@ export const ImgCaptureBtn = () => {
 
   return (
     <div>
-      <button onClick={captureScreen}><TbCaptureFilled /> 화면 캡쳐</button>
+      <StyledButton onClick={captureScreen}><TbCaptureFilled /> 화면 캡쳐</StyledButton>
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}

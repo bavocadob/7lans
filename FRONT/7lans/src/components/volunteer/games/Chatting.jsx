@@ -8,24 +8,34 @@ import './Chatting.css';
 import PropTypes from "prop-types";
 import {Session, StreamManager} from "openvidu-browser";
 import {addChat} from '../../../store/chatSlice';
+import ImgCaptureBtn from '../../../img_upload/ImgCaptureBtn';
 
 // Extracted common styles
 const commonDivStyles = {
     backgroundColor: 'rgb(255, 248, 224)',
     margin: '5px',
     border: '5px solid rgb(45, 45, 45)',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    height: '182px'
 };
 
 const ChatInput = styled.input`
     width: 95%;
     margin-left: 2.5%;
     margin-top: 1%;
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 15px;
-    border: 0.2px solid;
-    box-shadow: 3px 3px 3px rgb(45,45,45);
+    border: 2px solid;
 `;
+
+const ChattingBox = styled.div`
+    background-color: rgb(255, 248, 224);
+    margin: 5px;
+    border: 5px solid rgb(45, 45, 45);
+    border-radius: 20px;
+    height: 400px;
+    width: 490px;
+`
 
 const Chat = ({
                   renderUserVideoComponent,
@@ -96,7 +106,7 @@ const Chat = ({
 
 
     const ChatList = () => (
-        <div style={{height: '70%', maxHeight: '270px', padding: '2%', overflowY: 'auto'}}>
+        <div style={{height: '88%', maxHeight: '270px', paddingLeft: '5%', overflowY: 'auto', marginTop: '1rem'}}>
             {chatList.map((chat, index) => (
                 <p key={index}>
                     <strong>{chat.writer}</strong>: {chat.message}
@@ -111,9 +121,9 @@ const Chat = ({
     return (
         <div style={{height: '100%', width: '100%', display: 'flex', flexDirection: 'column', padding: '1rem'}}>
             {/*  비디오 컴포넌트 영역 */}
-            <div className="video-panel" style={{flexBasis: basis}}>
+            <div className="video-panel"  style={{height: '200px', width: '500px'}}>
                 <Flipper flipKey={direction}>
-                    <div style={{height: '100%', display: "flex", flexDirection: direction}}>
+                    <div style={{height: '180px', display: "flex",}}>
                         <Flipped flipId="content">
                             <div style={{...commonDivStyles, flexGrow: 1}}>
                                 {mainStreamManager && renderUserVideoComponent(mainStreamManager)}
@@ -137,29 +147,29 @@ const Chat = ({
                 onEnter={() => setIsChatVisible(true)}
                 onExited={() => setIsChatVisible(false)}
             >
-                <div style={{flexBasis: '60%', ...commonDivStyles}}>
+                <ChattingBox>
                     <div className='shadow'
                          style={{
-                             height: '70%',
+                             height: '75%',
                              width: '95%',
                              backgroundColor: 'rgb(255, 255, 255)',
                              margin: '5px',
                              marginLeft: '2.5%',
                              marginTop: '1em',
-                             borderRadius: '20px',
-                             border: '0.2px solid'
+                             borderRadius: '15px',
+                             border: '2px solid'
                          }}>
-                        <button style={{
+                        {/* <button style={{
                             width: '30px', borderRadius: '20px', border: 'none',
                             backgroundColor: 'rgb(255, 215, 3)', margin: '10px'
                         }}
                                 onClick={() => setIsChatVisible(!isChatVisible)}>
                             <BiCaretDown/>
-                        </button>
+                        </button> */}
                         <ChatList/>
                     </div>
                     <div>
-                        <ChatInput
+                        <ChatInput className='shadow'
                             type="text"
                             placeholder="채팅 내용을 입력하세요"
                             onKeyUp={handleChatSubmission}
@@ -167,7 +177,7 @@ const Chat = ({
                             value={chatInput}
                         />
                     </div>
-                </div>
+                </ChattingBox>
             </CSSTransition>
             {/*  채팅창 영역  */}
             {!isChatVisible && (
