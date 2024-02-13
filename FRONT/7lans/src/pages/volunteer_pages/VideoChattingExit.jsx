@@ -4,7 +4,7 @@ import styled, {keyframes} from "styled-components";
 import Modal from 'react-modal';
 import {useNavigate} from "react-router-dom";
 import {Session} from "openvidu-browser";
-import {postMeetingImage} from "../../api/axioses.jsx";
+import {postMeetingImage, closeMeetingSchedule} from "../../api/axioses.jsx";
 
 
 // 모달 창의 스타일 설정
@@ -292,6 +292,7 @@ const VideoChattingExit = ({
       // 미팅 이미지를 비동기로 모두 넣어준다.
       try {
         await Promise.all(selectedImages.map((imagePath) => postMeetingImage(meetingId, imagePath)));
+        await closeMeetingSchedule(meetingId);
         imageUploadSignal(false)
       } catch (err) {
         // 이곳에서 에러 처리를 수행합니다.
