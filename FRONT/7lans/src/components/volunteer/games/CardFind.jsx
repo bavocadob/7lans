@@ -212,7 +212,7 @@ const CardFind = ({
 
   }
   return (<div style={{
-    display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'
+    display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh'
   }}>
     {!gameStarted && <button
       onClick={() => gameStartSignal()}

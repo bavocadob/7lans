@@ -1,18 +1,20 @@
 import React, {useState} from "react";
 import styled from "styled-components";
+import {styled as muiStyled} from "@mui/material/styles";
+import {Button} from "@mui/material";
 import PropTypes from "prop-types";
 import { StreamManager } from "openvidu-browser";
 import { useSelector } from "react-redux";
-import { FiCamera , FiCameraOff } from "react-icons/fi";
-
+import { FiCamera } from "react-icons/fi";
+import { FiCameraOff } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-import Mic1 from '../../images/meeting/mic_on.png';
-import Mic2 from '../../images/meeting/mic_off.png';
-
+import MicOn from '../../images/meeting/mic_on.png';
+import MicOff from '../../images/meeting/mic_off.png';
 import getEnv from "../../utils/getEnv";
 
-
+import MIC1 from '../../images/meeting/mic_on.png';
+import MIC2 from '../../images/meeting/mic_off.png';
 import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn";
 
 const FlexCenterContainer = styled.div`
@@ -74,17 +76,12 @@ const StyledButton = styled.button`
   text-decoration-line: none;
 `;
 
-const Mic1 = styled.img`
+const Mic = styled.img`
   width: 40px;
   height: 40px;
   margin-top: 3px;
 `;
 
-const Mic2 = styled.img`
-  width: 40px;
-  height: 40px;
-  margin-top: 3px;
-`;
 
 const Camera = styled.div`
   width: 35px;
@@ -100,8 +97,7 @@ const VideoChattingLobby = ({
                               isMyCameraOn,
                               isMyMicOn,
                               isChildCameraOn,
-                              isChildMicOn,
-                              exitSessionSignal
+                              isChildMicOn
                             }) => {
   const userDino = useSelector((state) => state.dino.value);
 
@@ -134,7 +130,7 @@ const VideoChattingLobby = ({
             {isMyCameraOn ? <FiCamera style={{width: "100%", height: "100%"}}/>
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
-          <Mic1
+          <Mic
             onClick={toggleMyMic}
             src={isMyMicOn ? MicOn : MicOff}
             alt="마이크 끄고켜기"
@@ -153,9 +149,7 @@ const VideoChattingLobby = ({
         <img src="" alt="" />
         <div style={{display: 'flex', marginTop: '22px'}}>
         <Link to="/volunteer_video_chatting_start">
-          <StyledButton
-            onClick={exitSessionSignal}
-          >
+          <StyledButton>
             화상채팅 종료
           </StyledButton>
         </Link>
@@ -192,7 +186,7 @@ const VideoChattingLobby = ({
               : <FiCameraOff style={{width: "100%", height: "100%"}}/>}
           </Camera>
 
-          <Mic2
+          <Mic
             src={isChildMicOn ? MIC1 : MIC2}
           />
         </div>
