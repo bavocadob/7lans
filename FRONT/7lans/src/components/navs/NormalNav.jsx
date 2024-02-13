@@ -15,6 +15,7 @@ const NavBar = styled.nav`
   top: 0;
   display: flex;
   gap: 35%;
+
 `;
 
 const LogoImage = styled.img`
@@ -55,6 +56,8 @@ const NormalNav = () => {
                 </div>
                 :''}
         </ChildInfo>
+
+
       </NavBar>
     );
   }
@@ -104,6 +107,21 @@ const NormalNav = () => {
     return (
     <NavBar className="shadow">
       <LogoImage src={Logo} alt="logo" />
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+          <Link
+            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '150px', alignSelf: 'center', fontWeight: 'bolder' }}
+            to={"/dinosaur_dict"}
+          >
+            공룡도감
+          </Link>
+          <Link
+            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '150px', alignSelf: 'center', fontWeight: 'bolder' }}
+            to={"/"}
+            onClick={() => resetData()}
+          >
+            로그아웃
+          </Link>
+        </div>
     </NavBar>
     )
   }
