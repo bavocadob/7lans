@@ -11,11 +11,8 @@ const NavBar = styled.nav`
   width: 100%;
   height: 100px;
   background-color: rgb(255, 215, 3);
-  padding-right: 15%;
   top: 0;
   display: flex;
-  gap: 35%;
-
 `;
 
 const LogoImage = styled.img`
@@ -25,8 +22,10 @@ const LogoImage = styled.img`
 `;
 
 const ChildInfo = styled.div`
+  display: flex;
   font-size: 40px;
   padding-top: 20px;
+  padding-left: 20%;
 `
 
 
@@ -51,13 +50,30 @@ const NormalNav = () => {
         </Link>
         <ChildInfo>
               {location.pathname !== '/child_dinosaur_dict' ? 
-                <div>
+                <>
                   {volInfo? <p>{volInfo.volunteerName} 선생님과의 공간입니다</p> : ''}
-                </div>
+                </>
                 :''}
         </ChildInfo>
-
-
+        <div style={{display: 'flex', flexDirection: 'row', marginLeft: 'auto'}}>
+          {location.pathname === '/child_dinosaur_dict' ?
+          ''
+            :
+          <Link
+            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '130px', alignSelf: 'center', fontWeight: 'bolder' }}
+            to={"/child_dinosaur_dict"}
+          >
+            공룡도감
+          </Link>
+          }
+          <Link
+            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '110px', alignSelf: 'center', fontWeight: 'bolder' }}
+            to={"/"}
+            onClick={() => resetData()}
+          >
+            로그아웃
+          </Link>
+        </div>
       </NavBar>
     );
   }
@@ -69,11 +85,30 @@ const NormalNav = () => {
         </Link>
         <ChildInfo>
               {location.pathname !== '/dinosaur_dict' ? 
-                <div>
+                <div style={{ width: '400px'}}>
                   {childInfo && (location.pathname !== '/active_docs')? <p>{childInfo.childName} 학생과의 공간입니다.</p> : '' }
                 </div>
                 :''}
         </ChildInfo>
+        <div style={{display: 'flex', flexDirection: 'row', marginLeft: 'auto'}}>
+          {location.pathname === '/dinosaur_dict' ?
+          ''
+            :
+          <Link
+            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '130px', alignSelf: 'center', fontWeight: 'bolder' }}
+            to={"/dinosaur_dict"}
+          >
+            공룡도감
+          </Link>
+          }
+          <Link
+            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '110px', alignSelf: 'center', fontWeight: 'bolder' }}
+            to={"/"}
+            onClick={() => resetData()}
+          >
+            로그아웃
+          </Link>
+        </div>
       </NavBar>
     );
   }
@@ -103,19 +138,41 @@ const NormalNav = () => {
       </NavBar>
     );
   }
+  // else if (lo) {
+  //   return (
+  //   <NavBar className="shadow">
+  //     <LogoImage src={Logo} alt="logo" />
+  //     <div style={{display: 'flex', flexDirection: 'row', marginLeft: 'auto'}}>
+  //         <Link
+  //           style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '130px', alignSelf: 'center', fontWeight: 'bolder' }}
+  //           to={"/dinosaur_dict"}
+  //         >
+  //           공룡도감
+  //         </Link>
+  //         <Link
+  //           style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '110px', alignSelf: 'center', fontWeight: 'bolder' }}
+  //           to={"/"}
+  //           onClick={() => resetData()}
+  //         >
+  //           로그아웃
+  //         </Link>
+  //       </div>
+  //   </NavBar>
+  //   )
+  // }
   else {
     return (
     <NavBar className="shadow">
       <LogoImage src={Logo} alt="logo" />
-      <div style={{display: 'flex', flexDirection: 'row'}}>
+      <div style={{display: 'flex', flexDirection: 'row', marginLeft: 'auto'}}>
           <Link
-            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '150px', alignSelf: 'center', fontWeight: 'bolder' }}
+            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '130px', alignSelf: 'center', fontWeight: 'bolder' }}
             to={"/dinosaur_dict"}
           >
             공룡도감
           </Link>
           <Link
-            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '150px', alignSelf: 'center', fontWeight: 'bolder' }}
+            style={{ fontSize: "23px", textDecorationLine: "none", color: 'black', width: '110px', alignSelf: 'center', fontWeight: 'bolder' }}
             to={"/"}
             onClick={() => resetData()}
           >
