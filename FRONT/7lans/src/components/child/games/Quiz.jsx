@@ -40,11 +40,11 @@ const Quiz = () => {
 
     if (problem === 'none') {
       return(
-        <div style={{display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    width: '100%', 
-                    height: '100%'}}>
+        // <div style={{display: 'flex', 
+        //             alignItems: 'center', 
+        //             justifyContent: 'center', 
+        //             width: '100%', 
+        //             height: '100%'}}>
           <div style={{display: 'flex', 
                       flexDirection: 'column', 
                       alignItems: 'center', 
@@ -117,7 +117,7 @@ const Quiz = () => {
                                 color: ans === 'O'? 'rgb(240, 165, 8)':'rgb(45, 45, 45)'}}> O
                 </button>
               </div>
-            </div>
+            {/* </div> */}
             {/* X 선택하는 div */}
             <div style={{display: 'flex', 
                           flexDirection: 'row',

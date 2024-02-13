@@ -172,7 +172,7 @@ const VideoChattingPage = () => {
   return (
     <>
           <GameNav/>
-      <div  style={{ marginTop: "5.7%", display: 'flex', flexDirection: 'row' }}>
+      <div  style={{ marginTop: "5.7%", display: 'flex', flexDirection: 'row', gap: '40px' }}>
       
       {isGameStarted ? (
         <VolunteerGamePage

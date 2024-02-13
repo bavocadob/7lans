@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 
 import Logo from "../../images/7lans_logo.png";
 import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn";
+import VideoCloseBtn from "../../images/Close_video_chat.png"
 
 const NavBar = styled.nav`
   position: fixed;
@@ -230,7 +231,7 @@ const GameNav = () => {
 
         <div style={{ display: "flex", marginTop: "12px", marginRight: "0" }}>
           <Link to="/volunteer_video_chatting_start">
-            <CloseImg src="./Close_video_chat.png" />
+            <CloseImg src={VideoCloseBtn} />
           </Link>
         </div>
       </div>

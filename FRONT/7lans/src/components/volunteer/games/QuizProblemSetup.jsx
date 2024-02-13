@@ -7,8 +7,9 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 930px;
     height: 100%;
+    margin-top: 5px;
 `;
 
 const InnerContainer = styled.div`
@@ -16,8 +17,8 @@ const InnerContainer = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: rgb(255, 250, 231);
-    width: 90%;
-    height: 93%;
+    width: 100%;
+    height: 91.5%;
     border-radius: 20px;
     border: 5px solid rgb(45, 45, 45);
 `;
@@ -39,11 +40,12 @@ const InputTitle = styled.span`
 
 const StyledInput = styled.input`
   padding: 0 10px 0 10px;
-  width: 500px;
+  width: 700px;
   border: none;
   border-radius: 10px;
   background-color: rgb(255, 250, 231);
   margin-top: 12px;
+  font-size: 25px;
 `;
 
 const ChoiceContainer = styled.div`
@@ -60,7 +62,7 @@ const OptionContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   width: 50%;
-  height: 90%;
+  height: 80%;
   background-color: rgb(251, 243, 212);
   border: 5px solid rgb(45, 45, 45);
   border-radius: 10px;
@@ -101,6 +103,7 @@ function QuizProblemSetup({ans, setAns, nowProblem, setNowProblem, submitProblem
                         placeholder='문제를 입력하고 답을 선택해주세요'
                         onChange={(e) => setNowProblem(e.target.value)}
                         value={nowProblem}
+                        maxLength={32}
                     />
                 </InputContainer>
 
