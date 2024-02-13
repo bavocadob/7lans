@@ -107,8 +107,8 @@ const RightContent = styled.div`
     // margin: 0.5rem;
     padding: 0.5rem;
     height: 50px;
-    width: 200px;
-    margin-left: 35%;
+    width: 300px;
+    /* margin-left: 35%; */
     // margin-top: 7%;
   }
   p {
@@ -135,7 +135,7 @@ const InfoSpan = styled.span`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: right;
+  align-items: center;
   gap: 10px;
 `;
 
@@ -221,28 +221,30 @@ const Register = () => {
         <Line />
         <RightContent>
           <Form>
-            <div>
-            <select
-              value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-            >
-              <option value="">사용자 타입 선택</option>
-              <option value="V">봉사자</option>
-              <option value="C">학생</option>
-              <option value="M">관리자</option>
-            </select>
-            {(userType === "C" || userType === "M") && (
+            <div style={{display: 'flex', gap: '3.5rem'}}>
               <select
-                value={centerId}
-                onChange={(e) => setCenterId(e.target.value)}
+                value={userType}
+                onChange={(e) => setUserType(e.target.value)}
+                style={{width: '300px'}}
               >
-                <option value="">센터 선택</option>
-                <option value={1}>A 센터</option>
-                <option value={2}>B 센터</option>
-                <option value={3}>C 센터</option>
-                <option value={4}>D 센터</option>
+                <option value="">사용자 타입 선택</option>
+                <option value="V">봉사자</option>
+                <option value="C">학생</option>
+                <option value="M">관리자</option>
               </select>
-            )}
+              {(userType === "C" || userType === "M") && (
+                <select
+                  value={centerId}
+                  onChange={(e) => setCenterId(e.target.value)}
+                  style={{width: '300px'}}
+                >
+                  <option value="">센터 선택</option>
+                  <option value={1}>A 센터</option>
+                  <option value={2}>B 센터</option>
+                  <option value={3}>C 센터</option>
+                  <option value={4}>D 센터</option>
+                </select>
+              )}
             </div>
             <div style={{display: 'flex', flexDirection: 'row', gap: '2rem'}}>
             <div>
@@ -257,28 +259,28 @@ const Register = () => {
             </label>
 
             
-              <label htmlFor="password">
-                <FcKey />
-              </label>
-              <input
-                type="password"
-                placeholder={password ? "" : "비밀번호를 입력하세요"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                />
+            <label htmlFor="password">
+              <FcKey />
+            </label>
+            <input
+              type="password"
+              placeholder={password ? "" : "비밀번호를 입력하세요"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              />
            
 
             
-              <label htmlFor="password">
-                <FcKey />
-              </label>
-              <input
-                type="password"
-                placeholder={password ? "" : "비밀번호를 다시 입력하세요"}
-                value={passwordCheck}
-                onChange={(e) => setPasswordCheck(e.target.value)}
-                />
-            
+            <label htmlFor="password">
+              <FcKey />
+            </label>
+            <input
+              type="password"
+              placeholder={password ? "" : "비밀번호를 다시 입력하세요"}
+              value={passwordCheck}
+              onChange={(e) => setPasswordCheck(e.target.value)}
+              />
+          
             </div>
             <div>
             <label htmlFor="username">
