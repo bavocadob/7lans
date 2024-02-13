@@ -6,7 +6,7 @@ import getEnv from "../../utils/getEnv";
 import { adminAddFriend } from "../../store/adminAddFriendSlice";
 import { adminDeleteFriend } from "../../store/adminDeleteFriendSlice";
 
-import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png"
+import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png";
 
 const UpperDiv = styled.div`
   flex: 0.4;
@@ -28,6 +28,7 @@ const ProfileCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 100px;
 `;
 
 const ProfileImage = styled.img`
@@ -41,6 +42,8 @@ const InformationSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 50px;
+  font-size: 20px;
 `;
 
 const SearchContainer = styled.div`
@@ -50,14 +53,16 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 70px;
 `;
 
 const ChildSearchInput = styled.input`
-  width: 50%;
-  height: 20%;
-  padding: 10px;
+  width: 100%; /* 너비를 100%로 설정하여 부모 요소의 너비에 맞춤 */
+  height: 40px; /* 높이를 40px로 설정하여 원하는 크기로 조정 */
+  padding: 10px; /* 내부 패딩 설정 */
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 16px;
 `;
 
 const ChildList = styled.div`
@@ -68,11 +73,12 @@ const ChildList = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
+  margin-left: -70px;
 `;
 
 const SearchChildContainer = styled.div`
   height: 100%;
-  width: 60%;
+  width: 70%;
   border-radius: 10px;
   padding: 0;
   display: flex;
@@ -81,23 +87,44 @@ const SearchChildContainer = styled.div`
 `;
 
 const ChildCard = styled.div`
-  width: 60%;
-  height: 70%;
-  margin-bottom: 5px;
-  border: 2px solid black;
-  border-radius: 10px;
-  text-align: center;
-  justify-content: center;
+  width: 90%;
+  height: 100px;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin-right: -20px;
-  position: relative;
-  z-index: 0;
+  background-color: #fcfcfc;
+  transition: transform 0.3s ease; /* 호버 시 애니메이션 효과 */
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px); /* 호버 시 약간 위로 이동 */
+  }
 `;
 
 const GetFriendBtn = styled.button`
-  position: absolute;
-  top: 50px;
-  right: 10px;
+  background-color: #ff8f8f;
+  color: #ffffff;
+  border: 2px solid #ffb6c1;
+  border-radius: 30px;
+  padding: 3px 6px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
+  &:hover {
+    background-color: #ffc0cb;
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Modal = styled.div`
@@ -225,9 +252,9 @@ function VolUpDiv() {
           <ProfileImage src={VolunteerProfileEx} alt="Profile" />
         </ProfileCard>
         <InformationSection>
-          <p>Name : {name}</p>
-          <p>email : {email}</p>
-          <p>time : {time ? { time } : 0}</p>
+          <p>봉사자 이름 : {name}</p>
+          <p>봉사자 이메일 : {email}</p>
+          <p>총 봉사시간 : {time ? { time } : 0}</p>
         </InformationSection>
         <SearchChildContainer>
           <SearchContainer>

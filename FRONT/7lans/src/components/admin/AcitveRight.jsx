@@ -13,6 +13,7 @@ const RightContainer = styled.div`
   border-radius: 10px; /* 테두리에 귀여운 모양을 주기 위해 */
   border: 2px solid #ffa5ab; /* 귀여운 트렌디한 색상의 테두리 추가 */
   padding: 10px; /* 테두리 안의 내용과 여백을 조정 */
+  margin-right: 30px;
 `;
 
 const HeaderItem = styled.div`
@@ -160,27 +161,27 @@ const ActiveRight = () => {
     <RightContainer>
       <ActiveHeader>
         <HeaderItem>
-          <Label>Date:</Label>
+          <Label>날짜:</Label>
           <div>{activeLog.dateInfo}</div>
         </HeaderItem>
         <HeaderItem>
-          <Label>Start Time:</Label>
+          <Label>시작 시간:</Label>
           <div>{formatDateTime(activeLog.activityStartTime)}</div>
         </HeaderItem>
         <HeaderItem>
-          <Label>End Time:</Label>
+          <Label>끝난 시간:</Label>
           <div>{formatDateTime(activeLog.activityEndTime)}</div>
         </HeaderItem>
         <HeaderItem>
-          <Label>Service Time:</Label>
+          <Label>봉사 시간:</Label>
           <div>{activeLog.activityTime}</div>
         </HeaderItem>
         <HeaderItem>
-          <Label>Volunteer Name:</Label>
+          <Label>봉사자 이름:</Label>
           <div>{activeLog.volunteerName}</div>
         </HeaderItem>
         <HeaderItem>
-          <Label>Center Name:</Label>
+          <Label>센터 이름:</Label>
           <div>{activeLog.centerName}</div>
         </HeaderItem>
       </ActiveHeader>

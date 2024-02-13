@@ -5,23 +5,20 @@ import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 import { adminAddFriend } from "../../store/adminAddFriendSlice";
 import { adminDeleteFriend } from "../../store/adminDeleteFriendSlice";
-
 import ProfileExample from "../../images/admin_pic/profile_example.png";
 
 const LowerDiv = styled.div`
-  flex: 1.6;
+  flex: 1.7;
+  margin-left: -10px;
   max-height: 50vh;
   background-color: #fffdf6;
   border-radius: 20px;
-  border-radius: 20px;
   border: solid 3px black;
-  margin-left: -10px;
-  margin-bottom: 5px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* 넘치는 부분 숨기기 */
+  flex-direction: column;
+  justify-content: center; /* 내부 요소 수직 가운데 정렬 */
+  align-items: center; /* 내부 요소 수평 가운데 정렬 */
+  position: relative; /* PaginationContainer의 위치를 상대적으로 설정하기 위해 */
 `;
 
 const LowerProfileImage = styled.img`
@@ -33,39 +30,49 @@ const LowerProfileImage = styled.img`
 
 const LowerProfileCard = styled.div`
   position: relative;
-  width: 20%;
-  height: 60%;
-  margin: 10px;
+  width: 150px;
+  height: 200px;
+  margin-left: 20px;
   padding: 10px;
   border: 2px solid black;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgb(45, 45, 45);
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: #ffffff;
 `;
 
 const ProfileInfo = styled.div`
-  width: 80%;
-  height: 60%;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 10px;
+`;
+
+const ProfileItem = styled.div`
+  margin-bottom: 10px;
 `;
 
 const DeleteButton = styled.button`
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
   background-color: #ff8f8f;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
+  transition: transform 0.3s ease; /* 애니메이션 효과 추가 */
+
+  &:hover {
+    transform: scale(1.2); /* 호버 시 크기 조절 */
+  }
 `;
 
 const DeleteModal = styled.div`
@@ -98,6 +105,62 @@ const CancelButton = styled.button`
   cursor: pointer;
 `;
 
+const PaginationContainer = styled.div`
+  position: absolute; /* 상대적 위치 설정을 위해 */
+  bottom: 0; /* 아래에 정렬 */
+  left: 50%; /* 가운데 정렬을 위해 왼쪽 위치 조정 */
+  transform: translateX(-50%); /* 가운데 정렬을 위해 가로 방향으로 이동 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* 하단 여백 추가 */
+`;
+
+const PaginationButton = styled.button`
+  margin: 5px;
+  background-color: #f2f2f2; // 버튼 배경 색
+  color: #333333; // 글자 색
+  border: none; // 테두리 없애기
+  padding: 5px 10px; // 내부 패딩
+  text-align: center; // 글자 가운데 정렬
+  text-decoration: none; // 밑줄 없애기
+  display: inline-block; // 인라인으로 표시
+  font-size: 16px; // 글자 크기
+  border-radius: 5px; // 테두리 둥글게
+  transition: all 0.5s; // 전체 요소에 대해 0.5초 동안 변화 적용
+  cursor: pointer; // 마우스를 올렸을 때 커서 모양 변경
+
+  &:hover,
+  &:focus {
+    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
+    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
+  }
+
+  &:active {
+    background-color: #4caf50; // 클릭했을 때 배경 색 변경
+    color: white; // 클릭했을 때 글자 색 변경
+  }
+`;
+
+const ProfileContainer = styled.div`
+  flex: 3;
+  margin-left: -10px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+`;
+
+const NoticeContainer = styled.div`
+  display: flex;
+  flex: 0.5;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+`;
+
 const VolLowDiv = () => {
   const urlInfo = getEnv("API_URL");
   const selectVolCard = useSelector((state) => state.adminSelectVol);
@@ -106,7 +169,22 @@ const VolLowDiv = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [relationId, setRelationId] = useState(null);
   const volId = selectVolCard.value[3];
+  const volName = selectVolCard.value[0];
   const dispatch = useDispatch();
+
+  // 페이지네이션 관련 상태
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+
+  // 페이지네이션에 따라 보여줄 리스트
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = childList.slice(indexOfFirstItem, indexOfLastItem);
+
+  // 페이지네이션 버튼 클릭 핸들러
+  const handleClick = (event) => {
+    setCurrentPage(Number(event.target.id));
+  };
 
   console.log(addFriend, "addFreind");
   useEffect(() => {
@@ -118,7 +196,6 @@ const VolLowDiv = () => {
       .catch((err) => {
         console.log(err, "err -> VolLowDiv");
       });
-    // 다른 걸 감시해야함
   }, [volId, addFriend]);
 
   const handleDeleteClick = (relationId) => {
@@ -152,21 +229,37 @@ const VolLowDiv = () => {
   return (
     <>
       <LowerDiv>
-        {childList.map((child, index) => (
-          <LowerProfileCard key={index}>
-            <LowerProfileImage src={ProfileExample} alt="Profile" />
-            <DeleteButton onClick={() => handleDeleteClick(child.relationId)}>
-              X
-            </DeleteButton>
-            <ProfileInfo>
-              Name: {child.childName}
-              <br />
-              Birth: {child.childBirth}
-              <br />
-              Center: {child.childCenterName}
-            </ProfileInfo>
-          </LowerProfileCard>
-        ))}
+        <NoticeContainer>{volName} 봉사자와 연결된 학생들</NoticeContainer>
+        <ProfileContainer>
+          {currentItems.map((child) => (
+            <LowerProfileCard key={child.relationId}>
+              <LowerProfileImage
+                src="./admin_pic/프로필예시.png"
+                alt="Profile"
+              />
+              <DeleteButton onClick={() => handleDeleteClick(child.relationId)}>
+                X
+              </DeleteButton>
+              <ProfileInfo>
+                <ProfileItem>{child.childName}</ProfileItem>
+                <ProfileItem>{child.childBirth}</ProfileItem>
+                <ProfileItem>{child.childCenterName}</ProfileItem>
+              </ProfileInfo>
+            </LowerProfileCard>
+          ))}
+        </ProfileContainer>
+        <PaginationContainer>
+          {Array.from(
+            Array(Math.ceil(childList.length / itemsPerPage)),
+            (e, i) => {
+              return (
+                <PaginationButton key={i} id={i + 1} onClick={handleClick}>
+                  {i + 1}
+                </PaginationButton>
+              );
+            }
+          )}
+        </PaginationContainer>
       </LowerDiv>
       {showDeleteModal && (
         <DeleteModal>

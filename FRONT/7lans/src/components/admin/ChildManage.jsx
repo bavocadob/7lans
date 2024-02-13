@@ -11,7 +11,7 @@ import getEnv from "../../utils/getEnv";
 const StyledChildManage = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 80vh;
   margin-top: 100px;
 `;
 
@@ -22,15 +22,16 @@ const ChildManageContainer = styled.div`
 
 const LeftContainer = styled.div`
   flex: 1;
+  height: 620px;
   background-color: #fde79b;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 `;
 
 const RightContainer = styled.div`
   flex: 2;
+  height: 101%;
   background-color: #fde79b;
   padding: 20px;
   display: flex;
@@ -86,20 +87,22 @@ const ChildCardList = styled.div`
 const ChildCard = styled.div`
   width: 80%;
   height: 160px;
-  background-color: ${(props) =>
-    props.isSelected
-      ? "#ffd700"
-      : "#ffe792"}; // isSelected에서 에러발생 (작동엔 이상 없음)
+  background-color: ${(props) => (props.isSelected ? "#ffd700" : "#ffe792")};
   margin-bottom: 15px;
   margin-left: 40px;
   padding: 15px;
-  border: 2px solid black;
-  border-radius: 10px;
+  border-radius: 20px; /* borderRadius 값을 20px로 변경하여 귀엽고 입체적인 느낌을 줍니다 */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s; /* transform transition 추가 */
+  align-items: center; /* 세로 중앙 정렬 추가 */
 
   &:hover {
     background-color: #ffd700;
+    transform: translateY(
+      -5px
+    ); /* 호버 시 약간 위로 이동하여 입체적인 느낌을 줍니다 */
   }
 `;
 
@@ -169,7 +172,7 @@ const ChildManage = () => {
       <ChildManageContainer>
         <LeftContainer>
           <ChildListContainer>
-            <h2>학생리스트</h2>
+            <h2>아동리스트</h2>
             <SearchContainer>
               <SearchInput
                 type="text"
@@ -186,7 +189,7 @@ const ChildManage = () => {
                   isSelected={index === selectedCard}
                   onClick={() => handleChildClick(Child, index)}
                 >
-                  <h3>{Child[0]} 학생</h3>
+                  <h3>{Child[0]} 아동</h3>
                   <br />
                   <h5>{Child[1]}</h5>
                   <h5>{Child[2]}</h5>
