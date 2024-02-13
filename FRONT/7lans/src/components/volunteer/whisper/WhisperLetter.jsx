@@ -245,7 +245,7 @@ const WhisperLetter = () => {
                 fontSize: "25px",
               }}
             >
-              {message.content}{" "}
+              {message.content}
               <ChatDate>{new Date().toLocaleString()}</ChatDate>
             </div>
 
@@ -269,11 +269,11 @@ const WhisperLetter = () => {
                 position: "absolute",
                 left: "6%",
                 top: "27%",
-                right: "2%",
+                right: "25%",
                 fontSize: "25px",
               }}
             >
-              {message.content}
+              {message.content}kkkkk
             </div>
           </ChatCardChild>
         )
