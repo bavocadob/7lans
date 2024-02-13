@@ -280,7 +280,7 @@ const WhisperLetter = () => {
                 position: "absolute",
                 left: "6%",
                 top: "27%",
-                right: "2%",
+                right: "25%",
                 fontSize: "25px",
               }}
             >
