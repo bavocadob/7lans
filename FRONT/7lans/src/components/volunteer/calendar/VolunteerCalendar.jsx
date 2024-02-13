@@ -21,6 +21,9 @@ import getEnv from "../../../utils/getEnv";
 import { createMeetingSession, getMeetingList } from "./Axioses";
 
 import NextIcon from "../../../images/next_button.png"
+import Album from "../../../images/picture_page/album.png"
+import MeetingOpenIcon from "../../../images/meeting/meeting_open.png"
+
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -231,12 +234,12 @@ const Meeting = ({ meeting, currentMonth, cloneDay, childInfo }) => {
       printTime = childInfo.childName + " " + meeting.time.substring(0, 2) + " : " + meeting.time.substring(3, 5)
     }
     else if(meeting.status == "OPENED"){//열렸다면 환영하는 문구와 프로필 사진
-        thumbnail = getEnv('DEFAULT_THUMBNAIL')
+        thumbnail = MeetingOpenIcon
         printTime = "어서와!"
     }
     else if(meeting.status == "CLOSED"){//지난거라면 썸네일
         lastPic = meeting.thumbnailImgPath != "defaultThumbnailImgPath" 
-                         ? meeting.thumbnailImgPath : getEnv('DEFAULT_THUMBNAIL')
+                         ? meeting.thumbnailImgPath : Album
     }
 
     return (
