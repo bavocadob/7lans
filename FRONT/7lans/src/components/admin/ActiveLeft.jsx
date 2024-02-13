@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import getEnv from "../../utils/getEnv";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { adminSelectAcitve } from "../../store/adminSelectActiveSlice";
 import { adminApproveBtn } from "../../store/adminApproveBtnSlice";
 import { adminNoList } from "../../store/adminNoListSlice";
@@ -12,14 +12,13 @@ const LeftContainer = styled.div`
   height: 90%;
   display: flex;
   flex-direction: column;
-  border-right: solid 5px #edafb8;
 `;
 
 const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 100%;
 `;
 
@@ -32,23 +31,34 @@ const SearchBar = styled.input`
 `;
 
 const ActiveList = styled.div`
-  display: flex;
   flex-direction: column;
-  justify-content: center; /* 수평 가운데 정렬 */
-  align-items: center; /* 수직 가운데 정렬 */
   overflow-y: auto;
-  width: 100%;
+  max-height: 100vh;
+  width: 90%;
   height: 100%;
+  padding: -500px;
+  margin-left: -80px;
+  border-radius: 20px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
 `;
 
 const PostContainer = styled.div`
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 70%;
+  width: 60%;
+  margin-bottom: 15px;
+  margin-left: 200px;
+  padding: 15px;
+  border: 2px solid black;
+  border-radius: 10px;
   cursor: pointer;
+
+  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: #cbf3f0;
@@ -56,6 +66,7 @@ const PostContainer = styled.div`
 
   &.selected {
     background-color: #2ec4b6;
+    animation: none;
   }
 `;
 
@@ -67,12 +78,14 @@ const PostTitle = styled.h4`
 const Info = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 const InfoLabel = styled.p`
   color: #666;
   margin-right: 10px;
   margin-bottom: 5px;
+  min-width: 60px;
 `;
 
 const InfoValue = styled.p`
@@ -85,10 +98,19 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 20px; /* Title과 ToggleBtn 사이 여백 추가 */
 `;
 
 const Title = styled.h1`
   text-align: center;
+  flex: 1; /* Title이 남은 공간을 모두 차지하도록 설정 */
+`;
+
+const ToggleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  margin-bottom: 20px; /* ToggleBtn을 수직 중앙 정렬 */
 `;
 
 const ToggleBtn = styled.input`
@@ -126,12 +148,6 @@ const ToggleBtn = styled.input`
         ? "5px"
         : "calc(100% - 25px)"}; // Adjusted left position when checked to keep the circle indicator inside the button
   }
-`;
-
-const ToggleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const filterPosts = (posts, searchTerm) => {
@@ -224,6 +240,14 @@ const ActiveLeft = () => {
               : "승인이 '필요한' 활동일지 목록"}{" "}
             {isApproval ? <span>&#128035;</span> : <span>&#128036;</span>}
           </Title>
+        </Header>
+        <SearchContainer>
+          <SearchBar
+            type="text"
+            placeholder="봉사자, 학생, 작성날짜으로 검색 가능"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
           <ToggleContainer>
             <ToggleBtn
               type="checkbox"
@@ -231,14 +255,6 @@ const ActiveLeft = () => {
               onChange={toggleApprovalStatus}
             />
           </ToggleContainer>
-        </Header>
-        <SearchContainer>
-          <SearchBar
-            type="text"
-            placeholder="봉사자, 학생, 작성시간으로 검색 가능"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
         </SearchContainer>
         {isApproval ? (
           <ActiveList>
@@ -251,7 +267,7 @@ const ActiveLeft = () => {
                   }
                   className={index === selectedPostIndex ? "selected" : ""}
                 >
-                  <PostTitle>시간: {post.dateInfo}</PostTitle>
+                  <PostTitle>날짜: {post.dateInfo}</PostTitle>
                   <Info>
                     <InfoLabel>봉사자:</InfoLabel>
                     <InfoValue>{post.volunteerName}</InfoValue>

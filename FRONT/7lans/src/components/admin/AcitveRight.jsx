@@ -8,25 +8,28 @@ import { adminAddFriend } from "../../store/adminAddFriendSlice";
 
 const RightContainer = styled.div`
   height: 90%;
-  border-left: solid 5px #edafb8;
   display: flex;
   flex-direction: column;
+  border-radius: 10px; /* 테두리에 귀여운 모양을 주기 위해 */
+  border: 2px solid #ffa5ab; /* 귀여운 트렌디한 색상의 테두리 추가 */
+  padding: 10px; /* 테두리 안의 내용과 여백을 조정 */
 `;
 
 const HeaderItem = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 5px; /* 헤더 아이템 간격을 조정 */
 `;
 
 const Label = styled.span`
   font-weight: bold;
+  margin-right: 10px; /* 라벨과 값 사이의 간격을 조정 */
 `;
 
 const ActiveHeader = styled.div`
   flex: 1;
   padding: 10px;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #ffa5ab; /* 헤더 아이템과 컨텐츠를 구분하는 선의 색상을 변경 */
 `;
 
 const ActiveContent = styled.div`
@@ -38,12 +41,13 @@ const ActiveContent = styled.div`
 const ApproveButton = styled.button`
   background-color: #ff6b81;
   color: white;
-  padding: 10px 20px;
+  padding: 8px 16px; /* 크기 조정 */
   border-radius: 20px;
   border: none;
   cursor: pointer;
   font-size: 1rem;
   margin-top: 20px;
+  align-self: flex-end; /* 오른쪽에 위치 */
 `;
 
 const ModalContainer = styled.div`
