@@ -24,14 +24,15 @@ import ChildWhisperPage from "./pages/child_pages/ChildWhisperPage";
 import ChildRaiseEggPage from "./pages/child_pages/ChildRaiseEggPage";
 import ChildDinosaurDictPage from "./pages/ChildDinosaurDictPage";
 import ChildChoosePicturePage from "./pages/child_pages/ChildChoosePicturePage"
+import ChildVideoChattingPage from "./pages/child_pages/VideoChattingPage.jsx"
 
 import NormalNav from "./components/navs/NormalNav";
 
 
-import VideoChattingPage from "./pages/volunteer_pages/VideoChattingPage";
-import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
-import ChildVideoChattingPage from "./pages/child_pages/ChildVideoChattingPage";
-import ChildGamePage from "./pages/child_pages/ChildGamePage";
+import VolunteerVideoChattingPage from "./pages/volunteer_pages/VideoChattingPage";
+// import VolunteerGamePage from "./pages/volunteer_pages/VolunteerGamePage";
+// import ChildVideoChattingPage from "./pages/child_pages/ChildVideoChattingPage";
+// import ChildGamePage from "./pages/child_pages/ChildGamePage";
 import Register from "./pages/RegisterPage";
 
 import ActivityCalendar from "./components/volunteer/calendar/ActivityCalendar";
@@ -42,7 +43,7 @@ import VolunteerManage from "./components/admin/VolunteerManage";
 import ChildManage from "./components/admin/ChildManage";
 import ActiveManage from "./components/admin/ActiveManage";
 
-import app from "./firebase";
+// import app from "./firebase";
 import Waiting from "./components/volunteer/games/Waitng";
 
 // jwt
@@ -87,8 +88,8 @@ function App() {
         <Route path="/activity_calendar" element={<ActivityCalendar />} />
         <Route path="/volunteer_whispher" element={<WhisperPage />} />
         <Route path="/volunteer_raise_egg" element={<RaiseEggPage />} />
-        <Route path="/volunteer_video_chatting/:meetingId" element={<VideoChattingPage />}/>
-        <Route path="/volunteer_game" element={<VolunteerGamePage />} />
+        <Route path="/volunteer_video_chatting/:meetingId" element={<VolunteerVideoChattingPage />}/>
+        {/* <Route path="/volunteer_game" element={<VolunteerGamePage />} /> */}
         <Route path="/volunteer_calendar" element={<VolunteerCalendar />} />
         <Route path="/volunteer_ChoosePicturePage" element={<ChoosePicturePage />} />
         <Route path="/dinosaur_dict" element={<DinosaurDictPage />} />
@@ -101,8 +102,8 @@ function App() {
         <Route path="/child_video_chatting_start" element={<ChildVideoChattingStartPage />}/>
         <Route path="/child_whispher" element={<ChildWhisperPage />} />
         <Route path="/child_raise_egg" element={<ChildRaiseEggPage />} />
-        <Route path="/child_video_chatting"element={<ChildVideoChattingPage />}/>
-        <Route path="/child_game" element={<ChildGamePage />} />
+        <Route path="/child_video_chatting/:meetingId"element={<ChildVideoChattingPage />}/>
+        {/* <Route path="/child_game" element={<ChildGamePage />} /> */}
         <Route path="/child_choose_picturePage" element={<ChildChoosePicturePage />} />
 
         {/* 관리자 */}

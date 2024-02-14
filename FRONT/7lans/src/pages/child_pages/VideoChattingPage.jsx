@@ -4,7 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import GameNav from '../../components/navs/GameNav';
 import UseOpenViduSession from "../../helpers/useOpenViduSession.jsx";
 import VideoChattingLobby from "./VideoChattingLobby.jsx";
-import VolunteerGamePage from "./VolunteerGamePage.jsx";
+import ChildGamePage from "./ChildGamePage.jsx";
 import VideoChattingExit from "./VideoChattingExit.jsx";
 import {getMeetingDetail} from "../../api/axioses"
 
@@ -18,7 +18,6 @@ const VideoChattingPage = () => {
     mySessionId, setMySessionId
   } = UseOpenViduSession();
 
-  // const [isGameStarted, setGameStarted] = useState(false);
   // TODO 현재 작업중 (네브바 게임 인덱스 원활하게 수정중)
   const [selectedGameIdx, setSelectedGameIdx] = useState(0)
   const [gameChangeable, setGameChangeable] = useState(true)
@@ -29,8 +28,8 @@ const VideoChattingPage = () => {
 
   const [isMyCameraOn, setIsMyCameraOn] = useState(true)
   const [isMyMicOn, setIsMyMicOn] = useState(true)
-  const [isChildCameraOn, setIsChildCameraOn] = useState(true)
-  const [isChildMicOn, setIsChildMicOn] = useState(true)
+  const [isVolunteerCameraOn, setIsVolunteerCameraOn] = useState(true)
+  const [isVolunteerMicOn, setIsVolunteerMicOn] = useState(true)
 
   const [isSessionEnd, setIsSessionEnd] = useState(false);
   const [capturedImages, setCapturedImages] = useState([
@@ -139,7 +138,7 @@ const VideoChattingPage = () => {
     const cameraStatus = signalData.status;
     const signalUser = signalData.userId;
     if (signalUser !== userInfo.memberId && isMyMicOn) {
-      setIsChildCameraOn(cameraStatus);
+      setIsVolunteerCameraOn(cameraStatus);
     }
 
 
@@ -151,7 +150,7 @@ const VideoChattingPage = () => {
     const signalUser = signalData.userId;
 
     if (signalUser !== userInfo.memberId && isMyMicOn) {
-      setIsChildMicOn(micStatus);
+      setIsVolunteerMicOn(micStatus);
     }
   }
 
@@ -203,7 +202,7 @@ const VideoChattingPage = () => {
       <div style={{marginTop: "5.7%", display: 'flex', flexDirection: 'row', gap: '40px' }}>
         {!isSessionEnd ? ( // Change here
           selectedGameIdx > 0
-            ? <VolunteerGamePage
+            ? <ChildGamePage
               renderUserVideoComponent={renderUserVideoComponent}
               mainStreamManager={mainStreamManager}
               subscribers={subscribers}
@@ -212,8 +211,8 @@ const VideoChattingPage = () => {
               toggleMyMic={toggleMyMic}
               isMyCameraOn={isMyCameraOn}
               isMyMicOn={isMyMicOn}
-              isChildCameraOn={isChildCameraOn}
-              isChildMicOn={isChildMicOn}
+              isVolunteerCameraOn={isVolunteerCameraOn}
+              isVolunteerMicOn={isVolunteerMicOn}
               selectedGameIdx={selectedGameIdx}
               setGameChangeable={setGameChangeable}
             />
@@ -225,8 +224,8 @@ const VideoChattingPage = () => {
               toggleMyMic={toggleMyMic}
               isMyCameraOn={isMyCameraOn}
               isMyMicOn={isMyMicOn}
-              isChildCameraOn={isChildCameraOn}
-              isChildMicOn={isChildMicOn}
+              isVolunteerCameraOn={isVolunteerCameraOn}
+              isVolunteerMicOn={isVolunteerMicOn}
               />
         ) : (
             <VideoChattingExit

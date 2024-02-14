@@ -1,203 +1,137 @@
 import React, {useEffect, useState} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addWord } from '../../../store/wordsSlice'
-import { gameChange } from '../../../store/isPlayGameNow'
+import {useDispatch} from 'react-redux'
+import PropTypes from "prop-types";
+import {Session} from "openvidu-browser";
+import Waiting from "./Waiting.jsx";
+import WordsForm from "./WordsForm";
 
-const Words = () => {
-  const [nowWord, setNowWord] = useState('')
-  const word = useSelector((state) => state.words.value)
-  const dispatch = useDispatch()
-  const [word1, setWord1] = useState('')
-  const [word2, setWord2] = useState('')
-  const [word3, setWord3] = useState('')
-  const [word4, setWord4] = useState('')
+const Words = ({
+                 session,
+                 setGameChangeable
+               }) => {
+  // const [nowWord, setNowWord] = useState('')
+  // const word = useSelector((state) => state.words.value)
+
+  const [submittedWord, setSubmittedWord] = useState("")
+
+  const [sentence1, setSentence1] = useState('')
+  const [sentence2, setSentence2] = useState('')
+  const [sentence3, setSentence3] = useState('')
+  const [sentence4, setSentence4] = useState('')
+
 
   useEffect(() => {
-    if (word !== '') {
-      dispatch(gameChange(false))
+    if (submittedWord !== '') {
+      setGameChangeable(false)
+    } else {
+      setGameChangeable(true)
     }
-    else {
-      dispatch(gameChange(true))
-    }
-  }, [word])
+  }, [submittedWord])
 
+
+  // 세션 관련 메소드들
+  // 시그널 송신 메소드
+  /**
+   * 현재 입력된 문장들을 제출하는 함수입니다.
+   * 네 개의 문장이 모두 비어있지 않은 경우, 그 문장들을 배열로 만든 후 세션에 'submitSentences' 타입의 시그널을 보냅니다.
+   * 하나 이상의 문장이 비어있는 경우 경고창을 표시합니다.
+   */
+  const submitSentences = (() => {
+    if (sentence1.trim().length > 0 &&
+      sentence2.trim().length > 0 &&
+      sentence3.trim().length > 0 &&
+      sentence4.trim().length > 0) {
+
+      const inputSentences = [sentence1, sentence2, sentence3, sentence4].map(sentence => sentence.trim());
+
+      session.signal({
+        type: 'submitSentences', data: JSON.stringify(inputSentences),
+      })
+        .then(() => console.log(`문장 제출 : ${inputSentences}`))
+        .catch(err => console.log(err))
+    } else {
+      window.alert('입력 없음')
+    }
+  });
+
+
+  // 시그널 수신 메소드
+  // 단어 제시 수신 메소드
+  /**
+   * 'submitWord' 타입의 시그널을 수신하여 제출된 단어를 상태로 설정하는 함수입니다.
+   * @param {Object} event - submitWord 시그널 이벤트
+   */
+  const receiveWord = ((event) => {
+    const inputWord = event.data;
+    setSubmittedWord(inputWord);
+  })
+
+  /**
+   * 단어와 문장들의 상태를 초기화하는 함수입니다.
+   */
   const reset = () => {
-    dispatch(addWord(''))
-    setNowWord('')
-    setWord1('')
-    setWord2('')
-    setWord3('')
-    setWord4('')
+    setSubmittedWord('')
+    setCurrentInputWord('')
+    setSentence1('')
+    setSentence2('')
+    setSentence3('')
+    setSentence4('')
   }
 
 
-  if (word === '') {
-    return(
-      <div style={{height:'98%',
-                  width: '95%'
-                }}>
-      <div
-        className='shadow'
-        style={{display: 'flex',
-                flexDirection: 'column',
-                border: '5px solid rgb(45, 45, 45)',
-                borderRadius: '20px',
-                // width:'95%'
-                height: '94%',
-                flex: 1,
-                margin: '1.5rem',
-                backgroundColor: 'rgb(255, 250, 233)',
-        }}>
-          
-          <h1 
-          style={{marginTop: '4%', 
-                  fontWeight: 'bolder', 
-                  color: 'rgb(45, 45, 45)', 
-                  textShadow: '2px 2px 2px rgb(255, 215, 3)',
-                  textAlign:'center'
-              }}> 단어를 제시해 주세요.
-          </h1>
-            <div
-              style={{ display: 'flex',
-                      flexWrap: 'wrap',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      backgroundColor: 'rgb(251, 243, 212)',
-                      height: '70%',
-                      width: '80%',
-                      margin: '3%',
-                      marginLeft: '10%',
-                      borderRadius: '20px',
-                      border: '5px solid rgb(45, 45, 45)',
-              }}
-            >
-            <input style={{border: 'none',
-                            height: '100%', 
-                            width: '100%', 
-                            borderRadius: '20px', 
-                            textAlign: 'center', 
-                            fontSize: '100px', 
-                            backgroundColor: 'rgb(251, 243, 212)'}} 
-                            type="text" 
-                    onChange={(e) => setNowWord(e.target.value)} 
-                    value={nowWord} />
-            </div>
-            <button className='shadow' 
-                    style={{width: '150px', 
-                            height:'60px',
-                            alignSelf: 'center', 
-                            fontWeight: 'bolder', 
-                            fontSize: '25px', 
-                            border: 'none', 
-                            borderRadius: '16px', 
-                            backgroundColor: 'rgb(255, 215, 3)',
-                            marginBottom: '20px'
-                           }}
-                    onClick={() => dispatch(addWord(nowWord))}> 제출
-            </button>
-          </div>
-          </div>
-      )
+  /**
+   * 'submitSentences' 타입의 시그널을 수신하여 제출된 문장들을 상태로 설정하는 함수입니다.
+   * 수신된 문장들은 바로 출력되고 리셋함수를 통해 초기화 됩니다.
+   * @param {Object} event - submitSentences 시그널 이벤트
+   */
+  const receiveSentences = (event) => {
+    const sentences = JSON.parse(event.data);
+    console.log(`수신한 문장들 : ${sentences}`);
+
+    // TODO 제출하면 리셋되는게 끝인데 기능 추가가 필요할 수도 있음
+    reset()
+  };
+
+  /**
+   * 컴포넌트가 마운트 될 때 세션에서 'submitWord'와 'submitSentences' 시그널을 리스닝하게 설정하고,
+   * 컴포넌트가 언마운트 될 때 이벤트 리스너를 제거합니다.
+   */
+  useEffect(() => {
+    session.on('signal:submitWord', receiveWord);
+    session.on('signal:submitSentences', receiveSentences);
+
+    return () => {
+      session.off('signal:submitWord', receiveWord);
+      session.off('signal:submitSentences', receiveSentences);
     }
-  else {
-    return(
-      <div style={{ display: 'flex', 
-                    flexDirection: 'column',
-                    width: '100%', 
-                    alignItems: 'center' }}>
-        <h1 style={{ marginTop: '4%', 
-                    fontWeight: 'bolder', 
-                    color: 'rgb(45, 45, 45)', 
-                    textShadow: '2px 2px 2px rgb(255, 215, 3)' }}>
-          "{word}"을 포함한 문장을 만들어 보아요
-        </h1>
-        <div
-          className='shadow'
-          style={{display: 'flex',
-                  flexDirection: 'column',
-                  border: '4px solid rgb(45, 45, 45)',
-                  borderRadius: '20px',
-                  width: '90%',
-                  flex: 1,
-                  margin: '2rem',
-                  // backgroundColor: 'rgb(255, 250, 233)',
-          }}
-        >
-          <div className='shadow'
-            style={{ display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    backgroundColor: 'rgb(251, 243, 212)',
-                    margin: '3%',
-                    marginTop: '40px',
-                    borderRadius: '15px',
-                    // border: '4px solid rgb(45, 45, 45)',
-            }}
-          >
-            <div style={{width: '100%', 
-            height: '100%', 
-            display: 'flex', 
-            flexDirection: 'column',
-            padding: '1rem', 
-            justifyContent: 'center'}}>
-              <input style={{border: '3px solid rgb(45, 45, 45)', 
-                              borderRadius: '10px', 
-                              padding: '5px', 
-                              margin: '0.5rem', 
-                              fontSize: '20px'}} 
-                              type="text" 
-                      placeholder={word1? '': '문장을 완성해 주세요'} 
-                      value={word1} 
-                      onChange={(e) => setWord1(e.target.value)}/>
-              <input style={{border: '3px solid rgb(45, 45, 45)', 
-                              borderRadius: '10px', 
-                              padding: '5px', 
-                              margin: '0.5rem', 
-                              fontSize: '20px'}} 
-                              type="text" 
-                      placeholder={word2? '': '문장을 완성해 주세요'} 
-                      value={word2} 
-                      onChange={(e) => setWord2(e.target.value)}/>
-              <input style={{border: '3px solid rgb(45, 45, 45)', 
-                              borderRadius: '10px', 
-                              padding: '5px', 
-                              margin: '0.5rem', 
-                              fontSize: '20px'}} 
-                              type="text" 
-                      placeholder={word3? '': '문장을 완성해 주세요'}  
-                      value={word3} 
-                      onChange={(e) => setWord3(e.target.value)}/>
-              <input style={{border: '3px solid rgb(45, 45, 45)', 
-                              borderRadius: '10px', 
-                              padding: '5px', 
-                              margin: '0.5rem', 
-                              fontSize: '20px'}} 
-                              type="text" 
-                      placeholder={word4? '': '문장을 완성해 주세요'} 
-                      value={word4} 
-                      onChange={(e) => setWord4(e.target.value)}/>
-            </div>
-          </div>
-          <button className='shadow' 
-                  style={{width: '150px', 
-                          height:'60px',
-                          alignSelf: 'center', 
-                          fontWeight: 'bolder', 
-                          fontSize: '25px', 
-                          border: 'none', 
-                          borderRadius: '16px', 
-                          backgroundColor: 'rgb(255, 215, 3)',
-                          marginBottom: '20px'
-                        }} 
-                  onClick={reset}>제출
-          </button>
-        </div>
-      </div>
+  }, [session]);
+
+
+  if (submittedWord === '') {
+    return (
+      <Waiting
+      />
+    )
+  } else {
+    return (
+      <WordsForm
+        submittedWord={submittedWord}
+        setSentence1={setSentence1}
+        setSentence2={setSentence2}
+        setSentence3={setSentence3}
+        setSentence4={setSentence4}
+        sentence1={sentence1}
+        sentence2={sentence2}
+        sentence3={sentence3}
+        sentence4={sentence4}
+        submitSentences={submitSentences}
+      />
     )
   }
 }
+
+Words.propTypes = {
+  session: PropTypes.instanceOf(Session).isRequired, // session이 Session의 인스턴스인지 확인
+};
 
 export default Words
