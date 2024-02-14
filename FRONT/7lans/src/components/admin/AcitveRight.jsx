@@ -65,20 +65,28 @@ const Modal = styled.div`
 
 const ModalContent = styled.div`
   background-color: white;
-  padding: 40px; /* Increased padding */
-  border-radius: 20px; /* Rounded corners */
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Added box shadow for depth */
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
   font-size: larger;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center content horizontally */
-  justify-content: center; /* Center content vertically */
+  align-items: center;
+  justify-content: center;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
+`;
+
+const NoActiveDocs = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+  margin-top: 150px;
 `;
 
 const ActiveRight = () => {
@@ -173,7 +181,13 @@ const ActiveRight = () => {
   // 승인완료된 리스트가 없는 상태는 일단 보류..
   return (filteredListLen == 0 && !isApproval) ||
     (filteredApproveListLen == 0 && isApproval) ? (
-    <RightContainer>활동일지가 없습니다</RightContainer>
+    <RightContainer>
+      <NoActiveDocs>
+        승인이 필요한
+        <br />
+        활동일지가 없습니다
+      </NoActiveDocs>
+    </RightContainer>
   ) : (
     <RightContainer>
       <ActiveHeader>

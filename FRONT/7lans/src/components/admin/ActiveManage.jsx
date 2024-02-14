@@ -1,7 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import getEnv from "../../utils/getEnv";
-import axios from "axios";
 import NormalNav from "../navs/NormalNav";
 import styled from "styled-components";
 import ActiveLeft from "./ActiveLeft";

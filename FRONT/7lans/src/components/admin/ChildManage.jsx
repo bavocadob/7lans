@@ -190,7 +190,6 @@ const ChildManage = () => {
               {filteredChilds.map((Child, index) => (
                 <ChildCard
                   key={index}
-                  isSelected={index === selectedCard}
                   onClick={() => handleChildClick(Child, index)}
                 >
                   <h3>아동이름 : {Child[0]}</h3>
