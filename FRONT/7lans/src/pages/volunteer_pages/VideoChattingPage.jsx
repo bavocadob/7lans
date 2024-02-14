@@ -18,7 +18,11 @@ const VideoChattingPage = () => {
     mySessionId, setMySessionId
   } = UseOpenViduSession();
 
-  const [isGameStarted, setGameStarted] = useState(false);
+  // const [isGameStarted, setGameStarted] = useState(false);
+  // TODO 현재 작업중 (네브바 게임 인덱스 원활하게 수정중)
+  const [selectedGameIdx, setSelectedGameIdx] = useState(0)
+  const [gameChangeable, setGameChangeable] = useState(true)
+
   const [meetingValid, setMeetingValid] = useState(true)
   const userInfo = useSelector((state) => state.user.value);
   const navigate = useNavigate();
@@ -36,7 +40,6 @@ const VideoChattingPage = () => {
   ]);
 
   const { meetingId } = useParams();
-
 
   // 페이지 로드시 세션 아이디를 미팅 아이디로 연결
   useEffect(() => {
@@ -116,8 +119,6 @@ const VideoChattingPage = () => {
       .catch(err => console.log(err))
   }
 
-
-  // FIXME 테스트용 토글 method 이후 지울 것
   const toggleGameStarted = () => {
     setGameStarted(prevState => !prevState);
   };
@@ -130,7 +131,6 @@ const VideoChattingPage = () => {
       .then(() => console.log(`게임 상태 토글됨`))
       .catch(err => console.log(err))
   }
-
 
   const receiveToggleGameStarted = () => {
     toggleGameStarted();
@@ -188,6 +188,9 @@ const VideoChattingPage = () => {
     }
   }, [session]);
 
+
+  // const [selectedGameIdx, setSelectedGameIdx] = useState(0)
+  // const [gameChangeable, setGameChangeable] = useState(true)
   return (
     <>
       <GameNav
@@ -196,10 +199,13 @@ const VideoChattingPage = () => {
         sessionCreatedAt={sessionCreatedAt}
         session={session}
         capturedImages={capturedImages}
+        setSelectedGameIdx={setSelectedGameIdx}
+        gameChangeable={gameChangeable}
+        setGameChangeable={setGameChangeable}
       />
       <div style={{marginTop: "5.7%", display: 'flex', flexDirection: 'row', gap: '40px' }}>
         {!isSessionEnd ? ( // Change here
-          isGameStarted
+          selectedGameIdx > 0
             ? <VolunteerGamePage
               renderUserVideoComponent={renderUserVideoComponent}
               mainStreamManager={mainStreamManager}
@@ -210,7 +216,10 @@ const VideoChattingPage = () => {
               isMyCameraOn={isMyCameraOn}
               isMyMicOn={isMyMicOn}
               isChildCameraOn={isChildCameraOn}
-              isChildMicOn={isChildMicOn}/>
+              isChildMicOn={isChildMicOn}
+              selectedGameIdx={selectedGameIdx}
+              setGameChangeable={setGameChangeable}
+            />
             : <VideoChattingLobby
               renderUserVideoComponent={renderUserVideoComponent}
               mainStreamManager={mainStreamManager}
@@ -229,16 +238,8 @@ const VideoChattingPage = () => {
           )
 
         }
-
       </div>
-        {/* 게임 상태를 토글하는 버튼 */}
-        {!isSessionEnd && (
-          <button onClick={signalToggleGameStarted}>
-            {isGameStarted ? 'Stop Game' : 'Start Game'}
-          </button>
-        )}
     </>
-
   );
 };
 

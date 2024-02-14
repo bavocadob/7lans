@@ -6,7 +6,10 @@ import {gameChange} from '../../../store/isPlayGameNow'
 import WordsInput from "./WordsInput";
 import WordsForm from "./WordsForm";
 
-const Words = ({session}) => {
+const Words = ({
+                 session,
+                 setGameChangeable
+               }) => {
   // const [nowWord, setNowWord] = useState('')
   // const word = useSelector((state) => state.words.value)
 
@@ -23,15 +26,14 @@ const Words = ({session}) => {
 
   useEffect(() => {
     if (submittedWord !== '') {
-      dispatch(gameChange(false))
+      setGameChangeable(false)
     } else {
-      dispatch(gameChange(true))
+      setGameChangeable(true)
     }
   }, [submittedWord])
 
 
   // 세션 관련 메소드들
-
   // 시그널 송신 메소드
 
   /**
@@ -130,9 +132,6 @@ const Words = ({session}) => {
       session.off('signal:submitSentences', receiveSentences);
     }
   }, [session]);
-
-
-
 
 
   if (submittedWord === '') {

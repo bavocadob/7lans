@@ -39,7 +39,6 @@ const CardFind = ({
 
   const [flippedCard, setFlippedCard] = useState([])
   const [nowCard, setNowCard] = useState([])
-  const [mount, setMount] = useState([])
   const [flipping, setFlipping] = useState(false)
   const [correct, setCorrect] = useState(false)
   const [gameStarted, setGameStarted] = useState(false);
@@ -56,7 +55,7 @@ const CardFind = ({
   // 카드를 선택하여서 nowCard 배열에 선택한 카드를 넣는 함수
   const handleCard = (num) => {
 
-    setNowCard((nowCard) => [...nowCard, num]);
+    setNowCard((prevCards) => [...prevCards, num]);
     console.log(nowCard);
   };
 

@@ -1,8 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { GrGamepad } from "react-icons/gr";
-import { motion } from "framer-motion";
-import GameNav from "../../components/navs/GameNav";
+import {GrGamepad} from "react-icons/gr";
+import {motion} from "framer-motion";
 import Chat from "../../components/volunteer/games/Chatting";
 import Gugudan from "../../components/volunteer/games/Gugudan";
 import Quiz from "../../components/volunteer/games/Quiz";
@@ -10,31 +8,43 @@ import Words from "../../components/volunteer/games/Words";
 import CardFind from "../../components/volunteer/games/CardFind";
 
 const VolunteerGamePage = ({
-    session,
-    renderUserVideoComponent,
-    mainStreamManager,
-    subscribers,
-    toggleMyCamera,
-    toggleMyMic,
-    isMyCameraOn,
-    isMyMicOn,
-    isChildCameraOn,
-    isChildMicOn
-  }) => {
-  const gameSelector = useSelector((state) => state.chooseGame.value);
+                             session,
+                             renderUserVideoComponent,
+                             mainStreamManager,
+                             subscribers,
+                             toggleMyCamera,
+                             toggleMyMic,
+                             isMyCameraOn,
+                             isMyMicOn,
+                             isChildCameraOn,
+                             isChildMicOn,
+                             selectedGameIdx,
+                             setGameChangeable
+                           }) => {
 
   const renderGame = () => {
-    if (gameSelector === 1) {
-      return <Quiz session={session} />;
+    if (selectedGameIdx === 1) {
+      return <Quiz
+        session={session}
+        setGameChangeable={setGameChangeable}
+      />;
     }
-    if (gameSelector === 2) {
-      return <CardFind session={session} />;
+    if (selectedGameIdx === 2) {
+      return <CardFind
+        session={session}
+        setGameChangeable={setGameChangeable}
+      />;
     }
-    if (gameSelector === 3) {
-      return <Gugudan session={session} />;
+    if (selectedGameIdx === 3) {
+      return <Gugudan
+        session={session}
+        setGameChangeable={setGameChangeable}
+      />;
     }
-    if (gameSelector === 4) {
-      return <Words session={session} />;
+    if (selectedGameIdx === 4) {
+      return <Words
+        session={session}
+        setGameChangeable={setGameChangeable}/>;
     }
     return (
       <div
@@ -62,7 +72,7 @@ const VolunteerGamePage = ({
             repeatDelay: 1,
           }}
         >
-          <GrGamepad />
+          <GrGamepad/>
         </motion.div>
       </div>
     );
@@ -71,7 +81,7 @@ const VolunteerGamePage = ({
   return (
     <>
       <div>
-      <Chat
+        <Chat
           renderUserVideoComponent={renderUserVideoComponent}
           mainStreamManager={mainStreamManager}
           subscribers={subscribers}

@@ -9,6 +9,7 @@ import QuizResult from "./QuizResult.jsx";
 
 const Gugudan = ({
                    session,
+                   setGameChangeable
                  }) => {
   const [currDan, setCurrDan] = useState();  // 선택된 현재 단
   const [multipleNum, setMultipleNum] = useState()  // 현재 배수
@@ -19,9 +20,6 @@ const Gugudan = ({
 
   const inputRef = useRef(null)
 
-  const dispatch = useDispatch()
-
-
   /**
    * 주어진 단에 대한 구구단 게임을 시작합니다.
    * @function
@@ -31,7 +29,7 @@ const Gugudan = ({
     setIsGugudanStarted(true)
     setCurrDan(dan);
     setMultipleNum(1)
-    dispatch(gameChange(false))
+    setGameChangeable(false)
   }
 
 
@@ -43,7 +41,7 @@ const Gugudan = ({
     setIsGugudanStarted(false)
     setCurrDan(undefined)
     setIsCorrect(undefined)
-    dispatch(gameChange(true))
+    setGameChangeable(true)
   }
 
 

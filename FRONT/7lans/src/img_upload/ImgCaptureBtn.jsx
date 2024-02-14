@@ -9,12 +9,24 @@ import styled from 'styled-components';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from "prop-types";
+import {Session} from "openvidu-browser";
+import {useParams} from "react-router-dom";
 import {db} from '../firebase';
 import {nextImgNum} from "../store/imgNumSlice";
-import {useParams} from "react-router-dom";
-import {Session} from "openvidu-browser";
 
 
+function ToastContent({url, message}) {
+  return (
+    <div style={{display: 'flex', alignItems: 'center'}}>
+      <img
+        src={url}
+        alt="thumbnail"
+        style={{width: '50px', height: '50px', marginRight: '10px'}}
+      />
+      <p>{message}</p>
+    </div>
+  );
+}
 const customStyles = {
   content: {
     top: '50%',
@@ -40,51 +52,10 @@ const StyledButton = styled.button`
   margin: 0 3rem 0 0;
 `;
 
-const ModalContent = styled.div`
-  position: fixed;
-  top: 30%;
-  left: 45%;
-  width: 620px;
-  height: 400px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  border: solid;
-  background: linear-gradient(
-          160deg,
-          rgba(255, 252, 199, 1) 0%,
-          rgba(255, 232, 102, 1) 100%
-  );
-`;
-
-const ModalButton = styled.button`
-  background: rgb(255, 184, 36);
-  font-size: 17px;
-  font-weight: bold;
-  border: none;
-  border-radius: 50px;
-  height: 40px;
-  width: 100px;
-  margin-left: 16px;
-  text-decoration-line: none;
-  position: relative;
-
-  &:hover {
-    background-color: rgb(0, 164, 25)
-  }
-;
-`;
-
-Modal.setAppElement('#root');
-
-export const ImgCaptureBtn = ({
+const ImgCaptureBtn = ({
                                 setCapturedImages,
                                 session,
-                                capturedImages
                               }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [imgData, setImgData] = useState(null);
 
   const userInfo = useSelector((state) => state.user.value);
   const {meetingId} = useParams();
@@ -104,6 +75,9 @@ export const ImgCaptureBtn = ({
   const receviceAddImageSignal = (event) => {
     const {imageUrl} = JSON.parse(event.data);
     setCapturedImages(prevImages => [...prevImages, imageUrl]);  // URL 추가
+    toast(<ToastContent url={imageUrl} message="📷 사진이 저장되었습니다." />, {
+      position : "bottom-right"
+    })
   }
 
 
@@ -120,17 +94,9 @@ export const ImgCaptureBtn = ({
     }
   }, [session]);
 
-  
-  const captureScreen = () => {
-    html2canvas(document.body).then((canvas) => {
-      const data = canvas.toDataURL();
-      setImgData(data);
-      setIsOpen(true);
-    });
-  };
 
-  const handleUploadImage = async () => {
-    setIsOpen(false);
+
+  const handleUploadImage = async (imgData) => {
     dispatch(nextImgNum());
 
     // Create the file metadata
@@ -142,6 +108,12 @@ export const ImgCaptureBtn = ({
     const storageRef = strRef(storage, `meeting_image/${meetingId}/${userInfo.memberId}/${imgNum}`);
     const imageFile = dataURLtoFile(imgData, 'capture.png');
     const uploadTask = uploadBytesResumable(storageRef, imageFile, metadata);
+
+    const toastTest = () => {
+      toast.success('사진이 저장되었습니다.', {
+        position: "bottom-right"
+      })
+    }
 
     // Listen for state changes, errors, and completion of the upload
     uploadTask.on('state_changed',
@@ -179,7 +151,6 @@ export const ImgCaptureBtn = ({
           // downloadURL에 이미지 경로 들어옴
 
           addImageSignal(downloadURL)
-          toastTest()
           // Update database with the download URL
           update(dbRef(db, `users/${meetingId}/${userInfo.memberId}/${imgNum}`), {image: downloadURL});
         });
@@ -187,8 +158,12 @@ export const ImgCaptureBtn = ({
     );
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
+  const captureScreen = () => {
+    html2canvas(document.body).then((canvas) => {
+      const data = canvas.toDataURL();
+      handleUploadImage(data)
+
+    });
   };
 
   const dataURLtoFile = (dataurl, filename) => {
@@ -200,28 +175,11 @@ export const ImgCaptureBtn = ({
     return new File([u8arr], filename, {type: mime});
   }
 
-  const toastTest = () => {
-    toast.success('사진이 저장되었습니다.', {
-      position: "bottom-right"
-    })
-  }
+
 
   return (
     <div>
       <StyledButton onClick={captureScreen}> 캡쳐 <TbCaptureFilled/></StyledButton>
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <img src={imgData} alt="screen capture" style={{width: '100%', height: 'auto'}}/>
-          <div>
-            <ModalButton onClick={handleUploadImage}> 사진저장</ModalButton>
-            <ModalButton onClick={closeModal}>저장취소</ModalButton>
-          </div>
-        </div>
-      </Modal>
       <ToastContainer
       />
     </div>

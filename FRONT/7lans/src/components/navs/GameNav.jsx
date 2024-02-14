@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {motion} from "framer-motion";
-import {changeGame} from "../../store/chooseGameSlice";
 
-import Logo from "../../images/7lans_logo.png";
+import {toast} from 'react-toastify';
 import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn";
-import VideoCloseBtn from "../../images/Close_video_chat.png"
+import Logo from "../../images/7lans_logo.png";
+
+ 
 
 const NavBar = styled.nav`
   position: fixed;
@@ -52,10 +52,12 @@ const GameNav = ({
                    setCapturedImages,
                    sessionCreatedAt,
                    session,
-                   capturedImages
+                   capturedImages,
+                   setSelectedGameIdx,
+                   gameChangeable,
+                   setGameChangeable
                  }) => {
-  const gameChange = useSelector((state) => state.isPlayGameNow.value);
-  const dispatch = useDispatch();
+
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
@@ -73,11 +75,46 @@ const GameNav = ({
   }:${
     (`0${elapsedSeconds % 60}`).slice(-2)}`;
 
-  const goToOtherGame = (num) => {
-    if (gameChange === true) {
-      dispatch(changeGame(num));
+
+
+  const changeGameIdxSignal = (gameIdx) => {
+    session.signal({
+      type: 'changeGame',
+      data: gameIdx,
+    })
+      .then(() => console.log(`${gameIdx}번 게임으로 전환`))
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const goToOtherGame = (gameIdx) => {
+    if (gameChangeable === true) {
+      changeGameIdxSignal(gameIdx)
+    } else {
+      toast.warn('게임중에는 게임을 변경할 수 없어요', {
+        position: "bottom-right"
+      })
     }
   };
+
+  const receiveChangeGame = (event) => {
+    const gameIdx = parseInt(event.data)
+    setSelectedGameIdx(gameIdx);
+  }
+
+
+  useEffect(() => {
+    if (session) {
+      session.on('signal:changeGame', receiveChangeGame)
+    }
+    return () => {
+      if (session) {
+        session.off('signal:changeGame', receiveChangeGame);
+      }
+    }
+  }, [session]);
+
 
   return (
     <NavBar className="shadow">

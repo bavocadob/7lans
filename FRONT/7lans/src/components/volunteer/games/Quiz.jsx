@@ -12,7 +12,8 @@ import QuizProblemSetup from "./QuizProblemSetup.jsx";
 // import * as tmPose from '@teachablemachine/pose';
 
 const Quiz = ({
-                session
+                session,
+                setGameChangeable
               }) => {
   const userInfo = useSelector((state) => state.user.value)
   const [ans, setAns] = useState('')
@@ -22,14 +23,9 @@ const Quiz = ({
   const [model, setModel] = useState(null);
   const [webcam, setWebcam] = useState(null);
 
-
-  const dispatch = useDispatch()
-
-
   useEffect(() => {
     if (ansCorrect !== '') {
       const timeoutId = setTimeout(() => {
-        dispatch(addProblem('none'))
         setAns('')
         setProblem('')
         setAnsCorrect('')
@@ -82,8 +78,7 @@ const Quiz = ({
   const changeProblem = (submittedData) => {
     setProblem(submittedData.problem);
     setAns(submittedData.answer);
-    // dispatch(addProblem(giveProblem));
-    dispatch(gameChange(false));
+    setGameChangeable(false)
   }
 
   // 문제 만들기 수신
@@ -97,7 +92,7 @@ const Quiz = ({
   const receiveAns = ((event) => {
     const submittedAns = event.data;
     setAnsCorrect(submittedAns);
-    dispatch(gameChange(true));
+    setGameChangeable(true)
   })
 
   useEffect(() => {
@@ -192,7 +187,6 @@ const Quiz = ({
       <QuizProblemDisplay
         submitAnswer={submitAnswer}
         setAnsCorrect={setAnsCorrect}
-        dispatch={dispatch}
         problem={problem}
         gameChange={gameChange}
       />

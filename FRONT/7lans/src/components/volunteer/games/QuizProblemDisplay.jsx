@@ -84,7 +84,6 @@ function QuizProblemDisplay({submitAnswer, setAnsCorrect, dispatch, gameChange, 
                 <ButtonDiv>
                     <StyledButton onClick={() => {
                         submitAnswer('O');
-                        dispatch(gameChange(true))
                     }}>
                         O
                     </StyledButton>
@@ -92,7 +91,6 @@ function QuizProblemDisplay({submitAnswer, setAnsCorrect, dispatch, gameChange, 
                 <ButtonDiv>
                     <StyledButton onClick={() => {
                         submitAnswer('X');
-                        dispatch(gameChange(true))
                     }}>
                         X
                     </StyledButton>
