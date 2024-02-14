@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import getEnv from "../../utils/getEnv.jsx";
 
 const Wrong = () => {
     const userDino = useSelector((state) => state.dino.value)

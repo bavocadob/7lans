@@ -116,7 +116,6 @@ const DinosaurSidePanel = () => {
   const userInfo = useSelector((state) => state.user.value)
   const urlInfo = getEnv('API_URL');
  
-  const userProfile = useSelector((state) => state.userProfile.value)
   const ref = useRef(null)
   const dispatch = useDispatch()
   const handleOpenImage = () => {
@@ -212,7 +211,7 @@ const DinosaurSidePanel = () => {
           <InnerContainer>
           <div>
             <CloseButton onClick={() => setSidePanelStatus(false)}>{"<<"}</CloseButton>
-            <ProfileImage src={`${userProfile}`} alt="" />
+            <ProfileImage src={userInfo.profileImgPath} alt="" />
           </div>
           <div onClick={handleOpenImage} style={{color: 'rgb(45,45,45)', fontSize: '16px', display:'flex', alignItems: 'flex-end', gap: '13px' }}> 
             <StyledFaEdit/> 

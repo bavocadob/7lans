@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import getEnv from '../../../utils/getEnv';
+
 const cardNum = Array.from({ length: 16 }, (_, index) => index + 1);
 const CardFind = () => {
     

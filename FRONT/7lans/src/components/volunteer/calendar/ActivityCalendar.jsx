@@ -138,13 +138,13 @@ const Activity = ({activityLog, currentMonth, cloneDay}) => {
             let thumbnail = ""
             //제출 완료
             if(activityLog.approveStatus){
-                thumbnail = getEnv('APPROVE')
+                thumbnail = Approve
             }
             else if(activityLog.writeDoneStatus){
-                thumbnail = getEnv('SUBMIT')
+                thumbnail = WhileApproving
             }
             else{
-                thumbnail = getEnv('PREVIOUS_SUBMIT')
+                thumbnail = PreSubmit
             }
             return (
                 <div>

@@ -1,5 +1,4 @@
 import React from 'react'
-import PostIt from '../post_it/PostIt'
 import styled from 'styled-components'
 import Spinner from '../../../images/loading.gif';
 

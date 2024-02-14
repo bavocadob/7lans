@@ -12,7 +12,7 @@ const UseOpenViduSession = () => {
   const userInfo = useSelector((state) => state.user.value)
 
   // TODO 세션 ID props에서 받아서 수정
-  const [mySessionId, setMySessionId] = useState('15552030');
+  const [mySessionId, setMySessionId] = useState('mytestsession');
   const [myUserName, setMyUserName] = useState(
     userInfo.memberType === 'VOLUNTEER' ? `${userInfo.volunteerName} 봉사자` : `${userInfo.childName} 학생`
   );
@@ -22,6 +22,7 @@ const UseOpenViduSession = () => {
   const [publisher, setPublisher] = useState(undefined);
   const [subscribers, setSubscribers] = useState([]);
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
+  const [sessionCreatedAt, setSessionCreatedAt] = useState()
 
 
   const OV = useRef();
@@ -101,6 +102,10 @@ const UseOpenViduSession = () => {
     } else {
       console.log(`${sessionId} session already exists.`);
     }
+
+    const dateObject = new Date(tempSession.createdAt);
+    setSessionCreatedAt(dateObject)
+
     return tempSession;
   };
 
@@ -194,9 +199,10 @@ const UseOpenViduSession = () => {
 
   return {
     session, mainStreamManager,
-    subscribers, joinSession,
-    renderUserVideoComponent, toggleCamera,
-    toggleMic
+    subscribers, sessionCreatedAt,
+    joinSession, renderUserVideoComponent,
+    toggleCamera, toggleMic,
+
   };
 }
 
