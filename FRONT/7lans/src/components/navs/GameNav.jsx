@@ -50,7 +50,9 @@ const CloseImg = styled.img`
 const GameNav = ({
                    exitSessionSignal,
                    setCapturedImages,
-                   sessionCreatedAt
+                   sessionCreatedAt,
+                   session,
+                   capturedImages
                  }) => {
   const gameChange = useSelector((state) => state.isPlayGameNow.value);
   const dispatch = useDispatch();
@@ -259,6 +261,8 @@ const GameNav = ({
         >
           <ImgCaptureBtn
             setCapturedImages={setCapturedImages}
+            session={session}
+            capturedImages={capturedImages}
           />
         </motion.a>
 
