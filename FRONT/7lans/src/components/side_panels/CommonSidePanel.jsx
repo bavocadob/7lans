@@ -131,11 +131,7 @@ const ChildCard = styled.div`
 `;
 
 const Button = styled.button`
-  background: linear-gradient(
-    270deg,
-    rgba(255, 184, 36, 1),
-    rgba(255, 237, 140, 1)
-  );
+  background: rgba(255, 237, 140, 1);
   font-size: 17px;
   font-weight: bold;
   border: none;
@@ -143,9 +139,11 @@ const Button = styled.button`
   height: 40px;
   width: 100px;
   margin-left: 160px;
-  color: white;
   text-decoration-line: none;
   position: relative;
+  border: 2px solid rgb(240, 165, 8, 0.7);
+  &:hover {
+    background-color: rgb(255, 215, 3)};
 `;
 
 const CommonSidePanel = () => {
