@@ -123,13 +123,15 @@ const ChildRaiseEggPage = () => {
 
   useEffect(() => {
     const egg = async () => {
-      try {
-        const res = await axios.get(`${urlInfo}/egg/${volInfo.relationId}`);
-        console.log(res.data);
-        // eggInfo.current = res.data
-        setEggInfo(res.data);
-      } catch (err) {
-        console.error(err);
+      if(volInfo.relationId){
+        try {
+          const res = await axios.get(`${urlInfo}/egg/${volInfo.relationId}`);
+          console.log(res.data);
+          // eggInfo.current = res.data
+          setEggInfo(res.data);
+        } catch (err) {
+          console.error(err);
+        }
       }
     }
     egg()
