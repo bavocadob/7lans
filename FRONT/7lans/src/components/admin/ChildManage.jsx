@@ -87,22 +87,24 @@ const ChildCardList = styled.div`
 const ChildCard = styled.div`
   width: 80%;
   height: 160px;
-  background-color: ${(props) => (props.isSelected ? "#ffd700" : "#ffe792")};
   margin-bottom: 15px;
+  background-color: #ffe792;
   margin-left: 40px;
   padding: 15px;
-  border-radius: 20px; /* borderRadius 값을 20px로 변경하여 귀엽고 입체적인 느낌을 줍니다 */
+  border-radius: 20px;
   cursor: pointer;
   transition:
     background-color 0.3s ease,
-    transform 0.3s; /* transform transition 추가 */
-  align-items: center; /* 세로 중앙 정렬 추가 */
+    transform 0.3s;
+  align-items: center;
 
   &:hover {
     background-color: #ffd700;
-    transform: translateY(
-      -5px
-    ); /* 호버 시 약간 위로 이동하여 입체적인 느낌을 줍니다 */
+    transform: translateY(-5px);
+  }
+  &.selected {
+    background-color: #ffd700;
+    animation: none;
   }
 `;
 

@@ -249,6 +249,10 @@ const VolLowDiv = () => {
     setShowDeleteModal(false);
   };
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [volId]);
+
   return (
     <>
       <LowerDiv>

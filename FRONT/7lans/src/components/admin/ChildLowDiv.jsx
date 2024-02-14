@@ -14,9 +14,9 @@ const LowerDiv = styled.div`
   border: solid 3px black;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* 내부 요소 수직 가운데 정렬 */
-  align-items: center; /* 내부 요소 수평 가운데 정렬 */
-  position: relative; /* PaginationContainer의 위치를 상대적으로 설정하기 위해 */
+  justify-content: center;
+  align-items: center;
+  position: relative;
 `;
 
 const LowerProfileImage = styled.img`
@@ -66,10 +66,10 @@ const DeleteButton = styled.button`
   width: 25px;
   height: 25px;
   cursor: pointer;
-  transition: transform 0.3s ease; /* 애니메이션 효과 추가 */
+  transition: transform 0.3s ease;
 
   &:hover {
-    transform: scale(1.2); /* 호버 시 크기 조절 */
+    transform: scale(1.2);
   }
 `;
 
@@ -124,39 +124,39 @@ const CancelButton = styled.button`
 `;
 
 const PaginationContainer = styled.div`
-  position: absolute; /* 상대적 위치 설정을 위해 */
-  bottom: 0; /* 아래에 정렬 */
-  left: 50%; /* 가운데 정렬을 위해 왼쪽 위치 조정 */
-  transform: translateX(-50%); /* 가운데 정렬을 위해 가로 방향으로 이동 */
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; /* 하단 여백 추가 */
+  margin-top: 20px;
 `;
 
 const PaginationButton = styled.button`
   margin: 5px;
-  background-color: #f2f2f2; // 버튼 배경 색
-  color: #333333; // 글자 색
-  border: none; // 테두리 없애기
-  padding: 5px 10px; // 내부 패딩
-  text-align: center; // 글자 가운데 정렬
-  text-decoration: none; // 밑줄 없애기
-  display: inline-block; // 인라인으로 표시
-  font-size: 16px; // 글자 크기
-  border-radius: 5px; // 테두리 둥글게
-  transition: all 0.5s; // 전체 요소에 대해 0.5초 동안 변화 적용
-  cursor: pointer; // 마우스를 올렸을 때 커서 모양 변경
+  background-color: #f2f2f2;
+  color: #333333;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
 
   &:hover,
   &:focus {
-    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
-    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
+    background-color: #4caf50;
+    color: #ffffff;
   }
 
   &:active {
-    background-color: #4caf50; // 클릭했을 때 배경 색 변경
-    color: white; // 클릭했을 때 글자 색 변경
+    background-color: #4caf50;
+    color: white;
   }
 `;
 
@@ -192,15 +192,15 @@ const ChildLowDiv = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
-  // 페이지네이션에 따라 보여줄 리스트
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = childVolList.slice(indexOfFirstItem, indexOfLastItem);
-
   // 페이지네이션 버튼 클릭 핸들러
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
+
+  // 페이지네이션에 따라 보여줄 리스트
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = childVolList.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     if (childId) {
@@ -241,12 +241,16 @@ const ChildLowDiv = () => {
     setShowDeleteModal(false);
   };
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [childId]);
+
   return (
     <>
       <LowerDiv>
         <NoticeContainer>{childName} 아동과 연결된 봉사자들</NoticeContainer>
         <ProfileContainer>
-          {childVolList.map((vol, index) => (
+          {currentItems.map((vol, index) => (
             <LowerProfileCard key={index}>
               <LowerProfileImage src={ProfileExample} alt="Profile" />
               <DeleteButton onClick={() => handleDeleteClick(vol.relationId)}>
@@ -264,7 +268,16 @@ const ChildLowDiv = () => {
             Array(Math.ceil(childVolList.length / itemsPerPage)),
             (e, i) => {
               return (
-                <PaginationButton key={i} id={i + 1} onClick={handleClick}>
+                <PaginationButton
+                  key={i}
+                  id={i + 1}
+                  onClick={handleClick}
+                  style={{
+                    backgroundColor:
+                      currentPage === i + 1 ? "#4caf50" : "#f2f2f2",
+                    color: currentPage === i + 1 ? "#ffffff" : "#333333",
+                  }}
+                >
                   {i + 1}
                 </PaginationButton>
               );

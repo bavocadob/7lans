@@ -87,7 +87,7 @@ const VolunteerCardList = styled.div`
 const VolunteerCard = styled.div`
   width: 80%;
   height: 160px;
-  background-color: ${(props) => (props.isSelected ? "#ffd700" : "#ffe792")};
+  background-color: #ffe792;
   margin-bottom: 15px;
   margin-left: 40px;
   padding: 15px;
@@ -103,6 +103,11 @@ const VolunteerCard = styled.div`
     transform: translateY(
       -5px
     ); /* 호버 시 약간 위로 이동하여 입체적인 느낌을 줍니다 */
+  }
+
+  &.selected {
+    background-color: #ffd700;
+    animation: none;
   }
 `;
 
