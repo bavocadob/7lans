@@ -198,7 +198,14 @@ const Picture = () => {
 
   console.log(images.length);
   return (
-    <div>
+    <div style={{
+      overflowY: 'auto',
+      flex: 1,
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'center',
+      }}>
       {images.length > 0 &&
         images.map((element) => (
           <Images

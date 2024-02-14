@@ -23,9 +23,10 @@ const LogoImage = styled.img`
 
 const ChildInfo = styled.div`
   display: flex;
-  font-size: 40px;
-  padding-top: 20px;
-  padding-left: 18%;
+  font-size: 35px;
+  padding-top: 25px;
+  padding-left: 20%;
+  width: 100%
 `
 
 
