@@ -19,7 +19,9 @@ public class CorsConfig {
 
         // 실제 서버 배포용으로 사용할 CORS 설정
         // config.setAllowedOriginPatterns(Arrays.asList("https://i10e103.p.ssafy.io/");
-        config.setAllowedOriginPatterns(Arrays.asList("https://i10e103.p.ssafy.io/"));
+
+        // 테스트 용도로 CORS 개방
+        config.setAllowedOriginPatterns(Arrays.asList("*"));
         config.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
