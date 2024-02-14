@@ -263,7 +263,7 @@ const GameNav = ({
 
         <div style={{display: "flex", marginTop: "12px", marginRight: "0"}}>
           <CloseImg
-            src="./Close_video_chat.png"
+            src="/Close_video_chat.png"
             onClick={exitSessionSignal}
           />
         </div>

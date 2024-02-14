@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux"
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import GameNav from '../../components/navs/GameNav';
 import UseOpenViduSession from "../../helpers/useOpenViduSession.jsx";
 import VideoChattingLobby from "./VideoChattingLobby.jsx";
@@ -34,7 +34,7 @@ const VideoChattingPage = () => {
     'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84'
   ]);
 
-  const MEETING_ID = 39;
+  const { meetingId } = useParams();
 
 
   // 페이지 로드시 세션 생성
@@ -63,7 +63,7 @@ const VideoChattingPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (userInfo !== null) {
-        const meetingData = await getMeetingDetail(MEETING_ID);
+        const meetingData = await getMeetingDetail(meetingId);
         console.log(meetingData)
         if (meetingData.childId !== userInfo.memberId &&
           meetingData.volunteerId !== userInfo.memberId) {

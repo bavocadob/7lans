@@ -28,7 +28,7 @@ const MainContainer = styled.div`
   border: 4px solid rgb(45, 45, 45);
   border-radius: 20px;
   width: 90%;
-  height: calc(100vh - 100px - 50px);
+  height: calc(100vh - 100px - 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,7 +36,7 @@ const MainContainer = styled.div`
   padding: 20px;
   box-sizing: border-box;
   overflow: auto;
-  margin: 50px auto 0;
+  margin: 150px auto 0;
 `;
 
 // 이미지를 담는 컨테이너 스타일링
