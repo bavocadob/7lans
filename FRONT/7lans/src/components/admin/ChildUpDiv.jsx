@@ -165,15 +165,17 @@ function ChildUpDiv() {
 
   // 아동상세조회
   useEffect(() => {
-    axios
-      .get(`${urlInfo}/child/${childId}`)
-      .then((res) => {
-        console.log(res.data, "childUpdiv 아동상세조회");
-        setChildSpecialNote(res.data.childSpecialContent);
-      })
-      .catch((err) => {
-        console.log(err, "err->ChildUpDiv");
-      });
+    if (childId) {
+      axios
+        .get(`${urlInfo}/child/${childId}`)
+        .then((res) => {
+          console.log(res.data, "childUpdiv 아동상세조회");
+          setChildSpecialNote(res.data.childSpecialContent);
+        })
+        .catch((err) => {
+          console.log(err, "err->ChildUpDiv");
+        });
+    }
   }, [selectChildCard]);
 
   return (

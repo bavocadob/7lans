@@ -211,6 +211,7 @@ function VolUpDiv() {
           childId: element.childId,
         }));
         setChildList(arr);
+        dispatch(adminDeleteFriend(false));
       })
       .catch((err) => {
         console.error(err, "err -> VolUpDiv");
@@ -242,7 +243,6 @@ function VolUpDiv() {
           prevChildList.filter((child) => child.childId !== childId)
         );
         dispatch(adminAddFriend(true));
-        dispatch(adminDeleteFriend(false));
       })
       .catch((err) => {
         console.error(err, "친구맺기 오류 -> VolUpDiv");

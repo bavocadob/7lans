@@ -112,16 +112,18 @@ const ActiveRight = () => {
 
   // 값에 제목도 추가하기 ->
   const fecthActives = async () => {
-    try {
-      const res = await axios.post(`${urlInfo}/activityLog/manager/detail`, {
-        relationId: relationId,
-        activityLogId: activityId,
-      });
-      console.log(res.data, "활동일지 상세보기");
-      setActiveLog(res.data);
-      dispatch(adminAddFriend(true));
-    } catch (err) {
-      console.error("err ActiveRight activity detail", err);
+    if (relationId && activityId) {
+      try {
+        const res = await axios.post(`${urlInfo}/activityLog/manager/detail`, {
+          relationId: relationId,
+          activityLogId: activityId,
+        });
+        console.log(res.data, "활동일지 상세보기");
+        setActiveLog(res.data);
+        dispatch(adminAddFriend(true));
+      } catch (err) {
+        console.error("err ActiveRight activity detail", err);
+      }
     }
   };
 

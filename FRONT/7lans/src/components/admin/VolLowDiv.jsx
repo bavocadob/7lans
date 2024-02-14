@@ -206,16 +206,20 @@ const VolLowDiv = () => {
     setCurrentPage(Number(event.target.id));
   };
 
-  console.log(addFriend, "addFreind");
+  // console.log(addFriend, "addFreind");
   useEffect(() => {
-    axios
-      .get(`${urlInfo}/child/listByVolunteer/${volId}`)
-      .then((res) => {
-        setChildList(res.data);
-      })
-      .catch((err) => {
-        console.log(err, "err -> VolLowDiv");
-      });
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${urlInfo}/child/listByVolunteer/${volId}`
+        );
+        setChildList(response.data);
+      } catch (error) {
+        console.log(error, "err -> VolLowDiv");
+      }
+    };
+    dispatch(adminAddFriend(false));
+    fetchData();
   }, [volId, addFriend]);
 
   const handleDeleteClick = (relationId) => {
@@ -233,7 +237,6 @@ const VolLowDiv = () => {
         setChildList((prevChildList) =>
           prevChildList.filter((child) => child.relationId !== relationId)
         );
-        dispatch(adminAddFriend(false));
         dispatch(adminDeleteFriend(true));
       })
       .catch((err) => {

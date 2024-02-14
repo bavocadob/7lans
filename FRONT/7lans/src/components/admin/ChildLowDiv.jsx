@@ -203,14 +203,16 @@ const ChildLowDiv = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${urlInfo}/volunteer/listByChild/${childId}`)
-      .then((res) => {
-        setChildVolList(res.data);
-      })
-      .catch((err) => {
-        console.log(err, "err -> ChildLowDiv");
-      });
+    if (childId) {
+      axios
+        .get(`${urlInfo}/volunteer/listByChild/${childId}`)
+        .then((res) => {
+          setChildVolList(res.data);
+        })
+        .catch((err) => {
+          console.log(err, "err -> ChildLowDiv");
+        });
+    }
   }, [childId]);
 
   const handleDeleteClick = (relationId) => {
