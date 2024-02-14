@@ -11,6 +11,7 @@ import { changeDino } from '../store/dinoSlice';
 import getEnv from "../utils/getEnv";
 
 import Logo from "../images/7lans_logo.png";
+import setAuthorizationToken from '../utils/setAuthorizationToken';
 
 const Container = styled.div`
   height: 93vh;
@@ -157,6 +158,9 @@ const LoginPage = () => {
         memberEmail,
         memberPassword
       });
+      const token = res.data.token;
+      localStorage.setItem('jwtToken', token);
+      setAuthorizationToken(token);
       const representDino = async (id) => {
         try {
           const res = await axios.get(`${urlInfo}/dinosaurs/myDinosaur/${id}`)

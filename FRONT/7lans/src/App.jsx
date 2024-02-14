@@ -45,6 +45,10 @@ import ActiveManage from "./components/admin/ActiveManage";
 import app from "./firebase";
 import Waiting from "./components/volunteer/games/Waitng";
 
+// jwt
+import setAuthorizationToken from "./utils/setAuthorizationToken";
+
+
 ReactModal.setAppElement('#root');
 
 
@@ -59,6 +63,8 @@ const NormalLayout = () => {
     </>
   );
 };
+
+setAuthorizationToken(localStorage.jwtToken);
 
 // prettier-ignore
 function App() {
