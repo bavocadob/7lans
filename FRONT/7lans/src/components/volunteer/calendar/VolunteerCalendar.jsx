@@ -53,6 +53,7 @@ const ModalContent = styled.div`
   flex-direction: column; /* Vertical
   justify-content: center; /* 가로 가운데 정렬 */
   align-items: center;
+  justify-content: center;
   text-align: center;
 `;
 
@@ -72,6 +73,7 @@ const CuteButton = styled.button`
   margin-left: 16px;
   text-decoration-line: none;
   position: relative;
+  border: 2px solid black;
   &:hover {
     background-color: #ffd703};
 `;
@@ -391,9 +393,11 @@ const VolunteerCalendar = () => {
       {isMeetingCreateModalOpen && (
         <ModalOverlay open={isMeetingCreateModalOpen} onClick={closeModal}>
         <ModalContent>
-          <p>미팅 세션을 오픈할까요?</p>
-          <CuteButton onClick={closeModal}>취소하기</CuteButton>
-          <CuteButton onClick={openMeeting}>생성하기</CuteButton>
+          <h3 style={{paddingBottom: '1rem'}}>미팅 세션을 오픈할까요?</h3>
+          <div style={{display: 'flex'}}>
+            <CuteButton onClick={closeModal}>취소하기</CuteButton>
+            <CuteButton onClick={openMeeting}>생성하기</CuteButton>
+          </div>
         </ModalContent>
       </ModalOverlay>
       )}

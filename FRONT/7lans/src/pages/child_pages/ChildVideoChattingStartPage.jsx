@@ -14,10 +14,10 @@ const RightSide = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-content: center;
   border-radius: 0 20px 20px 0;
-  background-color: rgb(255,255,255);
+  background-color: rgb(255,255,255, 0.9);
 `
 
 const ChildVideoChattingStartPage = () => {
@@ -28,6 +28,7 @@ const ChildVideoChattingStartPage = () => {
   console.log(volInfo)
 
 const TextandimageBox = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -36,11 +37,12 @@ const TextandimageBox = styled.div`
 `
 
 const NoChild = styled.div`
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  align-items : center;
-  font-size : 40px;
-  margin-top: 5%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
 `
 
   return (
