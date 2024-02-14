@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
 import {OpenVidu} from "openvidu-browser";
 import UserVideoComponent from "../components/openvidu/UserVideoComponent.jsx";
@@ -25,12 +25,35 @@ const UseOpenViduSession = () => {
   const [sessionCreatedAt, setSessionCreatedAt] = useState()
 
 
+  // 가끔씩 금방 사라진 세션이 subscribers에 구독이 되는 경우가 있는데 그런 경우를 방지하기 위해 실제 존재하는 커넥션만 구독
+  useEffect(() => {
+    const clearSubscribers = async () => {
+      if (subscribers.length > 0) {
+        const newSubscribers = [];
+        for (const subscriber of subscribers) {
+          const { connectionId } = subscriber.stream.connection;
+          const connectionData = await getConnection(connectionId);
+
+          if (connectionData) {
+            newSubscribers.push(subscriber);
+          }
+        }
+        if (subscribers.length !== newSubscribers.length) {
+          setSubscribers(newSubscribers);
+        }
+      }
+    }
+    setTimeout(clearSubscribers, 1500);
+  }, [subscribers]);
+
+
   const OV = useRef();
 
   const handleMainVideoStream = (stream) => {
     if (mainStreamManager !== stream) {
       setMainStreamManager(stream);
     }
+
   }
 
   // 사용자 화상 화면 렌더링
@@ -68,6 +91,24 @@ const UseOpenViduSession = () => {
     }
   };
 
+  const getConnection = async (connectionId) => {
+    try {
+      const response = await axios.get(`${APPLICATION_SERVER_URL}api/sessions/${mySessionId}/connection/${connectionId}`, {
+        headers: {
+          'Authorization': `Basic ${btoa(`OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`)}`,
+        },
+      });
+      console.log('커넥션 테스트')
+      console.log(response)
+      return response; // If the request succeeds, then return session object
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        return null; // If the server responds with a 404 error, then the session does not exist
+      }
+      throw error; // For any other type of error, rethrow it
+    }
+  }
+
 
   // 이미 세션이 존재하는지 확인하는 method
   const getSession = async (sessionId) => {
@@ -79,10 +120,7 @@ const UseOpenViduSession = () => {
       });
       return response.data; // If the request succeeds, then return session object
     } catch (error) {
-      if (error.response && error.response.status === 404) {
         return null; // If the server responds with a 404 error, then the session does not exist
-      }
-      throw error; // For any other type of error, rethrow it
     }
 
 
