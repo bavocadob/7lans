@@ -45,7 +45,6 @@ public class SecurityConfiguration {
                             // 디테일한 내용이 반드시 위로 올라와야 한다.
 
                             // 아동이 로그인한 경우 권한
-                            authorizeRequests.requestMatchers("/volunteer/listByChild/{childId}").hasAnyAuthority(MemberType.CHILD.name());
 
                             // 봉사자가 로그인한 경우 권한
                             authorizeRequests.requestMatchers("/meetingSchedue/delete/{meetingId}").hasAuthority(MemberType.VOLUNTEER.name());
@@ -77,6 +76,10 @@ public class SecurityConfiguration {
                             authorizeRequests.requestMatchers("/activityLog/**").hasAnyAuthority(MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
                             authorizeRequests.requestMatchers("/child/{childId}").hasAnyAuthority(MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
                             authorizeRequests.requestMatchers("/volunteer/time/{volunteerId}").hasAnyAuthority(MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
+
+                            // 아동 & 관리자
+                            authorizeRequests.requestMatchers("/volunteer/listByChild/{childId}").hasAnyAuthority(MemberType.CHILD.name(), MemberType.MANAGER.name());
+
                             // 전체 공통
                             authorizeRequests.requestMatchers("/childCenter/list").permitAll();
                             authorizeRequests.requestMatchers("/member/register").permitAll();
