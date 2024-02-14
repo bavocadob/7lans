@@ -52,7 +52,6 @@ const RowBox3 = styled.div`
   font-size: 20px;
   display: flex;
   align-items: end;
-  padding-left: 55px;
 `;
 const ExpBar = styled.div`
   width: 100%;

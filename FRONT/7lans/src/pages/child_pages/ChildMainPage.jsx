@@ -148,15 +148,15 @@ const PostBox = styled.div`
   width: 220px;
 `;
 
-const CrossLine = styled.div`
-  width: 88%;
-  height: 5px;
-  background-color: rgb(255, 184, 51);
-  margin-left: 5.3rem;
-  margin-top: 10px;
-  border-radius: 10px;
-  margin-bottom: 0;
-`;
+// const CrossLine = styled.div`
+//   width: 88%;
+//   height: 5px;
+//   background-color: rgb(255, 184, 51);
+//   margin-left: 5.3rem;
+//   margin-top: 10px;
+//   border-radius: 10px;
+//   margin-bottom: 0;
+// `;
 
 const ChattingPicture = () => {
   const [images, setImages] = useState([]);
@@ -328,9 +328,9 @@ const VolunteerMainPage = () => {
           로그아웃
         </Link>
       </header>
-      <CrossLine />
+      {/* <CrossLine /> */}
        <ChattingPicture /> 
-       <CrossLine />
+       {/* <CrossLine /> */}
       <MyChildren>
         <Link
           data-tooltip-id="vol-tooltip"

@@ -26,7 +26,7 @@ const Frame = styled.div`
   height: 150px;
   position: absolute;
   top: 30%;
-  left: 45%;
+  left: 0%;
   transform: translate(-50%, -50%);
   cursor: pointer;
   background-image: url("./frame.png");
@@ -44,6 +44,7 @@ const Outer = styled.div`
   width: 200px;
   height: 200px;
   position: relative;
+  z-index: 1
 `;
 
 const Blackboard = styled.img`
@@ -60,6 +61,7 @@ const Chork = styled.img`
   left: 30%;
   width: 750px;
   height: 50px;
+  z-index: 2;
 `;
 
 const Desk = styled.div`
@@ -74,6 +76,7 @@ const Desk = styled.div`
   padding: 1rem;
   padding-top: 9px;
   text-align: center;
+  z-index: 2;
 `;
 
 const ModalOverlay = styled.div`
@@ -237,7 +240,7 @@ const Picture = () => {
       )}
 
       <Blackboard src={BlackboardIcon}/>
-      <Desk>사진을 선택하면 썸네일을 선택할 수 있어요 🙂</Desk>
+      <Desk style={{left: '28.16%'}}>사진을 선택하면 썸네일을 선택할 수 있어요 🙂</Desk>
       <Chork src={ChorkIcon} />
 
       {/* 썸네일 설정 확인 모달 */}
