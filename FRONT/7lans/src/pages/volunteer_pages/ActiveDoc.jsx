@@ -7,6 +7,10 @@ import PostIt from "../../components/volunteer/post_it/PostIt";
 import SelectedPostit from "../../components/volunteer/post_it/SelectedPostit";
 import ActiveDocs from "../../components/volunteer/active_docs/AcitveDocs";
 import ActivityCalendar from "../../components/volunteer/calendar/ActivityCalendar";
+import { useSelector } from "react-redux";
+
+import Correct from '../../components/dinosaur/Correct';
+import Wrong from '../../components/dinosaur/Wrong';
 
 const RightSide = styled.div`
   width: 90%;
@@ -19,7 +23,28 @@ const RightSide = styled.div`
   background-color: rgb(255,255,255, 0.9);
 `
 
+const TextandimageBox = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+`
+
+const NoChild = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+`
+
 const ActiveDoc = () => {
+  const childInfo = useSelector((state) => state.child.value)
+  const childrenInfo = useSelector((state) => state.children.value)
+
   return (
     <>
       <NormalNav />
@@ -42,10 +67,31 @@ const ActiveDoc = () => {
               backgroundColor: "rgb(255, 226, 123)",
             }}
           >
-            <CommonSidePanel />
+          <CommonSidePanel />
             <RightSide>
-              <ActivityCalendar />
+              {childInfo?
+                <ActivityCalendar />
+                :
+                <>
+                {childrenInfo?
+                  <TextandimageBox>
+                    <h1>
+                      함께할 아이를 선택해주세요
+                    </h1>
+                    <Correct/>
+                  </TextandimageBox>
+                  :
+                  <NoChild>
+                    <p>
+                      연결된 아동이 없어요
+                    </p> 
+                  <Wrong/>
+                  </NoChild>
+                }
+              </>
+            }
             </RightSide>
+
             <div
               style={{ width: "10%", backgroundColor: "rgb(255, 226, 123)" }}
             >
