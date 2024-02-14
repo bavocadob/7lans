@@ -17,8 +17,8 @@ const NavBar = styled.nav`
 
 const LogoImage = styled.img`
   height: 70px;
-  margin-left: 40px;
-  margin-top: 15px;
+  margin-left: 48px;
+  margin-top: 0.8rem;
 `;
 
 const ChildInfo = styled.div`
