@@ -46,10 +46,10 @@ public class MemberController {
             }
 
             log.info("[MemberController.register] finish register member");
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -64,7 +64,7 @@ public class MemberController {
             return memberService.login(memberDto);
         }catch(Exception e){
             e.printStackTrace();
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -78,11 +78,11 @@ public class MemberController {
             log.info("[MemberController.changeProfileImg] start change ProfileImg...");
             memberService.changeProfileImg(profileReqDto);
             log.info("[MemberController.changeProfileImg] change ProfileImg SUCCESS!!!");
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
             log.info("[MemberController.changeProfileImg] change ProfileImg FAIL!!!");
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -95,11 +95,11 @@ public class MemberController {
             log.info("[MemberController.changePassword] start change Member Password...");
             memberService.changePassword(passwordReqDto);
             log.info("[MemberController.changePassword] change Member Password SUCCESS!!!");
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
             log.info("[MemberController.changePassword] change Member Password FAIL!!!");
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
