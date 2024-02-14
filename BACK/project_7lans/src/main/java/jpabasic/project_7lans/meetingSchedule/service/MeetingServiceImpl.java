@@ -164,6 +164,8 @@ public class MeetingServiceImpl implements MeetingService{
         MeetingSchedule meeting = meetingRepository.findById(meetingDto.getMeetingId())
                 .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.openMeeting] 해당 Id와 일치하는 meetingId가 존재하지 않습니다."));
 
+        meeting.getActivityLog().setRealEndTime(LocalDateTime.now());
+
         //미팅이 열림
         meeting.statusChangeToOpen();
     }

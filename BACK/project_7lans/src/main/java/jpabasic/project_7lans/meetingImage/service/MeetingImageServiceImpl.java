@@ -7,7 +7,11 @@ import jpabasic.project_7lans.meetingImage.entity.MeetingImage;
 import jpabasic.project_7lans.meetingImage.repository.MeetingImageRepository;
 import jpabasic.project_7lans.meetingSchedule.entity.MeetingSchedule;
 import jpabasic.project_7lans.meetingSchedule.repository.MeetingScheduleRepository;
+import jpabasic.project_7lans.member.entity.Child;
+import jpabasic.project_7lans.member.entity.Member;
+import jpabasic.project_7lans.member.entity.MemberType;
 import jpabasic.project_7lans.member.entity.Volunteer;
+import jpabasic.project_7lans.member.repository.MemberRepository;
 import jpabasic.project_7lans.member.repository.VolunteerRepository;
 import jpabasic.project_7lans.relation.entity.Relation;
 import jpabasic.project_7lans.relation.repository.RelationRepository;
@@ -30,6 +34,7 @@ public class MeetingImageServiceImpl implements MeetingImageService{
     private final MeetingImageRepository meetingImageRepository;
     private final VolunteerRepository volunteerRepository;
     private final RelationRepository relationRepository;
+    private final MemberRepository memberRepository;
 
     // ================================================================================
     // ================================================================================
@@ -87,11 +92,16 @@ public class MeetingImageServiceImpl implements MeetingImageService{
     // ================================================================================
     // 지난 랜덤 화상 미팅 사진
     @Override
-    public List<MeetingImageResponseDto.randomMeetingImage> randomMeetingImage(Long volunteerId){
-        Volunteer volunteer = volunteerRepository.findById(volunteerId)
-                .orElseThrow(()-> new IllegalArgumentException("no such volunteer. volunteerId:"+volunteerId));
+    public List<MeetingImageResponseDto.randomMeetingImage> randomMeetingImage(Long memberId){
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(()-> new IllegalArgumentException("no such member. memberId: "+ memberId));
 
-        List<Relation> relationList = relationRepository.findByVolunteer(volunteer);
+        List<Relation> relationList;
+        if(member.getMemberType().equals(MemberType.CHILD)){
+            relationList = relationRepository.findByChild((Child) member);
+        }else{
+            relationList = relationRepository.findByVolunteer((Volunteer) member);
+        }
 
         List<MeetingImageResponseDto.randomMeetingImage> randomImages = new ArrayList<>();
 

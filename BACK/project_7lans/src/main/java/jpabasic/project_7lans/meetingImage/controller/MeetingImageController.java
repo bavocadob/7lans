@@ -68,11 +68,11 @@ public class MeetingImageController {
     // ================================================================================
     // 지난 랜덤 화상 미팅 사진
     @Operation(summary = "지난 랜덤 화상 미팅 사진")
-    @GetMapping("/random/{volunteerId}")
-    public ResponseEntity<List<MeetingImageResponseDto.randomMeetingImage>> randomMeetingImage(@PathVariable @Valid Long volunteerId){
+    @GetMapping("/random/{memberId}")
+    public ResponseEntity<List<MeetingImageResponseDto.randomMeetingImage>> randomMeetingImage(@PathVariable @Valid Long memberId){
         try{
             log.info("[MeetingImageController.randomMeetingImage] start... ");
-            List<MeetingImageResponseDto.randomMeetingImage> randomImageList = meetingImageService.randomMeetingImage(volunteerId);
+            List<MeetingImageResponseDto.randomMeetingImage> randomImageList = meetingImageService.randomMeetingImage(memberId);
             log.info("[MeetingImageController.randomMeetingImage] SUCCESS!!! ");
             return new ResponseEntity(randomImageList,HttpStatus.OK);
         }

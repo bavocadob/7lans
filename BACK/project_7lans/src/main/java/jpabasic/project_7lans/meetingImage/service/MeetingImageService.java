@@ -27,7 +27,7 @@ public interface MeetingImageService {
 
     // ================================================================================
     // 지난 랜덤 화상 미팅 사진
-    public List<MeetingImageResponseDto.randomMeetingImage> randomMeetingImage(Long volunteerId);
+    public List<MeetingImageResponseDto.randomMeetingImage> randomMeetingImage(Long memberId);
 
     // ================================================================================
     // ================================================================================
