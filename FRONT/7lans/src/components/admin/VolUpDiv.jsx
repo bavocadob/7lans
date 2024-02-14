@@ -5,7 +5,6 @@ import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 import { adminAddFriend } from "../../store/adminAddFriendSlice";
 import { adminDeleteFriend } from "../../store/adminDeleteFriendSlice";
-
 import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png";
 
 const UpperDiv = styled.div`
@@ -142,31 +141,38 @@ const Modal = styled.div`
 
 const ModalContent = styled.div`
   background-color: white;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
   margin-top: 20px;
+  display: flex;
+  flex-direction: row;
 `;
 
 const ConfirmButton = styled.button`
-  padding: 10px 20px;
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
+  padding: 10px 20px;
+  margin-right: 10px;
   cursor: pointer;
 `;
 
 const CancelButton = styled.button`
-  padding: 10px 20px;
   background-color: #f44336;
   color: white;
   border: none;
   border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
 `;
 
@@ -254,7 +260,7 @@ function VolUpDiv() {
         <InformationSection>
           <p>봉사자 이름 : {name}</p>
           <p>봉사자 이메일 : {email}</p>
-          <p>총 봉사시간 : {time ? { time } : 0}</p>
+          <p>총 봉사시간 : {time ? time : 0}</p>
         </InformationSection>
         <SearchChildContainer>
           <SearchContainer>
