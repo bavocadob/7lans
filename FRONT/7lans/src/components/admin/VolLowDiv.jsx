@@ -32,7 +32,7 @@ const LowerProfileCard = styled.div`
   position: relative;
   width: 150px;
   height: 200px;
-  margin-left: 20px;
+  margin: 15px;
   padding: 10px;
   border: 2px solid black;
   border-radius: 10px;
@@ -77,13 +77,33 @@ const DeleteButton = styled.button`
 
 const DeleteModal = styled.div`
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const DeleteModalContent = styled.div`
   background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
 `;
 
 const ConfirmButton = styled.button`
@@ -263,9 +283,13 @@ const VolLowDiv = () => {
       </LowerDiv>
       {showDeleteModal && (
         <DeleteModal>
-          정말 삭제하시겠습니까?
-          <ConfirmButton onClick={handleConfirmDelete}>확인</ConfirmButton>
-          <CancelButton onClick={handleCancelDelete}>취소</CancelButton>
+          <DeleteModalContent>
+            정말 삭제하시겠습니까?
+            <ButtonContainer>
+              <ConfirmButton onClick={handleConfirmDelete}>확인</ConfirmButton>
+              <CancelButton onClick={handleCancelDelete}>취소</CancelButton>
+            </ButtonContainer>
+          </DeleteModalContent>
         </DeleteModal>
       )}
     </>
