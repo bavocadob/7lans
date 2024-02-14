@@ -4,6 +4,7 @@ import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 import axios from "axios";
 import { adminAddFriend } from "../../store/adminAddFriendSlice";
+import ApprovePng from "../../../public/admin_pic/승인완료.png";
 
 const RightContainer = styled.div`
   height: 90%;
@@ -87,6 +88,12 @@ const NoActiveDocs = styled.div`
   justify-content: center;
   font-size: xx-large;
   margin-top: 150px;
+`;
+
+const ApproveImg = styled.img`
+  height: 55px;
+  width: 60px;
+  margin-left: 600px;
 `;
 
 const ActiveRight = () => {
@@ -217,7 +224,9 @@ const ActiveRight = () => {
         </HeaderItem>
       </ActiveHeader>
       <ActiveContent>{activeLog.content}</ActiveContent>
-      {activeLog.approveStatus ? null : (
+      {activeLog.approveStatus ? (
+        <ApproveImg src={ApprovePng} />
+      ) : (
         <ApproveButton onClick={openModal}>승인하기</ApproveButton>
       )}
       {modalIsOpen && (

@@ -22,9 +22,10 @@ const LowerDiv = styled.div`
 `;
 
 const LowerProfileImage = styled.img`
+  border: solid grey 2px;
   border-radius: 50%;
-  width: 50px;
-  height: 60px;
+  width: 60px;
+  height: 70px;
   margin-bottom: 10px;
 `;
 
@@ -126,39 +127,39 @@ const CancelButton = styled.button`
 `;
 
 const PaginationContainer = styled.div`
-  position: absolute; /* 상대적 위치 설정을 위해 */
-  bottom: 0; /* 아래에 정렬 */
-  left: 50%; /* 가운데 정렬을 위해 왼쪽 위치 조정 */
-  transform: translateX(-50%); /* 가운데 정렬을 위해 가로 방향으로 이동 */
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; /* 하단 여백 추가 */
+  margin-top: 20px;
 `;
 
 const PaginationButton = styled.button`
   margin: 5px;
-  background-color: #f2f2f2; // 버튼 배경 색
-  color: #333333; // 글자 색
-  border: none; // 테두리 없애기
-  padding: 5px 10px; // 내부 패딩
-  text-align: center; // 글자 가운데 정렬
-  text-decoration: none; // 밑줄 없애기
-  display: inline-block; // 인라인으로 표시
-  font-size: 16px; // 글자 크기
-  border-radius: 5px; // 테두리 둥글게
-  transition: all 0.5s; // 전체 요소에 대해 0.5초 동안 변화 적용
-  cursor: pointer; // 마우스를 올렸을 때 커서 모양 변경
+  background-color: #f2f2f2;
+  color: #333333;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
 
   &:hover,
   &:focus {
-    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
-    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
+    background-color: #4caf50;
+    color: #ffffff;
   }
 
   &:active {
-    background-color: #4caf50; // 클릭했을 때 배경 색 변경
-    color: white; // 클릭했을 때 글자 색 변경
+    background-color: #4caf50;
+    color: white;
   }
 `;
 
@@ -261,7 +262,7 @@ const VolLowDiv = () => {
           {currentItems.map((child) => (
             <LowerProfileCard key={child.relationId}>
               <LowerProfileImage
-                src="./admin_pic/프로필예시.png"
+                src={child.childProfileImagePath}
                 alt="Profile"
               />
               <DeleteButton onClick={() => handleDeleteClick(child.relationId)}>

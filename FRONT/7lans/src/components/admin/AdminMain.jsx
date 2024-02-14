@@ -3,9 +3,9 @@ import styled, { keyframes } from "styled-components";
 import NormalNav from "../../components/navs/NormalNav";
 import { useNavigate } from "react-router";
 
-import VolunteerManage from "../../images/admin_pic/volunteer_manage.png"
-import ChildManage from "../../images/admin_pic/child_manage.png"
-import ActivityManage from "../../images/admin_pic/activity_manage.png"
+import VolunteerManage from "../../images/admin_pic/volunteer_manage.png";
+import ChildManage from "../../images/admin_pic/child_manage.png";
+import ActivityManage from "../../images/admin_pic/activity_manage.png";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -74,7 +74,7 @@ const AdminMain = () => {
         </LargeButton>
         <LargeButton onClick={() => handleBtnClick("/child_manage")}>
           <ButtonImage src={ChildManage} alt="Button 2" />
-          <ButtonText>학생 관리</ButtonText>
+          <ButtonText>아동 관리</ButtonText>
         </LargeButton>
         <LargeButton onClick={() => handleBtnClick("/active_manage")}>
           <ButtonImage src={ActivityManage} alt="Button 3" />

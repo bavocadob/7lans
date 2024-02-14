@@ -87,34 +87,75 @@ const VolunteerCardList = styled.div`
 const VolunteerCard = styled.div`
   width: 80%;
   height: 160px;
-  background-color: #ffe792;
   margin-bottom: 15px;
+  background-color: #ffe792;
   margin-left: 40px;
   padding: 15px;
-  border-radius: 20px; /* borderRadius 값을 20px로 변경하여 귀엽고 입체적인 느낌을 줍니다 */
+  border-radius: 20px;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.3s; /* transform transition 추가 */
-  align-items: center; /* 세로 중앙 정렬 추가 */
+  transition: transform 0.3s;
+  position: relative;
+  display: flex; /* Flexbox 사용 */
+  flex-direction: row; /* 가로 방향으로 배치 */
+  justify-content: space-between; /* 요소들을 좌우로 배치 */
+  align-items: center; /* 요소들을 수직으로 정렬 */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background-color: #ffd700;
-    transform: translateY(
-      -5px
-    ); /* 호버 시 약간 위로 이동하여 입체적인 느낌을 줍니다 */
+    transform: translateY(-5px);
   }
 
-  &.selected {
-    background-color: #ffd700;
-    animation: none;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: skewY(-12deg);
+    z-index: -1;
   }
+`;
+
+const ProfileImage = styled.img`
+  border: solid grey 3px;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+  margin-left: 20px;
+`;
+
+const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: x-large;
+  width: 150px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 30px;
+`;
+
+const ProfileInfoEmail = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: medium;
+  width: 150px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 30px;
+`;
+
+const ProfileInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const VolunteerManage = () => {
   const urlInfo = getEnv("API_URL");
   const dispatch = useDispatch();
-  const selectVolCard = useSelector((state) => state.adminSelectVol);
 
   // 카드 선택하기
   const [selectedCard, setSelectedCard] = useState(null);
@@ -130,7 +171,7 @@ const VolunteerManage = () => {
         const arr = [];
         for (const ele of response.data) {
           // console.log(ele, "봉사자 volunteerManage");
-          let name, email, time, id;
+          let name, email, time, id, img;
           for (const el in ele) {
             if (el === "volunteerName") {
               name = ele[el];
@@ -144,8 +185,11 @@ const VolunteerManage = () => {
             if (el === "volunteerId") {
               id = ele[el];
             }
+            if (el === "volunteerProfileImgPath") {
+              img = ele[el];
+            }
           }
-          arr.push([name, email, time, id]);
+          arr.push([name, email, time, id, img]);
           // console.log(arr);
         }
         setVolunteerList(arr);
@@ -159,7 +203,7 @@ const VolunteerManage = () => {
     setSelectedCard(index);
     dispatch(adminSelectVol(volunteer));
   };
-
+  // console.log(volunteerList, "발론티어 매니지 발론티어 리스트");
   // 검색함수
   const filteredVolunteers = volunteerList.filter((volunteer) =>
     volunteer.some(
@@ -189,12 +233,13 @@ const VolunteerManage = () => {
               {filteredVolunteers.map((volunteer, index) => (
                 <VolunteerCard
                   key={index}
-                  isSelected={index === selectedCard}
                   onClick={() => handleVolunteerClick(volunteer, index)}
                 >
-                  <h4>봉사자 이름: {volunteer[0]}</h4>
-                  <br />
-                  <h5>봉사자 이메일: {volunteer[1]}</h5>
+                  <ProfileImage src={volunteer[4]} />
+                  <ProfileInfoContainer>
+                    <ProfileInfo>{volunteer[0]} 봉사자</ProfileInfo>
+                    <ProfileInfoEmail>email : {volunteer[1]}</ProfileInfoEmail>
+                  </ProfileInfoContainer>
                 </VolunteerCard>
               ))}
             </VolunteerCardList>
