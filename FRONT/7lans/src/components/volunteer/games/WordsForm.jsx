@@ -78,6 +78,11 @@ const SubmitButton = styled.button`
   border-radius: 16px;
   background-color: rgb(255, 215, 3);
   margin-bottom: 20px;
+   &:hover,
+  &:focus {
+    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
+    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
+  }
 `;
 
 // the component itself

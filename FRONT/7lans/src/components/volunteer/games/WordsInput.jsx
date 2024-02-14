@@ -37,7 +37,7 @@ const InputContainer = styled.div`
   background-color: rgb(251, 243, 212);
   height: 70%;
   width: 80%;
-  margin: 3% 3% 3% 10%;
+  margin: 3% 3% 2% 10%;
   border-radius: 20px;
   border: 5px solid rgb(45, 45, 45);
 `;

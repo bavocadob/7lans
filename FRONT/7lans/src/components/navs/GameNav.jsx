@@ -26,7 +26,7 @@ const LogoImage = styled.img`
 `;
 
 const TimeZone = styled.div`
-  width: 240px;
+  width: 140px;
   height: 55px;
   display: flex;
   align-items: center;
@@ -83,7 +83,7 @@ const GameNav = ({
         <LogoImage src={Logo} alt="logo"/>
       </Link>
 
-      <div style={{display: "flex", width: "100%", marginLeft: "10%"}}>
+      <div style={{display: "flex", width: "100%", marginLeft: "16%"}}>
         <motion.a
           whileHover={{scale: 1.1}}
           onHoverStart={(e) => {
