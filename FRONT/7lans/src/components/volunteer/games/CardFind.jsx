@@ -237,7 +237,7 @@ const CardFind = ({
         fontSize: '30px',
         fontWeight: 'bold',
         padding: '20px 40px',
-        borderRadius: '5px',
+        borderRadius: '15px',
         border: '3px solid rgb(240, 165, 8)',
         cursor: 'pointer',
         marginLeft: '7%',

@@ -322,7 +322,7 @@ const VolunteerCalendar = () => {
     }
 
     //화상 채팅 입장
-    else if (selectDate == current) {
+    else if (selectDate == current && meeting.status !== "CLOSED") {
       if(meeting.status == "OPENED"){
         console.log("세션입장");
         navigate(`/volunteer_video_chatting/${meeting.meetingId}`);
@@ -333,7 +333,7 @@ const VolunteerCalendar = () => {
       }
     }
     //사진 기록들 보기
-    else if (selectDate < current && meeting) {
+    else if (selectDate <= current && meeting) {
       navigate("/volunteer_ChoosePicturePage", {
         state: {
           //날짜가 아닌 meetingId로 사진 불러오기
