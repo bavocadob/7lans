@@ -39,6 +39,7 @@ const NormalNav = () => {
 
   const resetData = () => {
     dispatch(updateUserInfo(""));
+    localStorage.removeItem('jwtToken');
   };
   
   userType.current = userInfo.memberType

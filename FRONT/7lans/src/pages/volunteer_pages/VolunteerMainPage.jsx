@@ -408,6 +408,7 @@ const VolunteerMainPage = () => {
     dispatch(updateChildInfo(""));
     dispatch(updateChildrenInfo([]));
     dispatch(updateUserInfo(""));
+    localStorage.removeItem('jwtToken');
   };
 
   return (
