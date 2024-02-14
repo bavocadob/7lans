@@ -17,7 +17,9 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOriginPatterns(Arrays.asList("*"));
+        // 실제 서버 배포용으로 사용할 CORS 설정
+        // config.setAllowedOriginPatterns(Arrays.asList("https://i10e103.p.ssafy.io/");
+        config.setAllowedOriginPatterns(Arrays.asList("https://i10e103.p.ssafy.io/"));
         config.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setAllowCredentials(true);
