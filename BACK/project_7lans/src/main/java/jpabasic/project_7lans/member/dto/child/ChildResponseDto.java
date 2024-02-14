@@ -194,6 +194,8 @@ public class ChildResponseDto {
         private String childPhoneNumber;
         @NotNull(message = "[ChildResponseDto.childListByVolunteerAndCenter] childChildCenterId 는 Null 일 수 없습니다.")
         private String childCenterName;
+        @NotNull(message = "[ChildResponseDto.childListByVolunteerAndCenter] childProfileImgPath 는 Null 일 수 없습니다.")
+        private String childProfileImgPath;
 
         // 아래의 toDTO 활용
         @Builder
@@ -202,13 +204,15 @@ public class ChildResponseDto {
                 String childName,
                 LocalDate childBirth,
                 String childPhoneNumber,
-                String childCenterName
+                String childCenterName,
+                String childProfileImgPath
         ){
             this.childId = childId;
             this.childName = childName;
             this.childBirth = childBirth;
             this.childPhoneNumber = childPhoneNumber;
             this.childCenterName = childCenterName;
+            this.childProfileImgPath = childProfileImgPath;
         }
     }
 
@@ -220,6 +224,7 @@ public class ChildResponseDto {
                 .childBirth(child.getBirth())
                 .childCenterName(child.getChildCenter().getName())
                 .childPhoneNumber(child.getPhoneNumber())
+                .childProfileImgPath(child.getProfileImgPath())
                 .build();
     }
 
