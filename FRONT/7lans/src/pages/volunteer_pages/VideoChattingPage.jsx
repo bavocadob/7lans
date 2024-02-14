@@ -17,7 +17,7 @@ const VideoChattingPage = () => {
   } = UseOpenViduSession();
 
   const [isGameStarted, setGameStarted] = useState(false);
-  const [meetingValid, setMeetingValid] = useState(false)
+  const [meetingValid, setMeetingValid] = useState(true)
   const userInfo = useSelector((state) => state.user.value);
   const navigate = useNavigate();
 
@@ -217,13 +217,13 @@ const VideoChattingPage = () => {
 
         }
 
+      </div>
         {/* 게임 상태를 토글하는 버튼 */}
         {!isSessionEnd && (
           <button onClick={signalToggleGameStarted}>
             {isGameStarted ? 'Stop Game' : 'Start Game'}
           </button>
         )}
-      </div>
     </>
 
   );
