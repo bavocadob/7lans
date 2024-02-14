@@ -22,3 +22,13 @@ export const postMeetingImage = async (meetingId, meetingImagePath) => {
     console.error(err);
   }
 }
+
+export const closeMeetingSchedule = async (meetingId) => {
+  const now = new Date();
+  const endTime = now.toISOString().split('.')[0];
+  try {
+    return await axios.put(`${urlInfo}/meetingSchedue/close`, {meetingId, endTime});
+  } catch (err) {
+    console.error(err);
+  }
+}

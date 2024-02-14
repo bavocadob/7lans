@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { changeGame } from "../../store/chooseGameSlice";
-import { motion } from "framer-motion";
+import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {motion} from "framer-motion";
+import {changeGame} from "../../store/chooseGameSlice";
 
 import Logo from "../../images/7lans_logo.png";
 import ImgCaptureBtn from "../../img_upload/ImgCaptureBtn";
@@ -49,9 +49,27 @@ const CloseImg = styled.img`
 
 const GameNav = ({
                    exitSessionSignal,
+                   setCapturedImages,
+                   sessionCreatedAt
                  }) => {
   const gameChange = useSelector((state) => state.isPlayGameNow.value);
   const dispatch = useDispatch();
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const elapsedTime = Math.floor((new Date().getTime() - sessionCreatedAt.getTime()) / 1000);
+
+      // add 1 second to the elapsed time
+      setElapsedSeconds(elapsedTime + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [sessionCreatedAt]);
+
+  const formattedElapsedSeconds = `${(`0${Math.floor(elapsedSeconds / 60)}`).slice(-2)
+  }:${
+    (`0${elapsedSeconds % 60}`).slice(-2)}`;
 
   const goToOtherGame = (num) => {
     if (gameChange === true) {
@@ -62,14 +80,16 @@ const GameNav = ({
   return (
     <NavBar className="shadow">
       <Link to="/volunteer_main">
-        <LogoImage src={Logo} alt="logo" />
+        <LogoImage src={Logo} alt="logo"/>
       </Link>
 
-      <div style={{ display: "flex", width: "100%", marginLeft: "10%" }}>
+      <div style={{display: "flex", width: "100%", marginLeft: "10%"}}>
         <motion.a
-          whileHover={{ scale: 1.1 }}
-          onHoverStart={(e) => {}}
-          onHoverEnd={(e) => {}}
+          whileHover={{scale: 1.1}}
+          onHoverStart={(e) => {
+          }}
+          onHoverEnd={(e) => {
+          }}
           style={{
             width: "130px",
             height: "55px",
@@ -103,9 +123,11 @@ const GameNav = ({
         </motion.a>
 
         <motion.a
-          whileHover={{ scale: 1.1 }}
-          onHoverStart={(e) => {}}
-          onHoverEnd={(e) => {}}
+          whileHover={{scale: 1.1}}
+          onHoverStart={(e) => {
+          }}
+          onHoverEnd={(e) => {
+          }}
           style={{
             width: "130px",
             height: "55px",
@@ -139,9 +161,11 @@ const GameNav = ({
         </motion.a>
 
         <motion.a
-          whileHover={{ scale: 1.1 }}
-          onHoverStart={(e) => {}}
-          onHoverEnd={(e) => {}}
+          whileHover={{scale: 1.1}}
+          onHoverStart={(e) => {
+          }}
+          onHoverEnd={(e) => {
+          }}
           style={{
             width: "130px",
             height: "55px",
@@ -175,9 +199,11 @@ const GameNav = ({
         </motion.a>
 
         <motion.a
-          whileHover={{ scale: 1.1 }}
-          onHoverStart={(e) => {}}
-          onHoverEnd={(e) => {}}
+          whileHover={{scale: 1.1}}
+          onHoverStart={(e) => {
+          }}
+          onHoverEnd={(e) => {
+          }}
           style={{
             width: "130px",
             height: "55px",
@@ -210,13 +236,15 @@ const GameNav = ({
           </button>
         </motion.a>
         <TimeZone>
-          화상 시간 나오는 공간
+          {formattedElapsedSeconds}
         </TimeZone>
         <motion.a
           className="shadow"
-          whileHover={{ scale: 1 }}
-          onHoverStart={(e) => {}}
-          onHoverEnd={(e) => {}}
+          whileHover={{scale: 1}}
+          onHoverStart={(e) => {
+          }}
+          onHoverEnd={(e) => {
+          }}
           style={{
             width: "100px",
             height: "54px",
@@ -229,14 +257,16 @@ const GameNav = ({
             margin: "0 1rem 0 0",
           }}
         >
-          <ImgCaptureBtn />
+          <ImgCaptureBtn
+            setCapturedImages={setCapturedImages}
+          />
         </motion.a>
 
-        <div style={{ display: "flex", marginTop: "12px", marginRight: "0" }}>
-            <CloseImg
-              src="./Close_video_chat.png"
-              onClick={exitSessionSignal}
-            />
+        <div style={{display: "flex", marginTop: "12px", marginRight: "0"}}>
+          <CloseImg
+            src="/Close_video_chat.png"
+            onClick={exitSessionSignal}
+          />
         </div>
       </div>
     </NavBar>

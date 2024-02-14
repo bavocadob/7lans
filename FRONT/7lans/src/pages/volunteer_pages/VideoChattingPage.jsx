@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux"
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import GameNav from '../../components/navs/GameNav';
 import UseOpenViduSession from "../../helpers/useOpenViduSession.jsx";
 import VideoChattingLobby from "./VideoChattingLobby.jsx";
@@ -12,6 +12,7 @@ import {getMeetingDetail} from "../../api/axioses"
 const VideoChattingPage = () => {
   const {
     session, mainStreamManager, subscribers,
+    sessionCreatedAt,
     joinSession, renderUserVideoComponent,
     toggleCamera, toggleMic
   } = UseOpenViduSession();
@@ -33,7 +34,7 @@ const VideoChattingPage = () => {
     'https://firebasestorage.googleapis.com/v0/b/st-project-3c625.appspot.com/o/meeting_image%2F5?alt=media&token=148a9c70-56bd-42f6-8771-3d3b2ab93c84'
   ]);
 
-  const MEETING_ID = 39;
+  const { meetingId } = useParams();
 
 
   // 페이지 로드시 세션 생성
@@ -60,19 +61,19 @@ const VideoChattingPage = () => {
    * - 일치하면, 미팅 참여 상태를 true로 설정합니다.
    */
   useEffect(() => {
-    // const fetchData = async () => {
-    //   if (userInfo !== null) {
-    //     const meetingData = await getMeetingDetail(MEETING_ID);
-    //     console.log(meetingData)
-    //     if (meetingData.childId !== userInfo.memberId &&
-    //       meetingData.volunteerId !== userInfo.memberId) {
-    //       navigate('/'); // 메인페이지로 이동
-    //     } else {
-    //       setMeetingValid(true);
-    //     }
-    //   }
-    // }
-    // fetchData();
+    const fetchData = async () => {
+      if (userInfo !== null) {
+        const meetingData = await getMeetingDetail(meetingId);
+        console.log(meetingData)
+        if (meetingData.childId !== userInfo.memberId &&
+          meetingData.volunteerId !== userInfo.memberId) {
+          navigate('/'); // 메인페이지로 이동
+        } else {
+          setMeetingValid(true);
+        }
+      }
+    }
+    fetchData();
   }, [userInfo, navigate]);
 
 
@@ -183,6 +184,8 @@ const VideoChattingPage = () => {
     <>
       <GameNav
         exitSessionSignal={exitSessionSignal}
+        setCapturedImages={setCapturedImages}
+        sessionCreatedAt={sessionCreatedAt}
       />
       <div style={{marginTop: "5.7%", display: 'flex', flexDirection: 'row', gap: '40px' }}>
         {!isSessionEnd ? ( // Change here
