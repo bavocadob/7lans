@@ -90,7 +90,7 @@ const CardFind = ({
       setNowCard([]);
       setFlippedCard([]);
       setCorrect(false);
-    }, 3000000);
+    }, 3000);
     return () => {
       clearTimeout(timeout);
     };
@@ -172,7 +172,7 @@ const CardFind = ({
         handleNoMatch();
       }
     }
-    if (flippedCard.length === 2) {
+    if (flippedCard.length === 20) {
       handleGameWon();
     }
   }, [nowCard]);
