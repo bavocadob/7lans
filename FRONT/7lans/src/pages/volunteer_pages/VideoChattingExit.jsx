@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import styled, {keyframes} from "styled-components";
 import Modal from 'react-modal';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Session} from "openvidu-browser";
 import {postMeetingImage, closeMeetingSchedule} from "../../api/axioses.jsx";
 
@@ -15,8 +15,11 @@ const modalStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
   },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // 모달 이외의 영역 배경색 (검은색에 투명도 추가)
+  }
 };
 
 // 모달 라이브러리의 접근성 요구사항에 따라 root를 설정
@@ -36,8 +39,9 @@ const MainContainer = styled.div`
   padding: 20px;
   box-sizing: border-box;
   overflow: auto;
-  margin: 150px auto 0;
-`;
+  margin-top: 4.5%;
+  margin-left: 5%;
+  `;
 
 // 이미지를 담는 컨테이너 스타일링
 const ImagesContainer = styled.div`
@@ -52,10 +56,10 @@ const ImagesContainer = styled.div`
 
 // 각 이미지 스타일링
 const SelectableImage = styled.img`
-  width: 16%;
+  height: 300px;
   margin: 10px;
   border: ${(props) => props.isSelected ? "5px solid rgba(147, 112, 219, 0.8)" : "0px"};
-  border-radius: 20px;
+  border-radius: 15px;
   cursor: pointer;
   transition: border 0.1s ease-in-out;
 `;
@@ -63,25 +67,31 @@ const SelectableImage = styled.img`
 // 상단 텍스트 스타일링
 const HeaderText = styled.h3`
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   width: 100%;
 `;
 
 // 버튼 스타일링
 const ConfirmButton = styled.button`
-  background: linear-gradient(190deg, rgba(255, 184, 36, 1), rgba(255, 237, 140, 1));
-  font-size: 19px;
+  /* background: linear-gradient(190deg, rgba(255, 184, 36, 1), rgba(255, 237, 140, 1)); */
+  font-size: 20px;
   font-weight: bold;
-  border: 3px solid rgb(45, 45, 45);
-  border-radius: 50px;
+  border-radius: 15px;
   padding: 0.5rem;
-  height: 50px;
-  width: 200px;
+  height: 90px;
+  width: 140px;
   cursor: pointer;
   position: sticky;
   bottom: 0;
   align-self: center;
   margin: 10px 0;
+  background-color: rgba(255, 184, 36, 1);
+  &:hover,
+  &:focus {
+    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
+    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
+  }
 `;
 
 const ConfirmModalText = styled.p`
@@ -92,22 +102,28 @@ const ConfirmModalText = styled.p`
 
 const ConfirmModalButtonsContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 70px;
   width: 100%;
 `;
 
 const ConfirmModalButton = styled.button`
-  background: linear-gradient(190deg, rgba(255, 184, 36, 1), rgba(255, 237, 140, 1));
-  font-size: 16px;
+  background:  rgba(255, 237, 140, 1);
+  font-size: 20px;
   font-weight: bold;
-  border: 3px solid rgb(45, 45, 45);
-  border-radius: 50px;
-  padding: 0.5rem;
-  height: 40px;
-  width: 15%;
+  /* border: 3px solid rgb(45, 45, 45); */
+  /* border-radius: 50px; */
+  /* padding: 0.5rem; */
   cursor: pointer;
   position: relative;
-  margin: 10px;
+  margin-top: 20px;
+  border: 2px solid rgb(255, 184, 36);
+  border-radius: 15px;
+  padding-bottom:0px;
+  width: 140px;
+  height: 60px;
+  &:hover { background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
+    color: #ffffff;};
 `;
 
 
@@ -116,8 +132,8 @@ const ConfirmModal = styled(Modal)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.8);
-  border: 3px solid rgb(45, 45, 45);
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid  rgb(255, 184, 36);
   border-radius: 20px;
   padding: 20px;
   display: flex;
@@ -170,11 +186,8 @@ const VideoChattingExit = ({
   const [isLoading, setLoading] = useState(false);
   const [isComplete, setComplete] = useState(false);
 
-  // TODO 추후 아래와 같은 방식으로 meetingId를 가져오게 수정해야 함
-  // const { meetingId } = useParams();
-
-
   const navigate = useNavigate();
+  const { meetingId } = useParams();
 
 
   useEffect(() => {
@@ -283,9 +296,7 @@ const VideoChattingExit = ({
 
 
   const handleConfirmModalConfirm = () => {
-    // const meetingId = props.meetingId; // props로부터 meetingId 받아오기
-    // 임시로 meetingId는 39번으로 설정
-    const meetingId = 39;
+
     imageUploadSignal(true)
 
     setTimeout(async () => {
@@ -321,7 +332,11 @@ const VideoChattingExit = ({
 
   return (
     <MainContainer>
-      <HeaderText>마음에 드는 사진을 골라주세요!</HeaderText>
+      <HeaderText>
+        <h1><strong>
+        마음에 드는 사진을 골라주세요!
+        </strong></h1>
+        </HeaderText>
 
       <ImagesContainer>
         {capturedImages.map((image, i) => (

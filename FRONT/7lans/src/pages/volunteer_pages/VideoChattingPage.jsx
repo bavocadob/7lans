@@ -14,7 +14,8 @@ const VideoChattingPage = () => {
     session, mainStreamManager, subscribers,
     sessionCreatedAt,
     joinSession, renderUserVideoComponent,
-    toggleCamera, toggleMic
+    toggleCamera, toggleMic,
+    mySessionId, setMySessionId
   } = UseOpenViduSession();
 
   const [isGameStarted, setGameStarted] = useState(false);
@@ -37,12 +38,19 @@ const VideoChattingPage = () => {
   const { meetingId } = useParams();
 
 
-  // 페이지 로드시 세션 생성
+  // 페이지 로드시 세션 아이디를 미팅 아이디로 연결
   useEffect(() => {
     if (meetingValid) {
-      joinSession();
+      setMySessionId(meetingId)
     }
   }, [meetingValid]);
+
+  // 미팅아이디가 확정됐을 때 해당 세션명으로 세션 생성
+  useEffect(() => {
+    if (mySessionId.trim()) {
+      joinSession();
+    }
+  }, [mySessionId]);
 
   // 페이지 이탈시 세션 디스커넥트하게 설정
   useEffect(() => {
@@ -186,6 +194,8 @@ const VideoChattingPage = () => {
         exitSessionSignal={exitSessionSignal}
         setCapturedImages={setCapturedImages}
         sessionCreatedAt={sessionCreatedAt}
+        session={session}
+        capturedImages={capturedImages}
       />
       <div style={{marginTop: "5.7%", display: 'flex', flexDirection: 'row', gap: '40px' }}>
         {!isSessionEnd ? ( // Change here

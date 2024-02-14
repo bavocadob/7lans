@@ -60,7 +60,7 @@ const Container = styled.div`
 const LogoImage = styled.img`
   position: absolute; /* 절대 위치 설정 */
   left: 3rem; /* 왼쪽 여백 조절 */
-  top: 1rem; /* 상단 여백 조절 */
+  top: 0.8rem; /* 상단 여백 조절 */
   height: 70px;
 `;
 
@@ -408,6 +408,7 @@ const VolunteerMainPage = () => {
     dispatch(updateChildInfo(""));
     dispatch(updateChildrenInfo([]));
     dispatch(updateUserInfo(""));
+    localStorage.removeItem('jwtToken');
   };
 
   return (

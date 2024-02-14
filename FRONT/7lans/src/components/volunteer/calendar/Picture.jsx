@@ -56,7 +56,7 @@ const Blackboard = styled.img`
 
 const Chork = styled.img`
   position: absolute;
-  top: 82%;
+  top: 85%;
   left: 30%;
   width: 750px;
   height: 50px;

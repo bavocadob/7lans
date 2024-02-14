@@ -62,8 +62,8 @@ const LogoImage = styled.img`
 
 const MyChildren = styled.div`
   position: absolute;
-  left: 5rem;
-  top: 21.3%;
+  left: 3rem;
+  top: 57.3%;
   border-radius: 100px;
   width: 300px;
   height: 300px;
@@ -80,8 +80,8 @@ const MyChildren = styled.div`
 const Letter = styled.div`
   position: relative;
   width: 1250px;
-  top: 12%;
-  left: 200px;
+  top: 50px;
+  left: 170px;
 `;
 
 const Overlap = styled.div`
@@ -148,6 +148,16 @@ const PostBox = styled.div`
   width: 220px;
 `;
 
+const CrossLine = styled.div`
+  width: 88%;
+  height: 5px;
+  background-color: rgb(255, 184, 51);
+  margin-left: 5.3rem;
+  margin-top: 10px;
+  border-radius: 10px;
+  margin-bottom: 0;
+`;
+
 const ChattingPicture = () => {
   const [images, setImages] = useState([]);
 
@@ -200,12 +210,11 @@ const ChattingPicture = () => {
       className="wrapper"
       style={{
         display: "flex",
-        width: "93.5%",
+        width: "90%",
         flexDirection: "row",
         gap: "3%",
-        marginTop: "19.2%",
         justifyContent: "space-evenly",
-        marginLeft: "2rem",
+        marginLeft: "3.4rem",
         marginRight: "2rem",
         paddingTop: "10px",
         
@@ -296,6 +305,7 @@ const VolunteerMainPage = () => {
     dispatch(updateVolInfo(""));
     dispatch(updateVolsInfo([]));
     dispatch(updateUserInfo(""));
+    localStorage.removeItem('jwtToken');
   };
 
   return (
@@ -318,6 +328,9 @@ const VolunteerMainPage = () => {
           로그아웃
         </Link>
       </header>
+      <CrossLine />
+       <ChattingPicture /> 
+       <CrossLine />
       <MyChildren>
         <Link
           data-tooltip-id="vol-tooltip"
@@ -386,7 +399,7 @@ const VolunteerMainPage = () => {
           </PostBox>
         </Link>
       </Letter>
-      <ChattingPicture />    
+        
     </Container>
   );
 };

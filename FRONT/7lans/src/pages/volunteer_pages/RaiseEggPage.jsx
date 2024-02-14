@@ -124,14 +124,16 @@ const RaiseEggPage = () => {
   console.log(childrenInfo);
   useEffect(() => {
     const egg = async () => {
-      try {
-        const res = await axios.get(`${urlInfo}/egg/${childInfo.relationId}`);
-        console.log(res.data);
-        // eggInfo.current = res.data
-        setEggInfo(res.data);
-      } catch (err) {
-        console.error(err);
-        console.log('egg엑시오스 에러')
+      if(childInfo.relationId){
+        try {
+          const res = await axios.get(`${urlInfo}/egg/${childInfo.relationId}`);
+          console.log(res.data);
+          // eggInfo.current = res.data
+          setEggInfo(res.data);
+        } catch (err) {
+          console.error(err);
+          console.log('egg엑시오스 에러')
+        }
       }
     };
     egg();

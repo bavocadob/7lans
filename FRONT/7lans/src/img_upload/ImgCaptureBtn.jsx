@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import html2canvas from 'html2canvas';
 import Modal from 'react-modal';
 import {getDownloadURL, getStorage, uploadBytesResumable, ref as strRef} from 'firebase/storage';
@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from "prop-types";
 import {db} from '../firebase';
 import {nextImgNum} from "../store/imgNumSlice";
+import {useParams} from "react-router-dom";
+import {Session} from "openvidu-browser";
 
 
 const customStyles = {
@@ -77,13 +79,48 @@ const ModalButton = styled.button`
 Modal.setAppElement('#root');
 
 export const ImgCaptureBtn = ({
-                                setCapturedImages
+                                setCapturedImages,
+                                session,
+                                capturedImages
                               }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [imgData, setImgData] = useState(null);
+
+  const userInfo = useSelector((state) => state.user.value);
+  const {meetingId} = useParams();
+
   const imgNum = useSelector((state) => state.imgNum.value)
   const dispatch = useDispatch();
 
+  const addImageSignal = (imageUrl) => {
+    session.signal({
+      type:'addImage',
+      data: JSON.stringify({ imageUrl })
+    })
+      .then(() => {console.log('캡쳐 이미지 저장 시그널')})
+      .catch((err) => {console.log(err)})
+  }
+
+  const receviceAddImageSignal = (event) => {
+    const {imageUrl} = JSON.parse(event.data);
+    setCapturedImages(prevImages => [...prevImages, imageUrl]);  // URL 추가
+  }
+
+
+  useEffect(() => {
+    if (session) {
+      session.on('signal:addImage', receviceAddImageSignal);
+    }
+
+    return () => {
+      if (session) {
+        session.off('signal:addImage', receviceAddImageSignal);
+      }
+
+    }
+  }, [session]);
+
+  
   const captureScreen = () => {
     html2canvas(document.body).then((canvas) => {
       const data = canvas.toDataURL();
@@ -102,7 +139,7 @@ export const ImgCaptureBtn = ({
     };
 
     const storage = getStorage();
-    const storageRef = strRef(storage, 'meeting_image/' + imgNum);
+    const storageRef = strRef(storage, `meeting_image/${meetingId}/${userInfo.memberId}/${imgNum}`);
     const imageFile = dataURLtoFile(imgData, 'capture.png');
     const uploadTask = uploadBytesResumable(storageRef, imageFile, metadata);
 
@@ -141,11 +178,10 @@ export const ImgCaptureBtn = ({
           console.log('File available at', downloadURL);
           // downloadURL에 이미지 경로 들어옴
 
-          setCapturedImages(prevImages => [...prevImages, downloadURL]);  // URL 추가
+          addImageSignal(downloadURL)
           toastTest()
-          
           // Update database with the download URL
-          update(dbRef(db, `users/${imgNum}`), {image: downloadURL});
+          update(dbRef(db, `users/${meetingId}/${userInfo.memberId}/${imgNum}`), {image: downloadURL});
         });
       }
     );
@@ -194,6 +230,8 @@ export const ImgCaptureBtn = ({
 
 
 ImgCaptureBtn.propTypes = {
-  setCapturedImages: PropTypes.func.isRequired
+  setCapturedImages: PropTypes.func.isRequired,
+  session: PropTypes.instanceOf(Session).isRequired, // session이 Session의 인스턴스인지 확인
 };
+
 export default ImgCaptureBtn;

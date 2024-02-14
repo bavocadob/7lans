@@ -249,17 +249,18 @@ const ActivityCalendar = () => {
         
         //console.log(dateToHyphen(currentMonth).substr(0, 10))
         const dateInfo = dateToHyphen(currentMonth).substr(0, 10)
-        
-        axios.post(`${urlInfo}/activityLog/volunteer/list`,{
-            relationId: childInfo.relationId,
-            dateInfo: dateInfo
-        })
-        .then((res) => {
-            setActivityLogs(res.data);
-            //console.log(res)
-        })
-        .catch((err) => {
-        });
+        if(childInfo.relationId && dateInfo){
+            axios.post(`${urlInfo}/activityLog/volunteer/list`,{
+                relationId: childInfo.relationId,
+                dateInfo: dateInfo
+            })
+            .then((res) => {
+                setActivityLogs(res.data);
+                //console.log(res)
+            })
+            .catch((err) => {
+            });
+        }
     }, [childInfo, currentMonth])
 
     const prevMonth = () => {
