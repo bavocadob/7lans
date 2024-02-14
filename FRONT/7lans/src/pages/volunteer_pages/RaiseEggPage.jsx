@@ -26,9 +26,11 @@ const RightSide = styled.div`
   align-items: center;
   flex-wrap: wrap;
   border-radius: 0 20px 20px 0;
-  // background-color: rgb(255, 255, 255, 0.9);
-  background-image: url('./egg_raise_background.png');
-  // background-size: contain;
+  background-color: rgb(255, 255, 255, 0.9);
+  background-image: ${({ eggRaised }) =>
+    eggRaised
+      ? "url('./egg_raise_background.png')"
+      : "url('./default_background.png')"};
   background-repeat: no-repeat;
   // background-position: center;
 `;
@@ -282,7 +284,7 @@ const RaiseEggPage = () => {
           }}
         >
           <CommonSidePanel />
-          <RightSide>
+          <RightSide eggRaised={childInfo}>
             {childInfo?
               <>
               <RowBox2>
