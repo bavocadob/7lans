@@ -14,7 +14,9 @@ const QuizResult = ({ansCorrect, ans}) => {
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            fontSize: '150px'
+            marginTop: '15%',
+            paddingLeft: '262px',
+            textAlign: 'center'
         }}>
             {ansCorrect === ans ?
                 <Correct/>

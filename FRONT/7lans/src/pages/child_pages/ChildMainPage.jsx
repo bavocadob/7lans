@@ -10,7 +10,7 @@ import { Tooltip } from "react-tooltip";
 import getEnv from "../../utils/getEnv";
 
 import Logo from "../../images/7lans_logo.png"
-import MainChildren from "../../images/main_page/main_page_children.png";
+import MainChildren from "../../images/main_page/child_mainpage_volunteer.png";
 import LineIcon from "../../images/main_page/line.png"
 import LeftLetterIcon from "../../images/main_page/left_letter.png"
 import MiddleLetterIcon from "../../images/main_page/middle_letter.png"
@@ -25,7 +25,7 @@ const Container = styled.div`
   background: linear-gradient(
     180deg,
     rgba(255, 230.27, 102, 0.71),
-    rgb(255, 215, 3) 60%,
+    rgb(255, 215, 3) 70%,
     rgba(255, 248.22, 224.19, 0) 100%
   );
   background-size: cover;
@@ -50,10 +50,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     text-align: center;
-
-    &:hover {
-      text-decoration: underline; /* 호버 시 밑줄 추가 */
-    }
   }
 `;
 
@@ -69,6 +65,8 @@ const MyChildren = styled.div`
   left: 5rem;
   top: 21.3%;
   border-radius: 100px;
+  width: 300px;
+  height: 300px;
   .img {
     display: flex;
     align-items: center;
@@ -82,7 +80,7 @@ const MyChildren = styled.div`
 const Letter = styled.div`
   position: relative;
   width: 1250px;
-  top: 130px;
+  top: 12%;
   left: 200px;
 `;
 
@@ -90,8 +88,9 @@ const Overlap = styled.div`
   height: 195px;
   left: 218px;
   position: absolute;
-  top: 40px;
+  top: 79%;
   width: 867px;
+  transform: rotate(3deg);
 `;
 
 const Line = styled.div`
@@ -105,18 +104,30 @@ const LeftLetter = styled.div`
   position: absolute;
   left: 33%;
   top: 10%;
+  :hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const MiddleLetter = styled.div`
   position: absolute;
   left: 56%;
   top: 20%;
+  :hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const RightLetter = styled.div`
   position: absolute;
   left: 79%;
   top: 33%;
+  :hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const AirPlane = styled.div`

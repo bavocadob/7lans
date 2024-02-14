@@ -161,16 +161,19 @@ const Register = () => {
   };
 
   useEffect(() => {
-    try {
-      const res = axios.get(`${urlInfo}/childCenter/list`)
-      setCenterList(res.data)
-      console.log(res)
+    const getCenterList = async () => {
+      try {
+        const res = await axios.get(`${urlInfo}/childCenter/list`)
+        setCenterList(res.data)
+        console.log(res)
+      }
+      catch (err) {
+        console.log(err)
+      }
     }
-    catch (err) {
-      console.log(err)
-    }
-    console.log(centerList)
+    getCenterList()
   }, [])
+  console.log(centerList)
 
   const signUp = async (
     memberEmail,
@@ -252,10 +255,9 @@ const Register = () => {
                   style={{width: '300px'}}
                 >
                   <option value="">센터 선택</option>
-                  <option value={1}>A 센터</option>
-                  <option value={2}>B 센터</option>
-                  <option value={3}>C 센터</option>
-                  <option value={4}>D 센터</option>
+                  {centerList.map((center, index) => {
+                    return <option value={index+1}>{center.childCenterName}</option>
+                  })}
                 </select>
               )}
             </div>

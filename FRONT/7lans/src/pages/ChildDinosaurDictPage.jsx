@@ -206,6 +206,11 @@ const ChildDinosaurDictPage = () => {
     width: 130px;
     // margin-left: 8%;
     color: rgb(45, 45, 45);
+    &:hover{
+       background:rgba(196, 163, 255, 0.7);
+       border: rgba(196, 163, 255, 1);
+       color: white;
+    }
   `;
   const renderBody = () => {
     const dinoArr = Array.from({ length: 18 }, (_, index) => index + 1);
@@ -260,20 +265,36 @@ const ChildDinosaurDictPage = () => {
     height: 100%;
 `;
 
-  const CenteredForm = styled(Form)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
+const CenteredForm = styled(Form)`
+display: flex;
+justify-content: center;
+align-items: center;
+`;
 
-  const CenteredImage = styled(Form.Control)`
-    height: 300px;
-    width: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
+const CenteredImage = styled(Form.Control)`
+height: 350px;
+width: 290px;
+display: flex;
+justify-content: center;
+align-items: center;
+`;
 
+const StyledModal = styled(Modal)`
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: rgb(255,255,255, 0.7);
+`;
+
+const StyledHeader = styled(Modal.Header)`
+  background-color: rgb(208, 192, 237, 0.9); /* 모달 헤더 배경색 설정 */
+  border-radius: 8px 8px 0px 0px;
+`;
+
+const StyledFooter = styled(Modal.Footer)`
+  background-color: rgb(208, 192, 237, 0.9); /* 모달 푸터 배경색 설정 */
+  border-radius: 0px 0px 8px 8px;
+`;
   //  최종 화면 구성
   return (
     <>
@@ -308,15 +329,11 @@ const ChildDinosaurDictPage = () => {
           </div>
         </div>
       </div>
-      <CenteredModal
-        show={show}
-        onHide={() => setShow(false)}
-      >
-      
-        <Modal.Dialog style={{height: '100%', marginTop:'3rem'}}>
-        <Modal.Header closeButton>
+  
+      <StyledModal show={show} centered onClick={() => setShow(false)}>
+        <StyledHeader closeButton>
           <Modal.Title>나와 함께 할래?</Modal.Title>
-        </Modal.Header>
+        </StyledHeader>
         <Modal.Body>
           <CenteredForm>
             <CenteredImage
@@ -325,7 +342,7 @@ const ChildDinosaurDictPage = () => {
             />
           </CenteredForm>
         </Modal.Body>
-        <Modal.Footer style={{justifyContent: 'space-between'}}>
+        <StyledFooter style={{justifyContent: 'space-between'}}>
           <Button
             variant="secondary"
             onClick={() => changeMyDino(userInfo.memberId, chooseDino)}
@@ -338,9 +355,8 @@ const ChildDinosaurDictPage = () => {
           {/* <Button variant='primary' onClick={handleSubmit}>
             생성
           </Button> */}
-        </Modal.Footer>
-        </Modal.Dialog>
-      </CenteredModal>
+        </StyledFooter>
+      </StyledModal>
     </>
   );
 };

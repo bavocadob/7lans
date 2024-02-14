@@ -5,9 +5,9 @@ const QuestionContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 400px;
-  width: 80vw;
-  font-size: 0;
+   width: 930px;
+    height: 100%;
+    margin-top: 5%;
 `;
 
 const QuestionPrompt = styled.h1`
@@ -43,11 +43,11 @@ const AnswerInput = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 250px;
   width: 80%;
   border: 5px solid black;
   border-radius: 0 0 20px 20px;
-  margin-bottom: 0;
+  margin-bottom: 40px;
 `;
 
 const StyledInput = styled.input`
@@ -69,7 +69,12 @@ const ResetButton = styled.button`
   font-size: 25px;
   border: none;
   border-radius: 16px;
-  background-color: rgb(255, 215, 3);
+  background-color: rgba(255, 184, 36, 1);
+  &:hover,
+  &:focus {
+    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
+    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
+  }
 `;
 
 

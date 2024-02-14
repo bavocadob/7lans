@@ -172,7 +172,7 @@ const ChildManage = () => {
       <ChildManageContainer>
         <LeftContainer>
           <ChildListContainer>
-            <h2>아동리스트</h2>
+            <h2>아동 목록</h2>
             <SearchContainer>
               <SearchInput
                 type="text"
@@ -189,10 +189,10 @@ const ChildManage = () => {
                   isSelected={index === selectedCard}
                   onClick={() => handleChildClick(Child, index)}
                 >
-                  <h3>{Child[0]} 아동</h3>
+                  <h3>아동이름 : {Child[0]}</h3>
                   <br />
-                  <h5>{Child[1]}</h5>
-                  <h5>{Child[2]}</h5>
+                  <h5>센터이름 : {Child[1]}</h5>
+                  <h5>생년원일 : {Child[2]}</h5>
                 </ChildCard>
               ))}
             </ChildCardList>

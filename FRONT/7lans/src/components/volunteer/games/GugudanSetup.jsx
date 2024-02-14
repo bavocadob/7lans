@@ -7,10 +7,10 @@ const Container = styled.div`
   flex-direction: column;
   border: 5px solid black;
   border-radius: 20px;
-  height: 90%;
-  width: 90%;
+  height: 91%;
+  width: 930px;
   flex: 1;
-  margin-top: 2%;
+  margin-top: 3.7%;
   background-color: rgb(255, 250, 233);
 `;
 
@@ -41,11 +41,13 @@ const ButtonArea = styled.button`
   font-size: 25px;
   border: none;
   border-radius: 16px;
-  background-color: rgb(255, 215, 3);
+  background-color: rgba(255, 184, 36, 1);
   margin-top: 0;
   margin-bottom: 15px;
-  &:hover {
-    background-color: rgb(0, 164, 27);
+ &:hover,
+  &:focus {
+    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
+    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
   }
 `;
 

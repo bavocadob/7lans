@@ -2,15 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 93%;
-  width: 90%;
+  width: 930px;
+    height: 100%;
   display: flex;
   flex-direction: column;
   padding: 1rem;
   border-radius: 20px;
-  margin-top: 2px;
+  margin-top: 2%;
   align-items: center;
 `;
+
 
 const Heading = styled.h1`
   font-size: 30px;
@@ -21,7 +22,7 @@ const Heading = styled.h1`
 
 const ShadowDiv = styled.div`
   width: 95%;
-  height: 30%;
+  height: 40%;
   border-radius: 20px;
   background-color: rgb(255, 242, 176);
   display: flex;
@@ -29,10 +30,11 @@ const ShadowDiv = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 7px;
+  border: 5px solid rgb(240, 165, 8);
 `;
 
 const Problem = styled.h1`
-  font-size: 80px;
+  font-size: 70px;
   font-weight: bolder;
   color: black;
   text-shadow: 2px 2px 2px rgb(255, 215, 3);
@@ -50,14 +52,15 @@ const ButtonDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
-  height: 70%;
+  height: 80%;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   background-color: rgb(255, 242, 176);
   border: 5px solid rgb(240, 165, 8);
-  margin-left: 4rem;
-  margin-top: 4rem;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 1rem;
 `;
 
 const StyledButton = styled.button`

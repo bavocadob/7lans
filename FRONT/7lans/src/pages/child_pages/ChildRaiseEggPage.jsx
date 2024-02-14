@@ -15,6 +15,7 @@ import SelectedChildPostit from "../../components/volunteer/post_it/SelectedChil
 import Correct from "../../components/dinosaur/Correct";
 
 import EggImg from "../../images/egg_img.png";
+import { Tooltip } from "react-tooltip";
 
 const RightSide = styled.div`
   width: 90%;
@@ -294,11 +295,18 @@ const ChildRaiseEggPage = () => {
                 </RowBox2>
                 <RowBox3>
                   <img
+                    data-tooltip-id="child-egg-tooltip"
                     onClick={eggClick}
                     style={{ width: "140px",height: "150px", cursor: "pointer" }}
                     src={EggImg}
                     alt=""
                   />
+                  <Tooltip id="child-egg-tooltip">
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <span> "exp: 100 %" 가 되면</span>
+                      <span>알을 부화시킬 수 있어요.</span>
+                    </div>
+                  </Tooltip>
                   {!dinoState && (
                   <img
                     style={{ 

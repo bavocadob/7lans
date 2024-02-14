@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 import axios from "axios";
-import Modal from "react-modal";
 import { adminAddFriend } from "../../store/adminAddFriendSlice";
 
 const RightContainer = styled.div`
@@ -42,29 +41,45 @@ const ActiveContent = styled.div`
 const ApproveButton = styled.button`
   background-color: #ff6b81;
   color: white;
-  padding: 8px 16px; /* 크기 조정 */
+  padding: 10px 20px; /* 크기 조정 */
   border-radius: 20px;
   border: none;
   cursor: pointer;
-  font-size: 1rem;
   margin-top: 20px;
-  align-self: flex-end; /* 오른쪽에 위치 */
+  margin-right: 10px;
+  align-self: flex-end;
 `;
 
-const ModalContainer = styled.div`
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const ModalContent = styled.div`
+  background-color: white;
+  padding: 40px; /* Increased padding */
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Added box shadow for depth */
+  font-size: larger;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  height: 100px;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 20px;
+  justify-content: space-around;
+  margin-top: 20px;
 `;
-
-const NoList = styled.div``;
 
 const ActiveRight = () => {
   const { activityId, relationId } = useSelector(
@@ -189,32 +204,29 @@ const ActiveRight = () => {
       {activeLog.approveStatus ? null : (
         <ApproveButton onClick={openModal}>승인하기</ApproveButton>
       )}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="승인 확인"
-      >
-        <ModalContainer>
-          <div>승인하시겠습니까?</div>
-          <ButtonContainer>
-            <ApproveButton
-              onClick={() => onClick(centerId, relationId, activityId)}
-            >
-              승인
-            </ApproveButton>
-            <ApproveButton onClick={closeModal}>취소</ApproveButton>
-          </ButtonContainer>
-        </ModalContainer>
-      </Modal>
-      <Modal
-        isOpen={isApproveSuccessModalOpen}
-        onRequestClose={closeApproveSuccessModal}
-        contentLabel="승인 완료"
-      >
-        <ModalContainer>
-          <div>활동일지가 승인되었습니다!</div>
-        </ModalContainer>
-      </Modal>
+      {modalIsOpen && (
+        <Modal>
+          <ModalContent>
+            승인하시겠습니까?
+            <ButtonContainer>
+              <ApproveButton
+                onClick={() => onClick(centerId, relationId, activityId)}
+              >
+                승인
+              </ApproveButton>
+              <ApproveButton onClick={closeModal}>취소</ApproveButton>
+            </ButtonContainer>
+          </ModalContent>
+        </Modal>
+      )}
+
+      {isApproveSuccessModalOpen && (
+        <Modal>
+          <ModalContent>
+            <div>활동일지가 승인되었습니다!</div>
+          </ModalContent>
+        </Modal>
+      )}
     </RightContainer>
   );
 };

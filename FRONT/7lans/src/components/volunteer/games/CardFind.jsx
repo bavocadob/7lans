@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types';
 import { Session } from 'openvidu-browser';
-
+import getEnv from "../../../utils/getEnv.jsx";
+import CardFin from './CardFin.jsx';
 
 // 화면에서 나타날 카드 컴포넌트
 // eslint-disable-next-line react/prop-types
@@ -16,6 +17,7 @@ const Card = ({num, isFlipped, isDisabled, handleClick}) => {
                     width: '140px',
                     margin: '1rem',
                     marginBottom: '0',
+                    
                     border: '3px solid rgb(240, 165, 8)',
                     borderRadius: '17px',
                     backgroundColor: 'rgb(255, 215, 3)',
@@ -88,7 +90,7 @@ const CardFind = ({
       setNowCard([]);
       setFlippedCard([]);
       setCorrect(false);
-    }, 3000);
+    }, 300000000);
     return () => {
       clearTimeout(timeout);
     };
@@ -170,7 +172,7 @@ const CardFind = ({
         handleNoMatch();
       }
     }
-    if (flippedCard.length === 16) {
+    if (flippedCard.length === 2) {
       handleGameWon();
     }
   }, [nowCard]);
@@ -178,10 +180,17 @@ const CardFind = ({
 
   const renderCard = () => {
     if (correct) {
-      return (<div style={{
-        display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', fontSize: '150px'
-      }}>
-        성공
+      return ( <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '10%',
+        marginLeft: '5%',
+        paddingLeft: '40px',
+        textAlign: 'center'
+    }}>
+        <CardFin/>
       </div>)
     }
     return (
@@ -212,7 +221,13 @@ const CardFind = ({
 
   }
   return (<div style={{
-    display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh'
+    display: 'flex',
+     justifyContent: 'center', 
+     alignItems: 'center', 
+     height: '80vh',
+     width: '700px', 
+     marginLeft: '3%',
+     marginTop: '5%'
   }}>
     {!gameStarted && <button
       onClick={() => gameStartSignal()}
@@ -223,11 +238,14 @@ const CardFind = ({
         fontWeight: 'bold',
         padding: '20px 40px',
         borderRadius: '5px',
-        border: 'none',
+        border: '3px solid rgb(240, 165, 8)',
         cursor: 'pointer',
+        marginLeft: '23%',
+        width: '250px',
+        height: '130px'
       }}
     >
-      Start Game
+      게임 시작
     </button>}
     {gameStarted && renderCard()}
   </div>)

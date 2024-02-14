@@ -188,6 +188,7 @@ const LoginPage = () => {
     } 
     catch (err) {
       console.error(err);
+      window.alert('이메일 혹은 비밀번호를 다시 한번 확인해주세요.')
     }
     console.log(userInfo)
   };

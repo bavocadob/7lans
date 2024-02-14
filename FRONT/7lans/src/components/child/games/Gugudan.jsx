@@ -232,7 +232,7 @@ const Gugudan = () => {
                           fontSize: '25px', 
                           border: 'none', 
                           borderRadius: '16px', 
-                          backgroundColor: 'rgb(255, 215, 3)',
+                          backgroundColor: 'rgba(255, 184, 36, 1)',
                           marginTop:'0',
                           marginBottom:'15px'
                       }} 
@@ -255,7 +255,7 @@ const Gugudan = () => {
                           fontSize: '25px', 
                           border: 'none', 
                           borderRadius: '16px', 
-                          backgroundColor: 'rgb(255, 215, 3)'}}
+                          backgroundColor: 'rgba(255, 184, 36, 1)'}}
                   onClick={resetGame}>돌아가기</button>
           }
         </div>

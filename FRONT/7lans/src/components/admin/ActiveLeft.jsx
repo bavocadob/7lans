@@ -23,7 +23,7 @@ const SearchContainer = styled.div`
 `;
 
 const SearchBar = styled.input`
-  width: 50%;
+  width: 55%;
   padding: 10px;
   margin-bottom: 20px;
   border: 2px solid #ddd;
@@ -50,7 +50,7 @@ const PostContainer = styled.div`
   border-radius: 10px;
   margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 60%;
+  width: 62%;
   margin-bottom: 15px;
   margin-left: 200px;
   padding: 15px;
@@ -150,6 +150,13 @@ const ToggleBtn = styled.input`
   }
 `;
 
+const NoSearchContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30%;
+`;
+
 const filterPosts = (posts, searchTerm) => {
   return posts.filter((post) => {
     const lowercaseSearchTerm = searchTerm.toLowerCase();
@@ -211,14 +218,18 @@ const ActiveLeft = () => {
   const filteredApprovePosts = filterPosts(approvePosts, searchTerm);
 
   const onClick = (activityId, relationId, index) => {
-    dispatch(adminSelectAcitve({ activityId, relationId }));
-    console.log(activityId, relationId, "ccccccc");
-    setSelectedPostIndex(index); // 선택된 인덱스 업데이트
+    if (index === selectedPostIndex) {
+      setSelectedPostIndex(null);
+    } else {
+      dispatch(adminSelectAcitve({ activityId, relationId }));
+      setSelectedPostIndex(index);
+    }
   };
 
   const toggleApprovalStatus = () => {
     dispatch(adminApproveBtn());
-    console.log(isApproval, "승인상태"); // 승인 상태를 토글
+    console.log(isApproval, "승인상태");
+    setSelectedPostIndex(null);
   };
 
   useEffect(() => {
@@ -253,6 +264,9 @@ const ActiveLeft = () => {
               type="checkbox"
               checked={isApproval}
               onChange={toggleApprovalStatus}
+              title={
+                isApproval ? "미승인 목록으로 변경" : "승인된 목록으로 변경"
+              }
             />
           </ToggleContainer>
         </SearchContainer>
@@ -279,7 +293,9 @@ const ActiveLeft = () => {
                 </PostContainer>
               ))
             ) : (
-              <p>검색 결과가 없습니다.</p>
+              <LeftContainer>
+                <NoSearchContainer>검색 결과가 없습니다.</NoSearchContainer>
+              </LeftContainer>
             )}
           </ActiveList>
         ) : (
@@ -305,7 +321,9 @@ const ActiveLeft = () => {
                 </PostContainer>
               ))
             ) : (
-              <p>검색 결과가 없습니다.</p>
+              <LeftContainer>
+                <NoSearchContainer>검색 결과가 없습니다.</NoSearchContainer>
+              </LeftContainer>
             )}
           </ActiveList>
         )}

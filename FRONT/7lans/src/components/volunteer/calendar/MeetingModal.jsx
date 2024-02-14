@@ -9,7 +9,7 @@ import { inline } from "@floating-ui/core";
 import { dateToString, calTime, dateToHyphen } from "./DateTranslation";
 import { getMeetingList } from "./Axioses";
 
-import CloseIcon from "../../../images/next_button.png"
+import CloseIcon from "../../../images/close_button.png"
 
 ReactModal.setAppElement("#root");
 

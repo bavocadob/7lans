@@ -11,11 +11,12 @@ const Container = styled.div`
 const ShadowBox = styled.div`
   display: flex;
   flex-direction: column;
-  border: 5px solid rgb(45, 45, 45);
+  border: 5px solid black;
   border-radius: 20px;
-  height: 94%;
+  height: 93%;
+  width: 930px;
   flex: 1;
-  margin: 1.5rem;
+  margin-top: 4%;
   background-color: rgb(255, 250, 233);
 `;
 
@@ -59,8 +60,14 @@ const SubmitButton = styled.button`
   font-size: 25px;
   border: none;
   border-radius: 16px;
-  background-color: rgb(255, 215, 3);
-  margin-bottom: 20px;
+  background-color: rgba(255, 184, 36, 1);
+  margin-top: 0;
+  margin-bottom: 15px;
+ &:hover,
+  &:focus {
+    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
+    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
+  }
 `;
 
 const WordsInput = ({
@@ -80,7 +87,7 @@ const WordsInput = ({
           />
         </InputContainer>
         <SubmitButton onClick={() => submitWord(currentInputWord)}>
-          제출
+          제시완료
         </SubmitButton>
       </ShadowBox>
     </Container>

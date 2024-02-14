@@ -6,13 +6,17 @@ import styled from 'styled-components';
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  align-items: center;
+  height: 93%;
+  width: 930px;
+  flex: 1;
+  margin-top: 4%;
+  text-align: 'center';
 `;
 
 // For showing form title
 const FormTitle = styled.h1`
   margin-top: 4%;
+  margin-left: 20%;
   font-weight: bolder;
   color: rgb(45, 45, 45);
   text-shadow: 2px 2px 2px rgb(255, 215, 3);
@@ -27,6 +31,7 @@ const Shadow = styled.div`
   width: 90%;
   flex: 1;
   margin: 2rem;
+  background-color: rgb(251, 243, 212);
 `;
 
 // For wrapping input fields
@@ -49,6 +54,7 @@ const InputFieldsContainer = styled.div`
   flex-direction: column;
   padding: 1rem;
   justify-content: center;
+  background-color: rgb(251, 243, 212);
 `;
 
 

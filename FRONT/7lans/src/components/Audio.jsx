@@ -2,12 +2,14 @@ import React, { useState, useCallback } from "react";
 import { Howl, Howler } from "howler";
 import styled from "styled-components";
 import { Tooltip } from "react-tooltip";
+import Tree from "../images/tree.png"
 
 const Buttondiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 40px;
-  margin-left: 60px;
+  gap: 30px;
+  margin-left: 10px;
+  height: 270px;
 `;
 
 const Button = styled.button`
@@ -16,11 +18,17 @@ const Button = styled.button`
     rgba(255, 184, 36, 1),
     rgba(255, 237, 140, 1)
   );
-  border: 3px solid rgba(45, 45, 45);
-  border-radius: 100px;
-  width: 160px;
-  height: 110px;
-  font-size: 27px;
+  background-image: url(${Tree}); // 이미지를 배경으로 사용합니다.
+  background-size: 250px 300px; 
+  background-repeat: no-repeat;
+  /* border: 3px solid rgba(45, 45, 45); */
+  border: none;
+  /* border-radius: 100px; */
+  width: 250px;
+  height: 300px;
+  font-size: 30px;
+  padding-top: 210px;
+  font-weight: bolder;
 `;
 
 const ChildAudioPlay = ({ dinoState, setdinoState }) => {
@@ -149,7 +157,8 @@ const ChildAudioPlay = ({ dinoState, setdinoState }) => {
         <a data-tooltip-id="record_tooltip">
           <Button
             onClick={toggleRecording}
-            // title={isRecording ? '' : '녹음을 하면 공룡이 따라 말해요'}
+            // image={Tree}
+            title={isRecording ? '' : '녹음을 하면 공룡이 따라 말해요'}
           >
             {isRecording ? "녹음완료" : "녹음시작"}
           </Button>{" "}

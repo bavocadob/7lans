@@ -67,7 +67,7 @@ const Desk = styled.div`
   height: 50px;
   background-color: #964b00;
   position: absolute;
-  top: 86.8%;
+  top: 90.5%;
   color: white;
   border-radius: 2px;
   font-size: 20px;
@@ -110,15 +110,18 @@ const ModalContent = styled.div`
 const CuteButton = styled.button`
 background: rgb(255, 252, 199);
 font-weight: bold;
-border: 2px solid rgb(255, 184, 36);
+border: 2px solid rgba(255, 184, 36, 1);
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
   margin: 10px;
   width: 90px;
   height: 45px;
-  &:hover {
-    background-color: rgb(255, 215, 3)};
+   &:hover,
+  &:focus {
+    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
+    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
+  }
 `;
 
 
