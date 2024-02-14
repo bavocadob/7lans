@@ -220,7 +220,7 @@ const ExpBar = styled.div`
 
 const FilledExp = styled.div`
   height: 100%;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: rgba(255, 184, 36, 1); /* 채우진 부분의 색상 */
 `;
 

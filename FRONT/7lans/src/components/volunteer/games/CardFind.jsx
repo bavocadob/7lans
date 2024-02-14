@@ -7,7 +7,7 @@ import CardFin from './CardFin.jsx';
 // 화면에서 나타날 카드 컴포넌트
 // eslint-disable-next-line react/prop-types
 const Card = ({num, isFlipped, isDisabled, handleClick}) => {
-  const cardImageNum = num <= 8 ? num : num - 8;
+  const cardImageNum = num <= 10 ? num : num - 10;
   return (<button disabled={isDisabled}
                   style={{
                     transform: isFlipped ? 'rotateY(360deg)' : '',
@@ -32,7 +32,7 @@ const Card = ({num, isFlipped, isDisabled, handleClick}) => {
   </button>);
 }
 
-const cardNum = Array.from({length: 16}, (_, index) => index + 1);
+const cardNum = Array.from({length: 20}, (_, index) => index + 1);
 const CardFind = ({
                     session,
                   }) => {
@@ -90,7 +90,7 @@ const CardFind = ({
       setNowCard([]);
       setFlippedCard([]);
       setCorrect(false);
-    }, 300000000);
+    }, 3000000);
     return () => {
       clearTimeout(timeout);
     };
@@ -166,7 +166,7 @@ const CardFind = ({
   useEffect(() => {
     if (nowCard.length === 2) {
       const difference = Math.abs(nowCard[0] - nowCard[1]);
-      if (difference === 8) {
+      if (difference === 10) {
         handleMatch();
       } else {
         handleNoMatch();
@@ -185,9 +185,9 @@ const CardFind = ({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '10%',
-        marginLeft: '5%',
-        paddingLeft: '40px',
+        // marginTop: '10%',
+        // marginLeft: '5%',
+        // paddingLeft: '40px',
         textAlign: 'center'
     }}>
         <CardFin/>
@@ -225,8 +225,8 @@ const CardFind = ({
      justifyContent: 'center', 
      alignItems: 'center', 
      height: '80vh',
-     width: '700px', 
-     marginLeft: '3%',
+     width: '900px', 
+     marginLeft: '0%',
      marginTop: '5%'
   }}>
     {!gameStarted && <button
@@ -240,7 +240,7 @@ const CardFind = ({
         borderRadius: '5px',
         border: '3px solid rgb(240, 165, 8)',
         cursor: 'pointer',
-        marginLeft: '23%',
+        marginLeft: '7%',
         width: '250px',
         height: '130px'
       }}
