@@ -93,19 +93,61 @@ const ChildCard = styled.div`
   padding: 15px;
   border-radius: 20px;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.3s;
+  transition: transform 0.3s;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background-color: #ffd700;
     transform: translateY(-5px);
   }
-  &.selected {
-    background-color: #ffd700;
-    animation: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: skewY(-12deg);
+    z-index: -1;
   }
+`;
+const ProfileImage = styled.img`
+  border: solid grey 3px;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+  margin-left: 20px;
+`;
+
+const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: x-large;
+  width: 150px;
+  margin-top: 10px;
+  margin-right: 30px;
+`;
+
+const ProfileInfo1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: medium;
+  width: 150px;
+  margin-top: 10px;
+  margin-right: 30px;
+`;
+
+const ProfileInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ChildManage = () => {
@@ -129,10 +171,10 @@ const ChildManage = () => {
       .get(`${urlInfo}/child/listByCenter/${centerId}`)
       .then((response) => {
         const arr = [];
-        // console.log(response.data, "센터의 아동들");
+        console.log(response.data, "센터의 아동들");
         for (const element of response.data) {
-          // console.log(element, "아동개인의 정보");
-          let childName, centerName, childRelationId, childBirth, childId;
+          console.log(element, "아동개인의 정보");
+          let childName, centerName, childImg, childBirth, childId;
           for (const ele in element) {
             if (ele === "childName") {
               childName = element[ele];
@@ -146,8 +188,11 @@ const ChildManage = () => {
             if (ele === "childId") {
               childId = element[ele];
             }
+            if (ele === "childProfileImgPath") {
+              childImg = element[ele];
+            }
           }
-          arr.push([childName, centerName, childBirth, childId]);
+          arr.push([childName, centerName, childBirth, childId, childImg]);
         }
         setChildList(arr);
       })
@@ -180,23 +225,24 @@ const ChildManage = () => {
             <SearchContainer>
               <SearchInput
                 type="text"
-                placeholder="학생이름이나 날짜 검색"
+                placeholder="아동이름이나 생년월일 검색"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </SearchContainer>
             <ChildCardList>
               {/* 검색 결과에 따라 동적으로 ChildCard를 생성 */}
-              {filteredChilds.map((Child, index) => (
+              {filteredChilds.map((child, index) => (
                 <ChildCard
                   key={index}
-                  isSelected={index === selectedCard}
-                  onClick={() => handleChildClick(Child, index)}
+                  onClick={() => handleChildClick(child, index)}
                 >
-                  <h3>아동이름 : {Child[0]}</h3>
-                  <br />
-                  <h5>센터이름 : {Child[1]}</h5>
-                  <h5>생년원일 : {Child[2]}</h5>
+                  <ProfileImage src={child[4]} />
+                  <ProfileInfoContainer>
+                    <ProfileInfo>{child[0]} 아동</ProfileInfo>
+                    <ProfileInfo1>{child[1]}</ProfileInfo1>
+                    <ProfileInfo1>{child[2]}</ProfileInfo1>
+                  </ProfileInfoContainer>
                 </ChildCard>
               ))}
             </ChildCardList>

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import axios from "axios";
 import getEnv from "../../utils/getEnv";
 import { motion } from "framer-motion";
-import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png";
 
 const UpperDiv = styled.div`
   flex: 0.4;
@@ -30,9 +29,10 @@ const ProfileCard = styled.div`
 `;
 
 const ProfileImage = styled.img`
+  border: solid gray 3px;
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 `;
 
 const InformationSection = styled.div`
@@ -135,7 +135,7 @@ function ChildUpDiv() {
   const selectChildCard = useSelector((state) => state.adminSelectChild.value);
   const userInfo = useSelector((state) => state.user);
   const urlInfo = getEnv("API_URL");
-  const centerId = userInfo.value.centerId;
+  const [childProfileImg, setChildProfileImg] = useState("");
   const [note, setNote] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [childSpecialNote, setChildSpecialNote] = useState("");
@@ -171,6 +171,7 @@ function ChildUpDiv() {
         .then((res) => {
           console.log(res.data, "childUpdiv 아동상세조회");
           setChildSpecialNote(res.data.childSpecialContent);
+          setChildProfileImg(res.data.childProfileImagePath);
         })
         .catch((err) => {
           console.log(err, "err->ChildUpDiv");
@@ -182,7 +183,7 @@ function ChildUpDiv() {
     <>
       <UpperDiv>
         <ProfileCard>
-          <ProfileImage src={VolunteerProfileEx} alt="Profile" />
+          <ProfileImage src={childProfileImg} alt="Profile" />
         </ProfileCard>
         <InformationSection>
           <p>아동이름 : {name}</p>
@@ -212,6 +213,7 @@ function ChildUpDiv() {
                   height: "200px",
                   margin: "10px 0",
                   padding: "10px",
+                  resize: "none",
                 }}
               />
               <ModalButtons>

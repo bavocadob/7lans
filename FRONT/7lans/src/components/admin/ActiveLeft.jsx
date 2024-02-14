@@ -152,9 +152,11 @@ const ToggleBtn = styled.input`
 
 const NoSearchContainer = styled.div`
   display: flex;
+  font-size: larger;
   justify-content: center;
   align-items: center;
   height: 30%;
+  margin-left: 140px;
 `;
 
 const filterPosts = (posts, searchTerm) => {

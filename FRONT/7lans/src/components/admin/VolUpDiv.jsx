@@ -5,7 +5,6 @@ import styled from "styled-components";
 import getEnv from "../../utils/getEnv";
 import { adminAddFriend } from "../../store/adminAddFriendSlice";
 import { adminDeleteFriend } from "../../store/adminDeleteFriendSlice";
-import VolunteerProfileEx from "../../images/admin_pic/volunteer_profile_example.png";
 
 const UpperDiv = styled.div`
   flex: 0.4;
@@ -31,9 +30,17 @@ const ProfileCard = styled.div`
 `;
 
 const ProfileImage = styled.img`
+  border: solid gray 3px;
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
+`;
+
+const ChildProfileImage = styled.img`
+  border: solid gray 2px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
 `;
 
 const InformationSection = styled.div`
@@ -56,9 +63,9 @@ const SearchContainer = styled.div`
 `;
 
 const ChildSearchInput = styled.input`
-  width: 100%; /* 너비를 100%로 설정하여 부모 요소의 너비에 맞춤 */
-  height: 40px; /* 높이를 40px로 설정하여 원하는 크기로 조정 */
-  padding: 10px; /* 내부 패딩 설정 */
+  width: 100%;
+  height: 40px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
@@ -91,16 +98,20 @@ const ChildCard = styled.div`
   margin-bottom: 10px;
   padding: 15px;
   border-radius: 15px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  border: grey 1px solid;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fcfcfc;
-  transition: transform 0.3s ease; /* 호버 시 애니메이션 효과 */
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
   cursor: pointer;
+  position: relative; /* 상대 위치 지정 */
+
+  /* 오른쪽 그림자 */
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    transform: translateY(-5px); /* 호버 시 약간 위로 이동 */
+    transform: translateY(-5px);
   }
 `;
 
@@ -187,11 +198,12 @@ function VolUpDiv() {
   const [showModal, setShowModal] = useState(false);
   const [childId, setChildId] = useState("");
   const dispatch = useDispatch();
-  let name, email, time, volId;
+  let name, email, time, volId, profileImg;
   name = selectVolCard[0];
   email = selectVolCard[1];
   time = selectVolCard[2];
   volId = selectVolCard[3];
+  profileImg = selectVolCard[4];
 
   const closeModal = () => {
     setShowModal(false);
@@ -204,12 +216,20 @@ function VolUpDiv() {
         volunteerId: volId,
       })
       .then((response) => {
-        const arr = response.data.map((element) => ({
-          childName: element.childName,
-          centerName: element.childCenterName,
-          childBirth: element.childBirth,
-          childId: element.childId,
-        }));
+        const arr = response.data.map((element) => {
+          const birthYear = new Date(element.childBirth).getFullYear();
+          const currentYear = new Date().getFullYear();
+          const age = currentYear - birthYear;
+
+          return {
+            childName: element.childName,
+            centerName: element.childCenterName,
+            childBirth: element.childBirth,
+            childId: element.childId,
+            childImg: element.childProfileImgPath,
+            childAge: age,
+          };
+        });
         setChildList(arr);
         dispatch(adminDeleteFriend(false));
       })
@@ -255,7 +275,7 @@ function VolUpDiv() {
       <UpperDiv>
         <ProfileCard>
           {/* 이미지도 넣기 */}
-          <ProfileImage src={VolunteerProfileEx} alt="Profile" />
+          <ProfileImage src={profileImg} alt="Profile" />
         </ProfileCard>
         <InformationSection>
           <p>봉사자 이름 : {name}</p>
@@ -274,8 +294,9 @@ function VolUpDiv() {
           <ChildList>
             {filteredChilds.map((child, index) => (
               <ChildCard key={index}>
+                <ChildProfileImage src={child.childImg} />
                 <h6>{child.childName}</h6>
-                <h6>{child.childBirth}</h6>
+                <h6>({child.childAge}살)</h6>
                 <GetFriendBtn onClick={() => onClick(child.childId)}>
                   친구추가
                 </GetFriendBtn>

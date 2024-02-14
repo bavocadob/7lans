@@ -20,6 +20,7 @@ const LowerDiv = styled.div`
 `;
 
 const LowerProfileImage = styled.img`
+  border: solid grey 2px;
   border-radius: 50%;
   width: 60px;
   height: 70px;
@@ -252,7 +253,10 @@ const ChildLowDiv = () => {
         <ProfileContainer>
           {currentItems.map((vol, index) => (
             <LowerProfileCard key={index}>
-              <LowerProfileImage src={ProfileExample} alt="Profile" />
+              <LowerProfileImage
+                src={vol.volunteerProfileImagePath}
+                alt="Profile"
+              />
               <DeleteButton onClick={() => handleDeleteClick(vol.relationId)}>
                 X
               </DeleteButton>
