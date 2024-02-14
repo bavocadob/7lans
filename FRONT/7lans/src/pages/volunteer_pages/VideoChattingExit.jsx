@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import styled, {keyframes} from "styled-components";
 import Modal from 'react-modal';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Session} from "openvidu-browser";
 import {postMeetingImage, closeMeetingSchedule} from "../../api/axioses.jsx";
 
@@ -170,11 +170,8 @@ const VideoChattingExit = ({
   const [isLoading, setLoading] = useState(false);
   const [isComplete, setComplete] = useState(false);
 
-  // TODO 추후 아래와 같은 방식으로 meetingId를 가져오게 수정해야 함
-  // const { meetingId } = useParams();
-
-
   const navigate = useNavigate();
+  const { meetingId } = useParams();
 
 
   useEffect(() => {
@@ -283,9 +280,7 @@ const VideoChattingExit = ({
 
 
   const handleConfirmModalConfirm = () => {
-    // const meetingId = props.meetingId; // props로부터 meetingId 받아오기
-    // 임시로 meetingId는 39번으로 설정
-    const meetingId = 39;
+
     imageUploadSignal(true)
 
     setTimeout(async () => {

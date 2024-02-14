@@ -12,7 +12,7 @@ const UseOpenViduSession = () => {
   const userInfo = useSelector((state) => state.user.value)
 
   // TODO 세션 ID props에서 받아서 수정
-  const [mySessionId, setMySessionId] = useState('mytestsession');
+  const [mySessionId, setMySessionId] = useState('');
   const [myUserName, setMyUserName] = useState(
     userInfo.memberType === 'VOLUNTEER' ? `${userInfo.volunteerName} 봉사자` : `${userInfo.childName} 학생`
   );
@@ -180,7 +180,6 @@ const UseOpenViduSession = () => {
         });
 
         mySession.publish(publisherInstance);
-
         const devices = await OV.current.getDevices();
         const videoDevices = devices.filter(device => device.kind === 'videoinput');
         const currentVideoDeviceId = publisherInstance.stream.getMediaStream().getVideoTracks()[0].getSettings().deviceId;
@@ -202,6 +201,7 @@ const UseOpenViduSession = () => {
     subscribers, sessionCreatedAt,
     joinSession, renderUserVideoComponent,
     toggleCamera, toggleMic,
+    mySessionId, setMySessionId
 
   };
 }
