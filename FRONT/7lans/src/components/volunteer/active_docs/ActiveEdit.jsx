@@ -216,7 +216,7 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
   };
 
   //수정하기
-  const changeContent = () => {
+  const changeContent = async () => {
     //console.log(content)
     axios.put(`${urlInfo}/activityLog/volunteer/modify`, {
       volunteerId: userInfo.memberId,
@@ -230,8 +230,8 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
   };
 
   //제출하기
-  const submit = () => {
-    axios.put(`${urlInfo}/activityLog/volunteer/writeDone`, {
+  const submit = async () => {
+    await axios.put(`${urlInfo}/activityLog/volunteer/writeDone`, {
       volunteerId: userInfo.memberId,
       relationId: childInfo.relationId,
       activityLogId: activityLog.activityLogId,

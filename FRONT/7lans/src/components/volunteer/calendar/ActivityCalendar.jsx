@@ -4,7 +4,7 @@ import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from 'axios'
 import ReactModal from 'react-modal';
 import styled from 'styled-components';
@@ -240,7 +240,6 @@ const ActivityCalendar = () => {
 
     const navigate = useNavigate();
     const currentDate = new Date();
-    const dayOfMonth = currentDate.getDate();
     const childInfo = useSelector((state) => state.child.value)
 
     //해당 아동의 활동일지 정보 불러오기
