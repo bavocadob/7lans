@@ -25,7 +25,7 @@ const ChildInfo = styled.div`
   display: flex;
   font-size: 40px;
   padding-top: 20px;
-  padding-left: 20%;
+  padding-left: 18%;
 `
 
 
