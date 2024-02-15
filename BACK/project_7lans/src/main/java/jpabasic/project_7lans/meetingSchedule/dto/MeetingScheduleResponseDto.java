@@ -44,8 +44,8 @@ public class MeetingScheduleResponseDto {
         String meetingUrl;
         @NotNull(message = "[MeetingScheduleRequestDto.monthList] status 는 Null 일 수 없습니다.")
         ScheduleType status;
-        @NotNull(message = "[MeetingScheduleRequestDto.monthList] day 는 Null 일 수 없습니다.")
-        Integer day;
+        @NotNull(message = "[MeetingScheduleRequestDto.monthList] meetingStartTime 는 Null 일 수 없습니다.")
+        LocalDateTime meetingStartTime;
         @NotNull(message = "[MeetingScheduleRequestDto.monthList] time 는 Null 일 수 없습니다.")
         LocalTime time;
 
@@ -56,14 +56,14 @@ public class MeetingScheduleResponseDto {
                 String thumbnailImgPath,
                 String meetingUrl,
                 ScheduleType status,
-                Integer day,
+                LocalDateTime meetingStartTime,
                 LocalTime time
         ){
             this.meetingId = meetingId;
             this.thumbnailImgPath = thumbnailImgPath;
             this.meetingUrl = meetingUrl;
             this.status = status;
-            this.day = day;
+            this.meetingStartTime = meetingStartTime;
             this.time = time;
         }
     }
@@ -75,7 +75,7 @@ public class MeetingScheduleResponseDto {
                 .thumbnailImgPath(meetingSchedule.getThumbnailImgPath())
                 .meetingUrl(meetingSchedule.getMeetingUrl())
                 .status(meetingSchedule.getStatus())
-                .day(meetingSchedule.getScheduledStartTime().getDayOfMonth())
+                .meetingStartTime(meetingSchedule.getScheduledStartTime())
                 .time(meetingSchedule.getScheduledStartTime().toLocalTime())
                 .build();
     }
