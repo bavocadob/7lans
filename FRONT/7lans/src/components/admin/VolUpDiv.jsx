@@ -44,11 +44,11 @@ const ChildProfileImage = styled.img`
 `;
 
 const InformationSection = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-right: 50px;
+  align-items: flex-start;
+  margin-left: 90px;
   font-size: 20px;
 `;
 
@@ -90,6 +90,7 @@ const SearchChildContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 30px;
 `;
 
 const ChildCard = styled.div`
@@ -105,9 +106,7 @@ const ChildCard = styled.div`
   background-color: #ffffff;
   transition: transform 0.3s ease;
   cursor: pointer;
-  position: relative; /* 상대 위치 지정 */
-
-  /* 오른쪽 그림자 */
+  position: relative;
   box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.1);
 
   &:hover {
@@ -258,7 +257,7 @@ function VolUpDiv() {
         volunteerId: volId,
       })
       .then((res) => {
-        console.log("친구맺기 성공");
+        // console.log("친구맺기 성공");
         setChildList((prevChildList) =>
           prevChildList.filter((child) => child.childId !== childId)
         );
@@ -274,12 +273,11 @@ function VolUpDiv() {
     <>
       <UpperDiv>
         <ProfileCard>
-          {/* 이미지도 넣기 */}
           <ProfileImage src={profileImg} alt="Profile" />
         </ProfileCard>
         <InformationSection>
           <p>봉사자 이름 : {name}</p>
-          <p>봉사자 이메일 : {email}</p>
+          <p>email : {email}</p>
           <p>총 봉사시간 : {time ? time : 0}</p>
         </InformationSection>
         <SearchChildContainer>

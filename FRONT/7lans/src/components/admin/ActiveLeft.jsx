@@ -12,6 +12,7 @@ const LeftContainer = styled.div`
   height: 90%;
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
 `;
 
 const SearchContainer = styled.div`
@@ -45,7 +46,7 @@ const ActiveList = styled.div`
 `;
 
 const PostContainer = styled.div`
-  background-color: #fff;
+  background-color: #f5f5f5;
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -98,19 +99,19 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 20px; /* Title과 ToggleBtn 사이 여백 추가 */
+  margin-bottom: 20px;
 `;
 
 const Title = styled.h1`
   text-align: center;
-  flex: 1; /* Title이 남은 공간을 모두 차지하도록 설정 */
+  flex: 1;
 `;
 
 const ToggleContainer = styled.div`
   display: flex;
   align-items: center;
   margin-left: 20px;
-  margin-bottom: 20px; /* ToggleBtn을 수직 중앙 정렬 */
+  margin-bottom: 20px;
 `;
 
 const ToggleBtn = styled.input`
@@ -129,10 +130,7 @@ const ToggleBtn = styled.input`
     content: "";
     position: absolute;
     top: 50%;
-    left: ${({ isApproved }) =>
-      isApproved
-        ? "calc(100% - 25px)"
-        : "5px"}; // Adjusted left position to keep the circle indicator inside the button
+    left: ${({ isApproved }) => (isApproved ? "calc(100% - 25px)" : "5px")};
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
@@ -143,10 +141,7 @@ const ToggleBtn = styled.input`
   }
 
   &:checked::before {
-    left: ${({ isApproved }) =>
-      isApproved
-        ? "5px"
-        : "calc(100% - 25px)"}; // Adjusted left position when checked to keep the circle indicator inside the button
+    left: ${({ isApproved }) => (isApproved ? "5px" : "calc(100% - 25px)")};
   }
 `;
 
@@ -190,7 +185,7 @@ const ActiveLeft = () => {
       const response = await axios.get(
         `${urlInfo}/activityLog/manager/disapprovedList/${centerId}`
       );
-      console.log(response.data, "ActiveManage 승인안된 활동일지리스트");
+      // console.log(response.data, "ActiveManage 승인안된 활동일지리스트");
       setPosts(response.data);
       dispatch(adminAddFriend(false));
     } catch (error) {
@@ -203,7 +198,7 @@ const ActiveLeft = () => {
       const response = await axios.get(
         `${urlInfo}/activityLog/manager/approvedList/${centerId}`
       );
-      console.log(response.data, "ActiveManage 승인되어버린 활동일지리스트");
+      // console.log(response.data, "ActiveManage 승인되어버린 활동일지리스트");
       setApprovePosts(response.data);
       dispatch(adminAddFriend(false));
     } catch (error) {
@@ -230,7 +225,6 @@ const ActiveLeft = () => {
 
   const toggleApprovalStatus = () => {
     dispatch(adminApproveBtn());
-    console.log(isApproval, "승인상태");
     setSelectedPostIndex(null);
   };
 
@@ -283,7 +277,7 @@ const ActiveLeft = () => {
                   }
                   className={index === selectedPostIndex ? "selected" : ""}
                 >
-                  <PostTitle>날짜: {post.dateInfo}</PostTitle>
+                  <PostTitle>봉사 날짜: {post.dateInfo}</PostTitle>
                   <Info>
                     <InfoLabel>봉사자:</InfoLabel>
                     <InfoValue>{post.volunteerName}</InfoValue>

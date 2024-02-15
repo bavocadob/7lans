@@ -10,27 +10,33 @@ const RightContainer = styled.div`
   height: 90%;
   display: flex;
   flex-direction: column;
-  border-radius: 10px; /* 테두리에 귀여운 모양을 주기 위해 */
-  border: 2px solid #ffa5ab; /* 귀여운 트렌디한 색상의 테두리 추가 */
-  padding: 10px; /* 테두리 안의 내용과 여백을 조정 */
+  border-radius: 10px;
+  border: 4px solid #ffa5ab;
+  padding: 10px;
   margin-right: 30px;
+  margin-top: 20px;
 `;
 
 const HeaderItem = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px; /* 헤더 아이템 간격을 조정 */
+  margin-bottom: 5px;
 `;
 
 const Label = styled.span`
   font-weight: bold;
-  margin-right: 10px; /* 라벨과 값 사이의 간격을 조정 */
+  margin-right: 10px;
+`;
+
+const LabelInfo = styled.span`
+  margin-left: 10px;
+  font-weight: 500;
 `;
 
 const ActiveHeader = styled.div`
   flex: 1;
   padding: 10px;
-  border-bottom: 2px solid #ffa5ab; /* 헤더 아이템과 컨텐츠를 구분하는 선의 색상을 변경 */
+  border-bottom: 2px solid #ffa5ab;
 `;
 
 const ActiveContent = styled.div`
@@ -42,7 +48,7 @@ const ActiveContent = styled.div`
 const ApproveButton = styled.button`
   background-color: #ff6b81;
   color: white;
-  padding: 10px 20px; /* 크기 조정 */
+  padding: 10px 20px;
   border-radius: 20px;
   border: none;
   cursor: pointer;
@@ -125,7 +131,6 @@ const ActiveRight = () => {
     setIsApproveSuccessModalOpen(false);
   };
 
-  // 값에 제목도 추가하기 ->
   const fecthActives = async () => {
     if (relationId && activityId) {
       try {
@@ -133,7 +138,7 @@ const ActiveRight = () => {
           relationId: relationId,
           activityLogId: activityId,
         });
-        console.log(res.data, "활동일지 상세보기");
+        // console.log(res.data, "활동일지 상세보기");
         setActiveLog(res.data);
         dispatch(adminAddFriend(true));
       } catch (err) {
@@ -167,7 +172,7 @@ const ActiveRight = () => {
         relationId: relationId,
         activityLogId: activityId,
       });
-      console.log(res.data, "활동일지 승인완료");
+      // console.log(res.data, "활동일지 승인완료");
       fecthActives();
       setIsApproveSuccessModalOpen(true); // 승인 완료 모달을 표시합니다.
       setTimeout(closeApproveSuccessModal, 1000); // 0.5초 후에 승인 완료 모달을 닫습니다.
@@ -199,28 +204,36 @@ const ActiveRight = () => {
     <RightContainer>
       <ActiveHeader>
         <HeaderItem>
-          <Label>날짜:</Label>
-          <div>{activeLog.dateInfo}</div>
+          <Label>
+            날짜: <LabelInfo>{activeLog.dateInfo}</LabelInfo>
+          </Label>
         </HeaderItem>
         <HeaderItem>
-          <Label>시작 시간:</Label>
-          <div>{formatDateTime(activeLog.activityStartTime)}</div>
+          <Label>
+            시작 시간:{" "}
+            <LabelInfo>{formatDateTime(activeLog.activityStartTime)}</LabelInfo>
+          </Label>
         </HeaderItem>
         <HeaderItem>
-          <Label>끝난 시간:</Label>
-          <div>{formatDateTime(activeLog.activityEndTime)}</div>
+          <Label>
+            끝난 시간:{" "}
+            <LabelInfo>{formatDateTime(activeLog.activityEndTime)}</LabelInfo>
+          </Label>
         </HeaderItem>
         <HeaderItem>
-          <Label>봉사 시간:</Label>
-          <div>{activeLog.activityTime}</div>
+          <Label>
+            봉사 시간: <LabelInfo>{activeLog.activityTime}</LabelInfo>
+          </Label>
         </HeaderItem>
         <HeaderItem>
-          <Label>봉사자 이름:</Label>
-          <div>{activeLog.volunteerName}</div>
+          <Label>
+            봉사자 이름: <LabelInfo>{activeLog.volunteerName}</LabelInfo>
+          </Label>
         </HeaderItem>
         <HeaderItem>
-          <Label>센터 이름:</Label>
-          <div>{activeLog.centerName}</div>
+          <Label>
+            센터 이름: <LabelInfo>{activeLog.centerName}</LabelInfo>
+          </Label>
         </HeaderItem>
       </ActiveHeader>
       <ActiveContent>{activeLog.content}</ActiveContent>

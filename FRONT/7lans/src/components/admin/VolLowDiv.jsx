@@ -177,6 +177,7 @@ const ProfileContainer = styled.div`
 const NoticeContainer = styled.div`
   display: flex;
   flex: 0.5;
+  margin-top: 15px;
   justify-content: center;
   align-items: center;
   font-size: 30px;

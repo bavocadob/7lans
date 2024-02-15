@@ -6,9 +6,9 @@ import ActiveRight from "./AcitveRight";
 
 const Container = styled.div`
   display: flex;
-  justify-content: center; /* 수평 중앙 정렬 */
-  align-items: center; /* 수직 중앙 정렬 */
-  height: 100vh; /* 화면 전체 높이만큼 설정 */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
 
 const BoardContainer = styled.div`
@@ -18,18 +18,18 @@ const BoardContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 100px;
-  height: 600px; /* 최소 높이 설정 */
+  height: 600px;
   width: 1500px;
-  display: flex; /* 세로 정렬을 위해 flex 속성 적용 */
+  display: flex;
 `;
 
 const ActiveLeftContainer = styled.div`
-  flex: 2; /* 동일한 너비를 갖도록 설정 */
+  flex: 2;
   margin-top: 20px;
 `;
 
 const ActiveRightContainer = styled.div`
-  flex: 2; /* 동일한 너비를 갖도록 설정 */
+  flex: 2;
   margin-top: 20px;
 `;
 

@@ -13,15 +13,6 @@ const ButtonContainer = styled.div`
   margin-top: 120px;
 `;
 
-const zoomIn = keyframes`
-  from {
-    transform: scale(0.1);
-  }
-  to {
-    transform: scale(0.1);
-  }
-`;
-
 const LargeButton = styled.button`
   flex: 1;
   border: none;
@@ -37,11 +28,10 @@ const LargeButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  animation: ${zoomIn} 0.3s ease-in-out; /* 애니메이션 적용 */
-  transition: transform 0.3s ease-in-out; /* hover 시 애니메이션 적용 */
+  transition: transform 0.3s ease-in-out;
 
   &:hover {
-    transform: scale(1.05); /* hover 시 크기 확대 */
+    transform: scale(1.03);
   }
 `;
 

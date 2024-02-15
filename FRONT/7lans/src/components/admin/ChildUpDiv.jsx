@@ -36,11 +36,11 @@ const ProfileImage = styled.img`
 `;
 
 const InformationSection = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-right: 50px;
+  align-items: flex-start;
+  margin-left: 90px;
   font-size: 20px;
 `;
 
@@ -49,7 +49,7 @@ const NoteDiv = styled.div`
   height: 70%;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-right: 20px;
+  /* margin-right: 70px; */
   padding: 10px;
   overflow: auto;
   position: relative;
@@ -75,10 +75,10 @@ const Button = styled(motion.button)`
   margin-left: 207px;
   transition:
     background-color 0.3s ease,
-    transform 0.3s ease; /* 모션을 위한 트랜지션 */
+    transform 0.3s ease;
 
   &:hover {
-    transform: scale(0.95); /* Hover 시 커지는 모션 */
+    transform: scale(0.95);
   }
 `;
 
@@ -154,7 +154,7 @@ function ChildUpDiv() {
       })
       .then((res) => {
         setChildSpecialNote(note);
-        console.log(res.data, "특이사항쓰기 성공");
+        // console.log(res.data, "특이사항쓰기 성공");
       })
       .catch((err) => {
         console.log(err, "ChildUpDiv, 특이사항쓰기 에러");
@@ -169,7 +169,7 @@ function ChildUpDiv() {
       axios
         .get(`${urlInfo}/child/${childId}`)
         .then((res) => {
-          console.log(res.data, "childUpdiv 아동상세조회");
+          // console.log(res.data, "childUpdiv 아동상세조회");
           setChildSpecialNote(res.data.childSpecialContent);
           setChildProfileImg(res.data.childProfileImagePath);
         })
@@ -187,7 +187,7 @@ function ChildUpDiv() {
         </ProfileCard>
         <InformationSection>
           <p>아동이름 : {name}</p>
-          <p>아동생년원일 : {Birth} </p>
+          <p>생년원일 : {Birth} </p>
           <p>아동센터 : {childCenter}</p>
         </InformationSection>
         <NoteContainer>
@@ -198,7 +198,7 @@ function ChildUpDiv() {
               <NotePlaceholder>특이사항을 적어주세요!</NotePlaceholder>
             )}
           </NoteDiv>
-          <Button onClick={() => setShowModal(true)}>특이사항 쓰기</Button>
+          <Button onClick={() => setShowModal(true)}>특이사항 작성</Button>
         </NoteContainer>
         {/* 모달 */}
         {showModal && (

@@ -163,17 +163,15 @@ const ChildManage = () => {
   // 학생 리스트
   const [ChildList, setChildList] = useState([]);
 
-  console.log(userInfo, "asdasds");
-
   // 해당 센터의 학생리스트 가져오기
   useEffect(() => {
     axios
       .get(`${urlInfo}/child/listByCenter/${centerId}`)
       .then((response) => {
         const arr = [];
-        console.log(response.data, "센터의 아동들");
+        // console.log(response.data, "센터의 아동들");
         for (const element of response.data) {
-          console.log(element, "아동개인의 정보");
+          // console.log(element, "아동개인의 정보");
           let childName, centerName, childImg, childBirth, childId;
           for (const ele in element) {
             if (ele === "childName") {
@@ -221,7 +219,7 @@ const ChildManage = () => {
       <ChildManageContainer>
         <LeftContainer>
           <ChildListContainer>
-            <h2>아동 목록</h2>
+            <h2>센터의 아동 목록</h2>
             <SearchContainer>
               <SearchInput
                 type="text"

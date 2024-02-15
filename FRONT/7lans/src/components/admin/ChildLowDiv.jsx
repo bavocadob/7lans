@@ -175,6 +175,7 @@ const ProfileContainer = styled.div`
 const NoticeContainer = styled.div`
   display: flex;
   flex: 0.5;
+  margin-top: 15px;
   justify-content: center;
   align-items: center;
   font-size: 30px;
@@ -227,7 +228,7 @@ const ChildLowDiv = () => {
         relationId: relationId,
       })
       .then((res) => {
-        console.log(res, "친구끊기");
+        // console.log(res, "친구끊기");
         setChildVolList((prevList) =>
           prevList.filter((vol) => vol.relationId != relationId)
         );
