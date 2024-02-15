@@ -52,7 +52,7 @@ public class ActivityLogController {
     // Req: relationId, activityLogId
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
     @PostMapping(value = "/volunteer")
-    public ResponseEntity<ActivityLogResponseDto.detailByVolunteer> detailByVolunteer(@RequestBody ActivityLogRequestDto.detailByVolunteer detailReqDto) {
+    public ResponseEntity<ActivityLogResponseDto.detailByVolunteer> detailByVolunteer(@RequestBody @Valid ActivityLogRequestDto.detailByVolunteer detailReqDto) {
         log.info("[ActivityLogController.detailByVolunteer] data input from FRONT relationId: {} activityLogId: {}", detailReqDto.getRelationId(), detailReqDto.getActivityLogId());
         try{
             ActivityLogResponseDto.detailByVolunteer detailResDto = activityLogServiceImpl.detailByVolunteer(detailReqDto);
@@ -70,7 +70,7 @@ public class ActivityLogController {
     // Res: 없음
     @Operation(summary = "봉사자가 활동 일지 수정")
     @PutMapping(value = "/volunteer/modify")
-    public ResponseEntity modifyActivityLogByVolunteer(@RequestBody ActivityLogRequestDto.modifyByVolunteer modifyReqDto){
+    public ResponseEntity modifyActivityLogByVolunteer(@RequestBody @Valid ActivityLogRequestDto.modifyByVolunteer modifyReqDto){
         log.info("[ActivityLogController.modifyActivityLogByVolunteer] data input from FRONT activityLog: {}", modifyReqDto.getActivityLogId());
         try{
             activityLogServiceImpl.modifyActivityLogByVolunteer(modifyReqDto);
@@ -87,7 +87,7 @@ public class ActivityLogController {
     // Res: 없음
     @Operation(summary = "봉사자가 활동 일지 작성 완료")
     @PutMapping(value = "/volunteer/writeDone")
-    public ResponseEntity writeDoneActivityLogByVolunteer(@RequestBody ActivityLogRequestDto.writeDoneByVolunteer writeDoneReqDto){
+    public ResponseEntity writeDoneActivityLogByVolunteer(@RequestBody @Valid ActivityLogRequestDto.writeDoneByVolunteer writeDoneReqDto){
         log.info("[ActivityLogController.writeDoneActivityLogByVolunteer] activityLog: {}", writeDoneReqDto.getActivityLogId());
         try{
             activityLogServiceImpl.writeDoneActivityLogByVolunteer(writeDoneReqDto);
@@ -107,7 +107,7 @@ public class ActivityLogController {
     // Res: activityLog id, 제목, 봉사자 명, 아동 명, 날짜(년, 월, 일)
     @Operation(summary = "관리자가 승인되지 않은 활동 리스트 조회")
     @GetMapping(value = "/manager/disapprovedList/{centerId}")
-    public ResponseEntity<List<ActivityLogResponseDto.listDisapprovedByManager>> listDisapprovedByManager (@PathVariable Long centerId) {
+    public ResponseEntity<List<ActivityLogResponseDto.listDisapprovedByManager>> listDisapprovedByManager (@PathVariable @Valid Long centerId) {
         log.info("[ActivityLogController.listDisapprovedByManager] data input centerId: {}", centerId);
         ActivityLogRequestDto.listDisapprovedByManager reqDto = ActivityLogRequestDto.listDisapprovedByManager.builder()
                 .centerId(centerId)
@@ -127,7 +127,7 @@ public class ActivityLogController {
     // Res: activityLog id, 제목, 봉사자 명, 아동 명, 날짜(년, 월, 일)
     @Operation(summary = "관리자가 승인된 활동 리스트 조회")
     @GetMapping(value = "/manager/approvedList/{centerId}")
-    public ResponseEntity<List<ActivityLogResponseDto.listApprovedByManager>> listApprovedByManager (@PathVariable Long centerId) {
+    public ResponseEntity<List<ActivityLogResponseDto.listApprovedByManager>> listApprovedByManager (@PathVariable @Valid Long centerId) {
         log.info("[ActivityLogController.listApprovedByManager] centerId: {}", centerId);
         ActivityLogRequestDto.listApprovedByManager reqDto = ActivityLogRequestDto.listApprovedByManager.builder()
                 .centerId(centerId)
@@ -148,7 +148,7 @@ public class ActivityLogController {
     // Res: activityLog id, 활동 일지 날짜(년, 월, 일), 활동 시간, 활동 기관, 봉사자 명, 활동 내용, 작성 완료 여부, 승인 여부
     @Operation(summary = "관리자 활동 일지 상세 조회")
     @PostMapping(value = "/manager/detail")
-    public ResponseEntity<ActivityLogResponseDto.detailByManager> detailByManager (@RequestBody ActivityLogRequestDto.detailByManager reqDto) {
+    public ResponseEntity<ActivityLogResponseDto.detailByManager> detailByManager (@RequestBody @Valid ActivityLogRequestDto.detailByManager reqDto) {
         log.info("[ActivityLogController.detailByManager] output activityLogId: {}", reqDto.getActivityLogId());
         try {
             ActivityLogResponseDto.detailByManager resDto = activityLogServiceImpl.detailByManager(reqDto);
@@ -164,7 +164,7 @@ public class ActivityLogController {
     //승인
     @Operation(summary = "관리자가 특정 활동 일지 승인")
     @PostMapping(value = "/manager/approve")
-    public ResponseEntity approveByManager (@RequestBody ActivityLogRequestDto.approveByManager approveReqDto) {
+    public ResponseEntity approveByManager (@RequestBody @Valid ActivityLogRequestDto.approveByManager approveReqDto) {
         log.info("[ActivityLogController.approveByManager] input activityLogId: {}", approveReqDto.getActivityLogId());
         try{
             activityLogServiceImpl.approveByManager(approveReqDto);
@@ -178,7 +178,7 @@ public class ActivityLogController {
     // 화상채팅 시작시 활동 일지 시작 시간 입력(아이가 세션 입장)
     @Operation(summary = "활동 일지 시작 시간 입력(아동 세션 입장)")
     @PostMapping(value = "/startTime")
-    public ResponseEntity setStartTime (@RequestBody ActivityLogRequestDto.startTime startTime) {
+    public ResponseEntity setStartTime (@RequestBody @Valid ActivityLogRequestDto.startTime startTime) {
         log.info("[ActivityLogController.setStartTime] relationId: {}, time: {}", startTime.getMeetingId(), startTime.getStartTime());
         try{
             activityLogServiceImpl.setStartTime(startTime);

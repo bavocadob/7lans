@@ -3,6 +3,7 @@ package jpabasic.project_7lans.relation.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jpabasic.project_7lans.relation.dto.RelationRequestDto;
 import jpabasic.project_7lans.relation.dto.RelationResponseDto;
 import jpabasic.project_7lans.relation.service.RelationService;
@@ -26,7 +27,7 @@ public class RelationController {
 
     @Operation(summary = "관리자가 아동과 봉사자 친구 맺어주기")
     @PostMapping("/create")
-    public ResponseEntity<RelationResponseDto.info> createRelation(@RequestBody RelationRequestDto.create requestDto) {
+    public ResponseEntity<RelationResponseDto.info> createRelation(@RequestBody @Valid RelationRequestDto.create requestDto) {
         try{
             log.info("[RelationController.createRelation] create Relation start...");
             RelationResponseDto.info createResDto = relationService.createRelation(requestDto);
@@ -41,7 +42,7 @@ public class RelationController {
 
     @Operation(summary = "관리자가 아동과 봉사자 사이의 친구 끊기")
     @PostMapping("/delete")
-    public ResponseEntity deleteRelation(@RequestBody RelationRequestDto.delete deleteReqDto) {
+    public ResponseEntity deleteRelation(@RequestBody @Valid RelationRequestDto.delete deleteReqDto) {
         try{
             log.info("[RelationController.deleteRelation] delete Relation start...");
             relationService.deleteRelation(deleteReqDto);

@@ -2,6 +2,7 @@ package jpabasic.project_7lans.dinosaur.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jpabasic.project_7lans.dinosaur.dto.EggRequestDto;
 import jpabasic.project_7lans.dinosaur.dto.EggResponseDto;
 import jpabasic.project_7lans.dinosaur.service.EggService;
@@ -23,7 +24,7 @@ public class EggController {
     // 친구 관계 알 정보 가져오기.
     @Operation(summary = "친구 관계에 있는 알 정보")
     @GetMapping("/{id}")
-    public ResponseEntity<EggResponseDto.detail> getMyEgg(@PathVariable Long id) {
+    public ResponseEntity<EggResponseDto.detail> getMyEgg(@PathVariable @Valid Long id) {
         log.info("start EggController.getMyEgg...");
         try{
             EggResponseDto.detail dto = eggService.getMyEgg(id);
@@ -41,7 +42,7 @@ public class EggController {
     // Res: 없음
     @Operation(summary = "알 화상채팅으로 인한 경험치 증가")
     @PutMapping("/meeting/experience")
-    public ResponseEntity addMeetingExperienceEgg(@RequestBody EggRequestDto.addMeetingExperienceEgg eggMeetingExpReqDto){
+    public ResponseEntity addMeetingExperienceEgg(@RequestBody @Valid EggRequestDto.addMeetingExperienceEgg eggMeetingExpReqDto){
         log.info("start EggController.addMeetingExperienceEgg...");
         try{
             eggService.addMeetingExperienceEgg(eggMeetingExpReqDto);
@@ -59,7 +60,7 @@ public class EggController {
     // Res: 없음
     @Operation(summary = "알 속닥속닥으로 인한 경험치 증가")
     @PutMapping("/whisper/experience")
-    public ResponseEntity addWhisperExperienceEgg(@RequestBody EggRequestDto.addWhisperExperienceEgg eggWhisperExpReqDto){
+    public ResponseEntity addWhisperExperienceEgg(@RequestBody @Valid EggRequestDto.addWhisperExperienceEgg eggWhisperExpReqDto){
         log.info("start EggController.addWhisperExperienceEgg...");
         try{
             eggService.addWhisperExperienceEgg(eggWhisperExpReqDto);

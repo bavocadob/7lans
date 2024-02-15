@@ -35,7 +35,7 @@ public class MeetingController {
     // 미팅 생성
     @Operation(summary = "화상미팅 예약하기")
     @PostMapping("/create")
-    public ResponseEntity create(@RequestBody MeetingScheduleRequestDto.create newMeeting){
+    public ResponseEntity create(@RequestBody @Valid MeetingScheduleRequestDto.create newMeeting){
         try{
             meetingService.create(newMeeting);
             return new ResponseEntity<>(HttpStatus.OK);
