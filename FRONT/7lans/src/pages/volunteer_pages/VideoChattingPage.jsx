@@ -70,7 +70,7 @@ const VideoChattingPage = () => {
     const fetchData = async () => {
       if (userInfo !== null) {
         const meetingData = await getMeetingDetail(meetingId);
-        console.log(meetingData)
+        // console.log(meetingData)
         if (meetingData.childId !== userInfo.memberId &&
           meetingData.volunteerId !== userInfo.memberId) {
           navigate('/'); // 메인페이지로 이동
@@ -94,8 +94,8 @@ const VideoChattingPage = () => {
         status: !prevState,
       })
     })
-      .then(() => console.log(`카메라 토글 신호 보냄`))
-      .catch(err => console.log(err))
+      .then(() => // console.log(`카메라 토글 신호 보냄`))
+      .catch(err => // console.log(err))
   }
 
 
@@ -110,8 +110,8 @@ const VideoChattingPage = () => {
         status: !prevState,
       })
     })
-      .then(() => console.log(`마이크 토글 신호 보냄`))
-      .catch(err => console.log(err))
+      .then(() => // console.log(`마이크 토글 신호 보냄`))
+      .catch(err => // console.log(err))
   }
 
   const toggleGameStarted = () => {
@@ -123,8 +123,8 @@ const VideoChattingPage = () => {
     session.signal({
       type: 'toggleGame'
     })
-      .then(() => console.log(`게임 상태 토글됨`))
-      .catch(err => console.log(err))
+      .then(() => // console.log(`게임 상태 토글됨`))
+      .catch(err => // console.log(err))
   }
 
   const receiveToggleGameStarted = () => {
@@ -157,8 +157,8 @@ const VideoChattingPage = () => {
     session.signal({
       type: 'exitSession'
     })
-      .then(() => console.log(`세션 종료 신호 보냄`))
-      .catch(err => console.log(err))
+      .then(() => // console.log(`세션 종료 신호 보냄`))
+      .catch(err => // console.log(err))
   }
 
   const receiveExitSessionSignal = ((event) => {

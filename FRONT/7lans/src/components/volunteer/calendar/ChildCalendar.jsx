@@ -157,16 +157,16 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings, volInf
 };
 
 const Meeting = ({meeting, currentMonth, cloneDay, volInfo}) => {
-    //console.log(meeting);
-    //console.log(currentMonth.getMonth());
-    //console.log(cloneDay);
+    // console.log(meeting);
+    // console.log(currentMonth.getMonth());
+    // console.log(cloneDay);
     if (meeting && currentMonth.getMonth() == cloneDay.getMonth()) {
 
         let thumbnail = ""
         let printTime = ""
         let lastPic = ""
         
-        console.log(volInfo)
+        // console.log(volInfo)
         if(meeting.status == "SCHEDULED"){//예정이라면 사진과 시간
             thumbnail = volInfo.volunteerProfileImagePath
             printTime = volInfo.volunteerName + " " + meeting.time.substring(0, 2) + " : " + meeting.time.substring(3, 5)
@@ -234,8 +234,8 @@ const ChildCalendar = () => {
         setCurrentMonth(addMonths(currentMonth, 1));
     };
     const onDateClick = (day, meeting) => {
-        //console.log(dayOfMonth)
-        //console.log(day,'day')
+        // console.log(dayOfMonth)
+        // console.log(day,'day')
 
         setSelectedDate(day);
 
@@ -257,7 +257,7 @@ const ChildCalendar = () => {
                 navigate(`/child_video_chatting/${meeting.meetingId}`);
             }
             else if(meeting.status == "SCHEDULED"){
-                console.log("아직 세션이 없습니다.")
+                // console.log("아직 세션이 없습니다.")
             }
         }
         //사진 기록들 보기

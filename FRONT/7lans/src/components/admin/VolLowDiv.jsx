@@ -217,7 +217,7 @@ const VolLowDiv = () => {
         );
         setChildList(response.data);
       } catch (error) {
-        console.log(error, "err -> VolLowDiv");
+        // console.log(error, "err -> VolLowDiv");
       }
     };
     dispatch(adminAddFriend(false));
@@ -235,14 +235,14 @@ const VolLowDiv = () => {
         relationId: relationId,
       })
       .then((res) => {
-        console.log(res, "친구끊기");
+        // console.log(res, "친구끊기");
         setChildList((prevChildList) =>
           prevChildList.filter((child) => child.relationId !== relationId)
         );
         dispatch(adminDeleteFriend(true));
       })
       .catch((err) => {
-        console.log(err, "err -> VolLowDiv 친구끊기 오류");
+        // console.log(err, "err -> VolLowDiv 친구끊기 오류");
       });
     setShowDeleteModal(false);
   };
