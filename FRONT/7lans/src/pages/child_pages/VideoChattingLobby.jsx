@@ -8,7 +8,7 @@ import CameraOff from '../../images/meeting/Camera_off.png';
 import MicOn from '../../images/meeting/mic_on.png';
 import MicOff from '../../images/meeting/mic_off.png';
 import getEnv from "../../utils/getEnv";
-
+import NoSubscriberComponent from "../../components/child/games/NoSubscriberComponent.jsx";
 
 const FlexCenterContainer = styled.div`
   /* flex: 1; */
@@ -139,28 +139,32 @@ const VideoChattingLobby = ({
           💛 선생님 화면 💛
         </h2>
         <div style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}>
-
-          {subscribers.map(
-            (subscriber) => subscriber && renderUserVideoComponent(subscriber)
-          )}
+          {subscribers.length ?
+            (subscribers.map(
+              (subscriber) => subscriber && renderUserVideoComponent(subscriber)
+            )) :
+            <NoSubscriberComponent/>
+          }
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "end",
-            gap: "15px",
-            marginLeft: "78%",
-          }}
-        >
-          <Camera
-            src = {isVolunteerCameraOn ? CameraOn : CameraOff}
-          />
+        {subscribers.length > 0 &&
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "end",
+              gap: "15px",
+              marginLeft: "78%",
+            }}
+          >
+            <Camera
+              src={isVolunteerCameraOn ? CameraOn : CameraOff}
+            />
 
-          <Mic
-            src={isVolunteerMicOn ? MicOn : MicOff}
-          />
-        </div>
+            <Mic
+              src={isVolunteerMicOn ? MicOn : MicOff}
+            />
+          </div>
+        }
       </BorderBox>
     </FlexCenterContainer>
   );

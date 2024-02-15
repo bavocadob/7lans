@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { StreamManager } from "openvidu-browser";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import {StreamManager} from "openvidu-browser";
+import {useSelector} from "react-redux";
 import CameraOn from '../../images/meeting/Camera_on.png';
 import CameraOff from '../../images/meeting/Camera_off.png';
 import MicOn from '../../images/meeting/mic_on.png';
 import MicOff from '../../images/meeting/mic_off.png';
 import getEnv from "../../utils/getEnv";
+import NoSubscriberComponent from "../../components/volunteer/games/NoSubscriberComponent.jsx";
 
 
 const FlexCenterContainer = styled.div`
@@ -92,7 +92,7 @@ const VideoChattingLobby = ({
           💛 나의 화면 💛
         </h2>
         <div style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}>
-        {mainStreamManager && renderUserVideoComponent(mainStreamManager)}
+          {mainStreamManager && renderUserVideoComponent(mainStreamManager)}
         </div>
         <div
           style={{
@@ -105,10 +105,10 @@ const VideoChattingLobby = ({
           }}
         >
           <Camera onClick={toggleMyCamera}
-            src = {isMyCameraOn ? CameraOn : CameraOff}
-            alt="카메라 끄고켜기"
+                  src={isMyCameraOn ? CameraOn : CameraOff}
+                  alt="카메라 끄고켜기"
           />
-          
+
           <Mic
             onClick={toggleMyMic}
             src={isMyMicOn ? MicOn : MicOff}
@@ -124,7 +124,7 @@ const VideoChattingLobby = ({
         <ResponsiveImage
           src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDino}_study.png`}
           alt="CenterImage"
-        />        
+        />
       </CenteredBox>
       <BorderBox>
         <h2
@@ -140,28 +140,33 @@ const VideoChattingLobby = ({
           💛 학생 화면 💛
         </h2>
         <div style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}>
-        
-        {subscribers.map(
-          (subscriber) => subscriber && renderUserVideoComponent(subscriber)
-        )}
-          </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "end",
-            gap: "15px",
-            marginLeft: "78%",
-          }}
-        >
-          <Camera 
-            src = {isChildCameraOn ? CameraOn : CameraOff}
-          />
 
-          <Mic
-            src={isChildMicOn ? MicOn : MicOff}
-          />
+          {subscribers.length ?
+            (subscribers.map(
+              (subscriber) => subscriber && renderUserVideoComponent(subscriber)
+            )) :
+            <NoSubscriberComponent/>
+          }
         </div>
+        {subscribers.length > 0 &&
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "end",
+              gap: "15px",
+              marginLeft: "78%",
+            }}
+          >
+            <Camera
+              src={isChildCameraOn ? CameraOn : CameraOff}
+            />
+
+            <Mic
+              src={isChildMicOn ? MicOn : MicOff}
+            />
+          </div>
+        }
       </BorderBox>
     </FlexCenterContainer>
   );
