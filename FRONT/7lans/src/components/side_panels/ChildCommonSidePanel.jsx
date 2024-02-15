@@ -106,7 +106,9 @@ const Age = ({ birth }) => {
   // console.log(birth[0])
   // console.log(currentDate.getFullYear())
 
-  return <div>나이 : {currentDate.getFullYear() - birth.substring(0, 4) + 1} 살</div>;
+  return (
+    <div>나이 : {currentDate.getFullYear() - birth.substring(0, 4) + 1} 살</div>
+  );
 };
 
 const Comment = ({ comment }) => {
@@ -144,7 +146,8 @@ const Button = styled.button`
   position: relative;
   border: 2px solid rgb(240, 165, 8, 0.7);
   &:hover {
-    background-color: rgb(255, 215, 3)};
+    background-color: rgb(255, 215, 3);
+  }
 `;
 
 const CommonSidePanel = () => {
@@ -158,14 +161,14 @@ const CommonSidePanel = () => {
   const urlInfo = getEnv("API_URL");
   const userId = userInfo.memberId;
 
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navigateTo = () => {
-    if (location.pathname === '/child_start') {
-      navigate('/child_video_chatting_start')
+    if (location.pathname === "/child_start") {
+      navigate("/child_video_chatting_start");
     }
-  }
+  };
 
   const renderSidePanel = () => {
     const postData = (vol) => {
@@ -180,19 +183,25 @@ const CommonSidePanel = () => {
               {"<<"}
             </CloseButton>
             <ProfileImage src={userInfo.profileImgPath} alt="" />
-            <NameHeader> {userInfo.childName} _학생</NameHeader>
+            <NameHeader> {userInfo.childName} _아동</NameHeader>
           </LeftSide>
           <InfoContainer>
             <DetailContainer>
               {vols.length > 0 ? (
                 vols.map((el, index) => (
                   <ChildCard key={index}>
-                    <div style={{position: 'relative'}}>
-                    <h3>{el.volunteerName}</h3>
-                    <Age birth={el.volunteerBirth}></Age>
-                    {/* <div>소속기관: {el.childCenterName}</div> */}
-                    {/* <Comment comment={el.childSpecialContent}></Comment> */}
-                    <Button onClick={() => {postData(el), navigateTo()}}>선택하기</Button>
+                    <div style={{ position: "relative" }}>
+                      <h3>{el.volunteerName} 선생님</h3>
+                      <Age birth={el.volunteerBirth}></Age>
+                      {/* <div>소속기관: {el.childCenterName}</div> */}
+                      {/* <Comment comment={el.childSpecialContent}></Comment> */}
+                      <Button
+                        onClick={() => {
+                          postData(el), navigateTo();
+                        }}
+                      >
+                        선택하기
+                      </Button>
                     </div>
                   </ChildCard>
                 ))
