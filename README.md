@@ -30,28 +30,28 @@
 
 #### 1. 놀이 및 교육 컨텐츠와 함께하는 화상 만남
  - 화상 메인 화면
-<img src="./readme_image/big/meeting_main.gif">
+<img src="./readme_image/big/meeting_main.GIF">
 
    
  - 캡쳐 기능 : 화상 채팅 중에 캡쳐한 사진들을 사진첩에 보관
 <img src="./readme_image/big/capture.gif">
-<img src="./readme_image/big/choice.gif">
-<img src="./readme_image/big/thumbnail.gif">
+<img src="./readme_image/big/choice.GIF">
+<img src="./readme_image/big/thumbnail.GIF">
 
  - OX퀴즈
- <img src="./readme_image/big/OX_quiz.gif">
+ <img src="./readme_image/big/OX_quiz.GIF">
 
 
  - 그림 맞추기 놀이
-<img src="./readme_image/big/card.gif">
+<img src="./readme_image/big/card.GIF">
 
 
  - 구구단
-<img src="./readme_image/big/nine.gif">
+<img src="./readme_image/big/nine.GIF">
 
 
  - 문장 만들기
-<img src="./readme_image/big/word.gif">
+<img src="./readme_image/big/word.GIF">
 
 #### 2. 봉사자와 아이가 주고 받는 쪽지, 속닥속닥
 <img src="./readme_image/big/whisper.GIF">
@@ -66,15 +66,15 @@
 
 
  - 공룡 도감
-<img src="./readme_image/big/dinosaur_book.gif">
+<img src="./readme_image/big/dinosaur_book.GIF">
 #### 4. 혼자서도 잘 놀아요, 말하는 공룡
 알 키우기 화면에 있는 녹음기능으로 말을 따라하는 공룡과 함께해요
-<img src="./readme_image/big/talking.gif">
+<img src="./readme_image/big/talking.GIF">
 
 
 #### 4. 활동일지는 빠르고 간편하게
  - 작성 후 제출 : 작성은 음성으로도 가능합니다. 
-<img src="./readme_image/big/stt_activity.gif">
+<img src="./readme_image/big/stt_activity.GIF">
  - 관리자가 승인한 이후
  <img src="./readme_image/big/activity.gif">
 
@@ -133,7 +133,7 @@ WBS 넣으면 됨
 <img src="./readme_image/figma/volunteer_2.PNG">
 
 #### 아동 화면
-<img src="./readme_image/figma/child.png">
+<img src="./readme_image/figma/child.PNG">
 
 #### 관리자 화면
 <img src="./readme_image/figma/manager.PNG">
