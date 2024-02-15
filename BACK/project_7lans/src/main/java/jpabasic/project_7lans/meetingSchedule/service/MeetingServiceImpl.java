@@ -12,6 +12,7 @@ import jpabasic.project_7lans.member.repository.ChildRepository;
 import jpabasic.project_7lans.relation.entity.Relation;
 import jpabasic.project_7lans.relation.repository.RelationRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -42,11 +44,12 @@ public class MeetingServiceImpl implements MeetingService{
     @Override
     @Transactional
     public void create(MeetingScheduleRequestDto.create meeting) {
-
+        log.info("[MeetingServiceImpl.create] start...");
         // 관계 조회
         Relation relation = relationRepository.findById(meeting.getRelationId())
                 .orElseThrow(()-> new IllegalArgumentException("[MeetingServiceImpl.create] 해당 Id와 일치하는 relation이 존재하지 않습니다."));
 
+        log.info("[MeetingServiceImpl.create] {}, {}", meeting.getScheduledStartTime(), meeting.getScheduledEndTime());
         // 활동 일지 생성
         ActivityLog activityLog = ActivityLog.builder()
                 .realStartTime(meeting.getScheduledStartTime())
@@ -68,6 +71,7 @@ public class MeetingServiceImpl implements MeetingService{
 
         // DB에 저장
         meetingRepository.save(newMeeting);
+        log.info("[MeetingServiceImpl.create] SUCCESS!!!");
     }
 
 
