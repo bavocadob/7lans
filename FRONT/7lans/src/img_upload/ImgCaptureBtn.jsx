@@ -48,21 +48,15 @@ const StyledModal = styled(Modal)`
 
 // 모달 속 버튼 스타일 컴포넌트
 const ModalButton = styled.button`
-  background:  rgba(255, 237, 140, 1);
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  position: relative;
-  margin-top: 20px;
-  border: 2px solid rgb(255, 184, 36);
-  border-radius: 15px;
-  padding-bottom:0px;
   width: 140px;
-  height: 60px;
-  &:hover {
-    background-color: #4caf50;
-    color: #ffffff;
-  };
+  height: 54px;
+  align-self: center;
+  font-weight: bolder;
+  font-size: 20px;
+  border: 2px dashed rgb(45, 45, 45);
+  border-radius: 20px;
+  background: rgba(255, 184, 36, 1);
+  margin: 0 3rem 0 0;
 `;
 
 const StyledButton = styled.button`
@@ -319,9 +313,9 @@ const ImgCaptureBtn = ({
       {/*   <StyledButton onClick={closeModal}>Cancel</StyledButton> */}
       {/* </StyledModal> */}
       <StyledModal isOpen={captureModalOpen} onRequestClose={closeCaptureModal}>
-        <StyledButton onClick={handleTogetherCapture}>함께 찍기</StyledButton>
-        <StyledButton onClick={handleSoloCapture}>혼자 찍기</StyledButton>
-        <StyledButton onClick={handleFullCapture}>전체 화면 찍기</StyledButton>
+        <ModalButton onClick={handleTogetherCapture}>함께 찍기</ModalButton>
+        <ModalButton onClick={handleSoloCapture}>혼자 찍기</ModalButton>
+        <ModalButton onClick={handleFullCapture}>전체 화면 찍기</ModalButton>
       </StyledModal>
     </div>
   );
