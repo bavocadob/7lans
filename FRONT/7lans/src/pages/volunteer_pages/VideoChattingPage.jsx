@@ -18,8 +18,6 @@ const VideoChattingPage = () => {
     mySessionId, setMySessionId
   } = UseOpenViduSession();
 
-  // const [isGameStarted, setGameStarted] = useState(false);
-  // TODO 현재 작업중 (네브바 게임 인덱스 원활하게 수정중)
   const [selectedGameIdx, setSelectedGameIdx] = useState(0)
   const [gameChangeable, setGameChangeable] = useState(true)
 

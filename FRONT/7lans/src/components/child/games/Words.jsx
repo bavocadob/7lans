@@ -109,8 +109,18 @@ const Words = ({
 
   if (submittedWord === '') {
     return (
-      <Waiting
-      />
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '80vh',
+        width: '900px',
+        marginLeft: '0%',
+        marginTop: '5%'
+      }}>
+        <Waiting
+          problemType="단어퀴즈"/>
+      </div>
     )
   } else {
     return (

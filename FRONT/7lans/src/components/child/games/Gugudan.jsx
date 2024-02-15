@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { Session } from 'openvidu-browser';
+import {Session} from 'openvidu-browser';
 import PropTypes from "prop-types";
 import GugudanPrompt from "./GugudanPrompt";
 import QuizResult from "./QuizResult";
@@ -91,7 +91,6 @@ const Gugudan = ({
       checkAnswer();
     }
   }, [submittedAns]);
-
 
 
   /**
@@ -211,11 +210,23 @@ const Gugudan = ({
 
   }
 
+  
+
   const renderGugudan = () => {
     if (isGugudanStarted === false) {
       return (
-        <Waiting
-        />
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '80vh',
+          width: '900px',
+          marginLeft: '0%',
+          marginTop: '5%'
+        }}>
+          <Waiting
+           problemType="구구단"/>
+        </div>
       )
     }
     return (
