@@ -162,9 +162,10 @@ const CommonSidePanel = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
+  console.log(location, "location test")
 
   const navigateTo = () => {
-    if (location.pathname === '/volunteer_start') {
+    if (location.pathname === '/volunteer_start' || location.pathname === '/volunteer_ChoosePicturePage') {
       navigate('/volunteer_video_chatting_start')
     }
   }

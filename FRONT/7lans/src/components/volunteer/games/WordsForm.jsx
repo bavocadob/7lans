@@ -6,10 +6,10 @@ import styled from 'styled-components';
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 93%;
+  height: 50%;
   width: 930px;
   flex: 1;
-  margin-top: 4%;
+  margin-top: 10%;
   text-align: 'center';
 `;
 
@@ -49,7 +49,7 @@ const InputFieldsWrapper = styled.div`
 
 const InputFieldsContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   padding: 1rem;
