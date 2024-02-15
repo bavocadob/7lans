@@ -87,6 +87,7 @@ const ModalOverlay = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: ${({ open }) => (open ? "block" : "none")};
+  z-index: 9999;
 `;
 
 const ModalContent = styled.div`
