@@ -140,6 +140,7 @@ const RaiseEggPage = () => {
     };
     egg();
   }, [childInfo]);
+  
   const renderModal = () => {
     if (eggInfo?.experience !== 100) {
       //경험치 100이 아닌 경우
@@ -235,24 +236,28 @@ const RaiseEggPage = () => {
       );
     }
   };
+
   const eggClick = () => {
-    const eggHatch = async () => {
-      try {
-        const memberId = userInfo.memberId;
-        const relationId = childInfo.relationId;
-        const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {
-          memberId,
-          relationId,
-        });
-        console.log(res.data);
-        setNewEgg(res.data);
-        setShow(true);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    eggHatch();
+    if (eggInfo?.experience === 100) {
+      const eggHatch = async () => {
+        try {
+          const memberId = userInfo.memberId;
+          const relationId = childInfo.relationId;
+          const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {
+            memberId,
+            relationId,
+          });
+          console.log(res.data);
+          setNewEgg(res.data);
+          setShow(true);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      eggHatch();
+    }
   };
+
   return (
     <div
       style={{

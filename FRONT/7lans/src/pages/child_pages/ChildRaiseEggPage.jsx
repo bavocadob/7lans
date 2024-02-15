@@ -236,21 +236,22 @@ const ChildRaiseEggPage = () => {
   } 
 
   const eggClick = () => {
-
-    const eggHatch = async () => {
-      try {
-        const memberId = userInfo.memberId
-        const relationId = volInfo.relationId
-        const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {memberId, relationId})
-        console.log(res.data)
-        setNewEgg(res.data)
-        setShow(true)
+    if (eggInfo?.experience === 100) {
+      const eggHatch = async () => {
+        try {
+          const memberId = userInfo.memberId
+          const relationId = volInfo.relationId
+          const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {memberId, relationId})
+          console.log(res.data)
+          setNewEgg(res.data)
+          setShow(true)
+        }
+        catch (err) {
+          console.error(err)
+        }
       }
-      catch (err) {
-        console.error(err)
-      }
+      eggHatch()
     }
-    eggHatch()
     
   }
 
