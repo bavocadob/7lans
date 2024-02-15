@@ -118,7 +118,7 @@ const VideoChattingLobby = ({
       <CenteredBox>
         <CenteredText>
           <p><strong>둘만의 화상채팅 공간이에요</strong></p>
-          <p><strong>하고싶은 놀이를 선택해주세요</strong></p>
+          <p><strong>선생님이 놀이를 선택할거에요</strong></p>
         </CenteredText>
         <ResponsiveImage
           src={`${getEnv("PUBLIC_URL")}/dinosourImage/dinosaur${userDino}_study.png`}
@@ -136,7 +136,7 @@ const VideoChattingLobby = ({
           }}
         >
           {" "}
-          💛 학생 화면 💛
+          💛 선생님 화면 💛
         </h2>
         <div style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}>
 
