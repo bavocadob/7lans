@@ -183,7 +183,7 @@ function ChildUpDiv() {
     <>
       <UpperDiv>
         <ProfileCard>
-          <ProfileImage src={childProfileImg} alt="Profile" />
+          <ProfileImage src={childProfileImg} alt="" />
         </ProfileCard>
         <InformationSection>
           <p>아동이름 : {name}</p>
