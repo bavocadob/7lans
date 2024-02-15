@@ -63,13 +63,7 @@ const NormalNav = () => {
           )}
         </ChildInfo>
         <div
-          style={{     
-            display: 'flex',
-            justifycontent: 'flex-end',
-            marginRight: '2rem',
-            backgroundColor: 'rgb(255, 215, 3)',
-            width: '100%',
-            height: '100px' }}
+          style={{ display: "flex", flexDirection: "row", marginLeft: "auto" }}
         >
           {location.pathname === "/child_dinosaur_dict" ? (
             ""
