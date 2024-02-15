@@ -123,7 +123,7 @@ export default function ActiveDocs() {
   const location = useLocation();
   const state = {...location.state};
 
-  console.log(childInfo)
+  //console.log(childInfo)
   //활동일지 상세 정보 가져오기
   useEffect(() => {
     axios.post(`${urlInfo}/activityLog/volunteer`, {
@@ -131,7 +131,7 @@ export default function ActiveDocs() {
       activityLogId: state.activityLogId
     })
     .then((res) => {
-      console.log(res.data)
+      // console.log(res.data)
       setActivityLog(res.data)
       
       //content설정
@@ -149,7 +149,7 @@ export default function ActiveDocs() {
                   +" ~ " + res.data.activityEndTime.substring(11, 13) + "시"
                   + res.data.activityEndTime.substring(14, 16) + "분" + " ) "
       setActivityTime(time)
-      console.log(time)
+      // console.log(time)
 
     })
     .catch((err) => {

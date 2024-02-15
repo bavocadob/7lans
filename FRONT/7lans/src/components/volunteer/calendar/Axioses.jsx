@@ -12,7 +12,7 @@ export const getMeetingList = (relationId, year, month, setMeetings) => {
       })
       .then((res) => {
         setMeetings(res.data);
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {});
 

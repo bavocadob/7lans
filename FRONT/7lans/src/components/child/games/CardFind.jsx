@@ -49,7 +49,7 @@ const CardFind = ({
   // 카드를 선택하여서 nowCard 배열에 선택한 카드를 넣는 함수
   const handleCard = (num) => {
     setNowCard((prevCards) => [...prevCards, num]);
-    console.log(nowCard);
+    // console.log(nowCard);
   };
 
 

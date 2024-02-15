@@ -169,9 +169,9 @@ const ChildManage = () => {
       .get(`${urlInfo}/child/listByCenter/${centerId}`)
       .then((response) => {
         const arr = [];
-        console.log(response.data, "센터의 아동들");
+        // console.log(response.data, "센터의 아동들");
         for (const element of response.data) {
-          console.log(element, "아동개인의 정보");
+          // console.log(element, "아동개인의 정보");
           let childName, centerName, childImg, childBirth, childId;
           for (const ele in element) {
             if (ele === "childName") {

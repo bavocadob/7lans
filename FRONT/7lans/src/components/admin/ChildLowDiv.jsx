@@ -228,7 +228,7 @@ const ChildLowDiv = () => {
         relationId: relationId,
       })
       .then((res) => {
-        console.log(res, "친구끊기");
+        // console.log(res, "친구끊기");
         setChildVolList((prevList) =>
           prevList.filter((vol) => vol.relationId != relationId)
         );

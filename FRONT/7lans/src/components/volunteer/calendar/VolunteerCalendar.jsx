@@ -168,7 +168,7 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings, childI
   //                 currentMonth.getMonth()+1, 
   //                 setMeetings)
   // }, [childInfo, currentMonth]);
-  console.log("RenderCell")
+  // console.log("RenderCell")
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       const cloneDay = addDays(day, 1);
@@ -221,16 +221,16 @@ const RenderCells = ({ currentMonth, selectedDate, onDateClick, meetings, childI
 
 //달력 칸에 썸네일 출력하기
 const Meeting = ({ meeting, currentMonth, cloneDay, childInfo }) => {
-  console.log(meeting);
-  console.log(currentMonth);
-  console.log(cloneDay);
+  // console.log(meeting);
+  // console.log(currentMonth);
+  // console.log(cloneDay);
   if (meeting && currentMonth.getMonth() == cloneDay.getMonth()) {
 
     let thumbnail = ""
     let printTime = ""
     let lastPic = ""
     
-    console.log(childInfo)
+    // console.log(childInfo)
     if(meeting.status == "SCHEDULED"){//예정이라면 프로필 사진과 시간  
       thumbnail = childInfo.childProfileImagePath
       printTime = childInfo.childName + " " + meeting.time.substring(0, 2) + " : " + meeting.time.substring(3, 5)
@@ -297,11 +297,11 @@ const VolunteerCalendar = () => {
                   currentMonth.getMonth()+1, 
                   setMeetings)
 
-    console.log("axios")
+    // console.log("axios")
   }, [childInfo, currentMonth]);
 
   const prevMonth = () => {
-    console.log("prevMonth")
+    // console.log("prevMonth")
     setMeetings([])
     setCurrentMonth(subMonths(currentMonth, 1));
   };
@@ -336,11 +336,11 @@ const VolunteerCalendar = () => {
     //화상 채팅 입장
     else if (selectDate == current && meeting.status !== "CLOSED") {
       if(meeting.status == "OPENED"){
-        console.log("세션입장");
+        // console.log("세션입장");
         navigate(`/volunteer_video_chatting/${meeting.meetingId}`);
       }
       else if(meeting.status == "SCHEDULED"){
-        console.log("세션 생성하기")
+        // console.log("세션 생성하기")
         setMeetingCreateModalOpen(true);
       }
     }

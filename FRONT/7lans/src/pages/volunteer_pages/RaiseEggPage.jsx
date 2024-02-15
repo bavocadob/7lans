@@ -122,19 +122,19 @@ const RaiseEggPage = () => {
   const [newEgg, setNewEgg] = useState(null);
   const [dinoState, setdinoState] = useState(false); //기본 상태, true == 행복한 상태 출력
   // const eggInfo = useRef(null)
-  console.log(childInfo);
-  console.log(childrenInfo);
+  // console.log(childInfo);
+  // console.log(childrenInfo);
   useEffect(() => {
     const egg = async () => {
       if(childInfo.relationId){
         try {
           const res = await axios.get(`${urlInfo}/egg/${childInfo.relationId}`);
-          console.log(res.data);
+          // console.log(res.data);
           // eggInfo.current = res.data
           setEggInfo(res.data);
         } catch (err) {
           console.error(err);
-          console.log('egg엑시오스 에러')
+          // console.log('egg엑시오스 에러')
         }
       }
     };
@@ -248,7 +248,7 @@ const RaiseEggPage = () => {
             memberId,
             relationId,
           });
-          console.log(res.data);
+          // console.log(res.data);
           setNewEgg(res.data);
           setShow(true);
         } catch (err) {
@@ -268,8 +268,6 @@ const RaiseEggPage = () => {
         width: "100vw",
       }}
     >
-      {console.log(eggInfo)}
-      {console.log("이거")}
       <NormalNav />
       <div style={{ marginTop: "5.7%" }}></div>
       <div

@@ -142,7 +142,7 @@ const WhisperLetter = () => {
   const childInfo = useSelector((state) => state.child.value);
   const childRelationId = childInfo.relationId;
   const volRelationId = volInfo.relationId
-  console.log(childRelationId);
+  // console.log(childRelationId);
   const writerId = userInfo.memberId;
   const urlInfo = getEnv("API_URL");
 
@@ -165,7 +165,7 @@ const WhisperLetter = () => {
     axios
       .get(`${urlInfo}/whisper/list/${childRelationId || volRelationId}`)
       .then((res) => {
-        console.log(chatMessages)
+        // console.log(chatMessages)
         setChatMessages(res.data);
       })
       .catch((err) => {

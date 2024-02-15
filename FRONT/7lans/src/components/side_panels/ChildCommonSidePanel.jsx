@@ -103,8 +103,8 @@ const DetailContainer = styled.div`
 
 const Age = ({ birth }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  console.log(birth[0])
-  console.log(currentDate.getFullYear())
+  // console.log(birth[0])
+  // console.log(currentDate.getFullYear())
 
   return (
     <div>나이 : {currentDate.getFullYear() - birth.substring(0, 4) + 1} 살</div>
@@ -112,7 +112,7 @@ const Age = ({ birth }) => {
 };
 
 const Comment = ({ comment }) => {
-  console.log(comment);
+  // console.log(comment);
 
   if (comment) {
     return <div>특이사항 : {comment}</div>;

@@ -139,7 +139,7 @@ const ChildWhisperLetter = () => {
   const childInfo = useSelector((state) => state.child.value);
   const childRelationId = childInfo.relationId;
   const volRelationId = volInfo.relationId
-  console.log(childRelationId);
+  // console.log(childRelationId);
   const writerId = userInfo.memberId;
   const urlInfo = getEnv("API_URL");
 

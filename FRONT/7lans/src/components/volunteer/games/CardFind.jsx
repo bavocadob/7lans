@@ -56,7 +56,7 @@ const CardFind = ({
   const handleCard = (num) => {
 
     setNowCard((prevCards) => [...prevCards, num]);
-    console.log(nowCard);
+    // console.log(nowCard);
   };
 
 

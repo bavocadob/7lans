@@ -413,8 +413,6 @@ const VolunteerMainPage = () => {
 
   return (
     <Container>
-      {console.log(userInfo)}
-      {console.log(dino)}
       <header className="shadow">
         <LogoImage src={Logo} />
         <Link

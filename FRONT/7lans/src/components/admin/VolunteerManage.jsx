@@ -171,7 +171,7 @@ const VolunteerManage = () => {
       .then((response) => {
         const arr = [];
         for (const ele of response.data) {
-          console.log(ele, "봉사자 volunteerManage");
+          // console.log(ele, "봉사자 volunteerManage");
           let name, email, time, id, img;
           for (const el in ele) {
             if (el === "volunteerName") {
@@ -191,7 +191,7 @@ const VolunteerManage = () => {
             }
           }
           arr.push([name, email, time, id, img]);
-          console.log(arr);
+          // console.log(arr);
         }
         setVolunteerList(arr);
       })

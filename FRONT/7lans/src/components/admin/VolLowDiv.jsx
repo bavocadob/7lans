@@ -208,7 +208,7 @@ const VolLowDiv = () => {
     setCurrentPage(Number(event.target.id));
   };
 
-  console.log(addFriend, "addFreind");
+  // console.log(addFriend, "addFreind");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -235,7 +235,7 @@ const VolLowDiv = () => {
         relationId: relationId,
       })
       .then((res) => {
-        console.log(res, "친구끊기");
+        // console.log(res, "친구끊기");
         setChildList((prevChildList) =>
           prevChildList.filter((child) => child.relationId !== relationId)
         );

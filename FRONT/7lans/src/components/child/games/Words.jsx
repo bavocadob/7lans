@@ -98,7 +98,7 @@ const Words = ({
    */
   const receiveSentences = (event) => {
     const sentences = JSON.parse(event.data);
-    console.log(`수신한 문장들 : ${sentences}`);
+    // console.log(`수신한 문장들 : ${sentences}`);
 
     // TODO 제출하면 리셋되는게 끝인데 기능 추가가 필요할 수도 있음
     reset()

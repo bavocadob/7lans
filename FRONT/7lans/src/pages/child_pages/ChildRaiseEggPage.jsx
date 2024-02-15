@@ -132,7 +132,7 @@ const ChildRaiseEggPage = () => {
       if(volInfo.relationId){
         try {
           const res = await axios.get(`${urlInfo}/egg/${volInfo.relationId}`);
-          console.log(res.data);
+          // console.log(res.data);
           // eggInfo.current = res.data
           setEggInfo(res.data);
         } catch (err) {
@@ -234,7 +234,7 @@ const ChildRaiseEggPage = () => {
           const memberId = userInfo.memberId
           const relationId = volInfo.relationId
           const res = await axios.post(`${urlInfo}/dinosaurs/hatch`, {memberId, relationId})
-          console.log(res.data)
+          // console.log(res.data)
           setNewEgg(res.data)
           setShow(true)
         }
@@ -255,8 +255,6 @@ const ChildRaiseEggPage = () => {
         width: "100vw",
       }}
     >
-      {console.log(eggInfo)}
-      {console.log("이거")}
       <NormalNav />
       <div style={{ marginTop: "5.7%" }}></div>
       <div

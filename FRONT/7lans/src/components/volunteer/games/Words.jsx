@@ -113,7 +113,7 @@ const Words = ({
    */
   const receiveSentences = (event) => {
     const sentences = JSON.parse(event.data);
-    console.log(`수신한 문장들 : ${sentences}`);
+    // console.log(`수신한 문장들 : ${sentences}`);
 
     // 추후 로직 처리 예정 우선 리셋함
     reset()
