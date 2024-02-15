@@ -29,6 +29,9 @@ const Words = ({
   }, [submittedWord])
 
 
+
+
+
   // 세션 관련 메소드들
   // 시그널 송신 메소드
   /**
@@ -115,6 +118,9 @@ const Words = ({
       .catch((err) => console.log(err))
   }
 
+  useEffect(() => {
+    sentenceInputSignal();
+  }, [sentence1, sentence2, sentence3, sentence4]);
 
 
   /**

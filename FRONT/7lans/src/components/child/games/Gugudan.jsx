@@ -18,6 +18,23 @@ const Gugudan = ({
 
   const inputRef = useRef(null)
 
+
+  const changeGugudanInput = (currInput) => {
+    session.signal({
+      type: 'gugudanInput',
+      data: currInput,
+    })
+      .then()
+      .catch()
+  }
+
+
+  useEffect(() => {
+    changeGugudanInput(currInputAns)
+  }, [currInputAns]);
+
+
+
   /**
    * 주어진 단에 대한 구구단 게임을 시작합니다.
    * @function
@@ -40,6 +57,7 @@ const Gugudan = ({
     setCurrDan(undefined)
     setIsCorrect(undefined)
     setGameChangeable(true)
+    setCurrInputAns()
   }
 
 

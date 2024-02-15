@@ -20,6 +20,9 @@ const Gugudan = ({
 
   const inputRef = useRef(null)
 
+
+
+
   /**
    * 주어진 단에 대한 구구단 게임을 시작합니다.
    * @function
@@ -30,6 +33,7 @@ const Gugudan = ({
     setCurrDan(dan);
     setMultipleNum(1)
     setGameChangeable(false)
+    setCurrInputAns()
   }
 
 
@@ -185,18 +189,23 @@ const Gugudan = ({
     }
   }
 
+  const receiveGugudanInput = (event) => {
+    const tempInput = event.data;
+    setCurrInputAns(tempInput);
+  }
+
 
   // 이벤트 핸들링
   useEffect(() => {
       session.on('signal:gugudanStart', receiveGugudanStartSignal);
       session.on('signal:resetGugudan', receiveResetGugudanSignal);
       session.on('signal:submitGugudanAns', receiveGugudanAnsSignal);
-
+      session.on('signal:gugudanInput', receiveGugudanInput)
       return () => {
         session.off('signal:gugudanStart', receiveGugudanStartSignal);
         session.off('signal:resetGugudan', receiveResetGugudanSignal);
         session.off('signal:submitGugudanAns', receiveGugudanAnsSignal);
-
+        session.off('signal:gugudanInput', receiveGugudanInput)
       };
     },
     [session]);

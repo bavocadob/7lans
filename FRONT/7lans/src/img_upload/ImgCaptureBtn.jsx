@@ -181,6 +181,7 @@ const ImgCaptureBtn = ({
     <div>
       <StyledButton onClick={captureScreen}> 캡쳐 <TbCaptureFilled/></StyledButton>
       <ToastContainer
+        style={{ zIndex: 9999 }}
       />
     </div>
   );

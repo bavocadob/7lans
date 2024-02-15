@@ -110,7 +110,6 @@ const WordsForm = ({
             value={sentence1}
             onChange={(e) => {
               setSentence1(e.target.value);
-              sentenceInputSignal();
             }}
           />
           <StyledInput
@@ -119,7 +118,7 @@ const WordsForm = ({
             value={sentence2}
             onChange={(e) => {
               setSentence2(e.target.value);
-              sentenceInputSignal();
+
             }}
           />
           <StyledInput
@@ -128,7 +127,7 @@ const WordsForm = ({
             value={sentence3}
             onChange={(e) => {
               setSentence3(e.target.value);
-              sentenceInputSignal();
+
             }}
           />
           <StyledInput
@@ -137,7 +136,7 @@ const WordsForm = ({
             value={sentence4}
             onChange={(e) => {
               setSentence4(e.target.value);
-              sentenceInputSignal();
+
             }}
           />
         </InputFieldsContainer>
