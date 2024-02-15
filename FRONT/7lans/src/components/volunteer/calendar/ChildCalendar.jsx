@@ -183,11 +183,21 @@ const Meeting = ({meeting, currentMonth, cloneDay, volInfo}) => {
         return (
             <div style={{alignSelf: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 {thumbnail?
+                <>
+                {meeting.status == "SCHEDULED"?
+                    <img 
+                        src={thumbnail}
+                        alt=""  
+                        style={{ width: '50%', opacity: 1, borderRadius: '100%'}}
+                    />
+                    :
                     <img 
                         src={thumbnail}
                         alt=""  
                         style={{ width: '50%', opacity: 1, borderRadius: '.2rem'}}
                     />
+                }
+                </>  
                 :
                     <img 
                         src={lastPic}

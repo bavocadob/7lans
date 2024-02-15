@@ -63,7 +63,13 @@ const NormalNav = () => {
           )}
         </ChildInfo>
         <div
-          style={{ display: "flex", flexDirection: "row", marginLeft: "auto" }}
+          style={{     
+            display: 'flex',
+            justifycontent: 'flex-end',
+            marginRight: '2rem',
+            backgroundColor: rgb(255, 215, 3),
+            width: '100%',
+            height: '100px' }}
         >
           {location.pathname === "/child_dinosaur_dict" ? (
             ""
@@ -73,9 +79,10 @@ const NormalNav = () => {
                 fontSize: "23px",
                 textDecorationLine: "none",
                 color: "black",
-                width: "130px",
+                width: "134px",
                 alignSelf: "center",
-                fontWeight: "bolder",
+                fontWeight: "bold",
+                paddingBottom: '1px',
               }}
               to={"/child_dinosaur_dict"}
             >
@@ -89,7 +96,9 @@ const NormalNav = () => {
               color: "black",
               width: "110px",
               alignSelf: "center",
-              fontWeight: "bolder",
+              fontWeight: "bold",
+              paddingLeft: '4px',
+              paddingBottom: '1px',
             }}
             to={"/"}
             onClick={() => resetData()}
@@ -129,9 +138,10 @@ const NormalNav = () => {
                 fontSize: "23px",
                 textDecorationLine: "none",
                 color: "black",
-                width: "130px",
+                width: "134px",
                 alignSelf: "center",
-                fontWeight: "bolder",
+                fontWeight: "bold",
+                paddingBottom: '1px',
               }}
               to={"/dinosaur_dict"}
             >
@@ -145,7 +155,9 @@ const NormalNav = () => {
               color: "black",
               width: "110px",
               alignSelf: "center",
-              fontWeight: "bolder",
+              fontWeight: "bold",
+              paddingLeft: '4px',
+              paddingBottom: '1px',
             }}
             to={"/"}
             onClick={() => resetData()}
