@@ -1,7 +1,7 @@
 import { Button } from "bootstrap";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getEnv from "../../../utils/getEnv";
 import { useSelector } from "react-redux";
@@ -161,8 +161,8 @@ const Picture = () => {
   //부모에게서 전달받은 값
   const location = useLocation();
   const state = { ...location.state };
-
   const urlInfo = getEnv("API_URL");
+  const navigate = useNavigate()
 
   console.log("Picture")
   console.log(state.meetingId);
@@ -210,6 +210,7 @@ const Picture = () => {
       alignItems: 'center',
       justifyContent: 'center',
       }}>
+      <img src='./close_button.png' style={{position: 'absolute', marginLeft: '860px', top: '18%', height: '50px', cursor: 'pointer'}} onClick={() => navigate(-1)}/>
       {images.length > 0 &&
         images.map((element) => (
           <Images
