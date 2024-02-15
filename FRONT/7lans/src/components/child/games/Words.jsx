@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import {useDispatch} from 'react-redux'
 import PropTypes from "prop-types";
 import {Session} from "openvidu-browser";
+import {toast} from 'react-toastify';
 import Waiting from "./Waiting.jsx";
 import WordsForm from "./WordsForm";
 
@@ -37,21 +37,31 @@ const Words = ({
    * 하나 이상의 문장이 비어있는 경우 경고창을 표시합니다.
    */
   const submitSentences = (() => {
-    if (sentence1.trim().length > 0 &&
-      sentence2.trim().length > 0 &&
-      sentence3.trim().length > 0 &&
-      sentence4.trim().length > 0) {
+    const inputSentences = [sentence1, sentence2, sentence3, sentence4].map(sentence => sentence.trim());
 
-      const inputSentences = [sentence1, sentence2, sentence3, sentence4].map(sentence => sentence.trim());
+    // 각 문장을 확인합니다.
+    for (let i = 0; i < inputSentences.length; i++) {
+      const sentence = inputSentences[i];
 
-      session.signal({
-        type: 'submitSentences', data: JSON.stringify(inputSentences),
-      })
-        .then(() => console.log(`문장 제출 : ${inputSentences}`))
-        .catch(err => console.log(err))
-    } else {
-      window.alert('입력 없음')
+      if (sentence.length === 0) {
+        // 입력이 없는 문장이 있습니다.
+        toast.error("입력이 되지 않은 문장이 있어요!", {
+          position: "bottom-right"
+        });
+        return;
+      } else if (!sentence.includes(submittedWord)) {
+        // 제시된 단어를 포함하지 않는 문장이 있습니다.
+        toast.error(`${i + 1}번째 문장을 다시 확인하세요!`,{
+          position: "bottom-right"
+        });
+        return;
+      }
     }
+    session.signal({
+      type: 'submitSentences', data: JSON.stringify(inputSentences),
+    })
+      .then(() => console.log(`문장 제출 : ${inputSentences}`))
+      .catch(err => console.log(err))
   });
 
 
@@ -71,7 +81,6 @@ const Words = ({
    */
   const reset = () => {
     setSubmittedWord('')
-    setCurrentInputWord('')
     setSentence1('')
     setSentence2('')
     setSentence3('')
@@ -92,6 +101,22 @@ const Words = ({
     reset()
   };
 
+  const sentenceInputSignal = () => {
+    session.signal({
+      type: 'sentenceInputChange',
+      data: JSON.stringify({
+        sentence1,
+        sentence2,
+        sentence3,
+        sentence4
+      })
+    })
+      .then()
+      .catch((err) => console.log(err))
+  }
+
+
+
   /**
    * 컴포넌트가 마운트 될 때 세션에서 'submitWord'와 'submitSentences' 시그널을 리스닝하게 설정하고,
    * 컴포넌트가 언마운트 될 때 이벤트 리스너를 제거합니다.
@@ -103,6 +128,7 @@ const Words = ({
     return () => {
       session.off('signal:submitWord', receiveWord);
       session.off('signal:submitSentences', receiveSentences);
+
     }
   }, [session]);
 
@@ -134,6 +160,7 @@ const Words = ({
         sentence2={sentence2}
         sentence3={sentence3}
         sentence4={sentence4}
+        sentenceInputSignal={sentenceInputSignal}
         submitSentences={submitSentences}
       />
     )

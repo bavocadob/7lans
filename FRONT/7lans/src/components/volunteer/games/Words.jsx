@@ -119,6 +119,14 @@ const Words = ({
     reset()
   };
 
+  const receiveSentenceInput = (event) => {
+    const sentences = JSON.parse(event.data);
+    setSentence1(sentences.sentence1);
+    setSentence2(sentences.sentence2);
+    setSentence3(sentences.sentence3);
+    setSentence4(sentences.sentence4);
+  }
+
   /**
    * 컴포넌트가 마운트 될 때 세션에서 'submitWord'와 'submitSentences' 시그널을 리스닝하게 설정하고,
    * 컴포넌트가 언마운트 될 때 이벤트 리스너를 제거합니다.
@@ -126,10 +134,11 @@ const Words = ({
   useEffect(() => {
     session.on('signal:submitWord', receiveWord);
     session.on('signal:submitSentences', receiveSentences);
-
+    session.on('signal:sentenceInputChange', receiveSentenceInput);
     return () => {
       session.off('signal:submitWord', receiveWord);
       session.off('signal:submitSentences', receiveSentences);
+      session.off('signal:sentenceInputChange', receiveSentenceInput);
     }
   }, [session]);
 
