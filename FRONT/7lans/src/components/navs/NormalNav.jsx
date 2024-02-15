@@ -67,7 +67,7 @@ const NormalNav = () => {
             display: 'flex',
             justifycontent: 'flex-end',
             marginRight: '2rem',
-            backgroundColor: rgb(255, 215, 3),
+            backgroundColor: 'rgb(255, 215, 3)',
             width: '100%',
             height: '100px' }}
         >
