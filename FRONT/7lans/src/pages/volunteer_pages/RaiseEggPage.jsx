@@ -14,7 +14,8 @@ import { Button, Modal, Form, Image } from "react-bootstrap";
 import Audio from "../../components/Audio";
 import Correct from "../../components/dinosaur/Correct";
 
-import EggImg from "../../images/egg_img.png"
+import EggImg1 from "../../images/dino_egg.png"
+import EggImg2 from "../../images/dino_egg2.png"
 import { Tooltip } from "react-tooltip";
 
 const RightSide = styled.div`
@@ -299,13 +300,23 @@ const RaiseEggPage = () => {
                 </div>
               </RowBox2>
               <RowBox3>
-                <img
-                  data-tooltip-id="vol-egg-tooltip"
-                  onClick={eggClick}
-                  style={{ width: "140px", height: "150px", cursor: "pointer" }}
-                  src={EggImg}
-                  alt=""
-                />
+                {eggInfo?.experience < 70 ? 
+                  <img
+                    data-tooltip-id="vol-egg-tooltip"
+                    onClick={eggClick}
+                    style={{ width: "140px", height: "150px", cursor: "pointer" }}
+                    src={EggImg1}
+                    alt=""
+                  />
+                  :
+                  <img
+                    data-tooltip-id="vol-egg-tooltip"
+                    onClick={eggClick}
+                    style={{ width: "140px", height: "150px", cursor: "pointer" }}
+                    src={EggImg2}
+                    alt=""
+                  />
+                 }
                 <Tooltip id="vol-egg-tooltip">
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <span> "exp: 100 %" 가 되면</span>
