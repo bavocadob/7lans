@@ -243,6 +243,7 @@ const ChildCalendar = () => {
         //지난날 + meeting없음 -> 무응답
         //오늘 + meeting존재 + OPENED -> 화상 채팅 이동
         //오늘 + meeting존재 + SCHEDULED -> 아직 열리지 않았어요
+        //오늘 + meeting존재 + CLOSED -> picture
         //오늘 + meeting없음 -> 무응답
         //이후 + meeting존재-> 무응답
         //이후 + meeting없음 -> 무응답
@@ -251,7 +252,7 @@ const ChildCalendar = () => {
         const selectDate = day.getDate()
     
         //화상 채팅 입장
-        if(meeting && (selectDate == dayOfMonth)){
+        if(meeting && (selectDate == dayOfMonth) && meeting.status != "CLOSED"){
             if(meeting.status == "OPENED"){
                 console.log("세션입장")
                 navigate(`/child_video_chatting/${meeting.meetingId}`);
@@ -261,7 +262,7 @@ const ChildCalendar = () => {
             }
         }
         //사진 기록들 보기
-        else if(selectDate < dayOfMonth && meeting){
+        else if(selectDate <= dayOfMonth && meeting){
             navigate('/child_choose_picturePage',{
                 state: {
                     //날짜가 아닌 meetingId로 사진 불러오기
