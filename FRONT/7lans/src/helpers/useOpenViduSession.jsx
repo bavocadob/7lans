@@ -57,14 +57,14 @@ const UseOpenViduSession = () => {
   }
 
   // 사용자 화상 화면 렌더링
-  const renderUserVideoComponent = (stream) => {
+  const renderUserVideoComponent = (stream, videoId) => {
     let key = "";
     if (stream) {
       key = stream.stream.connection.connectionId;
     }
 
     return (
-      <div id="participant-video" key={key}>
+      <div id={videoId} key={key}>
         <UserVideoComponent streamManager={stream}/>
       </div>
     );
