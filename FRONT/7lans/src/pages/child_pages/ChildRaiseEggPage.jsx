@@ -236,6 +236,7 @@ const ChildRaiseEggPage = () => {
   } 
 
   const eggClick = () => {
+    setShow(true)
     if (eggInfo?.experience === 100) {
       const eggHatch = async () => {
         try {
@@ -252,7 +253,6 @@ const ChildRaiseEggPage = () => {
       }
       eggHatch()
     }
-    
   }
 
   return (

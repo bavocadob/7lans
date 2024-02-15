@@ -238,6 +238,7 @@ const RaiseEggPage = () => {
   };
 
   const eggClick = () => {
+    setShow(true)
     if (eggInfo?.experience === 100) {
       const eggHatch = async () => {
         try {
