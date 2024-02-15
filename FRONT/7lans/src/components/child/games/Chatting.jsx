@@ -162,7 +162,7 @@ const Chat = ({
               <Flipped flipId="content">
                 <div style={{ ...commonDivStyles, flexGrow: 1 }}>
                   {mainStreamManager &&
-                    renderUserVideoComponent(mainStreamManager)}
+                    renderUserVideoComponent(mainStreamManager, "my-video")}
                 </div>
               </Flipped>
               <div
@@ -193,7 +193,7 @@ const Chat = ({
                 <div style={{ ...commonDivStyles, flexGrow: 1 }}>
                   {subscribers.map(
                     (subscriber) =>
-                      subscriber && renderUserVideoComponent(subscriber)
+                      subscriber && renderUserVideoComponent(subscriber, "partner-video")
                   )}
                 </div>
               </Flipped>

@@ -14,7 +14,6 @@ import {useParams} from "react-router-dom";
 import {db} from '../firebase';
 import {nextImgNum} from "../store/imgNumSlice";
 
-
 function ToastContent({url, message}) {
   return (
     <div style={{display: 'flex', alignItems: 'center'}}>
@@ -27,18 +26,38 @@ function ToastContent({url, message}) {
     </div>
   );
 }
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '50%', // Modal의 너비를 50%로 설정
-    height: '50%', // Modal의 높이를 50%로 설정
-  }
-};
+
+
+// 모달 스타일 컴포넌트
+const StyledModal = styled(Modal)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid  rgb(255, 184, 36);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 50%;
+`;
+
+// 모달 속 버튼 스타일 컴포넌트
+const ModalButton = styled.button`
+  width: 140px;
+  height: 54px;
+  align-self: center;
+  font-weight: bolder;
+  font-size: 20px;
+  border: 2px dashed rgb(45, 45, 45);
+  border-radius: 20px;
+  background: rgba(255, 184, 36, 1);
+  margin: 0 3rem 0 0;
+`;
 
 const StyledButton = styled.button`
   width: 100px;
@@ -53,15 +72,39 @@ const StyledButton = styled.button`
 `;
 
 const ImgCaptureBtn = ({
-                                setCapturedImages,
-                                session,
-                              }) => {
+                         setCapturedImages,
+                         session,
+                       }) => {
 
   const userInfo = useSelector((state) => state.user.value);
   const {meetingId} = useParams();
 
   const imgNum = useSelector((state) => state.imgNum.value)
   const dispatch = useDispatch();
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [capturedData, setCapturedData] = useState('');
+  const [captureModalOpen, setCaptureModalOpen] = useState(false);
+
+
+  const openCaptureModal = () => {
+    setCaptureModalOpen(true);
+  };
+  const closeCaptureModal = () => {
+    setCaptureModalOpen(false);
+  };
+
+
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setCapturedData('');  // 모달을 닫을 때 캡쳐 이미지 데이터를 초기화
+  };
+
 
   const addImageSignal = (imageUrl) => {
     session.signal({
@@ -85,12 +128,10 @@ const ImgCaptureBtn = ({
     if (session) {
       session.on('signal:addImage', receviceAddImageSignal);
     }
-
     return () => {
       if (session) {
         session.off('signal:addImage', receviceAddImageSignal);
       }
-
     }
   }, [session]);
 
@@ -108,12 +149,6 @@ const ImgCaptureBtn = ({
     const storageRef = strRef(storage, `meeting_image/${meetingId}/${userInfo.memberId}/${imgNum}`);
     const imageFile = dataURLtoFile(imgData, 'capture.png');
     const uploadTask = uploadBytesResumable(storageRef, imageFile, metadata);
-
-    const toastTest = () => {
-      toast.success('사진이 저장되었습니다.', {
-        position: "bottom-right"
-      })
-    }
 
     // Listen for state changes, errors, and completion of the upload
     uploadTask.on('state_changed',
@@ -158,13 +193,30 @@ const ImgCaptureBtn = ({
     );
   };
 
-  const captureScreen = () => {
-    html2canvas(document.body).then((canvas) => {
-      const data = canvas.toDataURL();
-      handleUploadImage(data)
+  async function captureScreen() {
+    const videoElement1 = document.querySelector('#my-video');
+    const videoElement2 = document.querySelector('#partner-video');
 
-    });
-  };
+    if (videoElement1 && videoElement2) {
+
+      const canvas1 = await html2canvas(videoElement1);
+      const canvas2 = await html2canvas(videoElement2);
+
+      let context = document.createElement('canvas').getContext('2d');
+
+      context.canvas.width = canvas1.width + canvas2.width;
+      context.canvas.height = Math.max(canvas1.height, canvas2.height);
+
+      context.drawImage(canvas1, 0, 0);
+      context.drawImage(canvas2, canvas1.width, 0);
+
+      const data = context.canvas.toDataURL();
+      setCapturedData(data);  // 캡쳐한 이미지 데이터 저장
+      openModal();  // 저장 후 모달 열기
+    } else {
+      console.log('Element with id "my-video" or "partner-video" not found.');
+    }
+  }
 
   const dataURLtoFile = (dataurl, filename) => {
     let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
@@ -176,13 +228,95 @@ const ImgCaptureBtn = ({
   }
 
 
+  const handleTogetherCapture = async () => {
+    const videoElement1 = document.querySelector('#my-video');
+    const videoElement2 = document.querySelector('#partner-video');
+
+    if (videoElement1 && videoElement2) {
+
+      const canvas1 = await html2canvas(videoElement1);
+      const canvas2 = await html2canvas(videoElement2);
+
+      let context = document.createElement('canvas').getContext('2d');
+
+      context.canvas.width = canvas1.width + canvas2.width;
+      context.canvas.height = Math.max(canvas1.height, canvas2.height);
+
+      context.drawImage(canvas1, 0, 0);
+      context.drawImage(canvas2, canvas1.width, 0);
+
+      const data = context.canvas.toDataURL();
+      setCapturedData(data);  // 캡쳐한 이미지 데이터 저장
+      handleUploadImage(data);
+    }
+
+    closeCaptureModal();
+  };
+
+  const handleSoloCapture = async () => {
+    const videoElement = document.querySelector('#my-video');
+
+    if (videoElement) {
+      const canvas = await html2canvas(videoElement);
+
+      let context = document.createElement('canvas').getContext('2d');
+
+      context.canvas.width = canvas.width;
+      context.canvas.height = canvas.height;
+
+      context.drawImage(canvas, 0, 0);
+
+      const data = context.canvas.toDataURL();
+      setCapturedData(data);  // 캡쳐한 이미지 데이터 저장
+      handleUploadImage(data);
+    }
+
+    closeCaptureModal();
+  };
+
+  const handleFullCapture = () => {
+    closeCaptureModal();
+
+    setTimeout(async () => {
+      const bodyElement = document.body;
+
+      if (bodyElement) {
+        const canvas = await html2canvas(bodyElement);
+
+        let context = document.createElement('canvas').getContext('2d');
+
+        context.canvas.width = canvas.width;
+        context.canvas.height = canvas.height;
+
+        context.drawImage(canvas, 0, 0);
+
+        const data = context.canvas.toDataURL();
+        setCapturedData(data);  // 캡쳐한 이미지 데이터 저장
+        handleUploadImage(data);
+      }
+    }, 500);  // Modal이 완전히 닫히길 기다립니다. 필요하다면 시간을 조정하세요.
+    closeCaptureModal();
+  };
+
 
   return (
     <div>
-      <StyledButton onClick={captureScreen}> 캡쳐 <TbCaptureFilled/></StyledButton>
+      <StyledButton onClick={openCaptureModal}> 캡쳐 <TbCaptureFilled/></StyledButton>
       <ToastContainer
         style={{ zIndex: 9999 }}
       />
+
+
+      {/* <StyledModal isOpen={modalIsOpen} onRequestClose={closeModal}> */}
+      {/*   <img src={capturedData} alt="Captured content" /> */}
+      {/*   <StyledButton onClick={handleConfirm}>Confirm</StyledButton> */}
+      {/*   <StyledButton onClick={closeModal}>Cancel</StyledButton> */}
+      {/* </StyledModal> */}
+      <StyledModal isOpen={captureModalOpen} onRequestClose={closeCaptureModal}>
+        <ModalButton onClick={handleTogetherCapture}>함께 찍기</ModalButton>
+        <ModalButton onClick={handleSoloCapture}>혼자 찍기</ModalButton>
+        <ModalButton onClick={handleFullCapture}>전체 화면 찍기</ModalButton>
+      </StyledModal>
     </div>
   );
 };

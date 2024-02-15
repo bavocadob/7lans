@@ -91,8 +91,10 @@ const VideoChattingLobby = ({
           {" "}
           💛 나의 화면 💛
         </h2>
-        <div style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}>
-          {mainStreamManager && renderUserVideoComponent(mainStreamManager)}
+        <div
+          style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}
+        >
+          {mainStreamManager && renderUserVideoComponent(mainStreamManager, "my-video")}
         </div>
         <div
           style={{
@@ -139,11 +141,13 @@ const VideoChattingLobby = ({
           {" "}
           💛 학생 화면 💛
         </h2>
-        <div style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}>
+        <div
+          style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}
+        >
 
           {subscribers.length ?
             (subscribers.map(
-              (subscriber) => subscriber && renderUserVideoComponent(subscriber)
+              (subscriber) => subscriber && renderUserVideoComponent(subscriber, "partner-video")
             )) :
             <NoSubscriberComponent/>
           }
