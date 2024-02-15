@@ -49,14 +49,19 @@ const StyledModal = styled(Modal)`
 // 모달 속 버튼 스타일 컴포넌트
 const ModalButton = styled.button`
   width: 140px;
-  height: 54px;
+  height: 70px;
   align-self: center;
-  font-weight: bolder;
+  cursor: pointer;
+  font-weight: bold;
   font-size: 20px;
-  border: 2px dashed rgb(45, 45, 45);
   border-radius: 20px;
-  background: rgba(255, 184, 36, 1);
+  background-color: rgba(255, 184, 36, 1);
   margin: 0 3rem 0 0;
+  &:hover,
+  &:focus {
+    background-color: #4caf50; // 마우스를 올렸을 때 배경 색 변경
+    color: #ffffff; // 마우스를 올렸을 때 글자 색 변경
+  }
 `;
 
 const StyledButton = styled.button`
