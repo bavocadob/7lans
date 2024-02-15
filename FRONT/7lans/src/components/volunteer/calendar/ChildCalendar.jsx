@@ -254,7 +254,7 @@ const ChildCalendar = () => {
         if(meeting && (selectDate == dayOfMonth)){
             if(meeting.status == "OPENED"){
                 console.log("세션입장")
-                navigate(`/volunteer_video_chatting/${meeting.meetingId}`);
+                navigate(`/child_video_chatting/${meeting.meetingId}`);
             }
             else if(meeting.status == "SCHEDULED"){
                 console.log("아직 세션이 없습니다.")
