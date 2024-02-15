@@ -217,7 +217,7 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
 
   //수정하기
   const changeContent = async () => {
-    //console.log(content)
+    // console.log(content)
     axios.put(`${urlInfo}/activityLog/volunteer/modify`, {
       volunteerId: userInfo.memberId,
       relationId: childInfo.relationId,
@@ -251,7 +251,7 @@ const ActiveEdit = ({ activityLog, content, setContent, activityTime }) => {
 
   //녹음 음성 추가
   const addRecord = (transcript) => {
-    console.log(content + " " + transcript);
+    // console.log(content + " " + transcript);
     setContent(content + " " + transcript);
     setIsModalOpenSpeak(false);
   };

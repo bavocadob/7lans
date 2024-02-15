@@ -56,7 +56,7 @@ const CardFind = ({
   const handleCard = (num) => {
 
     setNowCard((prevCards) => [...prevCards, num]);
-    console.log(nowCard);
+    // console.log(nowCard);
   };
 
 
@@ -100,8 +100,8 @@ const CardFind = ({
     session.signal({
       type: 'cardGameStart',
     })
-      .then(() => console.log('카드 뒤집기 게임 시작'))
-      .catch(err => console.log(err))
+      .then(() => // console.log('카드 뒤집기 게임 시작'))
+      .catch(err => // console.log(err))
   })
 
   const shuffleCardSignal = (() => {
@@ -110,16 +110,16 @@ const CardFind = ({
     session.signal({
       type: 'shuffleCard', data: JSON.stringify(shuffledCards),
     })
-      .then(() => console.log('카드 섞기'))
-      .catch(err => console.log(err))
+      .then(() => // console.log('카드 섞기'))
+      .catch(err => // console.log(err))
   })
 
   const selectCardSignal = ((num) => {
     session.signal({
       type: 'selectCard', data: num,
     })
-      .then(() => console.log('카드 선택'))
-      .catch(err => console.log(err))
+      .then(() => // console.log('카드 선택'))
+      .catch(err => // console.log(err))
   })
 
   const cardGameStartHandler = ((event) => {

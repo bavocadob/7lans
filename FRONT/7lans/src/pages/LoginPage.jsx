@@ -165,7 +165,7 @@ const LoginPage = () => {
         try {
           const res = await axios.get(`${urlInfo}/dinosaurs/myDinosaur/${id}`)
           dispatch(changeDino(res.data.id))
-          console.log(res.data.id)
+          // console.log(res.data.id)
         } catch (err) {
           console.error(err)
         }
@@ -190,7 +190,7 @@ const LoginPage = () => {
       console.error(err);
       window.alert('이메일 혹은 비밀번호를 다시 한번 확인해주세요.')
     }
-    console.log(userInfo)
+    // console.log(userInfo)
   };
 
   return (

@@ -88,8 +88,8 @@ const Chat = ({
 
     session
       .signal(signalOptions)
-      .then(() => console.log("Message sent"))
-      .catch((err) => console.log(err));
+      .then(() => // console.log("Message sent"))
+      .catch((err) => // console.log(err));
   };
 
   const handleChatSubmission = (event) => {

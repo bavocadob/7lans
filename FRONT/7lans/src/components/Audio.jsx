@@ -130,7 +130,7 @@ const ChildAudioPlay = ({ dinoState, setdinoState }) => {
     });
 
     setDisabled(false);
-    console.log(sound); // File 정보 출력
+    // console.log(sound); // File 정보 출력
   };
 
   const play = () => {
@@ -146,7 +146,7 @@ const ChildAudioPlay = ({ dinoState, setdinoState }) => {
         setdinoState(false);
       },
     });
-    console.log(audio.src);
+    // console.log(audio.src);
 
     sound.play();
   };

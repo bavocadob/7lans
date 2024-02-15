@@ -47,7 +47,7 @@ const Text = styled.div`
 export default function WhisperFirst() {
   const userInfo = useSelector((state) => state.user.value)
   const userDino = useSelector((state) => state.dino.value)
-  console.log(userInfo)
+  // console.log(userInfo)
   return (
     <>
       <Box>

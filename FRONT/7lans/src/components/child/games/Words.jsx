@@ -47,8 +47,8 @@ const Words = ({
       session.signal({
         type: 'submitSentences', data: JSON.stringify(inputSentences),
       })
-        .then(() => console.log(`문장 제출 : ${inputSentences}`))
-        .catch(err => console.log(err))
+        .then(() => // console.log(`문장 제출 : ${inputSentences}`))
+        .catch(err => // console.log(err))
     } else {
       window.alert('입력 없음')
     }
@@ -86,7 +86,7 @@ const Words = ({
    */
   const receiveSentences = (event) => {
     const sentences = JSON.parse(event.data);
-    console.log(`수신한 문장들 : ${sentences}`);
+    // console.log(`수신한 문장들 : ${sentences}`);
 
     // TODO 제출하면 리셋되는게 끝인데 기능 추가가 필요할 수도 있음
     reset()

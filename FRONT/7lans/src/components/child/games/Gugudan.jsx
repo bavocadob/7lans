@@ -103,8 +103,8 @@ const Gugudan = ({
     session.signal({
       type: 'resetGugudan'
     })
-      .then(() => console.log('구구단 게임 종료'))
-      .catch(err => console.log(err))
+      .then(() => // console.log('구구단 게임 종료'))
+      .catch(err => // console.log(err))
   })
 
   /**
@@ -118,8 +118,8 @@ const Gugudan = ({
       type: 'submitGugudanAns',
       data: JSON.stringify(gugudanAns)
     })
-      .then(() => console.log(`구구단 정답 제출 : ${gugudanAns}`))
-      .catch(err => console.log(err))
+      .then(() => // console.log(`구구단 정답 제출 : ${gugudanAns}`))
+      .catch(err => // console.log(err))
   })
 
 

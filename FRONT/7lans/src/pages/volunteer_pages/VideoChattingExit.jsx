@@ -210,8 +210,8 @@ const VideoChattingExit = ({
       type: 'imageSelect',
       data: image
     })
-      .then(() => console.log('이미지 선택 시그널'))
-      .catch(err => console.log(err))
+      .then(() => // console.log('이미지 선택 시그널'))
+      .catch(err => // console.log(err))
   }
 
   const receiveSelectImage = ((event) => {
@@ -233,8 +233,8 @@ const VideoChattingExit = ({
     session.signal({
       type: 'confirmCheck',
     })
-      .then(() => console.log('이미지 선택완료 시그널'))
-      .catch(err => console.log(err))
+      .then(() => // console.log('이미지 선택완료 시그널'))
+      .catch(err => // console.log(err))
   }
 
   const receiveConfirmCheck = (event) => {
@@ -255,8 +255,8 @@ const VideoChattingExit = ({
     session.signal({
       type: 'confirmCancel',
     })
-      .then(() => console.log('이미지 선택취소 시그널'))
-      .catch(err => console.log(err))
+      .then(() => // console.log('이미지 선택취소 시그널'))
+      .catch(err => // console.log(err))
   }
 
   const receiveConfirmCancel = (event) => {
@@ -268,8 +268,8 @@ const VideoChattingExit = ({
       type: 'imageUpload',
       data: uploadStatus
     })
-      .then(() => console.log('이미지 선택취소 시그널'))
-      .catch(err => console.log(err))
+      .then(() => // console.log('이미지 선택취소 시그널'))
+      .catch(err => // console.log(err))
   }
 
 
