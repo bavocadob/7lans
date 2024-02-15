@@ -20,8 +20,8 @@ import getEnv from "../../../utils/getEnv";
 import { getMeetingList } from './Axioses';
 
 import NextIcon from "../../../images/next_button.png"
-import Album from "../../../images/picture_page/album.png"
-import MeetingOpenIcon from "../../../images/meeting/meeting_open.png"
+import Album from "../../../images/pictures.png"
+import MeetingOpenIcon from "../../../images/child_chat_door.png"
 
 ReactModal.setAppElement('#root');
 
