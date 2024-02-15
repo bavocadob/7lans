@@ -267,7 +267,7 @@
 
         jpa:
             hibernate:
-            ddl-auto: update
+            ddl-auto: none // 배포/개발 환경 따라 다르게 설정
             properties:
             hibernate:
                 format_sql: true
@@ -291,5 +291,52 @@
         jwt:
         # HS256 algorithm is used.
         secret_key: <your-secret-key>
-        expiration_time: 864000000
+        expiration_time: <expiration time>
+    ```
+
+4) 프론트엔드 빌드
+    * Frontend Dockerfile
+    ```dockerfile
+    FROM node:16
+
+    WORKDIR /app
+
+    COPY package*.json ./
+
+    RUN npm install
+
+    COPY . .
+
+    RUN npm run build
+    RUN ls -la /app
+    FROM nginx:stable-alpine
+
+    COPY --from=0 /app/dist /usr/share/nginx/html
+    RUN ["rm", "/etc/nginx/conf.d/default.conf"]
+    COPY ./default.conf /etc/nginx/conf.d
+    EXPOSE 80
+    CMD ["nginx", "-g", "daemon off;"]  
+    ```
+
+    * jenkins에서 Push 알림을 받아 clone 후 자동 배포
+    ```
+    # React Project 폴더로 이동
+    cd FRONT/7lans
+    docker build -t 7lans-front .
+
+    # Docker 컨테이너 실행
+    docker run -d --name front-server -p 30007:80 7lans-front   
+    ```
+
+    * ❗ 환경변수 관련 파일은 git에 업로드되지 않으므로 root 폴더에 따로 .env 파일을 설정해줌
+    ```
+    VITE_OPENVIDU_URL='<your-openvidu-url>'
+    VITE_OPENVIDU_SECRET='<your-openvidu-secret>'
+    VITE_API_URL='<your-api-url>'
+    VITE_FIREBASE_API_KEY='<your-firebase-api-key>'
+    VITE_PREVIOUS_SUBMIT='<your-previous-submit-image-url>'
+    VITE_SUBMIT='<your-submit-image-url>'
+    VITE_APPROVE='<your-approve-image-url>'
+    VITE_DEFAULT_THUMBNAIL='<your-default-thumbnail-url>'
+    VITE_PUBLIC_URL='<your-public-url>'
     ```
