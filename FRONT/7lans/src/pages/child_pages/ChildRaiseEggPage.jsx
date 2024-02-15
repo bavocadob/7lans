@@ -147,10 +147,7 @@ const ChildRaiseEggPage = () => {
     if (eggInfo?.experience !== 100) {
       //경험치가 100이 아닌 경우
       return (
-        <StyledModal
-        show={show}
-        onHide={() => setShow(false)}
-        >
+        <StyledModal show={show} onHide={() => setShow(false)} centered>
           <StyledHeader closeButton>
             <Modal.Title>아직 경험치가 {eggInfo?.experience || 0} % 에요.</Modal.Title>
           </StyledHeader>
@@ -177,10 +174,7 @@ const ChildRaiseEggPage = () => {
     else if (eggInfo?.volunteerCheck === false && eggInfo?.childCheck === true) {
       //선생님이 알을 안깐 경우
       return (
-        <StyledModal
-        show={show}
-        onHide={() => setShow(false)}
-        >
+        <StyledModal show={show} onHide={() => setShow(false)} centered>
           <StyledHeader closeButton>
             <Modal.Title>{volInfo.volunteerName} 선생님이 아직 알을 열어보지 않았어요.</Modal.Title>
           </StyledHeader>
@@ -206,10 +200,7 @@ const ChildRaiseEggPage = () => {
     }
     else {
       return (
-        <StyledModal
-        show={show}
-        onHide={() => setShow(false)}
-        >
+        <StyledModal show={show} onHide={() => setShow(false)} centered>
           <StyledHeader closeButton>
             <Modal.Title>나와 함께 하게 된걸 축하해!!!</Modal.Title>
           </StyledHeader>
