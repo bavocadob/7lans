@@ -109,7 +109,7 @@ const NormalNav = () => {
           {location.pathname !== "/dinosaur_dict" ? (
             <div style={{ width: "400px" }}>
               {childInfo && location.pathname !== "/active_docs" ? (
-                <p>{childInfo.childName} 학생과의 공간입니다.</p>
+                <p>{childInfo.childName} 아동과의 공간입니다.</p>
               ) : (
                 ""
               )}
