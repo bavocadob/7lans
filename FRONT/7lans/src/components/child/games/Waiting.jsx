@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Spinner from '../../../images/loading.gif';
+import PropTypes from "prop-types";
 
 const RightSide = styled.div`
   width: 90%;
@@ -13,17 +14,13 @@ const RightSide = styled.div`
 `
 
 const Background =  styled.div`
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    background: #ffffffb7;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #ffffffb7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 
@@ -55,21 +52,25 @@ const LoadingText = styled.div`
 //         return renderGame();
 // }
 
-const Waiting = ({}) => {
-    return (
-       <Background>
-        <LoadingText>
-            <p>
-            출제 중입니다
-            </p>
-            <p>
-            조금만 기다려 주세요
-            </p>
-        </LoadingText>
-        <img src={Spinner} alt='기다리는 중' width="5%"/>
-       </Background>
-    
-    )
+const Waiting = ({ problemType }) => {
+  return (
+    <Background>
+      <LoadingText>
+        <p>
+          {problemType} 출제 중입니다
+        </p>
+        <p>
+          조금만 기다려 주세요
+        </p>
+      </LoadingText>
+      <img src={Spinner} alt='기다리는 중' width="5%"/>
+    </Background>
+  )
 }
+
+
+Waiting.propTypes = {
+  problemType: PropTypes.string.isRequired
+};
 
 export default Waiting;

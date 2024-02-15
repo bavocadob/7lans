@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux"
 import {useNavigate, useParams} from 'react-router-dom';
-import GameNav from '../../components/navs/GameNav';
+import ChildGameNav from "../../components/navs/ChildGameNav.jsx";
 import UseOpenViduSession from "../../helpers/useOpenViduSession.jsx";
 import VideoChattingLobby from "./VideoChattingLobby.jsx";
 import ChildGamePage from "./ChildGamePage.jsx";
@@ -189,7 +189,7 @@ const VideoChattingPage = () => {
   // const [gameChangeable, setGameChangeable] = useState(true)
   return (
     <>
-      <GameNav
+      <ChildGameNav
         exitSessionSignal={exitSessionSignal}
         setCapturedImages={setCapturedImages}
         sessionCreatedAt={sessionCreatedAt}

@@ -193,6 +193,9 @@ const VideoChattingExit = ({
   useEffect(() => {
     if (capturedImages.length === 0) {
       setIsOpen(true);
+      setTimeout(() => {
+        navigate('/volunteer_main');
+      }, 3500);
     }
   }, [capturedImages]);
 
@@ -288,8 +291,7 @@ const VideoChattingExit = ({
       setTimeout(() => {
         setConfirmModalIsOpen(false);
         setComplete(false);
-        // TODO 메인 페이지로 보내니까 로그인 창으로 가는데 이거 나중에 수정하자
-        navigate('/');
+        navigate('/child_main');
       }, 3000);
     }
   }
@@ -350,15 +352,18 @@ const VideoChattingExit = ({
         ))}
       </ImagesContainer>
 
-      <Modal
+      <ConfirmModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={modalStyles}
         contentLabel="No Captures Alert"
       >
-        <p>캡쳐한 사진이 없어요!</p>
-        <button onClick={closeModal}>확인</button>
-      </Modal>
+        <ConfirmModalText>
+          캡쳐한 사진이 없어요
+          <br/>
+          잠시 후 세션이 종료됩니다.
+        </ConfirmModalText>
+      </ConfirmModal>
 
       <ConfirmButton
         onClick={confirmCheckSignal}>

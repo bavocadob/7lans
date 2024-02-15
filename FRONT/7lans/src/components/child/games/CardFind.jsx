@@ -198,7 +198,8 @@ const CardFind = ({
      marginTop: '5%'
   }}>
     {!gameStarted &&
-      <Waiting/>
+      <Waiting
+        problemType="카드 짝찾기"/>
     }
     {gameStarted && renderCard()}
   </div>)
