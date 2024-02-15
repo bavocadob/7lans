@@ -96,7 +96,8 @@ const WordsForm = ({
                      sentence1,
                      sentence2,
                      sentence3,
-                     sentence4
+                     sentence4,
+                     sentenceInputSignal
                    }) => (
   <FormWrapper>
     <FormTitle>&quot;{submittedWord}&quot;을 포함한 문장을 만들어 보아요</FormTitle>
@@ -107,25 +108,37 @@ const WordsForm = ({
             type="text"
             placeholder={sentence1 ? '' : '문장을 완성해 주세요'}
             value={sentence1}
-            onChange={(e) => setSentence1(e.target.value)}
+            onChange={(e) => {
+              setSentence1(e.target.value);
+              sentenceInputSignal();
+            }}
           />
           <StyledInput
             type="text"
             placeholder={sentence2 ? '' : '문장을 완성해 주세요'}
             value={sentence2}
-            onChange={(e) => setSentence2(e.target.value)}
+            onChange={(e) => {
+              setSentence2(e.target.value);
+              sentenceInputSignal();
+            }}
           />
           <StyledInput
             type="text"
             placeholder={sentence3 ? '' : '문장을 완성해 주세요'}
             value={sentence3}
-            onChange={(e) => setSentence3(e.target.value)}
+            onChange={(e) => {
+              setSentence3(e.target.value);
+              sentenceInputSignal();
+            }}
           />
           <StyledInput
             type="text"
             placeholder={sentence4 ? '' : '문장을 완성해 주세요'}
             value={sentence4}
-            onChange={(e) => setSentence4(e.target.value)}
+            onChange={(e) => {
+              setSentence4(e.target.value);
+              sentenceInputSignal();
+            }}
           />
         </InputFieldsContainer>
       </InputFieldsWrapper>
@@ -146,6 +159,7 @@ WordsForm.propTypes = {
   sentence2: PropTypes.string.isRequired,
   sentence3: PropTypes.string.isRequired,
   sentence4: PropTypes.string.isRequired,
+  sentenceInputSignal: PropTypes.func.isRequired
 };
 
 export default WordsForm;
