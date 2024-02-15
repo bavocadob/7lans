@@ -47,45 +47,45 @@ public class SecurityConfiguration {
                             // 아동이 로그인한 경우 권한
 
                             // 봉사자가 로그인한 경우 권한
-                            authorizeRequests.requestMatchers("/meetingSchedue/delete/{meetingId}").hasAuthority(MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/meetingSchedue/create").hasAuthority(MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/meetingSchedue/open").hasAuthority(MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/meetingSchedue/close").hasAuthority(MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/activityLog/volunteer/**").hasAuthority(MemberType.VOLUNTEER.name());
-
-                            // 관리자가 로그인한 경우 권한
-                            authorizeRequests.requestMatchers("/childCenter/register").hasAuthority(MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/activityLog/manager/**").hasAuthority(MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/relation/create").hasAuthority(MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/relation/delete").hasAuthority(MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/child/content").hasAuthority(MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/child/centerAndVolunteerNoRelation").hasAuthority(MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/child/listByCenter/{centerId}").hasAuthority(MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/volunteer/listByCenter/{centerId}").hasAuthority(MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/volunteer/searchByName").hasAuthority(MemberType.MANAGER.name());
-
-                            // 아동 & 봉사자
-                            authorizeRequests.requestMatchers("/meetingImage/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/whisper/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/member/profile").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/dinosaurs/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/meetingSchedue/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
-                            authorizeRequests.requestMatchers("/egg/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
-
-                            // 봉사자 & 관리자
-                            authorizeRequests.requestMatchers("/activityLog/**").hasAnyAuthority(MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/child/{childId}").hasAnyAuthority(MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/volunteer/time/{volunteerId}").hasAnyAuthority(MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
-
-                            // 아동 & 관리자
-                            authorizeRequests.requestMatchers("/volunteer/listByChild/{childId}").hasAnyAuthority(MemberType.CHILD.name(), MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/meetingSchedue/delete/{meetingId}").hasAuthority(MemberType.VOLUNTEER.name());
+//                            authorizeRequests.requestMatchers("/meetingSchedue/create").hasAuthority(MemberType.VOLUNTEER.name());
+//                            authorizeRequests.requestMatchers("/meetingSchedue/open").hasAuthority(MemberType.VOLUNTEER.name());
+//                            authorizeRequests.requestMatchers("/meetingSchedue/close").hasAuthority(MemberType.VOLUNTEER.name());
+//                            authorizeRequests.requestMatchers("/activityLog/volunteer/**").hasAuthority(MemberType.VOLUNTEER.name());
+//
+//                            // 관리자가 로그인한 경우 권한
+//                            authorizeRequests.requestMatchers("/childCenter/register").hasAuthority(MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/activityLog/manager/**").hasAuthority(MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/relation/create").hasAuthority(MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/relation/delete").hasAuthority(MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/child/content").hasAuthority(MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/child/centerAndVolunteerNoRelation").hasAuthority(MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/child/listByCenter/{centerId}").hasAuthority(MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/volunteer/listByCenter/{centerId}").hasAuthority(MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/volunteer/searchByName").hasAuthority(MemberType.MANAGER.name());
+//
+//                            // 아동 & 봉사자
+//                            authorizeRequests.requestMatchers("/meetingImage/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
+//                            authorizeRequests.requestMatchers("/whisper/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
+//                            authorizeRequests.requestMatchers("/member/profile").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
+//                            authorizeRequests.requestMatchers("/dinosaurs/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
+//                            authorizeRequests.requestMatchers("/meetingSchedue/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
+//                            authorizeRequests.requestMatchers("/egg/**").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name());
+//
+//                            // 봉사자 & 관리자
+//                            authorizeRequests.requestMatchers("/activityLog/**").hasAnyAuthority(MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/child/{childId}").hasAnyAuthority(MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
+//                            authorizeRequests.requestMatchers("/volunteer/time/{volunteerId}").hasAnyAuthority(MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
+//
+//                            // 아동 & 관리자
+//                            authorizeRequests.requestMatchers("/volunteer/listByChild/{childId}").hasAnyAuthority(MemberType.CHILD.name(), MemberType.MANAGER.name());
 
                             // 전체 공통
                             authorizeRequests.requestMatchers("/childCenter/list").permitAll();
                             authorizeRequests.requestMatchers("/member/register").permitAll();
                             authorizeRequests.requestMatchers("/member/login").permitAll();
-                            authorizeRequests.requestMatchers("/member/logout").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
-                            authorizeRequests.requestMatchers("/member/password").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
+                            // authorizeRequests.requestMatchers("/member/logout").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
+                            // authorizeRequests.requestMatchers("/member/password").hasAnyAuthority(MemberType.CHILD.name(), MemberType.VOLUNTEER.name(), MemberType.MANAGER.name());
                             authorizeRequests.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll();
 
 
