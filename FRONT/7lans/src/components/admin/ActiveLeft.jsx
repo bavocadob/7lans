@@ -245,7 +245,7 @@ const ActiveLeft = () => {
             {isApproval
               ? "승인이 '완료된' 활동일지 목록"
               : "승인이 '필요한' 활동일지 목록"}{" "}
-            {isApproval ? <span>&#128035;</span> : <span>&#128036;</span>}
+            {isApproval ? <span>&#128036;</span> : <span>&#128035;</span>}
           </Title>
         </Header>
         <SearchContainer>
@@ -283,7 +283,7 @@ const ActiveLeft = () => {
                     <InfoValue>{post.volunteerName}</InfoValue>
                   </Info>
                   <Info>
-                    <InfoLabel>학생:</InfoLabel>
+                    <InfoLabel>아동:</InfoLabel>
                     <InfoValue>{post.childName}</InfoValue>
                   </Info>
                 </PostContainer>
@@ -305,13 +305,13 @@ const ActiveLeft = () => {
                   }
                   className={index === selectedPostIndex ? "selected" : ""}
                 >
-                  <PostTitle>날짜: {post.dateInfo}</PostTitle>
+                  <PostTitle>봉사 날짜: {post.dateInfo}</PostTitle>
                   <Info>
                     <InfoLabel>봉사자:</InfoLabel>
                     <InfoValue>{post.volunteerName}</InfoValue>
                   </Info>
                   <Info>
-                    <InfoLabel>학생:</InfoLabel>
+                    <InfoLabel>아동:</InfoLabel>
                     <InfoValue>{post.childName}</InfoValue>
                   </Info>
                 </PostContainer>
