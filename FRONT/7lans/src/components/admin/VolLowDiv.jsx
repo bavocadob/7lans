@@ -258,7 +258,7 @@ const VolLowDiv = () => {
   return (
     <>
       <LowerDiv>
-        <NoticeContainer>{volName} 봉사자와 연결된 학생들</NoticeContainer>
+        <NoticeContainer>{volName} 봉사자와 연결된 아동들</NoticeContainer>
         <ProfileContainer>
           {currentItems.map((child) => (
             <LowerProfileCard key={child.relationId}>

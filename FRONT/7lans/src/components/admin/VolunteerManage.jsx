@@ -11,6 +11,7 @@ import getEnv from "../../utils/getEnv";
 const StyledVolunteerManage = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: #fde79b;
   height: 80vh;
   margin-top: 100px;
 `;
@@ -31,7 +32,7 @@ const LeftContainer = styled.div`
 
 const RightContainer = styled.div`
   flex: 2;
-  height: 101%;
+  height: 100%;
   background-color: #fde79b;
   padding: 20px;
   display: flex;
@@ -43,7 +44,7 @@ const VolunteerListContainer = styled.div`
   background-color: #fffdf6;
   border-radius: 20px;
   border: solid 3px black;
-  max-height: 80vh;
+  height: 100%;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -203,7 +204,6 @@ const VolunteerManage = () => {
     setSelectedCard(index);
     dispatch(adminSelectVol(volunteer));
   };
-  console.log(volunteerList, "발론티어 매니지 발론티어 리스트");
   // 검색함수
   const filteredVolunteers = volunteerList.filter((volunteer) =>
     volunteer.some(
