@@ -212,7 +212,7 @@ const ChildLowDiv = () => {
           setChildVolList(res.data);
         })
         .catch((err) => {
-          // console.log(err, "err -> ChildLowDiv");
+          console.log(err, "err -> ChildLowDiv");
         });
     }
   }, [childId]);
@@ -228,13 +228,13 @@ const ChildLowDiv = () => {
         relationId: relationId,
       })
       .then((res) => {
-        // console.log(res, "친구끊기");
+        console.log(res, "친구끊기");
         setChildVolList((prevList) =>
           prevList.filter((vol) => vol.relationId != relationId)
         );
       })
       .catch((err) => {
-        // console.log(err, "err -> ChildLowDiv 친구끊기 오류");
+        console.log(err, "err -> ChildLowDiv 친구끊기 오류");
       });
     setShowDeleteModal(false);
   };

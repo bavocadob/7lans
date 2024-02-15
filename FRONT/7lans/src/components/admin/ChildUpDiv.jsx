@@ -154,10 +154,10 @@ function ChildUpDiv() {
       })
       .then((res) => {
         setChildSpecialNote(note);
-        // console.log(res.data, "특이사항쓰기 성공");
+        console.log(res.data, "특이사항쓰기 성공");
       })
       .catch((err) => {
-        // console.log(err, "ChildUpDiv, 특이사항쓰기 에러");
+        console.log(err, "ChildUpDiv, 특이사항쓰기 에러");
       });
     setNote("");
     setShowModal(false); // 모달 닫기
@@ -169,12 +169,12 @@ function ChildUpDiv() {
       axios
         .get(`${urlInfo}/child/${childId}`)
         .then((res) => {
-          // console.log(res.data, "childUpdiv 아동상세조회");
+          console.log(res.data, "childUpdiv 아동상세조회");
           setChildSpecialNote(res.data.childSpecialContent);
           setChildProfileImg(res.data.childProfileImagePath);
         })
         .catch((err) => {
-          // console.log(err, "err->ChildUpDiv");
+          console.log(err, "err->ChildUpDiv");
         });
     }
   }, [selectChildCard]);

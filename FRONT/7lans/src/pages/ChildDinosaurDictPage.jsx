@@ -92,7 +92,7 @@ const ChildDinosaurDictPage = () => {
           dinosaurId,
         }
       );
-      // console.log(res);
+      console.log(res);
       representDino(memberId);
       setShow(!show);
     } catch (err) {
@@ -106,7 +106,7 @@ const ChildDinosaurDictPage = () => {
         `https://i10e103.p.ssafy.io/api/v1/dinosaurs/myDinosaur/${id}`
       );
       dispatch(changeDino(res.data.id));
-      // console.log(res.data.id);
+      console.log(res.data.id);
     } catch (err) {
       console.error(err);
     }

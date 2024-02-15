@@ -246,7 +246,7 @@ const ActivityCalendar = () => {
     useEffect(() => {
         setRelation(childInfo.relationId);
         
-        // console.log(dateToHyphen(currentMonth).substr(0, 10))
+        console.log(dateToHyphen(currentMonth).substr(0, 10))
         const dateInfo = dateToHyphen(currentMonth).substr(0, 10)
         if(childInfo.relationId && dateInfo){
             axios.post(`${urlInfo}/activityLog/volunteer/list`,{
@@ -255,7 +255,7 @@ const ActivityCalendar = () => {
             })
             .then((res) => {
                 setActivityLogs(res.data);
-                // console.log(res)
+                console.log(res)
             })
             .catch((err) => {
             });

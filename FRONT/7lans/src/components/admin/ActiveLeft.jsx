@@ -185,7 +185,7 @@ const ActiveLeft = () => {
       const response = await axios.get(
         `${urlInfo}/activityLog/manager/disapprovedList/${centerId}`
       );
-      // console.log(response.data, "ActiveManage 승인안된 활동일지리스트");
+      console.log(response.data, "ActiveManage 승인안된 활동일지리스트");
       setPosts(response.data);
       dispatch(adminAddFriend(false));
     } catch (error) {
@@ -198,7 +198,7 @@ const ActiveLeft = () => {
       const response = await axios.get(
         `${urlInfo}/activityLog/manager/approvedList/${centerId}`
       );
-      // console.log(response.data, "ActiveManage 승인되어버린 활동일지리스트");
+      console.log(response.data, "ActiveManage 승인되어버린 활동일지리스트");
       setApprovePosts(response.data);
       dispatch(adminAddFriend(false));
     } catch (error) {

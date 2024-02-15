@@ -257,7 +257,7 @@ function VolUpDiv() {
         volunteerId: volId,
       })
       .then((res) => {
-        // console.log("친구맺기 성공");
+        console.log("친구맺기 성공");
         setChildList((prevChildList) =>
           prevChildList.filter((child) => child.childId !== childId)
         );

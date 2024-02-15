@@ -56,8 +56,8 @@ const Quiz = ({
       session.signal({
         type: 'submitProblem', data: JSON.stringify(problemData),
       })
-        .then(() => // console.log(`문제 제출 : ${submittedProblem}`))
-        .catch(err => // console.log(err))
+        .then(() => console.log(`문제 제출 : ${submittedProblem}`))
+        .catch(err => console.log(err))
     } else {
       window.alert('입력 없음')
     }
@@ -68,8 +68,8 @@ const Quiz = ({
     session.signal({
       type: 'submitAnswer', data: submittedAnswer,
     })
-      .then(() => // console.log(`정답 제출 : ${submittedAnswer}`))
-      .catch(err => // console.log(err))
+      .then(() => console.log(`정답 제출 : ${submittedAnswer}`))
+      .catch(err => console.log(err))
   });
 
 
@@ -110,9 +110,9 @@ const Quiz = ({
     webcam.update()
     const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
     const prediction = await model.predict(posenetOutput);
-    // console.log(prediction[0].probability)
-    // console.log(prediction[1].probability)
-    // console.log(prediction[2].probability)
+    console.log(prediction[0].probability)
+    console.log(prediction[1].probability)
+    console.log(prediction[2].probability)
 
     for(let i = 0; i < prediction.length; i++){
       const classPrediction = prediction[i].className;

@@ -136,7 +136,7 @@ const UseOpenViduSession = () => {
       });
       tempSession = response.data;
     } else {
-      // console.log(`${sessionId} session already exists.`);
+      console.log(`${sessionId} session already exists.`);
     }
 
     const dateObject = new Date(tempSession.createdAt);
@@ -189,7 +189,7 @@ const UseOpenViduSession = () => {
         setSubscribers(subs => [...subs, subscriber]);
       } catch (err) {
 
-        // console.log('존재하지 않는 구독자 세션입니다');
+        console.log('존재하지 않는 구독자 세션입니다');
       }
     });
 
@@ -228,7 +228,7 @@ const UseOpenViduSession = () => {
 
       })
       .catch((error) => {
-        // console.log('There was an error connecting to the session:', error.code, error.message);
+        console.log('There was an error connecting to the session:', error.code, error.message);
       });
   };
 

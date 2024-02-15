@@ -82,9 +82,9 @@ const GameNav = ({
       type: 'changeGame',
       data: gameIdx,
     })
-      .then(() => // console.log(`${gameIdx}번 게임으로 전환`))
+      .then(() => console.log(`${gameIdx}번 게임으로 전환`))
       .catch((err) => {
-        // console.log(err)
+        console.log(err)
       })
   }
 

@@ -43,8 +43,8 @@ const StartPage = () => {
   const childInfo = useSelector((state) => state.child.value)
   const childrenInfo = useSelector((state) => state.children.value)
 
-  // console.log(childInfo)
-  // console.log(childrenInfo)
+  console.log(childInfo)
+  console.log(childrenInfo)
   
   return (
     <>

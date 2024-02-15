@@ -44,8 +44,8 @@ const ChildStartPage = () => {
   const volInfo = useSelector((state) => state.vol.value)
   const volsInfo = useSelector((state) => state.vols.value)
 
-  // console.log(volInfo)
-  // console.log(volsInfo)
+  console.log(volInfo)
+  console.log(volsInfo)
   
   return (
     <>

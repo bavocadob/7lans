@@ -165,15 +165,15 @@ const Register = () => {
       try {
         const res = await axios.get(`${urlInfo}/childCenter/list`)
         setCenterList(res.data)
-        // console.log(res)
+        console.log(res)
       }
       catch (err) {
-        // console.log(err)
+        console.log(err)
       }
     }
     getCenterList()
   }, [])
-  // console.log(centerList)
+  console.log(centerList)
 
   const signUp = async (
     memberEmail,
@@ -205,7 +205,7 @@ const Register = () => {
           }
         );
   
-        // console.log(res);
+        console.log(res);
         navigate("/login");
       } catch (err) {
         console.error(err);

@@ -138,7 +138,7 @@ const ActiveRight = () => {
           relationId: relationId,
           activityLogId: activityId,
         });
-        // console.log(res.data, "활동일지 상세보기");
+        console.log(res.data, "활동일지 상세보기");
         setActiveLog(res.data);
         dispatch(adminAddFriend(true));
       } catch (err) {
@@ -172,7 +172,7 @@ const ActiveRight = () => {
         relationId: relationId,
         activityLogId: activityId,
       });
-      // console.log(res.data, "활동일지 승인완료");
+      console.log(res.data, "활동일지 승인완료");
       fecthActives();
       setIsApproveSuccessModalOpen(true); // 승인 완료 모달을 표시합니다.
       setTimeout(closeApproveSuccessModal, 1000); // 0.5초 후에 승인 완료 모달을 닫습니다.

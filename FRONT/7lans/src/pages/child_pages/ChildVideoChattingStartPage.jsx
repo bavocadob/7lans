@@ -25,7 +25,7 @@ const ChildVideoChattingStartPage = () => {
   const volInfo = useSelector((state) => state.vol.value)
   const volsInfo = useSelector((state) => state.vols.value)
   const dispatch = useDispatch()
-  // console.log(volInfo)
+  console.log(volInfo)
 
 const TextandimageBox = styled.div`
   flex: 1;

@@ -176,7 +176,7 @@ const ChattingPicture = () => {
           `${urlInfo}/meetingImage/random/${userInfo.memberId}`
         );
 
-        // console.log(response)
+        console.log(response)
         setImages(response.data);
 
         if (response.data.length === 0) {
@@ -290,14 +290,14 @@ const VolunteerMainPage = () => {
     axios
       .get(`${urlInfo}/volunteer/listByChild/${userInfo.memberId}`)
       .then((res) => {
-        // console.log(res.data)
+        console.log(res.data)
         // dispatch(updateVolInfo(res.data[0]));
         // 기본값으로 첫 봉사자를 선택하지 않습니다.
         dispatch(updateVolInfo(''))
         dispatch(updateVolsInfo(res.data));
       })
       .catch((err) => {
-        // console.log(err)
+        console.log(err)
       });
   }, []);
 
@@ -310,8 +310,8 @@ const VolunteerMainPage = () => {
 
   return (
     <Container>
-      {// console.log(userInfo)}
-      {// console.log(dino)}
+      {console.log(userInfo)}
+      {console.log(dino)}
       <header className="shadow">
         <LogoImage src={Logo} />
         <Link

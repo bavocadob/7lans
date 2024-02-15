@@ -49,8 +49,8 @@ const Words = ({
       session.signal({
         type: 'submitWord', data: inputWord,
       })
-        .then(() => // console.log(`단어 제시 : ${inputWord}`))
-        .catch(err => // console.log(err))
+        .then(() => console.log(`단어 제시 : ${inputWord}`))
+        .catch(err => console.log(err))
     } else {
       window.alert('입력 없음')
     }
@@ -73,8 +73,8 @@ const Words = ({
       session.signal({
         type: 'submitSentences', data: JSON.stringify(inputSentences),
       })
-        .then(() => // console.log(`문장 제출 : ${inputSentences}`))
-        .catch(err => // console.log(err))
+        .then(() => console.log(`문장 제출 : ${inputSentences}`))
+        .catch(err => console.log(err))
     } else {
       window.alert('입력 없음')
     }
@@ -113,7 +113,7 @@ const Words = ({
    */
   const receiveSentences = (event) => {
     const sentences = JSON.parse(event.data);
-    // console.log(`수신한 문장들 : ${sentences}`);
+    console.log(`수신한 문장들 : ${sentences}`);
 
     // 추후 로직 처리 예정 우선 리셋함
     reset()

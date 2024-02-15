@@ -170,7 +170,7 @@ const VolunteerManage = () => {
       .then((response) => {
         const arr = [];
         for (const ele of response.data) {
-          // console.log(ele, "봉사자 volunteerManage");
+          console.log(ele, "봉사자 volunteerManage");
           let name, email, time, id, img;
           for (const el in ele) {
             if (el === "volunteerName") {
@@ -190,7 +190,7 @@ const VolunteerManage = () => {
             }
           }
           arr.push([name, email, time, id, img]);
-          // console.log(arr);
+          console.log(arr);
         }
         setVolunteerList(arr);
       })
@@ -203,7 +203,7 @@ const VolunteerManage = () => {
     setSelectedCard(index);
     dispatch(adminSelectVol(volunteer));
   };
-  // console.log(volunteerList, "발론티어 매니지 발론티어 리스트");
+  console.log(volunteerList, "발론티어 매니지 발론티어 리스트");
   // 검색함수
   const filteredVolunteers = volunteerList.filter((volunteer) =>
     volunteer.some(

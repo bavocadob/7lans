@@ -44,7 +44,7 @@ export const dateToHyphen = (selectedDate) => {
 
 //14-> 14:00:00형식으로 변환
 export const calTime = (time) => {
-    // console.log("time" + time)
+    console.log("time" + time)
     //%1해서 0.5나오면 30분을 추가
     let returnTime = "";
 
@@ -68,7 +68,7 @@ export const calTime = (time) => {
         returnTime += "00" + ":00"
     }
 
-    // console.log("returnTime" + returnTime)
+    console.log("returnTime" + returnTime)
 
     return returnTime;
 }

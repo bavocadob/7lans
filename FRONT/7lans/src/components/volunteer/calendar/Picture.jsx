@@ -164,15 +164,15 @@ const Picture = () => {
 
   const urlInfo = getEnv("API_URL");
 
-  // console.log("Picture")
-  // console.log(state.meetingId);
+  console.log("Picture")
+  console.log(state.meetingId);
 
   //이미지 데이터 가져오기
   useEffect(() => {
     axios
       .get(`${urlInfo}/meetingImage/${state.meetingId}`)
       .then((res) => {
-        // console.log(res)
+        console.log(res)
 
         const image = [];
 
@@ -191,7 +191,7 @@ const Picture = () => {
   };
 
   const changeThumbnail = () => {
-    // console.log(selectedImage)
+    console.log(selectedImage)
     axios
       .put(`${urlInfo}/meetingImage/changeThumbnailImage`, {
         meetingImageId: selectedImage,
@@ -200,7 +200,7 @@ const Picture = () => {
       .catch((err) => {});
   };
 
-  // console.log(images.length);
+  console.log(images.length);
   return (
     <div style={{
       overflowY: 'auto',

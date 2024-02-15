@@ -49,7 +49,7 @@ const CardFind = ({
   // 카드를 선택하여서 nowCard 배열에 선택한 카드를 넣는 함수
   const handleCard = (num) => {
     setNowCard((prevCards) => [...prevCards, num]);
-    // console.log(nowCard);
+    console.log(nowCard);
   };
 
 
@@ -93,8 +93,8 @@ const CardFind = ({
     session.signal({
       type: 'selectCard', data: num,
     })
-      .then(() => // console.log('카드 선택'))
-      .catch(err => // console.log(err))
+      .then(() => console.log('카드 선택'))
+      .catch(err => console.log(err))
   })
 
   const cardGameStartHandler = ((event) => {
