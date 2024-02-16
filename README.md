@@ -87,7 +87,7 @@
 # 🐣기술 스택
 모션 캡쳐 api
 
-<img src="./readme_image/howler.png" width="20%">
+<img src="./readme_image/howler.png">
 <img src="https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=WebRtc&logoColor=white">
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
 <img src="https://img.shields.io/badge/React_Speech_Recognition-61DAFB?style=for-the-badge&logo=React&logoColor=white">
