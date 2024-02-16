@@ -26,6 +26,8 @@
 - 지속적인 관계를 이어가고 유대감을 쌓을 수 있는 알 키우기와 공룡도감 🥚
 - 봉사 시간과 활동 일지를 간편하게 온라인으로 조회 및 관리 가능 📃
 
+<br>
+
 # 🐣기능 소개
 
 #### 1. 놀이 및 교육 컨텐츠와 함께하는 화상 만남
@@ -81,11 +83,9 @@
  <img src="./readme_image/big/activity.gif">
 
 
-# 🐣시연 영상
-
+<br>
 
 # 🐣기술 스택
-모션 캡쳐 api
 
 <img src="./readme_image/howler.png">
 <img src="https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=WebRtc&logoColor=white">
@@ -95,6 +95,8 @@
 <img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=for-the-badge&logo=springSecurity&logoColor=white">
 <img src="https://img.shields.io/badge/jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
 <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+
+<br>
 
 # 🐣개발 환경
 
@@ -120,8 +122,11 @@
   - Docker
 
 ### 서비스 아키텍처
+<img src="./readme_image/output/service_architec.PNG">
 
-# 프로젝트 일정 및 기타 산출물
+<br>
+
+# 🐣프로젝트 일정 및 기타 산출물
 ### 프로젝트 일정
 
 <img src="./readme_image/output/wbs.PNG">
