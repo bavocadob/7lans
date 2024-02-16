@@ -108,6 +108,8 @@ public class VolunteerResponseDto {
         private String volunteerName;
         @NotNull(message = "[VolunteerResponseDto.list] volunteerTime 는 Null 일 수 없습니다.")
         private Integer volunteerTime;
+        @NotNull(message = "[VolunteerResponseDto.list] volunteerProfileImgPath 는 Null 일 수 없습니다.")
+        private String volunteerProfileImgPath;
 
         // 바로 아래의 DTO 활용
         @Builder
@@ -115,12 +117,14 @@ public class VolunteerResponseDto {
                 Long volunteerId,
                 String volunteerEmail,
                 String volunteerName,
-                Integer volunteerTime
+                Integer volunteerTime,
+                String volunteerProfileImgPath
         ) {
             this.volunteerId = volunteerId;
             this.volunteerEmail = volunteerEmail;
             this.volunteerName = volunteerName;
             this.volunteerTime = volunteerTime;
+            this.volunteerProfileImgPath = volunteerProfileImgPath;
         }
     }
 
@@ -131,6 +135,7 @@ public class VolunteerResponseDto {
                 .volunteerEmail(volunteer.getEmail())
                 .volunteerName(volunteer.getName())
                 .volunteerTime(volunteer.getVolunteerTime())
+                .volunteerProfileImgPath(volunteer.getProfileImgPath())
                 .build();
     }
 

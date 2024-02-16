@@ -16,15 +16,15 @@ public class CorsConfig {
     public CorsFilter corsFilter(){
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        config.setAllowCredentials(false);
 
+        // 실제 서버 배포용으로 사용할 CORS 설정
+        // config.setAllowedOriginPatterns(Arrays.asList("https://i10e103.p.ssafy.io/");
+
+        // 테스트 용도로 CORS 개방
         config.setAllowedOriginPatterns(Arrays.asList("*"));
         config.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
         config.setAllowedHeaders(Arrays.asList("*"));
-//        config.setAllowCredentials(true);
+        config.setAllowCredentials(true);
 
         //config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         source.registerCorsConfiguration("/**", config);

@@ -215,8 +215,9 @@ public class MemberServiceImpl implements MemberService{
 
             return new ResponseEntity(volunteerResDto, HttpStatus.OK);
 
-        }else{
-            MemberResponseDto.loginResManagerDto managerResDto =MemberResponseDto.loginResManagerDto.builder()
+        }else if(member.getMemberType().equals(MemberType.MANAGER) && ((Manager) member).getApprovedStatus()){
+
+            MemberResponseDto.loginResManagerDto managerResDto = MemberResponseDto.loginResManagerDto.builder()
                     .memberType(member.getMemberType())
                     .memberId(member.getId())
                     .centerId(((Manager) member).getChildCenter().getId())
@@ -232,6 +233,8 @@ public class MemberServiceImpl implements MemberService{
 
             return new ResponseEntity(managerResDto, HttpStatus.OK);
         }
+
+        return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     // 프로필 이미지 수정.

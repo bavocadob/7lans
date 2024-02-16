@@ -23,13 +23,13 @@ public class DinosaurController {
     // TODO URL 및 PathVariable 추후 수정
     @GetMapping("/dinosaurs/{id}")
     @Operation(summary = "유저가 가지고 있는 모든 공룡 리스트")
-    public ResponseEntity<DinosaurResponseDto.list> getAllDinosaursForMember(@PathVariable Long id) {
+    public ResponseEntity<DinosaurResponseDto.list> getAllDinosaursForMember(@PathVariable @Valid Long id) {
         return ResponseEntity.ok(dinosaurService.getAllDinosaursForMember(id));
     }
 
     @Operation(summary = "공룡 부화")
     @PostMapping("/dinosaurs/hatch")
-    public ResponseEntity<DinosaurResponseDto.hatch> acquireDinosaur(@RequestBody DinosaurRequestDto.acquire requestDto) {
+    public ResponseEntity<DinosaurResponseDto.hatch> acquireDinosaur(@RequestBody @Valid DinosaurRequestDto.acquire requestDto) {
         try {
             return new ResponseEntity<>(dinosaurService.acquireDinosaur(requestDto), HttpStatus.OK);
         } catch (Exception e) {
@@ -40,7 +40,7 @@ public class DinosaurController {
 
     @Operation(summary = "유저의 대표 공룡 변경")
     @PutMapping("/dinosaurs/change")
-    public ResponseEntity changeMyDinosaur(@RequestBody DinosaurRequestDto.change requestDto) {
+    public ResponseEntity changeMyDinosaur(@RequestBody @Valid DinosaurRequestDto.change requestDto) {
         try{
             dinosaurService.changeMyDinosaur(requestDto);
             return new ResponseEntity(HttpStatus.OK);

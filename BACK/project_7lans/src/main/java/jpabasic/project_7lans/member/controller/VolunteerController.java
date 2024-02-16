@@ -107,7 +107,7 @@ public class VolunteerController {
     // 센터의 봉사자 리스트
     @Operation(summary = "해당 센터의 아동과 친구추가 되어 있는 봉사자 리스트")
     @GetMapping("/listByCenter/{centerId}")
-    public ResponseEntity<List<VolunteerResponseDto.listByCenter>> listByCenter(@PathVariable("centerId") Long centerId){
+    public ResponseEntity<List<VolunteerResponseDto.listByCenter>> listByCenter(@PathVariable("centerId") @Valid Long centerId){
         try{
             List<VolunteerResponseDto.listByCenter> volunteers = volunteerService.listByCenter(centerId);
             return new ResponseEntity(volunteers, HttpStatus.OK);

@@ -24,7 +24,7 @@ public class WhisperController {
     @Operation(summary = "속닥속닥 작성하기")
     // 속닥속닥 1건 작성(작성자 id, 상대방과의 관계 id, 작성 내용 content 받는다.)
     @PostMapping(path = "/whisper")
-    public ResponseEntity createWhisper(@RequestBody WhisperRequestDto.create whisperCreateDto){
+    public ResponseEntity createWhisper(@RequestBody @Valid WhisperRequestDto.create whisperCreateDto){
         try{
             whisperServiceImpl.createWhisper(whisperCreateDto);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -37,7 +37,7 @@ public class WhisperController {
     @Operation(summary = "속닥속닥 1건 조회하기")
     // 속닥속닥 1건 조회 (관계 Id, 해당 속닥속닥 Id 필요)
     @GetMapping(path = "/whisper/{whisperId}")
-    public ResponseEntity<WhisperResponseDto.detail> whisperDetail(@PathVariable Long whisperId){
+    public ResponseEntity<WhisperResponseDto.detail> whisperDetail(@PathVariable @Valid Long whisperId){
         try{
             WhisperResponseDto.detail whisperDTo = whisperServiceImpl.whisperDetail(WhisperRequestDto.detailById.builder()
                     .whisperId(whisperId)
