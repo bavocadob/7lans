@@ -82,13 +82,13 @@
     $ vim .env
     # OpenVidu configuration
     
-    DOMAIN_OR_PUBLIC_IP=i10e103.p.ssafy.io
+    DOMAIN_OR_PUBLIC_IP=<MY-DOMAIN>
 
-    OPENVIDU_SECRET=741u741
+    OPENVIDU_SECRET=<MY-SECRET>
 
     CERTIFICATE_TYPE=letsencrypt
 
-    LETSENCRYPT_EMAIL=1ksy3629@naver.com
+    LETSENCRYPT_EMAIL=<MY-EMAIL>
 
     HTTP_PORT=80
 
