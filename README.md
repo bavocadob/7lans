@@ -32,62 +32,78 @@
 
 #### 1. 놀이 및 교육 컨텐츠와 함께하는 화상 만남
  - 화상 메인 화면
-<img src="./readme_image/big/meeting_main.GIF">
+
+<img src="./readme_image/big/meeting_main.GIF" width="70%">
 
    
  - 캡쳐 기능 : 화상 채팅 중에 캡쳐한 사진들을 사진첩에 보관
-<img src="./readme_image/big/capture.gif">
-<img src="./readme_image/big/choice.GIF">
-<img src="./readme_image/big/thumbnail.GIF">
+
+<img src="./readme_image/big/capture.gif" width="70%">
+
+<img src="./readme_image/big/choice.GIF" width="70%">
+
+<img src="./readme_image/big/thumbnail.GIF" width="70%">
 
  - OX퀴즈
- <img src="./readme_image/big/OX_quiz.GIF">
+
+ <img src="./readme_image/big/OX_quiz.GIF" width="70%">
 
 
  - 그림 맞추기 놀이
-<img src="./readme_image/big/card.GIF">
+
+<img src="./readme_image/big/card.GIF" width="70%">
 
 
  - 구구단
-<img src="./readme_image/big/nine.GIF">
+
+<img src="./readme_image/big/nine.GIF" width="70%">
 
 
  - 문장 만들기
-<img src="./readme_image/big/word.GIF">
+
+<img src="./readme_image/big/word.GIF" width="70%">
 
 #### 2. 봉사자와 아이가 주고 받는 쪽지, 속닥속닥
-<img src="./readme_image/big/whisper.GIF">
-<img src="./readme_image/big/whisper_2.gif">
+
+<img src="./readme_image/big/whisper.GIF" width="70%">
+
+<img src="./readme_image/big/whisper_2.gif" width="70%">
 
 #### 3. 아이와 함께 부화해요, 알 키우기 및 공룡도감
 속닥속닥과 화상일정으로 경험치를 쌓으면 알을 부화할 수 있어요
 
 
  - 알 부화하기
-<img src="./readme_image/big/egg.gif">
+
+<img src="./readme_image/big/egg.gif" width="70%">
 
 
  - 공룡 도감
-<img src="./readme_image/big/dinosaur_book.GIF">
+
+<img src="./readme_image/big/dinosaur_book.GIF" width="70%">
 
 #### 4. 혼자서도 잘 놀아요, 말하는 공룡
 
 알 키우기 화면에 있는 녹음기능으로 말을 따라하는 공룡과 함께해요
-<img src="./readme_image/big/talking.GIF">
+
+<img src="./readme_image/big/talking.GIF" width="70%">
 
 
 #### 5. 활동일지는 빠르고 간편하게
  - 작성 후 제출 : 작성은 음성으로도 가능합니다. 
-<img src="./readme_image/big/stt_activity.GIF">
+
+<img src="./readme_image/big/stt_activity.GIF" width="70%">
+
  - 관리자가 승인한 이후
- <img src="./readme_image/big/activity.gif">
+
+ <img src="./readme_image/big/activity.gif" width="70%">
 
 
 <br>
 
 # 🐣기술 스택
 
-<img src="./readme_image/howler.png">
+<img src="./readme_image/howler.png" width="25%">
 <img src="https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=WebRtc&logoColor=white">
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
 <img src="https://img.shields.io/badge/React_Speech_Recognition-61DAFB?style=for-the-badge&logo=React&logoColor=white">
@@ -122,7 +138,7 @@
   - Docker
 
 ### 서비스 아키텍처
-<img src="./readme_image/output/service_architec.PNG">
+<img src="./readme_image/output/service_architec.PNG" width="70%">
 
 <br>
 
@@ -146,8 +162,16 @@
 <img src="./readme_image/figma/manager.PNG">
 
 ### API Interface
-<img src="./readme_image/output/api.PNG">
+<img src="./readme_image/output/swagger.PNG">
 
-# 🐣개발 멤버 및 후기
+# 👪개발 멤버 및 후기
 
-<img src="./readme_image/member.PNG">
+|NAME|ROLE|
+|------|---|
+|🐹박주헌|Front & Jira
+|🐫강성은|Back & Docker & WebRTC
+|🐳이형욱|Back & Domain
+|⭐️조혜원|Front & Design
+|🐥전은희|Back & Swagger
+|🐯옥세훈|Front & Git
+
