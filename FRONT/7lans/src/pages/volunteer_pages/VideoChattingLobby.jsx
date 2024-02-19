@@ -89,7 +89,7 @@ const VideoChattingLobby = ({
           }}
         >
           {" "}
-          💛 나의 화면 💛
+          💛 선생님 화면 💛
         </h2>
         <div
           style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}

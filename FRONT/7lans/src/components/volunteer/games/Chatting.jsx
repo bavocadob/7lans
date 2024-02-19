@@ -7,9 +7,6 @@ import { Flipper, Flipped } from "react-flip-toolkit";
 import "./Chatting.css";
 import PropTypes from "prop-types";
 import { Session, StreamManager } from "openvidu-browser";
-import { addChat } from "../../../store/chatSlice";
-import ImgCaptureBtn from "../../../img_upload/ImgCaptureBtn";
-import { FiCamera, FiCameraOff } from "react-icons/fi";
 import CameraOn from '../../../images/meeting/Camera_on.png';
 import CameraOff from '../../../images/meeting/Camera_off.png';
 import MicOn from "../../../images/meeting/mic_on.png";
@@ -109,7 +106,7 @@ const Chat = ({
       sendMessage(JSON.stringify(data));
       setChatInput("");
     }
-  };
+  };z
 
   useEffect(() => {
     const signalEventHandler = (event) => {
