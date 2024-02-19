@@ -106,7 +106,7 @@ const Chat = ({
       sendMessage(JSON.stringify(data));
       setChatInput("");
     }
-  };z
+  };
 
   useEffect(() => {
     const signalEventHandler = (event) => {
