@@ -88,7 +88,7 @@ const VideoChattingLobby = ({
           }}
         >
           {" "}
-          💛 나의 화면 💛
+          💛 학생 화면 💛
         </h2>
         <div style={{width: '90%', marginLeft: '5%', marginBottom: '15px'}}>
           {mainStreamManager && renderUserVideoComponent(mainStreamManager, "my-video")}

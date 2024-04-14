@@ -166,7 +166,7 @@ const ChildAudioPlay = ({ dinoState, setdinoState }) => {
         <Tooltip id="record_tooltip">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span>버튼을 누르면</span>
-            <span>녹음이 시작되요!</span>
+            <span>녹음이 시작돼요!</span>
             <span>공룡에게 듣고싶은말이 있나요?</span>
           </div>
         </Tooltip>

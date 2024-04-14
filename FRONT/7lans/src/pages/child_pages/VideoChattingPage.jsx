@@ -18,7 +18,6 @@ const VideoChattingPage = () => {
     mySessionId, setMySessionId
   } = UseOpenViduSession();
 
-  // TODO 현재 작업중 (네브바 게임 인덱스 원활하게 수정중)
   const [selectedGameIdx, setSelectedGameIdx] = useState(0)
   const [gameChangeable, setGameChangeable] = useState(true)
 
@@ -84,35 +83,42 @@ const VideoChattingPage = () => {
   }, [userInfo, navigate]);
 
 
-  const toggleMyCamera = () => {
-    const prevState = isMyCameraOn;
-    setIsMyCameraOn(!prevState);
-    toggleCamera(!prevState);
+  const signalMyCamera = (cameraStaus) => {
     session.signal({
       type: 'toggleCamera',
       data: JSON.stringify({
         userId: userInfo.memberId,
-        status: !prevState,
+        status: cameraStaus,
       })
     })
       .then(() => console.log(`카메라 토글 신호 보냄`))
       .catch(err => console.log(err))
   }
 
+  const toggleMyCamera = () => {
+    const prevState = isMyCameraOn;
+    setIsMyCameraOn(!prevState);
+    toggleCamera(!prevState);
+    signalMyCamera(!prevState)
+  }
+
+  const signalMyMic = (micStatus) => {
+    session.signal({
+      type: 'toggleMic',
+      data: JSON.stringify({
+        userId: userInfo.memberId,
+        status: micStatus,
+      })
+    })
+      .then(() => console.log(`마이크 토글 신호 보냄`))
+      .catch(err => console.log(err))
+  }
 
   const toggleMyMic = () => {
     const prevState = isMyMicOn;
     setIsMyMicOn(!prevState);
     toggleMic(!prevState);
-    session.signal({
-      type: 'toggleMic',
-      data: JSON.stringify({
-        userId: userInfo.memberId,
-        status: !prevState,
-      })
-    })
-      .then(() => console.log(`마이크 토글 신호 보냄`))
-      .catch(err => console.log(err))
+    signalMyMic(!prevState)
   }
 
   const toggleGameStarted = () => {
@@ -183,6 +189,14 @@ const VideoChattingPage = () => {
       }
     }
   }, [session]);
+
+
+  useEffect(() => {
+    if (session) {
+      signalMyCamera(isMyCameraOn)
+      signalMyMic(isMyMicOn)
+    }
+  }, [subscribers]);
 
 
   // const [selectedGameIdx, setSelectedGameIdx] = useState(0)

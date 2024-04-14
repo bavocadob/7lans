@@ -102,7 +102,7 @@ const ChildGameNav = ({
 
   return (
     <NavBar className="shadow">
-      <Link to="/volunteer_main">
+      <Link to="/child_main">
         <LogoImage src={Logo} alt="logo"/>
       </Link>
 

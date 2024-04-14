@@ -83,36 +83,45 @@ const VideoChattingPage = () => {
   }, [userInfo, navigate]);
 
 
-  const toggleMyCamera = () => {
-    const prevState = isMyCameraOn;
-    setIsMyCameraOn(!prevState);
-    toggleCamera(!prevState);
+
+  const signalMyCamera = (cameraStaus) => {
     session.signal({
       type: 'toggleCamera',
       data: JSON.stringify({
         userId: userInfo.memberId,
-        status: !prevState,
+        status: cameraStaus,
       })
     })
       .then(() => console.log(`카메라 토글 신호 보냄`))
       .catch(err => console.log(err))
   }
 
+  const toggleMyCamera = () => {
+    const prevState = isMyCameraOn;
+    setIsMyCameraOn(!prevState);
+    toggleCamera(!prevState);
+    signalMyCamera(!prevState)
+  }
 
-  const toggleMyMic = () => {
-    const prevState = isMyMicOn;
-    setIsMyMicOn(!prevState);
-    toggleMic(!prevState);
+  const signalMyMic = (micStatus) => {
     session.signal({
       type: 'toggleMic',
       data: JSON.stringify({
         userId: userInfo.memberId,
-        status: !prevState,
+        status: micStatus,
       })
     })
       .then(() => console.log(`마이크 토글 신호 보냄`))
       .catch(err => console.log(err))
   }
+
+  const toggleMyMic = () => {
+    const prevState = isMyMicOn;
+    setIsMyMicOn(!prevState);
+    toggleMic(!prevState);
+    signalMyMic(!prevState)
+  }
+
 
   const toggleGameStarted = () => {
     setGameStarted(prevState => !prevState);
@@ -136,7 +145,7 @@ const VideoChattingPage = () => {
     const signalData = JSON.parse(event.data);
     const cameraStatus = signalData.status;
     const signalUser = signalData.userId;
-    if (signalUser !== userInfo.memberId && isMyMicOn) {
+    if (signalUser !== userInfo.memberId) {
       setIsChildCameraOn(cameraStatus);
     }
 
@@ -148,7 +157,7 @@ const VideoChattingPage = () => {
     const micStatus = signalData.status;
     const signalUser = signalData.userId;
 
-    if (signalUser !== userInfo.memberId && isMyMicOn) {
+    if (signalUser !== userInfo.memberId) {
       setIsChildMicOn(micStatus);
     }
   }
@@ -182,6 +191,14 @@ const VideoChattingPage = () => {
       }
     }
   }, [session]);
+
+
+  useEffect(() => {
+    if (session) {
+      signalMyCamera(isMyCameraOn)
+      signalMyMic(isMyMicOn)
+    }
+  }, [subscribers]);
 
 
   // const [selectedGameIdx, setSelectedGameIdx] = useState(0)
